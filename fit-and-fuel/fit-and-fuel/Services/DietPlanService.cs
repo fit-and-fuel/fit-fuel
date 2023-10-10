@@ -167,7 +167,7 @@ namespace fit_and_fuel.Services
         /// <param name="dietPlanDays">The details of the diet plan with days and meals.</param>
         /// <param name="UserId">The user ID of the nutritionist creating the diet plan.</param>
         
-        public async Task PostFullDietPlan(DietPlanDaysDto dietPlanDays, int UserId)
+        public async Task PostFullDietPlan(DietPlanDaysDto dietPlanDays, string UserId)
         {
             var nut=await _context.Nutritionists
                 .Where(n=>n.UserId == UserId)
@@ -248,6 +248,11 @@ namespace fit_and_fuel.Services
       
 
         public Task<DietPlanDtoView> PostDto(DietPlanDto dietPlan)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task PostFullDietPlan(DietPlanDaysDto dietPlanDays, int UserId)
         {
             throw new NotImplementedException();
         }

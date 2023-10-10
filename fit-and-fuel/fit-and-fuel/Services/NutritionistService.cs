@@ -105,7 +105,7 @@ namespace fit_and_fuel.Services
         /// </summary>
         /// <param name="UserId">The ID of the nutritionist.</param>
         /// <returns>A list of Patient objects associated with the specified nutritionist.</returns>
-        public async Task<List<Patient>> GetAllMyPatient(int UserId)
+        public async Task<List<Patient>> GetAllMyPatient(string UserId)
           {
         var patients = await _context.Nutritionists
         .Where(n => n.UserId == UserId)
@@ -113,7 +113,7 @@ namespace fit_and_fuel.Services
         .ToListAsync();
         return patients;
          }
-        public async Task<List<PatientDtoViewNut>> GetAllMyPatientDto(int UserId)
+        public async Task<List<PatientDtoViewNut>> GetAllMyPatientDto(string UserId)
         {
             var patients = await GetAllMyPatient(UserId);
             var patientsToReturn = patients.Select(patient=> new PatientDtoViewNut
@@ -137,7 +137,7 @@ namespace fit_and_fuel.Services
         /// <param name="UserId">The ID of the nutritionist.</param>
         /// <returns>A list of DietPlan objects created by the specified nutritionist.</returns>
 
-        public async Task<List<DietPlan>> GetAllDietPlan(int UserId)
+        public async Task<List<DietPlan>> GetAllDietPlan(string UserId)
         {
             var dietPlans = await _context.Nutritionists
        .Where(n => n.UserId == UserId)
@@ -148,7 +148,7 @@ namespace fit_and_fuel.Services
 
             return dietPlans;
         }
-        public async Task<List<DietPlanDtoView>> GetAllDietPlanDto(int UserId)
+        public async Task<List<DietPlanDtoView>> GetAllDietPlanDto(string UserId)
         {
             var dietplans = await GetAllDietPlan(UserId);
             var dietplansToReturn = dietplans.Select(dietplan => new DietPlanDtoView
@@ -218,7 +218,7 @@ namespace fit_and_fuel.Services
         /// <param name="id">The ID of the nutritionist.</param>
         /// <returns>A Nutritionist object containing profile information.</returns>
 
-        public async Task<Nutritionist> GetMyProfile(int id)
+        public async Task<Nutritionist> GetMyProfile(string id)
         {
             var nut = await _context.Nutritionists
                 .Include(p => p.patients)
@@ -226,7 +226,7 @@ namespace fit_and_fuel.Services
            .Where(n => n.UserId== id).FirstOrDefaultAsync();
             return nut;
         }
-        public async Task<NutritionistDtoView> GetMyProfileDto(int id)
+        public async Task<NutritionistDtoView> GetMyProfileDto(string id)
         {
             var nutritionist = await GetMyProfile(id);
             var nut = new NutritionistDtoView()
@@ -251,7 +251,7 @@ namespace fit_and_fuel.Services
         /// <param name="nutritionistDto">DTO containing nutritionist information.</param>
         /// <returns>A newly created Nutritionist object.</returns>
 
-        public async Task<Nutritionist> Post(int UserId, NutritionistDto nutritionistDto)
+        public async Task<Nutritionist> Post(string UserId, NutritionistDto nutritionistDto)
         {
             var nut = new Nutritionist()
             {
@@ -323,6 +323,39 @@ namespace fit_and_fuel.Services
             return nutritionistDtoViews;
         }
 
-       
+        public Task<List<Patient>> GetAllMyPatient(int UserId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<PatientDtoViewNut>> GetAllMyPatientDto(int UserId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<DietPlan>> GetAllDietPlan(int UserId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<DietPlanDtoView>> GetAllDietPlanDto(int UserId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Nutritionist> GetMyProfile(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<NutritionistDtoView> GetMyProfileDto(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Nutritionist> Post(int UserId, NutritionistDto nutritionistDto)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

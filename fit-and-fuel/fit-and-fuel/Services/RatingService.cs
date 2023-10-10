@@ -39,7 +39,8 @@ namespace fit_and_fuel.Services
 
         public async Task AddRating(int patientId, RatingDto ratingDto)
         {
-            var patient = await _context.Patients.Include(p => p.nutritionist).FirstOrDefaultAsync(p => p.UserId == patientId);
+            var patient = await _context.Patients.Include(p => p.nutritionist)
+                .FirstOrDefaultAsync(/*p => p.UserId == patientId*/);
             if (patient == null || patient.nutritionist == null)
             {
                 throw new InvalidOperationException("Patient or Nutritionist not found.");
@@ -77,7 +78,7 @@ namespace fit_and_fuel.Services
             return filteredNutritionists;
         }
 
-        public async Task<ActionResult<double>> MyRating(int UserId)
+        public async Task<ActionResult<double>> MyRating(string UserId)
         {
             var nutritionist = await _context.Nutritionists
                 .Include(n => n.Ratings) 
@@ -86,13 +87,10 @@ namespace fit_and_fuel.Services
           
             return nutritionist.AverageRating;
         }
-       
 
-
-
-
-
-
-
+        public Task<ActionResult<double>> MyRating(int UserId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

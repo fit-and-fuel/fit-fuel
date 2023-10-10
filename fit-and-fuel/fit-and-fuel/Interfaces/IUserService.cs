@@ -13,7 +13,7 @@ namespace fit_and_fuel.Interfaces
 
         public Task<UserDto> GetUser(ClaimsPrincipal principal);
         public  Task<bool> ChangePasswordAsync(string userId, string currentPassword, string newPassword);
-
+        Task Logout();
         Task<IdentityResult> AssignRolesToUser(int userId);
     }
 }

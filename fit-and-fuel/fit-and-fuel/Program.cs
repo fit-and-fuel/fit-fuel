@@ -2,6 +2,7 @@ using fit_and_fuel.Data;
 using fit_and_fuel.Interfaces;
 using fit_and_fuel.Model;
 using fit_and_fuel.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,10 +15,16 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddControllers().AddNewtonsoftJson(
               option => option.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
               );
-
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie();
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.ExpireTimeSpan = TimeSpan.FromDays(7);
+    options.LoginPath = "/Home";
+});
 // Add services to the container.
 
-builder.Services.AddScoped<JwtTokenService>();
+//builder.Services.AddScoped<JwtTokenService>();
 builder.Services.AddTransient<IUserService, IdentityUserService>();
 builder.Services.AddTransient<ILike, LikeService>();
 builder.Services.AddTransient<IComment, CommentService>();
@@ -81,7 +88,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

@@ -19,7 +19,7 @@ public class HealthRecordService : IHealthRecord
     /// </summary>
     /// <param name="id">The user ID of the patient whose health record to delete.</param>
 
-    public async Task Delete(int id)
+    public async Task Delete(string id)
     {
         var patient = await _context.Patients.FirstOrDefaultAsync(p => p.UserId == id);
         var recordtodelete = await _context.healthRecords.FirstOrDefaultAsync(p => p.PatientId == patient.Id);
@@ -34,7 +34,7 @@ public class HealthRecordService : IHealthRecord
     /// <param name="UserId">The user ID of the nutritionist.</param>
     /// <returns>A list of health records for the nutritionist's patients.</returns>
 
-    public async Task<List<HealthRecord>> GetAll(int UserId)
+    public async Task<List<HealthRecord>> GetAll(string UserId)
     {
         var nut = await _context.Nutritionists
             .Include(n => n.patients)
@@ -56,7 +56,7 @@ public class HealthRecordService : IHealthRecord
     //public double Weight { get; set; }
     //public double BMI { get; set; }
     //public string Illnesses { get; set; }
-    public async Task<List<HealthRecordDtoView>> GetAllDto(int UserId)
+    public async Task<List<HealthRecordDtoView>> GetAllDto(string UserId)
     {
         var health = await GetAll(UserId);
         var healthToReturn = health.Select(h=>new HealthRecordDtoView
@@ -76,7 +76,7 @@ public class HealthRecordService : IHealthRecord
     /// <param name="UserId">The user ID of the nutritionist.</param>
     /// <returns>List of health records for the nutritionist's patients.</returns>
 
-    public async Task<List<HealthRecord>> ForMyPatinets(int UserId)
+    public async Task<List<HealthRecord>> ForMyPatinets(string UserId)
     {
         var nuts = await _context.Nutritionists
                 .Where(p => p.UserId == UserId)
@@ -85,7 +85,7 @@ public class HealthRecordService : IHealthRecord
                 .ToListAsync();
         return null;
     }
-    public async Task<List<HealthRecordDtoView>> ForMyPatinetsDto(int UserId)
+    public async Task<List<HealthRecordDtoView>> ForMyPatinetsDto(string UserId)
     {
         var health = await ForMyPatinets(UserId);
         var healthToReturn = health.Select(h => new HealthRecordDtoView
@@ -105,13 +105,13 @@ public class HealthRecordService : IHealthRecord
     /// <param name="id">The user ID of the patient.</param>
     /// <returns>The health record for the specified patient.</returns>
 
-    public async Task<HealthRecord> GetMyHealthRecord(int id)
+    public async Task<HealthRecord> GetMyHealthRecord(string id)
     {
         var patient = await _context.Patients.FirstOrDefaultAsync(p => p.UserId == id);
         var record = await _context.healthRecords.Where(h => h.PatientId == patient.Id).FirstOrDefaultAsync();
         return record;
     }
-    public async Task<HealthRecordDtoView> GetMyHealthRecordDto(int id)
+    public async Task<HealthRecordDtoView> GetMyHealthRecordDto(string id)
     {
         var h = await GetMyHealthRecord(id);
         var healthToReturn =  new HealthRecordDtoView
@@ -132,7 +132,7 @@ public class HealthRecordService : IHealthRecord
     /// <param name="HealthRecordDto">The details of the health record to create.</param>
     /// <returns>The newly created health record.</returns>
 
-    public async Task<HealthRecord> Post(int id, HealthRecordDto HealthRecordDto)
+    public async Task<HealthRecord> Post(string id, HealthRecordDto HealthRecordDto)
     {
         var patient = await _context.Patients.FirstOrDefaultAsync(p => p.UserId == id);
 
@@ -159,7 +159,7 @@ public class HealthRecordService : IHealthRecord
     /// <param name="id">The user ID of the patient.</param>
     /// <param name="healthRecordDto">The updated details of the health record.</param>
 
-    public async Task Put(int id, HealthRecordDto healthRecordDto)
+    public async Task Put(string id, HealthRecordDto healthRecordDto)
     {
 
         var patient = await _context.Patients.FirstOrDefaultAsync(p => p.UserId == id);
@@ -174,10 +174,49 @@ public class HealthRecordService : IHealthRecord
 
     }
 
-   
+    public Task<List<HealthRecord>> GetAll(int UserId)
+    {
+        throw new NotImplementedException();
+    }
 
-   
+    public Task<List<HealthRecordDtoView>> GetAllDto(int UserId)
+    {
+        throw new NotImplementedException();
+    }
 
-    
+    public Task<HealthRecord> GetMyHealthRecord(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<HealthRecordDtoView> GetMyHealthRecordDto(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<List<HealthRecord>> ForMyPatinets(int UserId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<List<HealthRecordDtoView>> ForMyPatinetsDto(int UserId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<HealthRecord> Post(int UserId, HealthRecordDto HealthRecordDto)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task Put(int UserId, HealthRecordDto patientDto)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task Delete(int id)
+    {
+        throw new NotImplementedException();
+    }
 }
 

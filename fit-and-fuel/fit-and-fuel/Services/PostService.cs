@@ -27,7 +27,7 @@ namespace fit_and_fuel.Services
         /// <param name="id">The ID of the post to delete.</param>
         /// <param name="UserId">The ID of the user attempting the deletion.</param>
 
-        public async Task Delete(int id,int UserId)
+        public async Task Delete(int id, string UserId)
         {
             var post = await _context.Posts.Where(p => p.Id == id).FirstOrDefaultAsync();
             var nut = await _context.Nutritionists.FirstOrDefaultAsync(n => n.UserId == UserId);
@@ -37,6 +37,11 @@ namespace fit_and_fuel.Services
             }
             _context.Posts.Remove(post);
             await _context.SaveChangesAsync();
+        }
+
+        public Task Delete(int id, int UserId)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -140,7 +145,7 @@ namespace fit_and_fuel.Services
         /// <param name="PostDto">DTO containing post information.</param>
         /// <returns>The newly created post.</returns>
 
-        public async Task<Post> Post(int UserId, PostDto PostDto)
+        public async Task<Post> Post(string UserId, PostDto PostDto)
         {
             var nut = await _context.Nutritionists.FirstOrDefaultAsync(n => n.UserId == UserId);
             var newPost = new Post();
@@ -171,6 +176,11 @@ namespace fit_and_fuel.Services
             return newPost;
         }
 
+        public Task<Post> Post(int UserId, PostDto PostDto)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Updates an existing post's information.
         /// </summary>
@@ -179,7 +189,7 @@ namespace fit_and_fuel.Services
         /// <param name="postId">The ID of the post to update.</param>
 
 
-        public async Task Put(int UserId, PostDto PostDto, int postId)
+        public async Task Put(string UserId, PostDto PostDto, int postId)
         {
            var newPost = await _context.Posts.Where(p => p.Id == postId).FirstOrDefaultAsync();
             var nut = await _context.Nutritionists.FirstOrDefaultAsync(n => n.UserId == UserId);
@@ -194,6 +204,11 @@ namespace fit_and_fuel.Services
             
 
             await _context.SaveChangesAsync();
+        }
+
+        public Task Put(int id, PostDto PostDto, int postId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

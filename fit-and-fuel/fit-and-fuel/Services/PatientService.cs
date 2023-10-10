@@ -36,7 +36,7 @@ namespace fit_and_fuel.Services
         /// <param name="NutId">The ID of the selected nutritionist.</param>
         /// <param name="UserId">The ID of the patient.</param>
 
-        public async Task SelectNut(int NutId,int UserId)
+        public async Task SelectNut(int NutId, string UserId)
         {
             var patient = await _context.Patients.SingleOrDefaultAsync(x => x.UserId == UserId);
             patient.NutritionistId = NutId;
@@ -80,14 +80,14 @@ namespace fit_and_fuel.Services
         /// <param name="id">The user ID of the patient to retrieve.</param>
         /// <returns>A Patient object representing the specified patient.</returns>
 
-        public async Task<Patient> GetById(int id)
+        public async Task<Patient> GetById(string id)
         {            //.Include(p => p.appoitments)
             //.Include(p => p.dietPlan)
             //.Include(p => p.nutritionist)
             var patient = await _context.Patients.Where(p => p.UserId == id).FirstOrDefaultAsync();
             return patient;
         }
-        public async Task<PatientDtoView> GetByIdDto(int id)
+        public async Task<PatientDtoView> GetByIdDto(string id)
         {
             var patient = await GetById(id);
             var patientsToReturn = new PatientDtoView
@@ -111,7 +111,7 @@ namespace fit_and_fuel.Services
         /// <param name="patientDto">DTO containing patient information.</param>
         /// <returns>A newly created Patient object.</returns>
 
-        public async Task<Patient> Post(int resId, PatientDto patientDto)
+        public async Task<Patient> Post(string resId, PatientDto patientDto)
         {
             var patient = new Patient()
             {
@@ -185,7 +185,7 @@ namespace fit_and_fuel.Services
         /// <param name="UserId">The ID of the patient.</param>
         /// <returns>The DietPlan object associated with the patient's nutritionist.</returns>
 
-        public async Task<DietPlan> GetMyDietPlan(int UserId)
+        public async Task<DietPlan> GetMyDietPlan(string UserId)
         {
             var dietPlan = await _context.Patients
        .Where(n => n.UserId == UserId)
@@ -198,7 +198,7 @@ namespace fit_and_fuel.Services
 
             return dietPlan;
         }
-        public async Task<DietPlanDtoView> GetMyDietPlanDto(int UserId)
+        public async Task<DietPlanDtoView> GetMyDietPlanDto(string UserId)
         {
             var dietplan = await GetMyDietPlan(UserId);
             if (dietplan != null)
@@ -241,7 +241,7 @@ namespace fit_and_fuel.Services
         /// <returns>A list of Meal objects representing the patient's meals for the current day.</returns>
 
 
-        public async Task<List<Meal>> GetMyMealsForToday(int UserId)
+        public async Task<List<Meal>> GetMyMealsForToday(string UserId)
         {
             var myDietPlan = await GetMyDietPlan(UserId);
 
@@ -272,7 +272,7 @@ namespace fit_and_fuel.Services
         /// <param name="UserId">The ID of the patient.</param>
         /// <param name="MealId">The ID of the meal to mark as completed.</param>
 
-        public async Task MealIsCompletion(int UserId, int MealId)
+        public async Task MealIsCompletion(string UserId, int MealId)
         {
             var mealToday = await GetMyMealsForToday(UserId);
             var mealToUpdate = mealToday.FirstOrDefault(m => m.Id == MealId);
@@ -302,6 +302,44 @@ namespace fit_and_fuel.Services
             }
         }
 
-        
+        public Task<Patient> GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PatientDtoView> GetByIdDto(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task SelectNut(int NutId, int UserId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<DietPlan> GetMyDietPlan(int UserId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<DietPlanDtoView> GetMyDietPlanDto(int UserId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Meal>> GetMyMealsForToday(int UserId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task MealIsCompletion(int UserId, int MealId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Patient> Post(int resId, PatientDto patientDto)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

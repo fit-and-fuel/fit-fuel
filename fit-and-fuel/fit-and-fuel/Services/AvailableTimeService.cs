@@ -23,7 +23,7 @@ namespace fit_and_fuel.Services
         /// <param name="UserId">The ID of the nutritionist user.</param>
         /// <param name="id">The ID of the available time slot to delete.</param>
 
-        public async Task Delete(int UserId, int id)
+        public async Task Delete(string UserId, int id)
         {
             var nut = await _context.Nutritionists
                 .Include(n=>n.AvaliableTimes)
@@ -42,6 +42,11 @@ namespace fit_and_fuel.Services
                 throw new Exception("You dont have this Time");
             }
 
+        }
+
+        public Task Delete(int UserId, int id)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -81,7 +86,7 @@ namespace fit_and_fuel.Services
         
 
 
-        public async Task Post(int UserId,AvailableTimeDto availableTimeDto)
+        public async Task Post(string UserId,AvailableTimeDto availableTimeDto)
         {
             var nut = await _context.Nutritionists.FirstOrDefaultAsync(x => x.UserId == UserId);
             var avaiTime = new AvailableTime()
@@ -94,6 +99,11 @@ namespace fit_and_fuel.Services
             await _context.SaveChangesAsync();
          }
 
+        public Task Post(int UserId, AvailableTimeDto availableTimeDto)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Updates an existing available time slot for a nutritionist.
         /// </summary>
@@ -101,7 +111,7 @@ namespace fit_and_fuel.Services
         /// <param name="availableTimeDto">The updated details of the available time slot.</param>
         /// <param name="id">The ID of the available time slot to update.</param>
 
-        public async Task Put(int UserId, AvailableTimeDto availableTimeDto, int id)
+        public async Task Put(string UserId, AvailableTimeDto availableTimeDto, int id)
         {
             var nut = await _context.Nutritionists
                .Include(n => n.AvaliableTimes)
@@ -123,6 +133,11 @@ namespace fit_and_fuel.Services
             {
                 throw new Exception("You dont have this Time");
             }
+        }
+
+        public Task Put(int UserId, AvailableTimeDto availableTimeDto, int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }
