@@ -3951,7 +3951,10 @@
                             </div>
                             <div class="elementor-element elementor-element-7b385b6 elementor-widget__width-auto elementor-widget elementor-widget-pt-cart" data-id="7b385b6" data-element_type="widget" data-widget_type="pt-cart.default">
                                 <div class="elementor-widget-container">
-                                      <a asp-controller="User" asp-action="Login">LOGIN</a>
+                                    @if(!User.Identity.IsAuthenticated){
+                                        <a asp-controller="User" asp-action="Login">LOGIN</a>
+
+                                    }
                               @*      <div class="pt-cart">
                                         <a class="pt-cart-link" href="https://promo-theme.com/woxfit/cart/">
                                             <div class="pt-cart-text"></div>
