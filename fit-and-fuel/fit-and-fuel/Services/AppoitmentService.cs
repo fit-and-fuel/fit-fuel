@@ -76,7 +76,7 @@ namespace fit_and_fuel.Services
         /// <param name="id">The ID of the appointment to confirm.</param>
         
 
-        public async Task AppoitmentConfirmed(int UserId, int id)
+        public async Task AppoitmentConfirmed(string UserId, int id)
         {
             var appoitments = await _context.Appoitments
                 .Where(a => a.nutritionist.UserId == UserId).ToListAsync();
@@ -109,7 +109,7 @@ namespace fit_and_fuel.Services
         /// <param name="id">The ID of the appointment to mark as completed.</param>
         /// <returns>True if the appointment was marked as completed, otherwise false.</returns>
         
-        public async Task<bool> AppoitmentCompleted(int UserId, int id)
+        public async Task<bool> AppoitmentCompleted(string UserId, int id)
         {
             var appoitments = await _context.Appoitments
                 .Where(a => a.nutritionist.UserId == UserId).ToListAsync();
@@ -167,7 +167,7 @@ namespace fit_and_fuel.Services
         /// <param name="id">The ID of the user whose appointments are to be retrieved.</param>
         /// <returns>A list of appointments associated with the user.</returns>
 
-        public async Task<List<ViewAppointment>> GetMyById(int id)
+        public async Task<List<ViewAppointment>> GetMyById(string id)
 
         {
             var appoitments = await _context.Appoitments.Where(a => a.nutritionist.UserId == id).Include(x => x.Patient).Include(d => d.nutritionist).Select(a => new ViewAppointment
@@ -205,10 +205,11 @@ namespace fit_and_fuel.Services
         /// <param name="id">The ID of the patient user whose appointments are to be retrieved.</param>
         /// <returns>A list of appointments associated with the patient user.</returns>
 
-        public async Task<List<ViewAppointment>> GetMyByIdForPatient(int id)
+        public async Task<List<ViewAppointment>> GetMyByIdForPatient(string id)
 
         {
-            var appoitments = await _context.Appoitments.Where(a => a.Patient.UserId == id).Include(x => x.Patient).Include(d => d.nutritionist).Select(a => new ViewAppointment
+            var appoitments = await _context.Appoitments
+                .Where(a => a.Patient.UserId == id).Include(x => x.Patient).Include(d => d.nutritionist).Select(a => new ViewAppointment
             {
                 Id = a.Id,
                 Time =a.Time,
@@ -242,7 +243,7 @@ namespace fit_and_fuel.Services
         /// <param name="NutritionistId">The ID of the nutritionist associated with the appointment.</param>
         /// <returns>The newly created appointment.</returns>
 
-        public async Task<Appoitment> Post(int UserId, AppoitmentDto appoitmentDto, int NutritionistId)
+        public async Task<Appoitment> Post(string UserId, AppoitmentDto appoitmentDto, int NutritionistId)
         {
             var patinet = await _context.Patients
                 .Include(p=>p.nutritionist)
@@ -280,7 +281,7 @@ namespace fit_and_fuel.Services
         /// <param name="appoitmentDto">The details of the selected appointment slot.</param>
         /// <returns>The newly selected appointment.</returns>
 
-        public async Task<Appoitment> SelectAppoitment(int UserId, AppoitmentWithTimeDto appoitmentDto) 
+        public async Task<Appoitment> SelectAppoitment(string UserId, AppoitmentWithTimeDto appoitmentDto) 
         {
             var patinet = await _context.Patients
                 .Include(p => p.nutritionist)
@@ -336,6 +337,16 @@ namespace fit_and_fuel.Services
             
            
             await _context.SaveChangesAsync();
+        }
+
+        public Task<List<ViewAppointment>> GetMyById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<ViewAppointment>> GetMyByIdForPatient(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

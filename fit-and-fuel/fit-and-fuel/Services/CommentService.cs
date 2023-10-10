@@ -33,7 +33,7 @@ namespace fit_and_fuel.Services
         /// </summary>
         /// <returns>A list of all comments.</returns>
 
-       public async Task<List<Comment>> GetAll(int UserId)
+       public async Task<List<Comment>> GetAll(string UserId)
 
         {
             var patient = await _context.Patients.Where(p=>p.UserId == UserId).FirstOrDefaultAsync();
@@ -48,7 +48,12 @@ namespace fit_and_fuel.Services
             
         }
 
-        public async Task<List<CommentDtoView>> GetAllDto(int UserId)
+        public Task<List<Comment>> GetAll(int UserId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<List<CommentDtoView>> GetAllDto(string UserId)
         {
             var comments = await GetAll(UserId);
             var commentToReturn = comments.Select(comment=> new CommentDtoView
@@ -60,6 +65,11 @@ namespace fit_and_fuel.Services
             }).ToList();
             return commentToReturn;
 
+        }
+
+        public Task<List<CommentDtoView>> GetAllDto(int UserId)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -93,7 +103,7 @@ namespace fit_and_fuel.Services
         /// </summary>
         /// <param name="commentDto">The details of the comment to create.</param>
 
-        public async Task PostCommnet(CommentDto commentDto, int UserId)
+        public async Task PostCommnet(CommentDto commentDto, string UserId)
         {
             var patient = await _context.Patients.Where(p => p.UserId == UserId).FirstOrDefaultAsync();
             var comment = new Comment()
@@ -107,6 +117,11 @@ namespace fit_and_fuel.Services
             await _context.SaveChangesAsync();
         }
 
+        public Task PostCommnet(CommentDto commentDto, int UserId)
+        {
+            throw new NotImplementedException();
+        }
+
 
         /// <summary>
         /// Updates the content of a comment with new details.
@@ -114,7 +129,7 @@ namespace fit_and_fuel.Services
         /// <param name="id">The ID of the comment to update.</param>
         /// <param name="commentDto">The updated details of the comment.</param>
 
-         public async Task PutComment(int id, CommentDto commentDto, int UserId)
+        public async Task PutComment(int id, CommentDto commentDto, string UserId)
 
         {
             var patient = await _context.Patients.Where(p => p.UserId == UserId).FirstOrDefaultAsync();
@@ -133,6 +148,11 @@ namespace fit_and_fuel.Services
             await _context.SaveChangesAsync();
 
 
+        }
+
+        public Task PutComment(int id, CommentDto commentDto, int UserId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

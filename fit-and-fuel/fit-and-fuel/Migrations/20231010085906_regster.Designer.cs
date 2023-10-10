@@ -12,8 +12,8 @@ using fit_and_fuel.Data;
 namespace fit_and_fuel.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231010080100_initial")]
-    partial class initial
+    [Migration("20231010085906_regster")]
+    partial class regster
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -290,16 +290,16 @@ namespace fit_and_fuel.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8482cabf-aa52-4bc7-b041-270ca260e45f",
+                            ConcurrencyStamp = "e52cb70d-d009-4fa3-b6bb-b92c1eb000da",
                             Email = "adminUser@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "adminUser@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEIkCGCSg+2YLhQoLiDrQbOWqX/EfxEYOpikpA99O6LgxZHHkiLHb7Plt4KhY3FFUbA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEG3iljj+bcz9Y5xibWV4BtNh0tPOhQgcG7SGv/MEUy06UYWfV1eRyvKYXC8xoMvF1A==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "97942750-fd07-4628-be55-d6545e305a5f",
+                            SecurityStamp = "7eea1770-8df8-49ba-bddc-27987f4e1853",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         },
@@ -307,16 +307,16 @@ namespace fit_and_fuel.Migrations
                         {
                             Id = "2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "19295dc2-21f6-40e0-ab98-549e988597bc",
+                            ConcurrencyStamp = "12d3211d-488f-4237-ab31-03174c38705c",
                             Email = "nutritionistUser@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "nutritionistUser@EXAMPLE.COM",
                             NormalizedUserName = "NUTRITIONIST",
-                            PasswordHash = "AQAAAAIAAYagAAAAEI32AM7iWCz3HK/vSK4TOxmirNVxgmuDW7pCUZ0BVFZXc7skNhn0xwVAezj9mL4wow==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEA5yHAhp/AidXd7imoz4UJVgSnBhbiX17S0IGhtOVqFGXuofkje9CcRa/64/2cBCTA==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d76596bb-7e8a-4d54-bfd3-1f6530732874",
+                            SecurityStamp = "b7022264-a7f0-4ae1-8f3d-2404c7cb6a8a",
                             TwoFactorEnabled = false,
                             UserName = "nutritionist"
                         },
@@ -324,16 +324,16 @@ namespace fit_and_fuel.Migrations
                         {
                             Id = "3",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "57929ab7-5b5d-4ba6-9abd-71aed60a910e",
+                            ConcurrencyStamp = "4bf0a67d-b220-491f-a452-2c6b5ae386f6",
                             Email = "patientUser@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "patientUser@EXAMPLE.COM",
                             NormalizedUserName = "PATIENT",
-                            PasswordHash = "AQAAAAIAAYagAAAAEJkEyUTTB5imgryXiiyXL/AEEgoz1fJtVNJhvkdz4zpGBVqm2aPjrE/O4ZOXG8ISCw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHFvKvN0WFf9Zsg3NtRMKuTWtzA5ffNzo8RwDnGgpK3y04N9Nv3vMmUpxMAU/eloxQ==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ccfffaa1-19a5-4a97-9d61-0b3a5125de03",
+                            SecurityStamp = "72167936-d027-4d2b-af5b-17ae7b2a62e4",
                             TwoFactorEnabled = false,
                             UserName = "patient"
                         });
@@ -383,7 +383,7 @@ namespace fit_and_fuel.Migrations
                             NutritionistId = 1,
                             PatientId = 1,
                             Status = "Scheduled",
-                            Time = new DateTime(2023, 10, 10, 12, 0, 59, 890, DateTimeKind.Local).AddTicks(7251)
+                            Time = new DateTime(2023, 10, 10, 12, 59, 5, 938, DateTimeKind.Local).AddTicks(6044)
                         },
                         new
                         {
@@ -393,7 +393,7 @@ namespace fit_and_fuel.Migrations
                             NutritionistId = 2,
                             PatientId = 2,
                             Status = "Scheduled",
-                            Time = new DateTime(2023, 10, 10, 13, 0, 59, 890, DateTimeKind.Local).AddTicks(7263)
+                            Time = new DateTime(2023, 10, 10, 13, 59, 5, 938, DateTimeKind.Local).AddTicks(6058)
                         });
                 });
 
@@ -848,8 +848,8 @@ namespace fit_and_fuel.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("imgURl")
                         .IsRequired()
@@ -878,7 +878,7 @@ namespace fit_and_fuel.Migrations
                             Gender = "Female",
                             Name = "Jane Smith",
                             PhoneNumber = "987-654-3210",
-                            UserId = 2,
+                            UserId = "2",
                             imgURl = "img_url_2"
                         });
                 });
@@ -909,8 +909,8 @@ namespace fit_and_fuel.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("imgURl")
                         .IsRequired()
@@ -931,7 +931,7 @@ namespace fit_and_fuel.Migrations
                             Name = "Alice Johnson",
                             NutritionistId = 1,
                             PhoneNumber = "555-123-4567",
-                            UserId = 3,
+                            UserId = "3",
                             imgURl = "img_url_1"
                         },
                         new
@@ -1025,7 +1025,7 @@ namespace fit_and_fuel.Migrations
                             ImageUrl = "image_url_1",
                             IsImproved = false,
                             NutritionistId = 1,
-                            Time = new DateTime(2023, 10, 10, 11, 0, 59, 890, DateTimeKind.Local).AddTicks(7188),
+                            Time = new DateTime(2023, 10, 10, 11, 59, 5, 938, DateTimeKind.Local).AddTicks(5911),
                             Title = "Healthy Eating Tips"
                         },
                         new
@@ -1035,7 +1035,7 @@ namespace fit_and_fuel.Migrations
                             ImageUrl = "image_url_2",
                             IsImproved = false,
                             NutritionistId = 2,
-                            Time = new DateTime(2023, 10, 10, 11, 0, 59, 890, DateTimeKind.Local).AddTicks(7203),
+                            Time = new DateTime(2023, 10, 10, 11, 59, 5, 938, DateTimeKind.Local).AddTicks(5925),
                             Title = "Balanced Diet Importance"
                         });
                 });

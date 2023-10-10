@@ -21,11 +21,16 @@ namespace fit_and_fuel.Services
         /// </summary>
         /// <param name="id">The ID of the clinic to delete.</param>
 
-        public async Task Delete(int id)
+        public async Task Delete(string id)
         {
             var clininc=await GetById(id);
             _context.Clinics.Remove(clininc);
             await _context.SaveChangesAsync();
+        }
+
+        public Task Delete(int Userid)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -62,7 +67,7 @@ namespace fit_and_fuel.Services
         /// <param name="UserId">The user ID of the associated nutritionist.</param>
         /// <returns>The clinic associated with the nutritionist.</returns>
 
-        public async Task<Clinic> GetById(int UserId)
+        public async Task<Clinic> GetById(string UserId)
         {
             var Nut = await _context.Nutritionists.FirstOrDefaultAsync(x => x.UserId == UserId);
 
@@ -73,7 +78,12 @@ namespace fit_and_fuel.Services
             return clinic;
         }
 
-        public async Task<ClinicDtoView> GetByIdDto(int id)
+        public Task<Clinic> GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<ClinicDtoView> GetByIdDto(string id)
         {
         var clinic = await GetById(id);
             var clinicToReturn = new ClinicDtoView()
@@ -87,13 +97,18 @@ namespace fit_and_fuel.Services
             return clinicToReturn;
         }
 
+        public Task<ClinicDtoView> GetByIdDto(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Creates a new clinic associated with a nutritionist.
         /// </summary>
         /// <param name="clinicDto">The details of the clinic to create.</param>
         /// <param name="UserId">The user ID of the associated nutritionist.</param>
 
-        public async Task Post(ClinicDto clinicDto,int UserId)
+        public async Task Post(ClinicDto clinicDto, string UserId)
         {
             var Nut = await _context.Nutritionists.FirstOrDefaultAsync(x => x.UserId == UserId);
 
@@ -108,7 +123,12 @@ namespace fit_and_fuel.Services
 
         }
 
-       
+        public Task Post(ClinicDto clinicDto, int UserId)
+        {
+            throw new NotImplementedException();
+        }
+
+
 
         /// <summary>
         /// Updates the details of a clinic associated with a nutritionist.
@@ -116,7 +136,7 @@ namespace fit_and_fuel.Services
         /// <param name="clinicDto">The updated details of the clinic.</param>
         /// <param name="UserId">The user ID of the associated nutritionist.</param>
 
-        public async Task Put( ClinicDto clinicDto , int UserId)
+        public async Task Put( ClinicDto clinicDto , string UserId)
         {
             var clinic =await GetById(UserId); 
             clinic.Name = clinicDto.Name;
@@ -127,5 +147,9 @@ namespace fit_and_fuel.Services
 
         }
 
+        public Task Put(ClinicDto clinicDto, int UserId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
