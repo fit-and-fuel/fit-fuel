@@ -3733,7 +3733,7 @@
                                 <div class="elementor-widget-container">
 
                                     <div class="site-logo">
-                                        <a href="https://promo-theme.com/woxfit/" rel="home">WoxFit</a>
+                                        <a asp-controller ="Home" asp-action ="Index"  rel="home">Fit & Fuel</a>
                                     </div>
 
                                 </div>
@@ -3750,7 +3750,7 @@
                                             <div class="menu-menu-1-container">
                                                 <ul id="menu-menu-1" class="site-menu-inner">
                                                     <li id="menu-item-33" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-21 current_page_item current-menu-ancestor current-menu-parent current_page_parent current_page_ancestor menu-item-has-children menu-item-33">
-                                                        <a href="https://promo-theme.com/woxfit/" aria-current="page">Home</a><span class="submenu-toggle"></span>
+                                                        <a asp-controller="Home" asp-action="Index" aria-current="page">Home</a><span class="submenu-toggle"></span>
                                                         <ul class="sub-menu">
                                                             <li id="menu-item-30" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-21 current_page_item menu-item-30"><a href="https://promo-theme.com/woxfit/" aria-current="page">Fitness</a></li>
                                                             <li id="menu-item-46" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-46"><a href="https://promo-theme.com/woxfit/gym/">Gym</a></li>
@@ -3817,8 +3817,15 @@
                         <div class="elementor-widget-wrap elementor-element-populated">
                             <div class="elementor-element elementor-element-b1122cc elementor-widget__width-auto elementor-widget elementor-widget-pt-search" data-id="b1122cc" data-element_type="widget" data-widget_type="pt-search.default">
                                 <div class="elementor-widget-container">
-
-                                    <div class="pt-search-toggle search-toggle"></div>
+                                    @if(User.Identity.IsAuthenticated){
+                                         @* <div class="pt-search-toggle search-toggle"></div>*@
+                                          <a asp-controller="User" asp-action="Logout">Logout</a>
+                                    }
+                                    else{
+                                         <a asp-controller="User" asp-action="Register">Sign Up</a>
+                                         
+                                    }
+                                  
 
                                 </div>
                             </div>
@@ -3944,8 +3951,8 @@
                             </div>
                             <div class="elementor-element elementor-element-7b385b6 elementor-widget__width-auto elementor-widget elementor-widget-pt-cart" data-id="7b385b6" data-element_type="widget" data-widget_type="pt-cart.default">
                                 <div class="elementor-widget-container">
-
-                                    <div class="pt-cart">
+                                      <a asp-controller="User" asp-action="Login">LOGIN</a>
+                              @*      <div class="pt-cart">
                                         <a class="pt-cart-link" href="https://promo-theme.com/woxfit/cart/">
                                             <div class="pt-cart-text"></div>
                                             <div class="pt-cart-count">0</div>
@@ -3954,7 +3961,7 @@
                                         <div class="pt-cart-minicart">
                                             <div class="widget woocommerce widget_shopping_cart"><h2 class="widgettitle">Cart</h2><div class="widget_shopping_cart_content"></div></div>
                                         </div>
-                                    </div>
+                                    </div>*@
 
                                 </div>
                             </div>
@@ -4123,7 +4130,7 @@
 
                                                         <div class="pt-slide swiper-slide elementor-repeater-item-a0e358c">
                                                             <div class="pt-slide-image">
-                                                                <img decoding="async" fetchpriority="high" width="1920" height="1279" src="https://promo-theme.com/woxfit/wp-content/uploads/2022/12/slider-img-1.jpg" class="attachment-full size-full" alt="" srcset="https://promo-theme.com/woxfit/wp-content/uploads/2022/12/slider-img-1.jpg 1920w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/slider-img-1-1080x719.jpg 1080w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/slider-img-1-300x200.jpg 300w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/slider-img-1-1024x682.jpg 1024w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/slider-img-1-768x512.jpg 768w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/slider-img-1-1536x1023.jpg 1536w" sizes="(max-width: 1920px) 100vw, 1920px" />
+                                                                <img decoding="async" fetchpriority="high" width="1920" height="1279" src="https://img.freepik.com/premium-photo/vegetables-with-water-splash-dark-background-diet-food-nutrition-digestion-generative-ai_90099-5643.jpg" class="attachment-full size-full" alt="" srcset="https://img.freepik.com/premium-photo/vegetables-with-water-splash-dark-background-diet-food-nutrition-digestion-generative-ai_90099-5643.jpg 1920w, https://img.freepik.com/premium-photo/vegetables-with-water-splash-dark-background-diet-food-nutrition-digestion-generative-ai_90099-5643.jpg 1080w, https://img.freepik.com/premium-photo/vegetables-with-water-splash-dark-background-diet-food-nutrition-digestion-generative-ai_90099-5643.jpg 300w, https://img.freepik.com/premium-photo/vegetables-with-water-splash-dark-background-diet-food-nutrition-digestion-generative-ai_90099-5643.jpg 1024w, https://img.freepik.com/premium-photo/vegetables-with-water-splash-dark-background-diet-food-nutrition-digestion-generative-ai_90099-5643.jpg 768w,https://img.freepik.com/premium-photo/vegetables-with-water-splash-dark-background-diet-food-nutrition-digestion-generative-ai_90099-5643.jpg 1536w" sizes="(max-width: 1920px) 100vw, 1920px" />
                                                             </div>
 
                                                             <div class="pt-slide-content-wrapper">
@@ -4147,9 +4154,9 @@
                                                             </div>
 
 
-                                                            <div class="pt-slide-additional-image">
+                                                           @* <div class="pt-slide-additional-image">
                                                                 <img width="1020" height="1471" src="https://promo-theme.com/woxfit/wp-content/uploads/2023/01/fitness-slide-img-1.png" class="attachment-full size-full" alt="" decoding="async" srcset="https://promo-theme.com/woxfit/wp-content/uploads/2023/01/fitness-slide-img-1.png 1020w, https://promo-theme.com/woxfit/wp-content/uploads/2023/01/fitness-slide-img-1-450x649.png 450w, https://promo-theme.com/woxfit/wp-content/uploads/2023/01/fitness-slide-img-1-600x865.png 600w, https://promo-theme.com/woxfit/wp-content/uploads/2023/01/fitness-slide-img-1-208x300.png 208w, https://promo-theme.com/woxfit/wp-content/uploads/2023/01/fitness-slide-img-1-710x1024.png 710w, https://promo-theme.com/woxfit/wp-content/uploads/2023/01/fitness-slide-img-1-768x1108.png 768w" sizes="(max-width: 1020px) 100vw, 1020px" />
-                                                            </div>
+                                                            </div>*@
 
                                                         </div>
 
@@ -4157,7 +4164,7 @@
 
                                                         <div class="pt-slide swiper-slide elementor-repeater-item-0019f76">
                                                             <div class="pt-slide-image">
-                                                                <img decoding="async" width="1920" height="1282" src="https://promo-theme.com/woxfit/wp-content/uploads/2022/12/gym-img-3.jpg" class="attachment-full size-full" alt="" srcset="https://promo-theme.com/woxfit/wp-content/uploads/2022/12/gym-img-3.jpg 1920w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/gym-img-3-1080x721.jpg 1080w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/gym-img-3-300x200.jpg 300w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/gym-img-3-1024x684.jpg 1024w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/gym-img-3-768x513.jpg 768w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/gym-img-3-1536x1026.jpg 1536w" sizes="(max-width: 1920px) 100vw, 1920px" />
+                                                                <img decoding="async" width="1920" height="1282" src="https://i0.wp.com/fitonapp.com/wp-content/uploads/shutterstock_2125340153-scaled.jpg?fit=2560%2C1440&ssl=1" class="attachment-full size-full" alt="" srcset="https://i0.wp.com/fitonapp.com/wp-content/uploads/shutterstock_2125340153-scaled.jpg?fit=2560%2C1440&ssl=1 1920w, https://i0.wp.com/fitonapp.com/wp-content/uploads/shutterstock_2125340153-scaled.jpg?fit=2560%2C1440&ssl=1 1080w, https://i0.wp.com/fitonapp.com/wp-content/uploads/shutterstock_2125340153-scaled.jpg?fit=2560%2C1440&ssl=1 300w, https://i0.wp.com/fitonapp.com/wp-content/uploads/shutterstock_2125340153-scaled.jpg?fit=2560%2C1440&ssl=1 1024w, https://i0.wp.com/fitonapp.com/wp-content/uploads/shutterstock_2125340153-scaled.jpg?fit=2560%2C1440&ssl=1 768w, https://i0.wp.com/fitonapp.com/wp-content/uploads/shutterstock_2125340153-scaled.jpg?fit=2560%2C1440&ssl=1 1536w" sizes="(max-width: 1920px) 100vw, 1920px" />
                                                             </div>
 
                                                             <div class="pt-slide-content-wrapper">
@@ -4190,7 +4197,7 @@
 
                                                         <div class="pt-slide swiper-slide elementor-repeater-item-5bbcb28">
                                                             <div class="pt-slide-image">
-                                                                <img decoding="async" loading="lazy" width="1900" height="950" src="https://promo-theme.com/woxfit/wp-content/uploads/2022/12/video-img-1.jpg" class="attachment-full size-full" alt="" srcset="https://promo-theme.com/woxfit/wp-content/uploads/2022/12/video-img-1.jpg 1900w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/video-img-1-1080x540.jpg 1080w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/video-img-1-300x150.jpg 300w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/video-img-1-1024x512.jpg 1024w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/video-img-1-768x384.jpg 768w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/video-img-1-1536x768.jpg 1536w" sizes="(max-width: 1900px) 100vw, 1900px" />
+                                                                <img decoding="async" loading="lazy" width="1900" height="950" src="https://img.freepik.com/premium-photo/happy-male-doctor-nutritionist-with-stethoscope-shows-fresh-vegetables-beige-background-diet-plan-concept_1429-9520.jpg?w=2000" class="attachment-full size-full" alt="" srcset="https://img.freepik.com/premium-photo/happy-male-doctor-nutritionist-with-stethoscope-shows-fresh-vegetables-beige-background-diet-plan-concept_1429-9520.jpg?w=2000 1900w, https://img.freepik.com/premium-photo/happy-male-doctor-nutritionist-with-stethoscope-shows-fresh-vegetables-beige-background-diet-plan-concept_1429-9520.jpg?w=2000 1080w, https://img.freepik.com/premium-photo/happy-male-doctor-nutritionist-with-stethoscope-shows-fresh-vegetables-beige-background-diet-plan-concept_1429-9520.jpg?w=2000 300w, https://img.freepik.com/premium-photo/happy-male-doctor-nutritionist-with-stethoscope-shows-fresh-vegetables-beige-background-diet-plan-concept_1429-9520.jpg?w=2000 1024w, https://img.freepik.com/premium-photo/happy-male-doctor-nutritionist-with-stethoscope-shows-fresh-vegetables-beige-background-diet-plan-concept_1429-9520.jpg?w=2000 768w, https://img.freepik.com/premium-photo/happy-male-doctor-nutritionist-with-stethoscope-shows-fresh-vegetables-beige-background-diet-plan-concept_1429-9520.jpg?w=2000 1536w" sizes="(max-width: 1900px) 100vw, 1900px" />
                                                             </div>
 
                                                             <div class="pt-slide-content-wrapper">
@@ -5125,7 +5132,7 @@
             </section>
         </div>
     </footer>
-    <div class="site-search">
+@*    <div class="site-search">
         <div class="site-search-title">What are you looking for?</div>
         <div class="site-search-form">
             <form role="search" method="get" class="search-form" action="https://promo-theme.com/woxfit/">
@@ -5135,7 +5142,7 @@
             </form>
         </div>
         <div class="site-search-close search-toggle"></div>
-    </div>
+    </div>*@
     <script>
         (function () {
             function maybePrefixUrlField() {
