@@ -2,6 +2,7 @@
 using fit_and_fuel.DTOs;
 using fit_and_fuel.Interfaces;
 using fit_and_fuel.Model;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
@@ -9,16 +10,18 @@ namespace fit_and_fuel.Services
 {
     public class PatientService : IPatients
     {
-        private readonly AppDbContext _context;
+		private UserManager<ApplicationUser> _userManager;
+		private readonly AppDbContext _context;
 		private readonly IHttpContextAccessor _httpContextAccessor;
 
 		private INotification _notificationService;
-        public PatientService(AppDbContext context,  INotification notificationService, IHttpContextAccessor httpContextAccessor)
+        public PatientService(AppDbContext context,  INotification notificationService, IHttpContextAccessor httpContextAccessor, UserManager<ApplicationUser> userManager)
         {
             _context = context;
          
             _notificationService = notificationService;
             _httpContextAccessor = httpContextAccessor;
+            _userManager = userManager;
         }
 
         /// <summary>
@@ -117,10 +120,15 @@ namespace fit_and_fuel.Services
         public async Task<Patient> Post(PatientDto patientDto)
         {
 		string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var patientExists = await GetAll();
+
+			var patientExists = await GetAll();
             var patientList = patientExists.Where(p => p.UserId == userId).FirstOrDefault();
-			
-            if (patientList == null)
+
+			var user = await _userManager.FindByIdAsync(userId);
+            // var userName = user.UserName;
+            var userPhonenumber = user.PhoneNumber;
+
+			if (patientList == null)
             {
 				var patient = new Patient()
 				{
@@ -129,7 +137,7 @@ namespace fit_and_fuel.Services
 					Gender = patientDto.Gender,
 					Age = patientDto.Age,
 
-					PhoneNumber = patientDto.PhoneNumber,
+					PhoneNumber = userPhonenumber,
 					//NutritionistId = patientDto.NutritionistId,
 
 					imgURl = patientDto.imgURl
