@@ -1,4 +1,6 @@
-﻿using fit_and_fuel.Interfaces;
+﻿using fit_and_fuel.DTOs;
+using fit_and_fuel.Interfaces;
+using fit_and_fuel.Model;
 using Microsoft.AspNetCore.Mvc;
 
 namespace fit_and_fuel.Controllers
@@ -22,7 +24,24 @@ namespace fit_and_fuel.Controllers
 			var nut = await _nutritionists.GetById(id);
 			return View(nut);
 		}
-	}
+		public IActionResult CreateProfile()
+		{
+			return View();
+		}
+
+
+		[HttpPost]
+        public async Task<IActionResult> CreateProfile(NutritionistDto nut)
+        {
+			if (!ModelState.IsValid)
+			{
+				return View();
+			}
+			await _nutritionists.Post(nut);
+
+			return RedirectToAction("Index","Home");
+        }
+    }
 }
 
 	

@@ -63,7 +63,8 @@ namespace fit_and_fuel.Controllers
             {
                 return RedirectToAction("Index", "Admin");
             }
-            return RedirectToAction("Index", "Home");
+		
+			return RedirectToAction("Index", "Home");
         }
         public async Task<IActionResult> Logout()
         {

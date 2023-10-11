@@ -262,21 +262,26 @@ namespace fit_and_fuel.Services
         {
             string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var user = await _userManager.FindByIdAsync(userId);
+			var NutList = _context.Nutritionists.Where(p => p.UserId == userId).FirstOrDefault();
 
-            var nut = new Nutritionist()
+            if (NutList == null)
             {
-                UserId = userId,
-                PhoneNumber = user.PhoneNumber,
-                Name = nutritionistDto.Name,
-                Gender = nutritionistDto.Gender,
-                Age = nutritionistDto.Age,
-                CvURl = nutritionistDto.CvURl,
-                imgURl = nutritionistDto.imgURl
-            };
-            await _context.Nutritionists.AddAsync(nut);
-            await _context.SaveChangesAsync();
+				var nut = new Nutritionist()
+				{
+					UserId = userId,
+					PhoneNumber = user.PhoneNumber,
+					Name = nutritionistDto.Name,
+					Gender = nutritionistDto.Gender,
+					Age = nutritionistDto.Age,
+					CvURl = nutritionistDto.CvURl,
+					imgURl = nutritionistDto.imgURl
+				};
+				await _context.Nutritionists.AddAsync(nut);
+				await _context.SaveChangesAsync();
 
-            return nut;
+				return nut;
+			}
+            return null;
         }
 
         /// <summary>
