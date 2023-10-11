@@ -19,7 +19,7 @@ namespace fit_and_fuel.Interfaces
        
 
         Task MealIsCompletion(int UserId, int MealId);
-        Task<Patient> Post(int resId, PatientDto patientDto);
+        Task<Patient> Post(PatientDto patientDto);
         
         Task Put(int id, PatientDto patientDto);
         Task Delete(int id);

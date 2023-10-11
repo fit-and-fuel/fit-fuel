@@ -29,12 +29,17 @@ namespace fit_and_fuel.Controllers
         public async Task<ActionResult<UserDto>> Register(RegisterUser data)
         {
             var res = await _userService.Register(data, this.ModelState);
-            if (!ModelState.IsValid)
+			var resRole = await _userService.Authenticate(data.Username, data.Password);
+
+			if (!ModelState.IsValid)
             {
                 return View(res);
             }
-
-            return RedirectToAction("Index","Home");
+			if (resRole.Roles[0] == "Patient")
+			{
+                return RedirectToAction("Index", "Client");
+			}
+			return RedirectToAction("Index","Home");
         }
         public IActionResult Login()
         {
