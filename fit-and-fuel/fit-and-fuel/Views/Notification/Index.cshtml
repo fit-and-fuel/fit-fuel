@@ -1,0 +1,10 @@
+﻿@model List<Notification>
+
+@foreach(var not in Model)
+{
+    <h1>@not.Content</h1>
+    
+    <h2>@not.Timestamp</h2>
+    
+    <hr/>
+}
