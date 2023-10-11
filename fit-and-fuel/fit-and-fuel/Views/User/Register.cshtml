@@ -1,7 +1,37 @@
 ﻿@{
-	Layout = "~/Views/Shared/_Layout1.cshtml";
+	Layout = "~/Views/Shared/_PageLayout.cshtml";
 }
 
+<section class="elementor-section elementor-top-section elementor-element elementor-element-ae4cf5a elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="ae4cf5a" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+	<div class="elementor-background-overlay"></div>
+	<div class="elementor-container elementor-column-gap-default">
+		<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-b1ba2d7" data-id="b1ba2d7" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+				<div class="elementor-element elementor-element-ca7fcfa elementor-widget elementor-widget-pt-heading" data-id="ca7fcfa" data-element_type="widget" data-settings="{&quot;decor&quot;:[]}" data-widget_type="pt-heading.default">
+					<div class="elementor-widget-container">
+
+						<div class="pt-heading">
+							<h1 class="pt-heading-title h1">
+								Class <span>timetable</span>
+							</h1>
+						</div>
+
+					</div>
+				</div>
+				<div class="elementor-element elementor-element-cf4f9f6 elementor-widget elementor-widget-pt-button" data-id="cf4f9f6" data-element_type="widget" data-widget_type="pt-button.default">
+					<div class="elementor-widget-container">
+
+						<a class="pt-button textual " href="/woxfit/">
+							<span>Back home</span>
+							<i aria-hidden="true" class="pticon pticon-arrow"></i>
+						</a>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
 
 
 <section class="elementor-section elementor-top-section elementor-element elementor-element-153008a elementor-section-content-bottom elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="153008a" data-element_type="section">
@@ -10,7 +40,7 @@
 			<div class="elementor-widget-wrap elementor-element-populated">
 				<div class="elementor-element elementor-element-ef5f742 elementor-widget elementor-widget-image" data-id="ef5f742" data-element_type="widget" data-widget_type="image.default">
 					<div class="elementor-widget-container">
-						<img decoding="async" loading="lazy" width="1242" height="1336" src="https://promo-theme.com/woxfit/wp-content/uploads/2022/12/personal-trainer-img-4.jpg" class="attachment-full size-full wp-image-2343" alt="" srcset="https://promo-theme.com/woxfit/wp-content/uploads/2022/12/personal-trainer-img-4.jpg 1242w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/personal-trainer-img-4-1080x1162.jpg 1080w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/personal-trainer-img-4-279x300.jpg 279w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/personal-trainer-img-4-952x1024.jpg 952w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/personal-trainer-img-4-768x826.jpg 768w" sizes="(max-width: 1242px) 100vw, 1242px">
+						<img decoding="async" loading="lazy" width="1242" height="1336" src="~/img/healthy.jpg" class="attachment-full size-full wp-image-2343" alt="" sizes="(max-width: 1242px) 100vw, 1242px">
 					</div>
 				</div>
 			</div>
@@ -44,13 +74,13 @@
 								<div class="mb-3">
 									<p>
 										<label for="name">UserName</label><br>
-										<span class="wpcf7-form-control-wrap" ><input size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" id="name" aria-required="true" aria-invalid="false" placeholder="UserName" type="text" name="Username"></span>
+										<span class="wpcf7-form-control-wrap"><input size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" id="name" aria-required="true" aria-invalid="false" placeholder="UserName" type="text" name="Username"></span>
 									</p>
 								</div>
 								<div class="mb-3">
 									<p>
 										<label for="password">Password</label><br>
-										<span class="wpcf7-form-control-wrap" ><input size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" id="password" aria-required="true" aria-invalid="false" placeholder="Password" type="password" name="Password"></span>
+										<span class="wpcf7-form-control-wrap"><input size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" id="password" aria-required="true" aria-invalid="false" placeholder="Password" type="password" name="Password"></span>
 									</p>
 								</div>
 								<div class="mb-3">
@@ -65,14 +95,14 @@
 										<span class="wpcf7-form-control-wrap"><input size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" id="password" aria-required="true" aria-invalid="false" placeholder="Password" type="text" name="PhoneNumber"></span>
 									</p>
 								</div>
-								
+
 								<div class="mb-3">
-								<label for="Roles">Roles</label>
-								<select id="Roles" name="Roles" multiple class="form-control">
-									<option value="Admin">Admin</option>
-									<option value="Nutritionist">Nutritionist</option>
-									<option value="Patient">Patient</option>
-								</select>
+									<label for="Roles">Roles</label>
+									<select id="Roles" name="Roles" multiple class="form-control">
+										<option value="Admin">Admin</option>
+										<option value="Nutritionist">Nutritionist</option>
+										<option value="Patient">Patient</option>
+									</select>
 								</div>
 
 								<div class="mb-0">
