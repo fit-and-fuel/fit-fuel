@@ -3,19 +3,22 @@ using fit_and_fuel.DTOs;
 using fit_and_fuel.Interfaces;
 using fit_and_fuel.Model;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace fit_and_fuel.Services
 {
     public class PatientService : IPatients
     {
         private readonly AppDbContext _context;
-       
-        private INotification _notificationService;
-        public PatientService(AppDbContext context,  INotification notificationService)
+		private readonly IHttpContextAccessor _httpContextAccessor;
+
+		private INotification _notificationService;
+        public PatientService(AppDbContext context,  INotification notificationService, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
          
             _notificationService = notificationService;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         /// <summary>
@@ -111,25 +114,33 @@ namespace fit_and_fuel.Services
         /// <param name="patientDto">DTO containing patient information.</param>
         /// <returns>A newly created Patient object.</returns>
 
-        public async Task<Patient> Post(string resId, PatientDto patientDto)
+        public async Task<Patient> Post(PatientDto patientDto)
         {
-            var patient = new Patient()
+		string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var patientExists = await GetAll();
+            var patientList = patientExists.Where(p => p.UserId == userId).FirstOrDefault();
+			
+            if (patientList == null)
             {
-                UserId = resId,
-                Name = patientDto.Name,
-                Gender = patientDto.Gender,
-                Age = patientDto.Age,
-                
-                PhoneNumber = patientDto.PhoneNumber,
-                //NutritionistId = patientDto.NutritionistId,
+				var patient = new Patient()
+				{
+					UserId = userId,
+					Name = patientDto.Name,
+					Gender = patientDto.Gender,
+					Age = patientDto.Age,
 
-                imgURl = patientDto.imgURl
-            };
-            await _context.Patients.AddAsync(patient);
-            await _context.SaveChangesAsync();
+					PhoneNumber = patientDto.PhoneNumber,
+					//NutritionistId = patientDto.NutritionistId,
 
-            return patient;
-        }
+					imgURl = patientDto.imgURl
+				};
+				await _context.Patients.AddAsync(patient);
+				await _context.SaveChangesAsync();
+
+				return patient;
+			}
+            return null;
+		}
 
         /// <summary>
         /// Updates the information of a specific patient.
