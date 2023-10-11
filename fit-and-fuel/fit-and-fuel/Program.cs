@@ -8,27 +8,32 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services
+.AddDbContext<AppDbContext>
+(opions => opions
+.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Add services to the container.
 
 
 builder.Services.AddControllers().AddNewtonsoftJson(
               option => option.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
               );
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie();
-builder.Services.ConfigureApplicationCookie(options =>
+
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
-    options.ExpireTimeSpan = TimeSpan.FromDays(7);
-    options.LoginPath = "/Home";
-});
+    options.User.RequireUniqueEmail = true;
+})
+   .AddEntityFrameworkStores<AppDbContext>();
+
 // Add services to the container.
 
 //builder.Services.AddScoped<JwtTokenService>();
 builder.Services.AddTransient<IUserService, IdentityUserService>();
 builder.Services.AddTransient<ILike, LikeService>();
 builder.Services.AddTransient<IComment, CommentService>();
-
 builder.Services.AddTransient<INutritionists, NutritionistService>();
 builder.Services.AddTransient<IPatients, PatientService>();
 builder.Services.AddTransient<IDietPlan, DietPlanService>();
@@ -46,6 +51,8 @@ builder.Services.AddTransient<IRating, RatingService>();
 
 builder.Services.AddTransient<INotification, NotificationService>();
 
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie();
 
 
 builder.Services.AddAuthorization(options =>
@@ -57,22 +64,12 @@ builder.Services.AddAuthorization(options =>
 });
 
 
-
-
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
-{
-    options.User.RequireUniqueEmail = true;
-})
-   .AddEntityFrameworkStores<AppDbContext>();
-
-
 builder.Services.AddSignalR();
-
-builder.Services
-.AddDbContext<AppDbContext>
-(opions => opions
-
-.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.ExpireTimeSpan = TimeSpan.FromDays(7);
+    options.LoginPath = "/User/Login";
+});
 
 var app = builder.Build();
 
