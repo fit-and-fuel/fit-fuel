@@ -38,7 +38,14 @@
 
 
                                                 <div class="pt-team-member-image">
-                                                    <img loading="lazy" width="800" height="900" src="~/img/Nutritionist-1.jpg" class="attachment-full size-full" alt="" decoding="async" sizes="(max-width: 800px) 100vw, 800px">			<div class="social-links"><a href="https://twitter.com/promotheme" class="fab fa-twitter"></a><span></span><a href="https://www.facebook.com/promotheme/" class="fab fa-telegram-plane"></a><span></span><a href="https://instagram.com/promo_theme/" class="fab fa-instagram"></a><span></span></div>
+                                                    <img loading="lazy" width="800" height="900" src="~/img/Nutritionist-1.jpg" class="attachment-full size-full" alt="" decoding="async" sizes="(max-width: 800px) 100vw, 800px">	
+                                                   
+                                                    <div class="social-links">
+                                                        <a asp-controller="Nutritionist" asp-action="NutDetails" asp-route-id="@n.Id">
+                                                            View Details
+                                                        </a>
+
+                                                    </div>
                                                 </div>
 
 
