@@ -6,5 +6,6 @@
         public string UserId { get; set; }
         public DateTime Timestamp { get; set; }
         public string Content { get; set; }
+        public bool ReadNotfication { get; set; } = false;
     }
 }

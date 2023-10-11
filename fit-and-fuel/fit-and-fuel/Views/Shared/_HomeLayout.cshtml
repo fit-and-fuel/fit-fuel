@@ -1,4 +1,11 @@
-﻿<!doctype html>
+﻿@using fit_and_fuel.Interfaces
+@inject INotification notfication;
+
+@{
+    var count = await notfication.CountNot();
+}
+
+<!doctype html>
 <html lang="en-US">
 <head>
     <meta charset="UTF-8">
@@ -3818,10 +3825,15 @@
                             <div class="elementor-element elementor-element-b1122cc elementor-widget__width-auto elementor-widget elementor-widget-pt-search" data-id="b1122cc" data-element_type="widget" data-widget_type="pt-search.default">
                                 <div class="elementor-widget-container " style="color: white;">
                                     @if (User.Identity.IsAuthenticated)
-                                    {
+                                    {                   
                                         @* <div class="pt-search-toggle search-toggle"></div>*@
-                                        <p>
-                                            @User.Identity.Name
+                                        if (count > 0)
+                                        {
+                                            <a asp-controller="Notification" asp-action="Index">@count</a>
+
+                                        }
+                                           <p>
+                                         Welcome @User.Identity.Name
                                         </p>
 
                                     }
@@ -3959,11 +3971,12 @@
                                     @if (User.Identity.IsAuthenticated)
                                     {
                                         <a asp-controller="User" asp-action="Logout">Logout</a>
+    
                                     }
                                     else
                                     {
 
-                                        <a asp-controller="User" asp-action="Login">LOGIN</a>
+                                        <a asp-controller="User" asp-action="Login">Login</a>
                                     }
                                     @*      <div class="pt-cart">
                                     <a class="pt-cart-link" href="https://promo-theme.com/woxfit/cart/">

@@ -5,7 +5,9 @@ namespace fit_and_fuel.Interfaces
 {
     public interface INotification
     {
-        Task<List<Notification>> GetNotificationsForUser(string userId);
+        Task<List<Notification>> GetNotificationsForUser();
         Task SendNotification(string userId, NotificationDto notificationDto);
+
+        Task<int> CountNot();
     }
 }
