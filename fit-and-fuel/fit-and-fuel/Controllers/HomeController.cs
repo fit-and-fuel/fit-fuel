@@ -1,5 +1,6 @@
 ﻿using fit_and_fuel.Interfaces;
 using fit_and_fuel.Models;
+using fit_and_fuel.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -10,17 +11,26 @@ namespace fit_and_fuel.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly INutritionists _nutritionists;
+        private readonly IPost _post;
 
-        public HomeController(ILogger<HomeController> logger, INutritionists nutritionists)
+        public HomeController(ILogger<HomeController> logger, INutritionists nutritionists ,IPost post )
         {
             _logger = logger;
             _nutritionists = nutritionists;
+            _post = post;
         }
 
         public async Task<IActionResult> Index()
         {
+            var post =await _post.GetAll();
+
             var nutritionist = await _nutritionists.GetAll();
-            return View(nutritionist);
+            var HomeView=new HomeViewModel();
+            HomeView.nutritionists=nutritionist;
+            HomeView.posts=post;
+
+            return View(HomeView);
+
         }
 
 
