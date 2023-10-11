@@ -2,9 +2,11 @@
 using fit_and_fuel.DTOs;
 using fit_and_fuel.Interfaces;
 using fit_and_fuel.Model;
+using Microsoft.AspNetCore.Identity;
 //using Humanizer;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
+using System.Security.Claims;
 using System.Security.Policy;
 //using static NuGet.Packaging.PackagingConstants;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -17,10 +19,15 @@ namespace fit_and_fuel.Services
     public class NutritionistService : INutritionists
     {
         private readonly AppDbContext _context;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private UserManager<ApplicationUser> _userManager;
 
-        public NutritionistService(AppDbContext context)
+
+        public NutritionistService(AppDbContext context, IHttpContextAccessor httpContextAccessor, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _httpContextAccessor = httpContextAccessor;
+            _userManager = userManager;
         }
 
         /// <summary>
@@ -251,18 +258,20 @@ namespace fit_and_fuel.Services
         /// <param name="nutritionistDto">DTO containing nutritionist information.</param>
         /// <returns>A newly created Nutritionist object.</returns>
 
-        public async Task<Nutritionist> Post(string UserId, NutritionistDto nutritionistDto)
+        public async Task<Nutritionist> Post( NutritionistDto nutritionistDto)
         {
+            string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user = await _userManager.FindByIdAsync(userId);
+
             var nut = new Nutritionist()
             {
-                UserId = UserId,
-                PhoneNumber = nutritionistDto.PhoneNumber,
+                UserId = userId,
+                PhoneNumber = user.PhoneNumber,
                 Name = nutritionistDto.Name,
                 Gender = nutritionistDto.Gender,
                 Age = nutritionistDto.Age,
                 CvURl = nutritionistDto.CvURl,
                 imgURl = nutritionistDto.imgURl
-
             };
             await _context.Nutritionists.AddAsync(nut);
             await _context.SaveChangesAsync();
