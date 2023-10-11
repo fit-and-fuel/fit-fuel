@@ -91,7 +91,7 @@ namespace fit_and_fuel.Services
 
                     var content = new NotificationDto()
                     {
-                        Content = $"We have New Nutritionist Need To Improve with Id {user.Id}"
+                        Content = $"We have New Nutritionist Need To Improve with UserName {user.UserName}"
                     };
 
                     await _notificationService.SendNotification("1", content);
@@ -205,9 +205,9 @@ namespace fit_and_fuel.Services
         /// <param name="userId">The ID of the user to assign the role to.</param>
         /// <returns>IdentityResult indicating the success or failure of the role assignment.</returns>
 
-        public async Task<IdentityResult> AssignRolesToUser(int userId)
+        public async Task<IdentityResult> AssignRolesToUser(string userName)
          {
-            var user = await userManager.FindByIdAsync(userId.ToString());
+            var user = await userManager.FindByNameAsync(userName);
             if (user == null)
             {
                 
@@ -222,7 +222,7 @@ namespace fit_and_fuel.Services
                 Content = $"welcome New Nutritionist"
             };
 
-            await _notificationService.SendNotification(userId.ToString(), content);
+            await _notificationService.SendNotification(user.Id, content);
 
             return IdentityResult.Success;
          }

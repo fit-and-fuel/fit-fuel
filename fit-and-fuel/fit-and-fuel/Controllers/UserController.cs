@@ -35,7 +35,13 @@ namespace fit_and_fuel.Controllers
             {
                 return View(res);
             }
-			if (resRole.Roles[0] == "Patient")
+            if (resRole.Roles.Count == 0)
+            {
+                return RedirectToAction("Index", "Home");
+
+            }
+
+            if (resRole.Roles[0] == "Patient")
 			{
                 return RedirectToAction("Index", "Client");
 			}
@@ -52,6 +58,10 @@ namespace fit_and_fuel.Controllers
             if (!ModelState.IsValid)
             {
                 return View(res);
+            }
+            if (res.Roles[0] == "Admin")
+            {
+                return RedirectToAction("Index", "Admin");
             }
             return RedirectToAction("Index", "Home");
         }
