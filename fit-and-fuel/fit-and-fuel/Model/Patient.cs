@@ -24,7 +24,5 @@
 
         public DietPlan dietPlan { get; set; }
 
-        
-
     }
 }

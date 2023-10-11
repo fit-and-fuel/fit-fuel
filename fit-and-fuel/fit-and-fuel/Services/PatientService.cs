@@ -123,7 +123,6 @@ namespace fit_and_fuel.Services
 
 			var patientExists = await GetAll();
             var patientList = patientExists.Where(p => p.UserId == userId).FirstOrDefault();
-
 			var user = await _userManager.FindByIdAsync(userId);
             // var userName = user.UserName;
             var userPhonenumber = user.PhoneNumber;
