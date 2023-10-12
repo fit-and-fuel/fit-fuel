@@ -19,7 +19,7 @@ namespace fit_and_fuel.Controllers
 			_availableTime = availableTime;
 			_appoitments = appoitments;
 		}
-		public async Task<IActionResult> Index()
+		public async Task<IActionResult> Appointments()
 		{
 			var Appoitment = await _appoitments.GetMyById();
 			return View(Appoitment);
