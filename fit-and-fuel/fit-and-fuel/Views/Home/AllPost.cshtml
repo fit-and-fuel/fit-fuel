@@ -1,0 +1,64 @@
+﻿
+@model List<Post>
+
+@{
+    Layout = "~/Views/Shared/_PageLayout.cshtml";
+}
+
+<section class="elementor-section elementor-top-section elementor-element elementor-element-d51865b elementor-reverse-tablet elementor-reverse-mobile elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="d51865b" data-element_type="section">
+	<div class="elementor-container elementor-column-gap-default">
+		
+		<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-a1ffe9a" data-id="9c2c848" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+				<div class="elementor-element elementor-element-16d4b31 elementor-widget elementor-widget-pt-blog" data-id="16d4b31" data-element_type="widget" data-settings="{&quot;cols_lg&quot;:2,&quot;navigation&quot;:&quot;pagination&quot;,&quot;cols_md&quot;:2,&quot;type&quot;:&quot;grid&quot;,&quot;style&quot;:&quot;default&quot;,&quot;arrows_position&quot;:&quot;default&quot;}" data-widget_type="pt-blog.default">
+					<div class="elementor-widget-container">
+
+						<div class="blog-block filter-block">
+							<div class="blog-area blog-items row blog-type-grid blog-style-default" style="position: relative; height: 1893.56px;">
+								<div class="grid-sizer col-1" style="position: absolute; left: 0px; top: 0px;"></div>
+								@foreach(var post in Model){
+								<article class="blog-item istp-item col-md-6 col-lg-6 category-1">
+									<div class="wrap">
+
+										<div class="entry-thumb">
+												<a asp-controller="Home" asp-action="Post" asp-route-id="@post.Id">
+												<img fetchpriority="high" width="1024" height="683" src="https://promo-theme.com/woxfit/wp-content/uploads/2022/11/blog-thumb-1-1024x683.jpg" class="attachment-large size-large" alt="" decoding="async" srcset="https://promo-theme.com/woxfit/wp-content/uploads/2022/11/blog-thumb-1-1024x683.jpg 1024w, https://promo-theme.com/woxfit/wp-content/uploads/2022/11/blog-thumb-1-1080x720.jpg 1080w, https://promo-theme.com/woxfit/wp-content/uploads/2022/11/blog-thumb-1-300x200.jpg 300w, https://promo-theme.com/woxfit/wp-content/uploads/2022/11/blog-thumb-1-768x512.jpg 768w, https://promo-theme.com/woxfit/wp-content/uploads/2022/11/blog-thumb-1-1536x1024.jpg 1536w, https://promo-theme.com/woxfit/wp-content/uploads/2022/11/blog-thumb-1.jpg 1680w" sizes="(max-width: 1024px) 100vw, 1024px">
+											</a>
+										</div>
+
+
+										<div class="entry-caption content">
+											
+											<h5 class="entry-title">
+													<a asp-controller="Home" asp-action="Post" asp-route-id="@post.Id" >@post.Title</a>
+											</h5>
+											<p class="entry-excerpt">
+
+												@post.Description
+											</p>
+											<div class="entry-more">
+													<a asp-controller="Home" asp-action="Post" asp-route-id="@post.Id" class="readmore-link pt-button textual">
+													<span>Read More</span>
+													<i class="pticon-arrow"></i>
+												</a>
+											</div>
+										</div>
+									</div>
+								</article>
+                                }
+							</div>
+							<div class="pagination">
+								<ul class="page-numbers">
+									<li><span aria-current="page" class="page-numbers current">1</span></li>
+									<li><a class="page-numbers" href="https://promo-theme.com/woxfit/blog-grid/page/2/">2</a></li>
+									<li><a class="next page-numbers" href="https://promo-theme.com/woxfit/blog-grid/page/2/"><span class="pagination-next"></span></a></li>
+								</ul>
+							</div>			<div class="load-items-area"></div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

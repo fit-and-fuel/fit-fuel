@@ -12,13 +12,16 @@ namespace fit_and_fuel.Controllers
 		private readonly INutritionists _nutritionists;
 		private readonly IAvailableTime _availableTime;
         private readonly IAppoitments _appoitments;
+        private readonly IDietPlan _dietplan;
 
-        public NutritionistController(INutritionists nutritionists, IAvailableTime availableTime, IAppoitments appoitments)
+        public NutritionistController(INutritionists nutritionists, IAvailableTime availableTime, IAppoitments appoitments, IDietPlan dietplan)
 		{
 			_nutritionists = nutritionists;
 			_availableTime = availableTime;
 			_appoitments = appoitments;
-		}
+             _dietplan = dietplan;
+
+        }
 		public async Task<IActionResult> Appointments()
 		{
 			var Appoitment = await _appoitments.GetMyById();
@@ -47,6 +50,20 @@ namespace fit_and_fuel.Controllers
 
 			return RedirectToAction("Index","Home");
         }
+
+        public async Task<IActionResult> MyProfile()
+        {
+            var av = await _nutritionists.GetMyProfile();
+            return View(av);
+        }
+
+        public async Task<IActionResult> MyPatientDietPlan(int id)
+        {
+            var dietplan = await _dietplan.GetById(id);
+            return View(dietplan);
+        }
+
+
 
         [Authorize(Roles = "Nutritionist")]
 

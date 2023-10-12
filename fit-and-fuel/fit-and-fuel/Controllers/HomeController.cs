@@ -33,6 +33,22 @@ namespace fit_and_fuel.Controllers
 
         }
 
+        public async Task<IActionResult> Post(int id)
+        {
+            var post = await _post.GetById(id);
+
+            return View(post);
+
+        }
+
+        public async Task<IActionResult> AllPost()
+        {
+            var post = await _post.GetAll();
+
+            return View(post);
+
+        }
+
 
         [Authorize]
         public IActionResult Privacy()

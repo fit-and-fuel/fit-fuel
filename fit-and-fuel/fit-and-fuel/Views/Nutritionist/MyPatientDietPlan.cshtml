@@ -1,0 +1,45 @@
+﻿@model DietPlan
+
+@{
+    Layout = "~/Views/Shared/_PageLayout.cshtml";
+}
+
+
+<div style="background-color:#000 ;height:80px;margin-top:-10px;width:2000px;">
+</div>
+
+<h1>Diet Plan</h1>
+ <p><strong>Start Date:</strong> @Model.StartDate</p>
+<p><strong>End Date:</strong> @Model.EndDate</p> 
+<p><strong>Duration:</strong> @Model.Duration days</p>
+<p><strong>Patient:</strong> @Model.Patient.Name</p>
+<p><strong>Nutritionist:</strong> @Model.nutritionist.Name</p>
+<h2>Diet Plan Days</h2>
+@foreach (var day in Model.days)
+{
+    <h3>@day.DayName (@day.Date.ToShortDateString())</h3>
+    <p><strong>Total Calories for the Day:</strong> @day.TotalCalories</p>
+    <h4>Meals for the Day</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Meal Name</th>
+                <th>Description</th>
+                <th>Calories</th>
+                <th>Completion</th>
+            </tr>
+        </thead>
+        <tbody>
+           
+            @foreach (var meal in day.meals)
+            {
+                <tr>
+                    <td>@meal.Name</td>
+                    <td>@meal.Description</td>
+                    <td>@meal.Calories</td>
+                    <td>@(meal.Completion ? "Completed" : "Not Completed")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

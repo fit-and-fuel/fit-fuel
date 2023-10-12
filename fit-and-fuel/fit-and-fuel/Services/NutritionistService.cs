@@ -226,17 +226,19 @@ namespace fit_and_fuel.Services
         /// <param name="id">The ID of the nutritionist.</param>
         /// <returns>A Nutritionist object containing profile information.</returns>
 
-        public async Task<Nutritionist> GetMyProfile(string id)
+        public async Task<Nutritionist> GetMyProfile()
         {
+            string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var nut = await _context.Nutritionists
                 .Include(p => p.patients)
+                .ThenInclude(d => d.dietPlan)
                 .Include(n=>n.AvaliableTimes)
-           .Where(n => n.UserId== id).FirstOrDefaultAsync();
+           .Where(n => n.UserId== userId).FirstOrDefaultAsync();
             return nut;
         }
         public async Task<NutritionistDtoView> GetMyProfileDto(string id)
         {
-            var nutritionist = await GetMyProfile(id);
+            var nutritionist = await GetMyProfile();
             var nut = new NutritionistDtoView()
             {
                 Id = nutritionist.Id,

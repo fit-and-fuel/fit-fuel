@@ -17,7 +17,7 @@ namespace fit_and_fuel.Interfaces
         Task<List<PatientDtoViewNut>> GetAllMyPatientDto(int UserId);
         Task<List<DietPlan>> GetAllDietPlan(int UserId);
         Task<List<DietPlanDtoView>> GetAllDietPlanDto(int UserId);
-        Task<Nutritionist> GetMyProfile(int id);
+        Task<Nutritionist> GetMyProfile();
         Task<NutritionistDtoView> GetMyProfileDto(int id);
 
         Task<Nutritionist> Post(NutritionistDto nutritionistDto);

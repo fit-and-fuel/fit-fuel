@@ -98,6 +98,7 @@ namespace fit_and_fuel.Services
         {
             var dietplan = await _context.DietPlans
                 .Include(p => p.nutritionist)
+                .Include(d => d.Patient)
                  .Include(d => d.days).ThenInclude(m => m.meals)
                 .Where(d => d.Id == id).FirstOrDefaultAsync();
 
