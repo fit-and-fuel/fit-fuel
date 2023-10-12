@@ -199,6 +199,7 @@ namespace fit_and_fuel.Services
             .Include(p => p.patients)
             .Include(c => c.clinic)
             .Include(a=>a.appoitments)
+            .Include(AT => AT.AvaliableTimes)
             .Where(n => n.Id == id).FirstOrDefaultAsync();
             return nut;
         }
