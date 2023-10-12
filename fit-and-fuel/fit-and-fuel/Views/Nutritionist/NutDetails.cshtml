@@ -3,198 +3,54 @@
 @{
 	Layout = "~/Views/Shared/_PageLayout.cshtml";
 }
-<section class="elementor-section elementor-top-section elementor-element elementor-element-ae4cf5a elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="ae4cf5a" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-	<div class="elementor-background-overlay"></div>
-	<div class="elementor-container elementor-column-gap-default">
-		<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-b1ba2d7" data-id="b1ba2d7" data-element_type="column">
-			<div class="elementor-widget-wrap elementor-element-populated">
-				<div class="elementor-element elementor-element-ca7fcfa elementor-widget elementor-widget-pt-heading" data-id="ca7fcfa" data-element_type="widget" data-settings="{&quot;decor&quot;:[]}" data-widget_type="pt-heading.default">
-					<div class="elementor-widget-container">
+<link rel="stylesheet" href="path-to-bootstrap-css/bootstrap.min.css">
 
-						<div class="pt-heading">
-							<h1 class="pt-heading-title h1">
-								Class <span>timetable</span>
-							</h1>
-						</div>
+<div style="background-color:#000 ;height:80px;margin-top:-10px;width:2000px;">
 
-					</div>
-				</div>
-				<div class="elementor-element elementor-element-cf4f9f6 elementor-widget elementor-widget-pt-button" data-id="cf4f9f6" data-element_type="widget" data-widget_type="pt-button.default">
-					<div class="elementor-widget-container">
+</div>
 
-						<a class="pt-button textual" asp-area="" asp-controller="Home" asp-action="Index">
-							<span>Back home</span>
-							<i aria-hidden="true" class="pticon pticon-arrow"></i>
-						</a>
+<style>
+    /* Custom CSS for styling */
+    body {
+        background-color: #f5f5f5;
+        font-family: Arial, sans-serif;
+    }
 
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
+    .nutritionist-details {
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        margin-top: 20px;
+        padding: 20px;
+    }
 
+    .nutritionist-image img {
+        max-width: 100%;
+        border-radius: 30%;
+    }
 
+    .contact-info {
+        margin-top: 20px;
+    }
+</style>
+<div class="container mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-3 nutritionist-image">
+            <img src="~/img/Nutritionist-1.jpg" alt="@Model.Name" class="img-fluid">
+        </div>
+        <div class="col-md-9 nutritionist-details">
+            <h3>About @Model.Name</h3>
+            <p>@Model.CvURl</p>
 
+            <div class="contact-info">
+                <h4>Contact Information</h4>
+                <p>Age: @Model.Age</p>
+                <p>Phone: @Model.PhoneNumber</p>
+            </div>
+        </div>
+    </div>
+</div>
 
-<center style="margin-top:-100px;">
-	<section style="  border: hidden;   box-shadow: 0 4px 8px #D6FD51 ; margin: 10px 0; max-width:900px;" class="elementor-section elementor-top-section elementor-element elementor-element-c72aedc elementor-section-content-middle elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="c72aedc" data-element_type="section">
-		<div class="elementor-container elementor-column-gap-default">
-			<div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-f1bea80" data-id="f1bea80" data-element_type="column">
-				<div class="elementor-widget-wrap elementor-element-populated">
-					<div class="elementor-element elementor-element-6a2925c elementor-widget elementor-widget-image" data-id="6a2925c" data-element_type="widget" data-widget_type="image.default">
-						<div class="elementor-widget-container">
-							<style>
-								/*! elementor - v3.10.1 - 17-01-2023 */
-								.elementor-widget-image {
-									text-align: center
-								}
-
-									.elementor-widget-image a {
-										display: inline-block
-									}
-
-										.elementor-widget-image a img[src$=".svg"] {
-											width: 48px
-										}
-
-									.elementor-widget-image img {
-										vertical-align: middle;
-										display: inline-block
-									}</style>
-
-							<img decoding="async" loading="lazy" width="996" height="1160" src="~/img/Nutritionist-1.jpg" class="attachment-full size-full wp-image-2002" alt=""  sizes="(max-width: 996px) 100vw, 996px">
-
-							<div>
-								<h4>@Model.Name</h4>
-								<h4>@Model.Gender</h4>
-								<h4>@Model.Age</h4>
-
-							</div>
-
-								
-
-								</div>
-						
-
-						
-					</div>
-				</div>
-			</div>
-			<div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-b78c2a5" data-id="b78c2a5" data-element_type="column">
-				<div class="elementor-widget-wrap elementor-element-populated">
-					<div class="elementor-element elementor-element-35bbece elementor-widget elementor-widget-pt-heading" data-id="35bbece" data-element_type="widget" data-settings="{&quot;decor&quot;:[]}" data-widget_type="pt-heading.default">
-						<div class="elementor-widget-container">
-
-							<div class="pt-heading">
-								<h2 class="pt-heading-title h2">
-									Reach your body goals
-								</h2>
-							</div>
-
-						</div>
-					</div>
-					<div class="elementor-element elementor-element-5e9fb7b elementor-widget elementor-widget-text-editor" data-id="5e9fb7b" data-element_type="widget" data-widget_type="text-editor.default">
-						<div class="elementor-widget-container">
-							<style>
-								/*! elementor - v3.10.1 - 17-01-2023 */
-								.elementor-widget-text-editor.elementor-drop-cap-view-stacked .elementor-drop-cap {
-									background-color: #818a91;
-									color: #fff
-								}
-
-								.elementor-widget-text-editor.elementor-drop-cap-view-framed .elementor-drop-cap {
-									color: #818a91;
-									border: 3px solid;
-									background-color: transparent
-								}
-
-								.elementor-widget-text-editor:not(.elementor-drop-cap-view-default) .elementor-drop-cap {
-									margin-top: 8px
-								}
-
-								.elementor-widget-text-editor:not(.elementor-drop-cap-view-default) .elementor-drop-cap-letter {
-									width: 1em;
-									height: 1em
-								}
-
-								.elementor-widget-text-editor .elementor-drop-cap {
-									float: left;
-									text-align: center;
-									line-height: 1;
-									font-size: 50px
-								}
-
-								.elementor-widget-text-editor .elementor-drop-cap-letter {
-									display: inline-block
-								}</style>				<p>Convallis ullamcorper velit, varius maecenas viverra purus nunc. In suscipit aliquet sociis nibh quis. Neque pellentesque habitant aliquet venenatis at est.</p>
-						</div>
-					</div>
-					<div class="elementor-element elementor-element-ba862fa elementor-widget elementor-widget-pt-categories-3" data-id="ba862fa" data-element_type="widget" data-widget_type="pt-categories-3.default">
-						<div class="elementor-widget-container">
-
-							<div class="pt-categories-3">
-
-
-								<div class="pt-category">
-
-									<div class="pt-category-title">
-										<a href="/woxfit/single-service/">
-
-											Cardio Training
-										</a>
-									</div>
-
-								</div>
-
-
-								<div class="pt-category">
-
-									<div class="pt-category-title">
-										<a href="/woxfit/single-service/">
-
-											Basic Yoga
-										</a>
-									</div>
-
-								</div>
-
-
-								<div class="pt-category">
-
-									<div class="pt-category-title">
-										<a href="/woxfit/single-service/">
-
-											Muscle Training
-										</a>
-									</div>
-
-								</div>
-
-
-								<div class="pt-category">
-
-									<div class="pt-category-title">
-										<a href="/woxfit/single-service/">
-
-											Stretching
-										</a>
-									</div>
-
-								</div>
-
-
-							</div>
-
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
-
-</center>
-
-
-
+<!-- Include Bootstrap script -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

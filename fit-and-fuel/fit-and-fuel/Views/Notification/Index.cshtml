@@ -1,10 +1,23 @@
 ﻿@model List<Notification>
-
-@foreach(var not in Model)
-{
-    <h1>@not.Content</h1>
-    
-    <h2>@not.Timestamp</h2>
-    
-    <hr/>
+@{
+    Layout = "~/Views/Shared/_PageLayout.cshtml";
 }
+<div class="container mt-5">
+    <table class="table table-bordered">
+        <thead class="thead-light">
+            <tr>
+                <th>Content</th>
+                <th>Timestamp</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var not in Model)
+            {
+                <tr>
+                    <td>@not.Content</td>
+                    <td>@not.Timestamp</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
