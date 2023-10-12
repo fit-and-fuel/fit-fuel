@@ -1,0 +1,34 @@
+﻿@{
+	Layout = "~/Views/Shared/_PageLayout.cshtml";
+}
+
+@model IEnumerable<ViewAppointment>
+
+@foreach(var AP in Model){
+   <center>
+        <table>
+            <thead>
+                <tr>
+                    <th>@AP.Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>@AP.Status</th>
+                </tr>
+                <tr>
+                    <th>@AP.IsConfirmed</th>
+                    <form asp-controller="Nutritionist" asp-action="AppoitmentConfirmed" method="post">
+                        <input name="id" value="@AP.Id" type="hidden">
+
+                        <button type="submit">Confirm</button>
+                    </form>
+                </tr>
+                <tr>
+                    <th>@AP.IsCompleted</th>
+                </tr>
+            </tbody>
+        </table>
+   </center>
+
+}

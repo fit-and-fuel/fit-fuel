@@ -11,14 +11,18 @@ namespace fit_and_fuel.Controllers
 	{
 		private readonly INutritionists _nutritionists;
 		private readonly IAvailableTime _availableTime;
-		public NutritionistController(INutritionists nutritionists, IAvailableTime availableTime)
+        private readonly IAppoitments _appoitments;
+
+        public NutritionistController(INutritionists nutritionists, IAvailableTime availableTime, IAppoitments appoitments)
 		{
 			_nutritionists = nutritionists;
 			_availableTime = availableTime;
+			_appoitments = appoitments;
 		}
-		public IActionResult Index()
+		public async Task<IActionResult> Index()
 		{
-			return View();
+			var Appoitment = await _appoitments.GetMyById();
+			return View(Appoitment);
 		}
 
 		public async Task<IActionResult> NutDetails(int id)
@@ -64,7 +68,20 @@ namespace fit_and_fuel.Controllers
 			await _availableTime.Post(availableTimeDto);
 			return Redirect("AvailableTimes");
 		}
-	}
+		[HttpPost]
+        public async Task<IActionResult> SelectAppoitment(int id)
+        {
+			await _appoitments.SelectAppoitment(id);
+            return RedirectToAction("Index","Home");
+        }
+        [HttpPost]
+        public async Task<IActionResult> AppoitmentConfirmed(int id)
+        {
+            await _appoitments.AppoitmentConfirmed(id);
+            return Redirect("Index");
+        }
+
+    }
 }
 
 	

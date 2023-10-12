@@ -3,7 +3,7 @@
 @{
 	Layout = "~/Views/Shared/_PageLayout.cshtml";
 }
-<link rel="stylesheet" href="path-to-bootstrap-css/bootstrap.min.css">
+
 
 <div style="background-color:#000 ;height:80px;margin-top:-10px;width:2000px;">
 
@@ -47,10 +47,34 @@
                 <h4>Contact Information</h4>
                 <p>Age: @Model.Age</p>
                 <p>Phone: @Model.PhoneNumber</p>
+                <div>
+
+                    <h3>Available Times</h3>
+                    <div>
+                        @foreach (var at in Model.AvaliableTimes)
+                        {
+
+                            <p>@at.DayOfWeek</p>
+                            
+                            <p>@at.Time</p>
+                            <form asp-controller="Nutritionist" asp-action="SelectAppoitment"  method="post">
+                                <input name="id" value="@at.Id" type="hidden">
+
+                                <button type="submit">Select</button>
+                            </form>
+                          
+                        }
+                    </div>
+                </div>
+               
+
+               
             </div>
         </div>
     </div>
 </div>
+
+
 
 <!-- Include Bootstrap script -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
