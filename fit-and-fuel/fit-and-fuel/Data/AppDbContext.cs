@@ -105,7 +105,10 @@ namespace fit_and_fuel.Data
 
             modelBuilder.Entity<Meal>().HasData(
                 new Meal { Id = 1, Name = "Breakfast", Description = "Oatmeal with fruits", Calories = 300, Completion = false, DayId = 1 },
-                new Meal { Id = 2, Name = "Lunch", Description = "Grilled chicken salad", Calories = 500, Completion = false, DayId = 1 }
+                new Meal { Id = 2, Name = "Lunch", Description = "Grilled chicken salad", Calories = 500, Completion = false, DayId = 1 },
+                new Meal { Id = 3, Name = "Lunch", Description = "Grilled meat salad", Calories = 500, Completion = false, DayId = 2 },
+                    new Meal { Id = 4, Name = "BreakFast", Description = "egss and milk", Calories =200, Completion = false, DayId = 2 }
+                
             );
 
 

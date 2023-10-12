@@ -1,0 +1,21 @@
+﻿@model Nutritionist
+
+@{
+    Layout = "~/Views/Shared/_PageLayout.cshtml";
+}
+
+<div style="background-color:#000 ;height:80px;margin-top:-10px;width:2000px;">
+
+</div>
+
+
+
+<a  asp-controller="Nutritionist" asp-action="AvailableTimes">Available Times</a>
+<h3>@Model.Name</h3>
+<h3>@Model.PhoneNumber</h3>
+
+@foreach(var patient in Model.patients){
+    <p>Patient ID: @patient.Id</p>
+ <p>Patient Name: @patient.Name</p>
+    <a asp-controller="Nutritionist" asp-action="MyPatientDietPlan" asp-route-id="@patient.Id">view dietplan</a>
+}
