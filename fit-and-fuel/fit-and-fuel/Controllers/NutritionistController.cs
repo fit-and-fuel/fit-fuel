@@ -13,13 +13,15 @@ namespace fit_and_fuel.Controllers
 		private readonly IAvailableTime _availableTime;
         private readonly IAppoitments _appoitments;
         private readonly IDietPlan _dietplan;
+		private readonly IMeals _meals;
 
-        public NutritionistController(INutritionists nutritionists, IAvailableTime availableTime, IAppoitments appoitments, IDietPlan dietplan)
+        public NutritionistController(INutritionists nutritionists, IAvailableTime availableTime, IAppoitments appoitments, IDietPlan dietplan, IMeals meals)
 		{
 			_nutritionists = nutritionists;
 			_availableTime = availableTime;
 			_appoitments = appoitments;
              _dietplan = dietplan;
+			_meals = meals;
 
         }
 		public async Task<IActionResult> Appointments()
@@ -96,7 +98,38 @@ namespace fit_and_fuel.Controllers
         {
             await _appoitments.AppoitmentConfirmed(id);
             return Redirect("Index");
+		}
+
+
+        public async Task<IActionResult> CreateDietPlan(int id)
+		{
+			var dite = new DietPlanDto(); 
+			dite.PatientId= id;
+            return View(dite);
+		}
+
+        [HttpPost]
+
+		public async Task<IActionResult> CreateDietPlan(DietPlanDto diteplain)
+		{
+			 await _dietplan.PostDietPlanWithDay(diteplain);
+
+			return Redirect("MyProfile");
+
+		}
+
+     
+        [HttpPost]
+        public async Task<IActionResult> AddMeal(MealDto meal)
+        {
+            await _meals.Post(meal);
+
+			return Redirect($"MyProfile");
+
         }
+
+
+
 
     }
 }
