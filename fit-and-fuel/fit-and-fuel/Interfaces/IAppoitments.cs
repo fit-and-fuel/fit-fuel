@@ -16,5 +16,6 @@ namespace fit_and_fuel.Interfaces
         Task<bool> AppoitmentCompleted(string UserId, int id);
         Task Put(int id, AppoitmentDto appoitmentDto);
         Task Delete(int id);
-    }
+		Task<int> Count();
+	}
 }

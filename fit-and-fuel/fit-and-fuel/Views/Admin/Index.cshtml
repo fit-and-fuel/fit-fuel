@@ -1,7 +1,95 @@
-﻿
+﻿@model AdminVM
+@{
+	Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+	.btn-custom-sm {
+		padding: 0.5rem 1rem; /* You can adjust the padding to control the size */
+		font-size: 0.875rem; /* You can adjust the font size to your preference */
+	}
+</style>
+<div class="page-titles">
+	<ol class="breadcrumb">
+		<li><h5 class="bc-title">Dashboard</h5></li>
+		<li class="breadcrumb-item">
+			<a href="javascript:void(0)">
+				<svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M2.125 6.375L8.5 1.41667L14.875 6.375V14.1667C14.875 14.5424 14.7257 14.9027 14.4601 15.1684C14.1944 15.4341 13.8341 15.5833 13.4583 15.5833H3.54167C3.16594 15.5833 2.80561 15.4341 2.53993 15.1684C2.27426 14.9027 2.125 14.5424 2.125 14.1667V6.375Z" stroke="#2C2C2C" stroke-linecap="round" stroke-linejoin="round" />
+					<path d="M6.375 15.5833V8.5H10.625V15.5833" stroke="#2C2C2C" stroke-linecap="round" stroke-linejoin="round" />
+				</svg>
+				Home
+			</a>
+		</li>
+		<li class="breadcrumb-item active"
+        ><a href="javascript:void(0)">Dashboard</a>
+    </li>
+	</ol>
+	<a class="text-primary fs-13" data-bs-toggle="offcanvas" href="#offcanvasExample1" role="button" aria-controls="offcanvasExample1">+ Add Task</a>
+</div>
+<div class="container-fluid">
+	<div class="row">
+	</div>
 
-<form asp-controller="Admin" asp-action="Role" method="post">
-    <label>UserName</label>
-    <input name="userName" />
-    <button type="submit">add Role</button>
+</div>
+
+
+<form asp-controller="Admin" asp-action="Role" method="post" class="needs-validation m-5" novalidate>
+	<div class="mb-3 w-25">
+		<label for="userName" class="form-label">User Name:</label>
+		<input type="text" id="userName" name="userName" class="form-control" required>
+		<div class="invalid-feedback">
+			Please enter a valid user name.
+		</div>
+	</div>
+
+	<button type="submit" class="btn btn-primary btn-custom-sm">Add Role</button>
 </form>
+
+<div class="row m-5">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Number of Nutritionists</h5>
+                <p class="card-text">@Model.NumOfNutritionist</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Number of Appointments</h5>
+                <p class="card-text">@Model.NumberOfAppoitment</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Number of Posts</h5>
+                <p class="card-text">@Model.NumberOfPost</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row  m-5">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Number of Diet Plans</h5>
+                <p class="card-text">@Model.NumberOfDietPlan</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Number of Patients</h5>
+                <p class="card-text">@Model.NumOfPatient</p>
+            </div>
+        </div>
+    </div>
+</div>
