@@ -4,6 +4,7 @@ using fit_and_fuel.Interfaces;
 
 using fit_and_fuel.Model;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace fit_and_fuel.Services
 {
@@ -11,13 +12,16 @@ namespace fit_and_fuel.Services
     {
         private INotification _notificationService;
         private readonly AppDbContext _context;
-       
-        public DietPlanService(AppDbContext context, INotification notificationService)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+
+        public DietPlanService(AppDbContext context, INotification notificationService, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
             
 
             _notificationService = notificationService;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         /// <summary>
@@ -161,15 +165,52 @@ namespace fit_and_fuel.Services
 
             return newDietPlan;
         }
+        public async Task<DietPlan> PostDietPlanWithDay(DietPlanDto dietPlan)
+        {
+                        string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var nut = await _context.Nutritionists
+             .Where(n => n.UserId == userId)
+             .FirstOrDefaultAsync();
+            TimeSpan timeSpan = dietPlan.EndDate - dietPlan.StartDate;
+            var newDietPlan = new DietPlan()
+            {
+                Duration = timeSpan.Days,
+                StartDate = dietPlan.StartDate,
+                EndDate = dietPlan.EndDate,
+                PatientId = dietPlan.PatientId,
+                NutritionistId = nut.Id
+            };
+            await _context.DietPlans.AddAsync(newDietPlan);
+
+            await _context.SaveChangesAsync();
+            Day dayToAdd;
+            for (int i = 0; i < timeSpan.Days; i++)
+            {
+                dayToAdd = new Day()
+                {
+                    Date = newDietPlan.StartDate.AddDays(i),
+                    DayName = newDietPlan.StartDate.AddDays(i).DayOfWeek.ToString(),
+                    DietPlanId = newDietPlan.Id,
+                };
+                await _context.Days.AddAsync(dayToAdd);
+                await _context.SaveChangesAsync();
+
+            }
+      
+
+
+            return newDietPlan;
+        }
 
         /// <summary>
         /// Creates a new diet plan with specified days and meals for a patient.
         /// </summary>
         /// <param name="dietPlanDays">The details of the diet plan with days and meals.</param>
         /// <param name="UserId">The user ID of the nutritionist creating the diet plan.</param>
-        
-        public async Task PostFullDietPlan(DietPlanDaysDto dietPlanDays, string UserId)
+
+        public async Task PostFullDietPlan(DietPlanDaysDto dietPlanDays,string UserId)
         {
+
             var nut=await _context.Nutritionists
                 .Where(n=>n.UserId == UserId)
                 .FirstOrDefaultAsync();
