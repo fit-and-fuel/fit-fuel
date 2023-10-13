@@ -13,5 +13,6 @@ namespace fit_and_fuel.Interfaces
         Task<bool> ImprovedPost (int PostId);
         Task Put(int id, PostDto PostDto, int postId);
         Task Delete(int id,int UserId);
-    }
+		Task<int> Count();
+	}
 }

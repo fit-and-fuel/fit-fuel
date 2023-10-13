@@ -9,7 +9,7 @@ namespace fit_and_fuel.Interfaces
         Task<List<NutritionistDtoView>> GetAllDto();
         Task<List<Nutritionist>> Search(string str);
         Task<List<NutritionistDtoView>> SearchDto(string str);
-
+        
         Task<Nutritionist> GetById(int id);
         Task<NutritionistDtoView> GetByIdDto(int id);
         Task<List<Patient>> GetAllMyPatient(int UserId);
@@ -23,6 +23,7 @@ namespace fit_and_fuel.Interfaces
         Task<Nutritionist> Post(NutritionistDto nutritionistDto);
         Task Put(int id, NutritionistDto nutritionistDto);
         Task Delete(int id);
+        Task<int> Count();
         
     }
 }

@@ -374,5 +374,10 @@ namespace fit_and_fuel.Services
         {
             throw new NotImplementedException();
         }
-    }
+
+		public async Task<int> Count()
+		{
+			return await _context.Nutritionists.CountAsync();
+		}
+	}
 }

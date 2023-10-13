@@ -14,5 +14,6 @@ namespace fit_and_fuel.Interfaces
         Task PostFullDietPlan(DietPlanDaysDto dietPlanDays,int UserId);
         Task Put(int id, DietPlanDto dietPlan);
         Task Delete(int id);
-    }
+		Task<int> Count();
+	}
 }

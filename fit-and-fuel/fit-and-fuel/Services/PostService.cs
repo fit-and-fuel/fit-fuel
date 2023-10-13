@@ -21,13 +21,18 @@ namespace fit_and_fuel.Services
             _notificationService = notificationService;
         }
 
-        /// <summary>
-        /// Deletes a post with the specified ID.
-        /// </summary>
-        /// <param name="id">The ID of the post to delete.</param>
-        /// <param name="UserId">The ID of the user attempting the deletion.</param>
+		public async Task<int> Count()
+		{
+			return await _context.Posts.CountAsync();
+		}
 
-        public async Task Delete(int id, string UserId)
+		/// <summary>
+		/// Deletes a post with the specified ID.
+		/// </summary>
+		/// <param name="id">The ID of the post to delete.</param>
+		/// <param name="UserId">The ID of the user attempting the deletion.</param>
+
+		public async Task Delete(int id, string UserId)
         {
             var post = await _context.Posts.Where(p => p.Id == id).FirstOrDefaultAsync();
             var nut = await _context.Nutritionists.FirstOrDefaultAsync(n => n.UserId == UserId);

@@ -23,6 +23,7 @@ namespace fit_and_fuel.Interfaces
         
         Task Put(int id, PatientDto patientDto);
         Task Delete(int id);
+		Task<int> Count();
 
-    }
+	}
 }
