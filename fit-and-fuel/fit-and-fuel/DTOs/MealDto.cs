@@ -9,5 +9,6 @@ namespace fit_and_fuel.DTOs
         public int Calories { get; set; }
         public bool Completion { get; set; }
         public int DayId { get; set; }
+        public int? DietPlanId { get; set; }
     }
 }

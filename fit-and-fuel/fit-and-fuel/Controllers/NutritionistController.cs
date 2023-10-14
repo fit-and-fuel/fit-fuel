@@ -124,7 +124,7 @@ namespace fit_and_fuel.Controllers
         {
             await _meals.Post(meal);
 
-			return Redirect($"MyProfile");
+			return Redirect($"MyPatientDietPlan/{meal.DietPlanId}");
 
         }
 
