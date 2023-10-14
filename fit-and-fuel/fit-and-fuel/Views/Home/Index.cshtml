@@ -38,8 +38,11 @@
 
 
                                                 <div class="pt-team-member-image">
-                                                    <img loading="lazy" width="800" height="900" src="~/img/Nutritionist-1.jpg" class="attachment-full size-full" alt="" decoding="async" sizes="(max-width: 800px) 100vw, 800px">	
-                                                   
+@*                                                     <img loading="lazy" width="800" height="900" src="~/img/Nutritionist-1.jpg" class="attachment-full size-full" alt="" decoding="async" sizes="(max-width: 800px) 100vw, 800px">	
+ *@
+
+                                                    <img src="@n.imgURl" class="card-img-top img-fixed-height" alt="@n.Name">
+
                                                     <div class="social-links">
                                                         <a asp-controller="Nutritionist" asp-action="NutDetails" asp-route-id="@n.Id">
                                                             View Details
@@ -106,7 +109,7 @@
 
                                             <div class="entry-thumb">
                                                 <a asp-controller="Home" asp-action="Post" asp-route-id="@post.Id" >
-                                                    <img loading="lazy" width="1024" height="512" src="https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img,w_800,h_533/https://www.adityabirlacapital.com/healthinsurance/active-together/wp-content/uploads/2023/03/What-Is-A-Balanced-Diet.jpg" class="attachment-large size-large" alt="" decoding="async" sizes="(max-width: 1024px) 100vw, 1024px">
+                                                    <img loading="lazy" width="1024" height="512" src=@post.ImageUrl class="attachment-large size-large" alt="" decoding="async" sizes="(max-width: 1024px) 100vw, 1024px">
                                                 </a>
                                             </div>
 

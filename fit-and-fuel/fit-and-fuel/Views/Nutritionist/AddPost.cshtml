@@ -2,16 +2,7 @@
 	Layout = "~/Views/Shared/_PageLayout.cshtml";
 }
 
-@* 		//			public string Name { get; set; }
 
-		//public string Gender { get; set; }
-
-		//public int Age { get; set; }
-
-		//public string PhoneNumber { get; set; }
-
-		//public string imgURl { get; set; } *@
-		
 
 <section class="elementor-section elementor-top-section elementor-element elementor-element-ae4cf5a elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="ae4cf5a" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
 	<div class="elementor-background-overlay"></div>
@@ -78,23 +69,18 @@
 							<div class="wpcf7 js">*@
 
 							<div class="screen-reader-response"><p role="status" aria-live="polite" aria-atomic="true"></p> <ul></ul></div>
-							<form asp-controller="Client" asp-action="Create" method="post" class="wpcf7-form init" aria-label="Contact form" novalidate="novalidate" data-status="init" enctype="multipart/form-data">
+							<form asp-controller="Nutritionist" asp-action="AddPost" method="post" class="wpcf7-form init" aria-label="Contact form" novalidate="novalidate" data-status="init" enctype="multipart/form-data">
 								<div style="display: none;">
 								</div>
 
 								<div class="mb-3">
 									<p>
-										<label for="name">Name</label><br>
+										<label for="Title">Title</label><br>
 										<span class="wpcf7-form-control-wrap">
-									    <input size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" id="name" aria-required="true" aria-invalid="false" placeholder="UserName" type="text" name="Name"></span>
+											<input size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" id="Title" aria-required="true" aria-invalid="false" placeholder="Title" type="text" name="Title">
+										</span>
 									</p>
 								</div>
-@* 								<div class="mb-3">
-									<p>
-										<label for="PhoneNumber">phone number</label><br>
-										<span class="wpcf7-form-control-wrap"><input size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" id="PhoneNumber" aria-required="true" aria-invalid="false" placeholder="PhoneNumber" type="text" name="PhoneNumber"></span>
-									</p>
-								</div> *@
 								<div class="mb-3">
 									<p>
 										<label for="imgURl">imgURl</label><br>
@@ -104,16 +90,11 @@
 									</p>
 								</div>
 								<div class="mb-3">
-									<label for="Gender">Roles</label>
-									<Select id="Gender" name="Gender" class="form-control">
-										<option value="Male">Male</option>
-										<option value="Female">Female</option>
-									</Select>
-								</div>
-								<div class="mb-3">
 									<p>
-										<label for="Age">Age</label><br>
-										<span class="wpcf7-form-control-wrap"><input size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" id="Age" aria-required="true" aria-invalid="false" placeholder="Age" type="number" name="Age"></span>
+										<label for="Description">Description</label><br>
+										<span class="wpcf7-form-control-wrap">
+											<input size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" id="Description" aria-required="true" aria-invalid="false" placeholder="Description" type="text" name="Description">
+										</span>
 									</p>
 								</div>
 
@@ -133,10 +114,5 @@
 		</div>
 	</div>
 </section>
-
-
-
-
-
 
 

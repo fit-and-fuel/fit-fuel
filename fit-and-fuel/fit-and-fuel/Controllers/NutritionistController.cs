@@ -14,14 +14,16 @@ namespace fit_and_fuel.Controllers
         private readonly IAppoitments _appoitments;
         private readonly IDietPlan _dietplan;
 		private readonly IMeals _meals;
+		private readonly IPost _post;
 
-        public NutritionistController(INutritionists nutritionists, IAvailableTime availableTime, IAppoitments appoitments, IDietPlan dietplan, IMeals meals)
+        public NutritionistController(INutritionists nutritionists, IAvailableTime availableTime, IAppoitments appoitments, IDietPlan dietplan, IMeals meals, IPost post)
 		{
 			_nutritionists = nutritionists;
 			_availableTime = availableTime;
 			_appoitments = appoitments;
              _dietplan = dietplan;
 			_meals = meals;
+			_post = post;
 
         }
 		public async Task<IActionResult> Appointments()
@@ -42,13 +44,15 @@ namespace fit_and_fuel.Controllers
 
 
 		[HttpPost]
-        public async Task<IActionResult> CreateProfile(NutritionistDto nut)
+        public async Task<IActionResult> CreateProfile(NutritionistDto nut, IFormFile file)
         {
-			//if (!ModelState.IsValid)
-			//{
-			//	return View();
-			//}
-			await _nutritionists.Post(nut);
+            //if (!ModelState.IsValid)
+            //{
+            //	return View();
+            //}
+            ModelState.Remove("file");
+
+            await _nutritionists.Post(nut, file);
 
 			return RedirectToAction("Index","Home");
         }
@@ -129,9 +133,27 @@ namespace fit_and_fuel.Controllers
         }
 
 
+		public IActionResult AddPost()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> AddPost(PostDto post, IFormFile file)
+		{
+			ModelState.Remove("file");
 
 
-    }
+			await _post.Post(post, file);
+
+			return RedirectToAction("Index", "Home");
+
+		}
+
+
+
+
+	}
 }
 
 	
