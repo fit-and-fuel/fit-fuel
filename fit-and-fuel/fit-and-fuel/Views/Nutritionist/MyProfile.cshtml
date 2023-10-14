@@ -1,4 +1,4 @@
-﻿@model Nutritionist
+@model Nutritionist
 
 @{
     Layout = "~/Views/Shared/_PageLayout.cshtml";
@@ -16,7 +16,16 @@
 
 @foreach(var patient in Model.patients){
     <p>Patient ID: @patient.Id</p>
-    <a asp-controller="chat" asp-action="nutritionistChat" asp-route-id="@patient.Id">chat</a>
- <p>Patient Name: @patient.Name</p>
-    <a asp-controller="Nutritionist" asp-action="MyPatientDietPlan" asp-route-id="@patient.Id">view dietplan</a>
+
+    <p>Patient Name: @patient.Name</p>
+ <a asp-controller="chat" asp-action="nutritionistChat" asp-route-id="@patient.Id">chat</a>
+
+    if (@patient.dietPlan != null)
+    {
+        <a asp-controller="Nutritionist" asp-action="MyPatientDietPlan" asp-route-id="@patient.dietPlan.Id">view dietplan</a>
+
+    }
+    <a asp-controller="Nutritionist" asp-action="CreateDietPlan" asp-route-id="@patient.Id">Create dietplan</a>
+
+
 }
