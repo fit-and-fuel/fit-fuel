@@ -46,7 +46,7 @@ builder.Services.AddTransient<IAvailableTime, AvailableTimeService>();
 builder.Services.AddTransient<IPayment, PaymentService>();
 builder.Services.AddTransient<IClinic, ClinicService>();
 builder.Services.AddTransient<IAppoitments, AppoitmentService>();
-
+//builder.Services.AddScoped<IChatMessage,ChatMessageService>();
 builder.Services.AddTransient<IRating, RatingService>();
 
 builder.Services.AddTransient<INotification, NotificationService>();
@@ -87,10 +87,13 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+
+
+//app.MapHub<ChatHub>("/chatHub");
 app.UseEndpoints(endpoints =>
 {
-	endpoints.MapHub<ChatHub>("/chatHub");
-	// Other route configurations...
+    endpoints.MapHub<ChatHub>("/chatHub");
+    // Other route configurations...
 });
 app.MapControllerRoute(
     name: "default",
