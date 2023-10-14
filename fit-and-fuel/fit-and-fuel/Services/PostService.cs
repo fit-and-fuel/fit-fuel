@@ -199,7 +199,7 @@ namespace fit_and_fuel.Services
 
 		public async Task<string> UploadFile(IFormFile file)
 		{
-			var URL = "https://fitandfuelstorage.blob.core.windows.net/images/noimage.png";
+			var URL = "https://ecommerceprojectimages.blob.core.windows.net/images/noimage.png";
 			if (file != null)
 			{
 				BlobContainerClient blobContainerClient =
