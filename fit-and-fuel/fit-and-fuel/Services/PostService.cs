@@ -1,10 +1,14 @@
-﻿using fit_and_fuel.Data;
+﻿using Azure.Storage.Blobs.Models;
+using Azure.Storage.Blobs;
+using fit_and_fuel.Data;
 using fit_and_fuel.DTOs;
 using fit_and_fuel.Interfaces;
 
 using fit_and_fuel.Model;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using System.Security.Claims;
 
 namespace fit_and_fuel.Services
 {
@@ -13,12 +17,18 @@ namespace fit_and_fuel.Services
         private readonly AppDbContext _context;
        
         private INotification _notificationService;
+		private readonly IHttpContextAccessor _httpContextAccessor;
+		private readonly IConfiguration _configuration;
 
-        public PostService(AppDbContext context, INotification notificationService)
+
+
+		public PostService(AppDbContext context, INotification notificationService, IHttpContextAccessor httpContextAccessor, IConfiguration configuration)
         {
             _context = context;
             
             _notificationService = notificationService;
+            _httpContextAccessor = httpContextAccessor;
+            _configuration = configuration;
         }
 
 		public async Task<int> Count()
@@ -150,14 +160,20 @@ namespace fit_and_fuel.Services
         /// <param name="PostDto">DTO containing post information.</param>
         /// <returns>The newly created post.</returns>
 
-        public async Task<Post> Post(string UserId, PostDto PostDto)
+        public async Task<Post> Post(PostDto PostDto, IFormFile file)
         {
-            var nut = await _context.Nutritionists.FirstOrDefaultAsync(n => n.UserId == UserId);
+			var imageUrl = await UploadFile(file);
+
+
+			string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+			var nut = await _context.Nutritionists.FirstOrDefaultAsync(n => n.UserId == userId);
+
             var newPost = new Post();
 
             newPost.Title = PostDto.Title;
             newPost.Description = PostDto.Description;
-            newPost.ImageUrl = PostDto.ImageUrl;
+            newPost.ImageUrl = imageUrl;
             newPost.Time = DateTime.Now;
             newPost.NutritionistId = nut.Id;
 
@@ -181,7 +197,37 @@ namespace fit_and_fuel.Services
             return newPost;
         }
 
-        public Task<Post> Post(int UserId, PostDto PostDto)
+		public async Task<string> UploadFile(IFormFile file)
+		{
+			var URL = "https://fitandfuelstorage.blob.core.windows.net/images/noimage.png";
+			if (file != null)
+			{
+				BlobContainerClient blobContainerClient =
+					new BlobContainerClient(_configuration.GetConnectionString("StorageAccount"), "images");
+
+				await blobContainerClient.CreateIfNotExistsAsync();
+
+				BlobClient blobClient = blobContainerClient.GetBlobClient(file.FileName);
+
+				using var fileStream = file.OpenReadStream();
+
+				BlobUploadOptions blobUploadOptions = new BlobUploadOptions()
+				{
+					HttpHeaders = new BlobHttpHeaders { ContentType = file.ContentType }
+				};
+
+				if (!blobClient.Exists())
+				{
+					await blobClient.UploadAsync(fileStream, blobUploadOptions);
+				}
+				URL = blobClient.Uri.ToString();
+			}
+			return URL;
+		}
+
+
+
+		public Task<Post> Post(int UserId, PostDto PostDto)
         {
             throw new NotImplementedException();
         }

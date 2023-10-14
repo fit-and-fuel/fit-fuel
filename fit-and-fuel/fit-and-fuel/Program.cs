@@ -5,6 +5,7 @@ using fit_and_fuel.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Azure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -54,6 +55,11 @@ builder.Services.AddTransient<INotification, NotificationService>();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie();
 
+builder.Services.AddAzureClients(clientBuilder =>
+{
+    clientBuilder.AddBlobServiceClient(builder.Configuration["ConnectionStrings:StorageAccount:blob"]);
+    clientBuilder.AddQueueServiceClient(builder.Configuration["ConnectionStrings:StorageAccount:queue"]);
+});
 
 builder.Services.AddAuthorization(options =>
 {
