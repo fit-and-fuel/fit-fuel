@@ -20,7 +20,12 @@ namespace fit_and_fuel.Controllers
         {
             return View();
         }
-		[Authorize(Roles = "Patient")]
+        public async Task<IActionResult> MyProfile()
+        {
+            var myprofile = await _patients.GetMyProfile();
+            return View(myprofile);
+        }
+        [Authorize(Roles = "Patient")]
 		[HttpPost]
         public async Task<IActionResult> Create(PatientDto patientDto)
         {

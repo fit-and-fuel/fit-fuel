@@ -364,5 +364,17 @@ namespace fit_and_fuel.Services
 		{
 			return await _context.Patients.CountAsync();
 		}
-	}
+
+        public async Task<Patient> GetMyProfile()
+        {
+            string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var myprofile = await _context.Patients
+                .Where(p => p.UserId == userId)
+                .Include(p=>p.nutritionist)
+                .FirstOrDefaultAsync();
+            return myprofile;
+
+        }
+    }
 }

@@ -1,39 +1,83 @@
 ﻿@model List<ChatMessage>
 @{
 }
-@if (Model != null)
-{
-    @foreach (var message in Model)
+
+<div id="discussion">
+    @if (Model != null)
     {
-        <p>@message.Content</p>
+        foreach (var message in Model)
+        {
+            <p>@message.Content</p>
+        }
     }
-}
+</div>
 
-<form asp-controller="Chat" asp-action="SendMessage" method="post" class="wpcf7-form init" aria-label="Contact form" novalidate="novalidate" data-status="init">
-	<div style="display: none;">
-	</div>
-
-	<div class="mb-3">
-		<p>
-			<label for="ReceiverId">ReceiverId</label><br>
-			<span class="wpcf7-form-control-wrap" data-name="your-name">
-				<input size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" id="ReceiverId" aria-required="true" aria-invalid="false" placeholder="ReceiverId" type="text" name="ReceiverId">
-			</span>
-		</p>
-	</div>
-	<div class="mb-3">
-		<p>
-			<label for="Content">Content</label><br>
-			<span class="wpcf7-form-control-wrap" >
-				<input size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" id="Content" aria-required="true" aria-invalid="false" placeholder="Content" type="text" name="Content">
-			</span>
-		</p>
-	</div>
-
-	<div class="mb-0">
-		<p>
-			<input class="wpcf7-form-control has-spinner wpcf7-submit" type="submit" value="submit"><span class="wpcf7-spinner"></span>
-		</p>
-	</div><div class="wpcf7-response-output" aria-hidden="true"></div>
+@*<form asp-controller="Chat" asp-action="SendMessage" method="post">
+    <div class="mb-3">
+        <label for="ReceiverId">Content</label><br>
+        <input class="form-control" id="ReceiverId" type="text" name="ReceiverId">
+    </div>
+    <div class="mb-3">
+        <label for="Content">Content</label><br>
+        <input class="form-control" id="Content" type="text" name="Content">
+    </div>
+    <div class="mb-0">
+        <button class="btn btn-primary" id="sendmessage" type="submit">Submit</button>
+    </div>
 </form>
 
+<script src="https://cdn.jsdelivr.net/npm/@@ microsoft/signalr@7.0.12/dist/browser/signalr.min.js"></script>
+<script>
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl("/chatHub")
+        .build();
+
+    connection.start().catch(function (err) {
+        return console.error(err.toString());
+    });
+
+    // Use jQuery for event handling
+    $(function () {
+        $("#sendmessage").on("click", function (event) {
+            event.preventDefault();
+            const message = $("#Content").val();
+            const messageDto = {
+                ReceiverId: "ReceiverIdHere",
+                Content: message
+            };
+            connection.invoke("SendMessage", messageDto)
+                .catch(function (err) {
+                    return console.error(err.toString());
+                });
+        });
+    });
+
+    connection.on("ReceiveMessage", (user, message) => {
+        var encodedMsg = user + ": " + message;
+        var p = document.createElement("p");
+        p.textContent = encodedMsg;
+        document.getElementById("discussion").appendChild(p);
+    });
+</script>
+*@
+<div>
+    <div>
+
+        <textarea id="txtMessage"></textarea><br />
+        <button id="btnSend">Send</button>
+    </div>
+    <div>
+        <h3>Message list:</h3>
+        <ul id="list"></ul>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/site.js"></script>
+@*<div>
+    <input type="text" id="txtUser" /><br />
+    <input type="text" id="toUser" /><br />
+    <textarea id="txtMessage"></textarea><br />
+    <button id="btnSend">Send</button>
+</div>*@

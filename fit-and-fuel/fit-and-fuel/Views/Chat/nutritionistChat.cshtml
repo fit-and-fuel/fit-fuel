@@ -1,0 +1,36 @@
+﻿@model NutritionistVM
+@{
+}
+
+<div id="discussion">
+    @if (Model != null)
+    {
+        foreach (var message in Model.ChatMessages)
+        {
+            <p>@message.Content</p>
+        }
+    }
+</div>
+
+<div>
+    <div>
+
+        <textarea id="txtMessage"></textarea><br />
+        <input type="hidden" id="toUser" value="@Model.Patinetid"  /><br />
+        <button id="btnSend">Send</button>
+    </div>
+    <div>
+        <h3>Message list:</h3>
+        <ul id="list"></ul>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/siteN.js"></script>
+@*<div>
+    <input type="text" id="txtUser" /><br />
+    <input type="text" id="toUser" /><br />
+    <textarea id="txtMessage"></textarea><br />
+    <button id="btnSend">Send</button>
+</div>*@

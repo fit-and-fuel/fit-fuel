@@ -16,6 +16,7 @@
 
 @foreach(var patient in Model.patients){
     <p>Patient ID: @patient.Id</p>
+    <a asp-controller="chat" asp-action="nutritionistChat" asp-route-id="@patient.Id">chat</a>
  <p>Patient Name: @patient.Name</p>
     <a asp-controller="Nutritionist" asp-action="MyPatientDietPlan" asp-route-id="@patient.Id">view dietplan</a>
 }
