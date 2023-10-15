@@ -47,6 +47,14 @@
                                             Add Post
                                         </a>
                                     </div>
+
+                                </div>
+                                <div class="pt-category">
+                                    <div class="pt-category-title">
+                                        <a asp-controller="Nutritionist" asp-action="AddClinic">Add Clinic</a>
+
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -114,7 +122,6 @@
 
     }
    else{ <a asp-controller="Nutritionist" asp-action="CreateDietPlan" asp-route-id="@patient.Id">Create dietplan</a> }
-                                                        
                                                     </span>
                                                 </td>
                                             </tr>

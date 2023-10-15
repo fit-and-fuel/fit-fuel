@@ -4,16 +4,20 @@ using fit_and_fuel.Interfaces;
 
 using fit_and_fuel.Model;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace fit_and_fuel.Services
 {
     public class  ClinicService: IClinic
     {
         private readonly AppDbContext _context;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ClinicService(AppDbContext context)
+
+        public ClinicService(AppDbContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         /// <summary>
@@ -108,9 +112,11 @@ namespace fit_and_fuel.Services
         /// <param name="clinicDto">The details of the clinic to create.</param>
         /// <param name="UserId">The user ID of the associated nutritionist.</param>
 
-        public async Task Post(ClinicDto clinicDto, string UserId)
+        public async Task Post(ClinicDto clinicDto)
         {
-            var Nut = await _context.Nutritionists.FirstOrDefaultAsync(x => x.UserId == UserId);
+            string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var Nut = await _context.Nutritionists.FirstOrDefaultAsync(x => x.UserId == userId);
 
             var clinic = new Clinic();
             clinic.Name = clinicDto.Name;   
