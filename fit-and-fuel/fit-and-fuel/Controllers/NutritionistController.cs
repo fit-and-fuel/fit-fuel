@@ -151,7 +151,16 @@ namespace fit_and_fuel.Controllers
 			return RedirectToAction("Index", "Home");
 
 		}
-        public IActionResult AddClinic()
+
+
+
+		public async Task<IActionResult> ViewPosts()
+		{
+			var posts = await _post.GetMyPosts();
+			return View(posts);
+		}
+
+		public IActionResult AddClinic()
         {
             return View();
 		}

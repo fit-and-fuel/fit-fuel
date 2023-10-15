@@ -1,0 +1,16 @@
+﻿@{
+	Layout = "~/Views/Shared/_PageLayout.cshtml";
+}
+
+@model List<Post>
+
+@foreach(var post in Model)
+{
+	<p>
+		@post.Title
+	</p>
+	<p>
+		@post.Description
+	</p>
+
+}
