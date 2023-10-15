@@ -1,21 +1,32 @@
-﻿using fit_and_fuel.Data;
+﻿using Azure.Storage.Blobs.Models;
+using Azure.Storage.Blobs;
+using fit_and_fuel.Data;
 using fit_and_fuel.DTOs;
 using fit_and_fuel.Interfaces;
 using fit_and_fuel.Model;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace fit_and_fuel.Services
 {
     public class PatientService : IPatients
     {
-        private readonly AppDbContext _context;
-       
+		private UserManager<ApplicationUser> _userManager;
+		private readonly AppDbContext _context;
+		private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IConfiguration _configuration;
+
+
         private INotification _notificationService;
-        public PatientService(AppDbContext context,  INotification notificationService)
+        public PatientService(AppDbContext context,  INotification notificationService, IHttpContextAccessor httpContextAccessor, UserManager<ApplicationUser> userManager, IConfiguration configuration)
         {
             _context = context;
          
             _notificationService = notificationService;
+            _httpContextAccessor = httpContextAccessor;
+            _userManager = userManager;
+            _configuration = configuration;
         }
 
         /// <summary>
@@ -36,7 +47,7 @@ namespace fit_and_fuel.Services
         /// <param name="NutId">The ID of the selected nutritionist.</param>
         /// <param name="UserId">The ID of the patient.</param>
 
-        public async Task SelectNut(int NutId,int UserId)
+        public async Task SelectNut(int NutId, string UserId)
         {
             var patient = await _context.Patients.SingleOrDefaultAsync(x => x.UserId == UserId);
             patient.NutritionistId = NutId;
@@ -80,14 +91,14 @@ namespace fit_and_fuel.Services
         /// <param name="id">The user ID of the patient to retrieve.</param>
         /// <returns>A Patient object representing the specified patient.</returns>
 
-        public async Task<Patient> GetById(int id)
+        public async Task<Patient> GetById(string id)
         {            //.Include(p => p.appoitments)
             //.Include(p => p.dietPlan)
             //.Include(p => p.nutritionist)
             var patient = await _context.Patients.Where(p => p.UserId == id).FirstOrDefaultAsync();
             return patient;
         }
-        public async Task<PatientDtoView> GetByIdDto(int id)
+        public async Task<PatientDtoView> GetByIdDto(string id)
         {
             var patient = await GetById(id);
             var patientsToReturn = new PatientDtoView
@@ -111,25 +122,68 @@ namespace fit_and_fuel.Services
         /// <param name="patientDto">DTO containing patient information.</param>
         /// <returns>A newly created Patient object.</returns>
 
-        public async Task<Patient> Post(int resId, PatientDto patientDto)
+        public async Task<Patient> Post(PatientDto patientDto, IFormFile file)
         {
-            var patient = new Patient()
+
+            var imageUrl = await UploadFile(file);
+            string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+			var patientExists = await GetAll();
+            var patientList = patientExists.Where(p => p.UserId == userId).FirstOrDefault();
+			var user = await _userManager.FindByIdAsync(userId);
+            // var userName = user.UserName;
+            var userPhonenumber = user.PhoneNumber;
+
+			if (patientList == null)
             {
-                UserId = resId,
-                Name = patientDto.Name,
-                Gender = patientDto.Gender,
-                Age = patientDto.Age,
-                
-                PhoneNumber = patientDto.PhoneNumber,
-                //NutritionistId = patientDto.NutritionistId,
+				var patient = new Patient()
+				{
+					UserId = userId,
+					Name = patientDto.Name,
+					Gender = patientDto.Gender,
+					Age = patientDto.Age,
 
-                imgURl = patientDto.imgURl
-            };
-            await _context.Patients.AddAsync(patient);
-            await _context.SaveChangesAsync();
+					PhoneNumber = userPhonenumber,
+					//NutritionistId = patientDto.NutritionistId,
 
-            return patient;
+					imgURl = imageUrl
+				};
+				await _context.Patients.AddAsync(patient);
+				await _context.SaveChangesAsync();
+
+				return patient;
+			}
+            return null;
+		}
+
+        public async Task<string> UploadFile(IFormFile file)
+        {
+            var URL = "https://ecommerceprojectimages.blob.core.windows.net/images/noimage.png";
+            if (file != null)
+            {
+                BlobContainerClient blobContainerClient =
+                    new BlobContainerClient(_configuration.GetConnectionString("StorageAccount"), "images");
+
+                await blobContainerClient.CreateIfNotExistsAsync();
+
+                BlobClient blobClient = blobContainerClient.GetBlobClient(file.FileName);
+
+                using var fileStream = file.OpenReadStream();
+
+                BlobUploadOptions blobUploadOptions = new BlobUploadOptions()
+                {
+                    HttpHeaders = new BlobHttpHeaders { ContentType = file.ContentType }
+                };
+
+                if (!blobClient.Exists())
+                {
+                    await blobClient.UploadAsync(fileStream, blobUploadOptions);
+                }
+                URL = blobClient.Uri.ToString();
+            }
+            return URL;
         }
+
 
         /// <summary>
         /// Updates the information of a specific patient.
@@ -185,10 +239,12 @@ namespace fit_and_fuel.Services
         /// <param name="UserId">The ID of the patient.</param>
         /// <returns>The DietPlan object associated with the patient's nutritionist.</returns>
 
-        public async Task<DietPlan> GetMyDietPlan(int UserId)
+        public async Task<DietPlan> GetMyDietPlan()
         {
-            var dietPlan = await _context.Patients
-       .Where(n => n.UserId == UserId)
+			string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+			var dietPlan = await _context.Patients
+       .Where(n => n.UserId == userId)
        .Include(d => d.dietPlan)
        .ThenInclude(d=>d.days)
        .ThenInclude(d => d.meals)
@@ -198,9 +254,9 @@ namespace fit_and_fuel.Services
 
             return dietPlan;
         }
-        public async Task<DietPlanDtoView> GetMyDietPlanDto(int UserId)
+        public async Task<DietPlanDtoView> GetMyDietPlanDto(string UserId)
         {
-            var dietplan = await GetMyDietPlan(UserId);
+            var dietplan = await GetMyDietPlan();
             if (dietplan != null)
             {
                 var dietplanToReturn = new DietPlanDtoView
@@ -241,9 +297,11 @@ namespace fit_and_fuel.Services
         /// <returns>A list of Meal objects representing the patient's meals for the current day.</returns>
 
 
-        public async Task<List<Meal>> GetMyMealsForToday(int UserId)
+        public async Task<List<Meal>> GetMyMealsForToday()
         {
-            var myDietPlan = await GetMyDietPlan(UserId);
+            string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var myDietPlan = await GetMyDietPlan();
 
             // Find the meals for the current day and flatten the structure
             var mealsForToday = myDietPlan.days
@@ -272,11 +330,13 @@ namespace fit_and_fuel.Services
         /// <param name="UserId">The ID of the patient.</param>
         /// <param name="MealId">The ID of the meal to mark as completed.</param>
 
-        public async Task MealIsCompletion(int UserId, int MealId)
+        public async Task MealIsCompletion( int MealId)
         {
-            var mealToday = await GetMyMealsForToday(UserId);
+            string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var mealToday = await GetMyMealsForToday();
             var mealToUpdate = mealToday.FirstOrDefault(m => m.Id == MealId);
-            var patient = await _context.Patients.Where(p=>p.UserId==UserId).FirstOrDefaultAsync();
+            var patient = await _context.Patients.Where(p=>p.UserId== userId).FirstOrDefaultAsync();
             if (mealToUpdate == null)
             {
                 throw new Exception("this meal is not Today");
@@ -289,11 +349,11 @@ namespace fit_and_fuel.Services
                 meal.Completion = true;
                 var nut = await _context.Patients
                     .Include(p=>p.nutritionist)
-                    .FirstOrDefaultAsync(p => p.UserId == UserId);
+                    .FirstOrDefaultAsync(p => p.UserId == userId);
               
                 var content = new NotificationDto()
                 {
-                    Content = $"Your patient {patient.Name}  with UserId: {UserId}  take meal {meal.Name} with id {meal.Id} "
+                    Content = $"Your patient {patient.Name}  with UserId: {userId}  take meal {meal.Name} with id {meal.Id} "
                 };
 
                 await _notificationService.SendNotification(nut.nutritionist.UserId.ToString(), content);
@@ -302,6 +362,61 @@ namespace fit_and_fuel.Services
             }
         }
 
-        
+        public Task<Patient> GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PatientDtoView> GetByIdDto(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task SelectNut(int NutId, int UserId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<DietPlan> GetMyDietPlan(int UserId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<DietPlanDtoView> GetMyDietPlanDto(int UserId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Meal>> GetMyMealsForToday(int UserId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task MealIsCompletion(int UserId, int MealId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Patient> Post(int resId, PatientDto patientDto)
+        {
+            throw new NotImplementedException();
+        }
+
+		public async Task<int> Count()
+		{
+			return await _context.Patients.CountAsync();
+		}
+
+        public async Task<Patient> GetMyProfile()
+        {
+            string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var myprofile = await _context.Patients
+                .Where(p => p.UserId == userId)
+                .Include(p=>p.nutritionist)
+                .FirstOrDefaultAsync();
+            return myprofile;
+
+        }
     }
 }

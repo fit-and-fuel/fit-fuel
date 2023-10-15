@@ -10,9 +10,12 @@ namespace fit_and_fuel.Interfaces
         Task<DietPlan> GetById(int id);
         Task<DietPlanDtoView> GetByIdDto(int id);
         Task<DietPlan> Post(DietPlanDto dietPlan);
+        Task<DietPlan> PostDietPlanWithDay(DietPlanDto dietPlan);
+
         Task<DietPlanDtoView> PostDto(DietPlanDto dietPlan);
         Task PostFullDietPlan(DietPlanDaysDto dietPlanDays,int UserId);
         Task Put(int id, DietPlanDto dietPlan);
         Task Delete(int id);
-    }
+		Task<int> Count();
+	}
 }

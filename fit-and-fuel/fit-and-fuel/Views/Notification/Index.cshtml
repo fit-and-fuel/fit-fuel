@@ -1,0 +1,39 @@
+﻿@model List<Notification>
+@{
+    Layout = "~/Views/Shared/_PageLayout.cshtml";
+}
+
+@functions {
+    // Function to format text with links as HTML anchor tags
+    string FormatContentWithLinks(string content)
+    {
+        string pattern = @"(https?://\S+)|(www\.\S+)";
+        var regex = new System.Text.RegularExpressions.Regex(pattern);
+
+        return regex.Replace(content, match =>
+        {
+            string url = match.Value;
+            return $"<a href='{url}' target='_blank'>Register</a>";
+        });
+    }
+}
+
+<div class="container mt-5">
+    <table class="table table-bordered">
+        <thead class="thead-light">
+            <tr>
+                <th>Content</th>
+                <th>Timestamp</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var not in Model)
+            {
+                <tr>
+                    <td>@Html.Raw(FormatContentWithLinks(not.Content))</td>
+                    <td>@not.Timestamp</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

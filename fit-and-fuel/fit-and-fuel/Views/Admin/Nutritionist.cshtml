@@ -1,0 +1,77 @@
+﻿@model List<Nutritionist>
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-body p-0">
+                    <div class="table-responsive active-projects style-1">
+                        <div class="tbl-caption">
+                            <h4 class="heading mb-0">Nutritionists</h4>
+
+                        </div>
+                        <div id="empoloyees-tblwrapper_wrapper" class="dataTables_wrapper no-footer">
+                            <div class="dt-buttons">
+                            </div>
+                            <table id="empoloyees-tblwrapper" class="table dataTable no-footer" role="grid" aria-describedby="empoloyees-tblwrapper_info">
+                                <thead>
+                                    <tr role="row">
+                                        <th  tabindex="0" aria-controls="empoloyees-tblwrapper" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Employee ID: activate to sort column descending" style="width: 155.641px;"> ID</th>
+                                        <th  tabindex="0" aria-controls="empoloyees-tblwrapper" rowspan="1" colspan="1"  style="width: 265.266px;"> Name</th>
+                                        <th  tabindex="0" aria-controls="empoloyees-tblwrapper" rowspan="1" colspan="1"  style="width: 199.391px;">gender</th>
+                                        <th  tabindex="0" aria-controls="empoloyees-tblwrapper" rowspan="1" colspan="1"  style="width: 182.688px;">Age</th>
+                                        <th  tabindex="0" aria-controls="empoloyees-tblwrapper" rowspan="1" colspan="1"  style="width: 207.828px;">Contact Number</th>
+                                        <th  tabindex="0" aria-controls="empoloyees-tblwrapper" rowspan="1" colspan="1"  style="width: 115.203px;">Cv Link</th>
+                                        <th tabindex="0" aria-controls="empoloyees-tblwrapper" rowspan="1" colspan="1"  style="width: 126.312px;">Rating</th>
+                                        <th  tabindex="0" aria-controls="empoloyees-tblwrapper" rowspan="1" colspan="1"  style="width: 125.672px;">Status</th>
+                                    </tr>
+                                </thead>
+                                    <tbody>
+                                    @for (int i = 0; i < Model.Count; i++)
+                                    {
+                                        <tr role="row" class="@(i % 2 == 0 ? "odd" : "even")">
+                                            <td class="sorting_1"><span>@Model[i].Id</span></td>
+                                            <td>
+                                                <div class="products">
+                                                    <img src="~/img/pic2.jpg" class="avatar avatar-md" alt="">
+                                                    <div>
+                                                        <h6>@Model[i].Name</h6>
+                                                        <span>@Model[i].UserId</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td><span>@Model[i].Gender</span></td>
+                                            <td><span class="text-primary">@Model[i].Age</span></td>
+                                            <td>
+                                                <span>@Model[i].PhoneNumber</span>
+                                            </td>
+                                            <td>
+                                                <span>@Model[i].CvURl</span>
+                                            </td>
+                                            <td>
+                                                <i class="fa-sharp fa-solid fa-star text-orange"></i>
+                                                <i class="fa-sharp fa-solid fa-star text-orange"></i>
+                                                <i class="fa-solid fa-star-half-stroke text-orange"></i>
+                                                <i class="fa-solid fa-star-half-stroke text-orange"></i>
+                                                <span>4.0</span>
+                                            </td>
+                                            <td>
+                                                <span class="badge badge-success light border-0">Active</span>
+                                            </td>
+                                        </tr>
+                                    }
+
+
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

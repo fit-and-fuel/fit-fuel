@@ -7,20 +7,24 @@ using Microsoft.EntityFrameworkCore;
 
 //using NuGet.Protocol.Plugins;
 using System;
+using System.Security.Claims;
 
 namespace fit_and_fuel.Services
 {
     public class AppoitmentService : IAppoitments
     {
         private readonly AppDbContext _context;
-      
+
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
         private INotification _notificationService;
 
-        public AppoitmentService(AppDbContext context, INotification notificationService)
+        public AppoitmentService(AppDbContext context, INotification notificationService, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
+            _httpContextAccessor = httpContextAccessor;
 
-           
+
             _notificationService = notificationService;
         }
         /// <summary>
@@ -76,10 +80,11 @@ namespace fit_and_fuel.Services
         /// <param name="id">The ID of the appointment to confirm.</param>
         
 
-        public async Task AppoitmentConfirmed(int UserId, int id)
+        public async Task AppoitmentConfirmed(int id)
         {
+            string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var appoitments = await _context.Appoitments
-                .Where(a => a.nutritionist.UserId == UserId).ToListAsync();
+                .Where(a => a.nutritionist.UserId == userId).ToListAsync();
             var  appoitment=appoitments.Where(a => a.Id == id).FirstOrDefault();
             if (appoitment != null) 
             { 
@@ -109,10 +114,13 @@ namespace fit_and_fuel.Services
         /// <param name="id">The ID of the appointment to mark as completed.</param>
         /// <returns>True if the appointment was marked as completed, otherwise false.</returns>
         
-        public async Task<bool> AppoitmentCompleted(int UserId, int id)
+        public async Task<bool> AppoitmentCompleted(int id)
         {
+            string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+
             var appoitments = await _context.Appoitments
-                .Where(a => a.nutritionist.UserId == UserId).ToListAsync();
+                .Where(a => a.nutritionist.UserId == userId).ToListAsync();
             
             var appoitment = appoitments.Where(a => a.Id == id).FirstOrDefault();
 
@@ -167,10 +175,11 @@ namespace fit_and_fuel.Services
         /// <param name="id">The ID of the user whose appointments are to be retrieved.</param>
         /// <returns>A list of appointments associated with the user.</returns>
 
-        public async Task<List<ViewAppointment>> GetMyById(int id)
+        public async Task<List<ViewAppointment>> GetMyById()
 
         {
-            var appoitments = await _context.Appoitments.Where(a => a.nutritionist.UserId == id).Include(x => x.Patient).Include(d => d.nutritionist).Select(a => new ViewAppointment
+            string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var appoitments = await _context.Appoitments.Where(a => a.nutritionist.UserId == userId).Include(x => x.Patient).Include(d => d.nutritionist).Select(a => new ViewAppointment
             {
                 Id = a.Id,
                 Time=a.Time,
@@ -205,10 +214,11 @@ namespace fit_and_fuel.Services
         /// <param name="id">The ID of the patient user whose appointments are to be retrieved.</param>
         /// <returns>A list of appointments associated with the patient user.</returns>
 
-        public async Task<List<ViewAppointment>> GetMyByIdForPatient(int id)
+        public async Task<List<ViewAppointment>> GetMyByIdForPatient(string id)
 
         {
-            var appoitments = await _context.Appoitments.Where(a => a.Patient.UserId == id).Include(x => x.Patient).Include(d => d.nutritionist).Select(a => new ViewAppointment
+            var appoitments = await _context.Appoitments
+                .Where(a => a.Patient.UserId == id).Include(x => x.Patient).Include(d => d.nutritionist).Select(a => new ViewAppointment
             {
                 Id = a.Id,
                 Time =a.Time,
@@ -242,7 +252,7 @@ namespace fit_and_fuel.Services
         /// <param name="NutritionistId">The ID of the nutritionist associated with the appointment.</param>
         /// <returns>The newly created appointment.</returns>
 
-        public async Task<Appoitment> Post(int UserId, AppoitmentDto appoitmentDto, int NutritionistId)
+        public async Task<Appoitment> Post(string UserId, AppoitmentDto appoitmentDto, int NutritionistId)
         {
             var patinet = await _context.Patients
                 .Include(p=>p.nutritionist)
@@ -280,16 +290,21 @@ namespace fit_and_fuel.Services
         /// <param name="appoitmentDto">The details of the selected appointment slot.</param>
         /// <returns>The newly selected appointment.</returns>
 
-        public async Task<Appoitment> SelectAppoitment(int UserId, AppoitmentWithTimeDto appoitmentDto) 
+        public async Task<Appoitment> SelectAppoitment( int timeId) 
         {
+            string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var patinet = await _context.Patients
                 .Include(p => p.nutritionist)
-                .Where(p => p.UserId == UserId).FirstOrDefaultAsync();
+                .Where(p => p.UserId == userId).FirstOrDefaultAsync();
          
             var timeSelected = await _context.AvailableTime
-      .Where(e => e.Id == appoitmentDto.TimeIndex)
+      .Where(e => e.Id == timeId)
       .Select(e => new { e.DayOfWeek, e.Time })
       .FirstOrDefaultAsync();
+
+            var timeS= await _context.AvailableTime
+     .Where(e => e.Id == timeId)
+     .FirstOrDefaultAsync();
 
             var currentTime = DateTime.Now.Date; 
 
@@ -303,13 +318,13 @@ namespace fit_and_fuel.Services
             var appointmentDateTime = currentTime.AddDays(daysUntilSelectedDay).Add(timeSelected.Time);
 
             var appoitment = new Appoitment();
-            appoitment.Status = appoitmentDto.Status;
+            appoitment.Status = "Pending";
             
             appoitment.PatientId = patinet.Id;
             appoitment.Time = appointmentDateTime; // Assign the calculated appointment date and time
-            if (patinet.NutritionistId == null || patinet.NutritionistId == appoitmentDto.NutritionistId)
+            if (patinet.NutritionistId == null || patinet.NutritionistId == timeS.NutritionistId)
             {
-                appoitment.NutritionistId = appoitmentDto.NutritionistId;
+                appoitment.NutritionistId = timeS.NutritionistId;
             }
             else
             {
@@ -337,5 +352,20 @@ namespace fit_and_fuel.Services
            
             await _context.SaveChangesAsync();
         }
-    }
+
+        public Task<List<ViewAppointment>> GetMyById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<ViewAppointment>> GetMyByIdForPatient(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+		public async Task<int> Count()
+		{
+			return await _context.Appoitments.CountAsync();
+		}
+	}
 }

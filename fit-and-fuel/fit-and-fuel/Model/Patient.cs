@@ -3,8 +3,8 @@
     public class Patient
     {
         public int Id { get; set; }
-
-        public int? UserId { get; set; }
+        
+        public string? UserId { get; set; }
         public string Name { get; set; }
 
         public string Gender { get; set; }
@@ -23,8 +23,6 @@
         public Nutritionist? nutritionist { get; set; }
 
         public DietPlan dietPlan { get; set; }
-
-        
 
     }
 }

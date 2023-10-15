@@ -63,12 +63,12 @@ namespace fit_and_fuel.Data
 
             modelBuilder.Entity<Nutritionist>().HasData(
                 new Nutritionist { Id = 1, Name = "John Doe", Gender = "Male", Age = 30, PhoneNumber = "123-456-7890", CvURl = "cv_url_1", imgURl = "img_url_1",  },
-                new Nutritionist { Id = 2, UserId = 2, Name = "Jane Smith", Gender = "Female", Age = 28, PhoneNumber = "987-654-3210", CvURl = "cv_url_2", imgURl = "img_url_2",  }
+                new Nutritionist { Id = 2, UserId = "2", Name = "Jane Smith", Gender = "Female", Age = 28, PhoneNumber = "987-654-3210", CvURl = "cv_url_2", imgURl = "img_url_2",  }
             );
 
 
             modelBuilder.Entity<Patient>().HasData(
-                new Patient { Id = 1, UserId = 3, Name = "Alice Johnson", Gender = "Female", Age = 25, PhoneNumber = "555-123-4567", NutritionistId = 1, imgURl = "img_url_1" },
+                new Patient { Id = 1, UserId = "3", Name = "Alice Johnson", Gender = "Female", Age = 25, PhoneNumber = "555-123-4567", NutritionistId = 1, imgURl = "img_url_1" },
                 new Patient { Id = 2, Name = "Bob Williams", Gender = "Male", PhoneNumber = "555-987-6543", NutritionistId = 2, imgURl = "img_url_1" }
             );
 
@@ -105,7 +105,10 @@ namespace fit_and_fuel.Data
 
             modelBuilder.Entity<Meal>().HasData(
                 new Meal { Id = 1, Name = "Breakfast", Description = "Oatmeal with fruits", Calories = 300, Completion = false, DayId = 1 },
-                new Meal { Id = 2, Name = "Lunch", Description = "Grilled chicken salad", Calories = 500, Completion = false, DayId = 1 }
+                new Meal { Id = 2, Name = "Lunch", Description = "Grilled chicken salad", Calories = 500, Completion = false, DayId = 1 },
+                new Meal { Id = 3, Name = "Lunch", Description = "Grilled meat salad", Calories = 500, Completion = false, DayId = 2 },
+                    new Meal { Id = 4, Name = "BreakFast", Description = "egss and milk", Calories =200, Completion = false, DayId = 2 }
+                
             );
 
 

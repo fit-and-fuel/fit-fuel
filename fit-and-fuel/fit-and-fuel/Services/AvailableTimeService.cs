@@ -3,7 +3,9 @@ using fit_and_fuel.DTOs;
 using fit_and_fuel.DTOs.View.ViewAvilableTme;
 using fit_and_fuel.Interfaces;
 using fit_and_fuel.Model;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace fit_and_fuel.Services
 {
@@ -11,10 +13,12 @@ namespace fit_and_fuel.Services
     {
 
         private readonly AppDbContext _context;
+		private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public AvailableTimeService(AppDbContext context)
+		public AvailableTimeService(AppDbContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         /// <summary>
@@ -23,7 +27,7 @@ namespace fit_and_fuel.Services
         /// <param name="UserId">The ID of the nutritionist user.</param>
         /// <param name="id">The ID of the available time slot to delete.</param>
 
-        public async Task Delete(int UserId, int id)
+        public async Task Delete(string UserId, int id)
         {
             var nut = await _context.Nutritionists
                 .Include(n=>n.AvaliableTimes)
@@ -44,24 +48,30 @@ namespace fit_and_fuel.Services
 
         }
 
+        public Task Delete(int UserId, int id)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Retrieves a list of all available time slots for a nutritionist.
         /// </summary>
         /// <param name="NutritionistId">The ID of the nutritionist.</param>
         /// <returns>A list of available time slots.</returns>
 
-        public async Task<List<AvailableTime>> GetAll(int NutritionistId)
+        public async Task<List<AvailableTime>> GetAll()
         {
-         
-            var availableTimes = await _context.AvailableTime
-                .Where(a=>a.NutritionistId == NutritionistId)
+			string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+			var availableTimes = await _context.AvailableTime
+                .Include(a => a.nutritionist)
+                .Where(a=>a.nutritionist.UserId == userId)
                 .ToListAsync();
             return availableTimes;
         }
 
         public async Task<List<ViewAvilableTime>> GetAllDto(int NutritionistId)
         {
-            var AvilableTimes = await GetAll(NutritionistId);
+            var AvilableTimes = await GetAll();
             var AvilableTimeDto = AvilableTimes.Select(x => new ViewAvilableTime
             {
                 Id = x.Id,
@@ -81,9 +91,13 @@ namespace fit_and_fuel.Services
         
 
 
-        public async Task Post(int UserId,AvailableTimeDto availableTimeDto)
+        public async Task Post(AvailableTimeDto availableTimeDto)
         {
-            var nut = await _context.Nutritionists.FirstOrDefaultAsync(x => x.UserId == UserId);
+			string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+           
+			
+            
+            var nut = await _context.Nutritionists.FirstOrDefaultAsync(x => x.UserId == userId);
             var avaiTime = new AvailableTime()
             {
                 NutritionistId = nut.Id,
@@ -94,6 +108,11 @@ namespace fit_and_fuel.Services
             await _context.SaveChangesAsync();
          }
 
+        public Task Post(int UserId, AvailableTimeDto availableTimeDto)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Updates an existing available time slot for a nutritionist.
         /// </summary>
@@ -101,7 +120,7 @@ namespace fit_and_fuel.Services
         /// <param name="availableTimeDto">The updated details of the available time slot.</param>
         /// <param name="id">The ID of the available time slot to update.</param>
 
-        public async Task Put(int UserId, AvailableTimeDto availableTimeDto, int id)
+        public async Task Put(string UserId, AvailableTimeDto availableTimeDto, int id)
         {
             var nut = await _context.Nutritionists
                .Include(n => n.AvaliableTimes)
@@ -123,6 +142,11 @@ namespace fit_and_fuel.Services
             {
                 throw new Exception("You dont have this Time");
             }
+        }
+
+        public Task Put(int UserId, AvailableTimeDto availableTimeDto, int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 //using Microsoft.CodeAnalysis.Elfie.Serialization;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace fit_and_fuel.Services
 {
@@ -14,11 +15,13 @@ namespace fit_and_fuel.Services
     {
         private readonly AppDbContext _dbContext;
         private readonly IHubContext<ChatHub> _hubContext;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ChatMessageService(AppDbContext dbContext, IHubContext<ChatHub> hubContext)
+        public ChatMessageService(AppDbContext dbContext, IHubContext<ChatHub> hubContext, IHttpContextAccessor httpContextAccessor)
         {
             _dbContext = dbContext;
             _hubContext = hubContext;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         /// <summary>
@@ -27,11 +30,12 @@ namespace fit_and_fuel.Services
         /// <param name="Id">The ID of the user receiving the messages.</param>
         /// <returns>A list of chat messages received by the user.</returns>
 
-        public async Task<List<ChatMessage>> ReceiveMessages(string Id)
+        public async Task<List<ChatMessage>> ReceiveMessages()
         {
-           
+            string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
             var messages =await _dbContext.ChatMessages
-               .Where(msg => msg.ReceiverId == Id)
+               .Where(msg => msg.ReceiverId == userId)
                .OrderBy(msg => msg.Timestamp)
                .ToListAsync();
             return messages;
@@ -43,8 +47,10 @@ namespace fit_and_fuel.Services
         /// <param name="userId">The ID of the sender user.</param>
         /// <param name="messageDto">The details of the message to send.</param>
 
-        public async Task SendMessage(string userId, ChatMessageDto messageDto)
+        public async Task SendMessage( ChatMessageDto messageDto)
         {
+            string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
             var message = new ChatMessage();
             // Set the sender's user ID
             message.SenderId = userId;

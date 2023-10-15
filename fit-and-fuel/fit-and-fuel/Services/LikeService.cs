@@ -24,7 +24,7 @@ namespace fit_and_fuel.Services
         /// </summary>
         /// <param name="likeDto">The DTO containing like information.</param>
 
-         public async Task addLike(LikeDto likeDto, int UserId)
+         public async Task addLike(LikeDto likeDto, string UserId)
 
         {
             var patient = await _context.Patients.Where(p => p.UserId == UserId).FirstOrDefaultAsync();
@@ -38,13 +38,18 @@ namespace fit_and_fuel.Services
             await _context.SaveChangesAsync();
         }
 
+        public Task addLike(LikeDto likeDto, int UserId)
+        {
+            throw new NotImplementedException();
+        }
+
 
         /// <summary>
         /// Deletes a like based on its ID.
         /// </summary>
         /// <param name="id">The ID of the like to be deleted.</param>
 
-         public async Task deleteLike(int id, int UserId)
+        public async Task deleteLike(int id, string UserId)
 
         {
             var patient = await _context.Patients.Where(p => p.UserId == UserId).FirstOrDefaultAsync();
@@ -56,13 +61,18 @@ namespace fit_and_fuel.Services
             await _context.SaveChangesAsync();
         }
 
+        public Task deleteLike(int id, int UserId)
+        {
+            throw new NotImplementedException();
+        }
+
 
         /// <summary>
         /// Retrieves a list of all likes.
         /// </summary>
         /// <returns>A list of all likes.</returns>
 
-       public async Task<List<Like>> getAll(int UserId)
+        public async Task<List<Like>> getAll(string UserId)
 
         {
             var patient = await _context.Patients.Where(p=>p.UserId == UserId).FirstOrDefaultAsync();
@@ -72,7 +82,12 @@ namespace fit_and_fuel.Services
             return likes;
         }
 
-        public async Task<List<LikeDtoView>> getAllDto(int UserId)
+        public Task<List<Like>> getAll(int UserId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<List<LikeDtoView>> getAllDto(string UserId)
         {
             var likes = await getAll(UserId);
             var likesToReturn = likes.Select(like => new LikeDtoView
@@ -82,6 +97,11 @@ namespace fit_and_fuel.Services
                 patientId = like.patientId,
             }).ToList();
             return likesToReturn;
+        }
+
+        public Task<List<LikeDtoView>> getAllDto(int UserId)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -115,14 +135,19 @@ namespace fit_and_fuel.Services
         /// <param name="userId">The ID of the user.</param>
         /// <returns>A list of likes associated with the user.</returns>
 
-        public async Task<List<Like>> GetMyLikes(int userId)
+        public async Task<List<Like>> GetMyLikes(string userId)
         {
             var patient = await _context.Patients.Where(p => p.UserId == userId).FirstOrDefaultAsync();
             var likes = await _context.Like.Where(l => l.patientId == patient.Id).ToListAsync();
             return likes;
         }
 
-        public async Task<List<LikeDtoView>> GetMyLikesDto(int userId)
+        public Task<List<Like>> GetMyLikes(int userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<List<LikeDtoView>> GetMyLikesDto(string userId)
         {
             var likes = await GetMyLikes(userId);
             var likesToReturn = likes.Select(like => new LikeDtoView
@@ -132,6 +157,11 @@ namespace fit_and_fuel.Services
                 patientId = like.patientId,
             }).ToList();
             return likesToReturn;
+        }
+
+        public Task<List<LikeDtoView>> GetMyLikesDto(int userId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

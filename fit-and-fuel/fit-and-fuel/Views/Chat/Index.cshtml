@@ -1,0 +1,30 @@
+﻿@model List<ChatMessage>
+@{
+}
+
+<div id="discussion">
+    @if (Model != null)
+    {
+        foreach (var message in Model)
+        {
+            <p>@message.Content</p>
+        }
+    }
+</div>
+
+
+<div>
+    <div>
+
+        <textarea id="txtMessage"></textarea><br />
+        <button id="btnSend">Send</button>
+    </div>
+    <div>
+        <h3>Message list:</h3>
+        <ul id="list"></ul>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/site.js"></script>

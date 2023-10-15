@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Patient>
+@{
+	Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xl-12">
+			<div class="card">
+				<div class="card-body p-0">
+					<div class="table-responsive active-projects manage-client">
+						<div class="tbl-caption">
+							<h4 class="heading mb-0">Manage Client</h4>
+						</div>
+						<div id="reports-tbl_wrapper" class="dataTables_wrapper no-footer">
+							<div class="dt-buttons"><button class="dt-button buttons-excel buttons-html5 btn btn-sm border-0" tabindex="0" aria-controls="reports-tbl" type="button"><span><i class="fa-solid fa-file-excel"></i> Export Report</span></button> </div><table id="reports-tbl" class="table dataTable no-footer" role="grid" aria-describedby="reports-tbl_info">
+								<thead>
+									<tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="reports-tbl" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 375.125px;">Name</th><th class="sorting" tabindex="0" aria-controls="reports-tbl" rowspan="1" colspan="1" aria-label="User Name: activate to sort column ascending" style="width: 222.922px;">User Name</th><th class="sorting" tabindex="0" aria-controls="reports-tbl" rowspan="1" colspan="1" aria-label="Contact: activate to sort column ascending" style="width: 277.969px;">Contact</th><th class="sorting" tabindex="0" aria-controls="reports-tbl" rowspan="1" colspan="1" aria-label="Gender: activate to sort column ascending" style="width: 173.031px;">Gender</th><th class="sorting" tabindex="0" aria-controls="reports-tbl" rowspan="1" colspan="1" aria-label="Location: activate to sort column ascending" style="width: 188.5px;">Location</th><th class="sorting" tabindex="0" aria-controls="reports-tbl" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="width: 204.453px;">Status</th></tr>
+								</thead>
+								<tbody>
+
+
+
+
+
+
+
+
+
+
+
+									@foreach(var patient in Model)
+									{
+									<tr role="row" class="odd">
+										<td class="sorting_1">
+											<div class="products">
+												<img src=@patient.imgURl class="avatar avatar-md" alt="">
+												<div>
+													<h6>John Antony</h6>
+													<span>Web Designer</span>
+												</div>
+											</div>
+										</td>
+										<td><span class="text-primary">@patient.Name</span></td>
+										<td>
+											<span>@patient.PhoneNumber</span>
+										</td>
+										<td>
+											<span>@patient.Age</span>
+										</td>
+										<td>
+												<span>@patient.Gender</span>
+										</td>
+										<td>
+											<span class="badge badge-danger light border-0">Inactive</span>
+										</td>
+									</tr>
+									}
+								</tbody>
+
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

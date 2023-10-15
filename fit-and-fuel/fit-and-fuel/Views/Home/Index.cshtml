@@ -1,8 +1,340 @@
-﻿@{
+@model HomeViewModel
+
+@{
     ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+
+<section class="elementor-section elementor-top-section elementor-element elementor-element-ae784e8 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="ae784e8" data-element_type="section">
+    <div class="elementor-container elementor-column-gap-default">
+        <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-9a3533e" data-id="9a3533e" data-element_type="column">
+            <div class="elementor-widget-wrap elementor-element-populated">
+                <div class="elementor-element elementor-element-1b2f897 elementor-widget elementor-widget-pt-portfolio" data-id="1b2f897" data-element_type="widget" data-settings="{&quot;cols_md&quot;:2,&quot;cols_lg&quot;:4,&quot;navigation&quot;:&quot;load_more&quot;,&quot;type&quot;:&quot;grid&quot;}" data-widget_type="pt-portfolio.default">
+                    <div class="elementor-widget-container">
+                        <div class="elementor-element elementor-element-ec6c0ff elementor-widget elementor-widget-pt-heading" data-id="ec6c0ff" data-element_type="widget" data-settings="{&quot;decor&quot;:[]}" data-widget_type="pt-heading.default">
+                            <div class="elementor-widget-container">
+
+                                <div class="pt-heading">
+                                    <h2 class="pt-heading-title h2">
+                                        Our best Nutritionists
+                                    </h2>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="portfolio-block filter-block portfolio-type-grid popup-gallery orientation-default with-filter" data-popup-settings="{&quot;popupTitle&quot;:false,&quot;popupDesc&quot;:false}">
+
+
+                            <div class="row isotope load-wrap" style="position: relative; height: 1082px;">
+                                <div class="grid-sizer col-1"></div>
+
+                                @foreach (var n in Model.nutritionists)
+                                {
+
+                                    <article class="portfolio-item istp-item col-md-6 col-lg-3 category-30 popup-item">
+                                        <div class="wrap">
+                                            <div class="pt-team-member">
+
+
+                                                <div class="pt-team-member-image">
+
+@*                                                     <img loading="lazy" width="800" height="900" src="~/img/Nutritionist-1.jpg" class="attachment-full size-full" alt="" decoding="async" sizes="(max-width: 800px) 100vw, 800px">	
+ *@
+
+                                                    <img src="@n.imgURl" class="card-img-top img-fixed-height" alt="@n.Name">
+
+
+                                                    <div class="social-links">
+                                                        <a asp-controller="Nutritionist" asp-action="NutDetails" asp-route-id="@n.Id">
+                                                            View Details
+                                                        </a>
+
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="pt-team-member-title">
+                                                    @n.Name
+                                                </div>
+
+
+                                                <div class="pt-team-member-subtitle">
+                                                    @n.Age
+                                                </div>
+
+
+                                            </div>
+
+                                        </div>
+                                    </article>
+
+
+                                }
+
+                            </div>
+
+                            <div class="load-items-area"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+
+
+
+
+<section class="elementor-section elementor-top-section elementor-element elementor-element-74512df elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="74512df" data-element_type="section">
+    <div class="elementor-container elementor-column-gap-extended">
+        <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-7994f4c" data-id="7994f4c" data-element_type="column">
+            <div class="elementor-widget-wrap elementor-element-populated">
+                <div class="elementor-element elementor-element-5767727 elementor-widget elementor-widget-pt-heading" data-id="5767727" data-element_type="widget" data-settings="{&quot;decor&quot;:[]}" data-widget_type="pt-heading.default">
+                    <div class="elementor-widget-container">
+
+                        <div class="pt-heading">
+                            <h2 class="pt-heading-title h2">
+                                Blog &amp; news
+                            </h2>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="elementor-element elementor-element-8ea4d90 elementor-widget elementor-widget-pt-blog" data-id="8ea4d90" data-element_type="widget" data-settings="{&quot;type&quot;:&quot;modern&quot;,&quot;navigation&quot;:&quot;none&quot;,&quot;arrows_position&quot;:&quot;default&quot;}" data-widget_type="pt-blog.default">
+                    <div class="elementor-widget-container">
+
+                        <div class="blog-block filter-block">
+                            <div class="blog-area blog-items blog-type-modern blog-style- isotope">
+                                <div class="grid-sizer col-1"></div>
+                                @foreach (var post in Model.posts)
+                                {
+                                    <article class="blog-item istp-item category-1">
+                                        <div class="wrap">
+
+                                            <div class="entry-thumb">
+
+                                                <a asp-controller="Home" asp-action="Post" asp-route-id="@post.Id" >
+                                                    <img loading="lazy" width="1024" height="512" src=@post.ImageUrl class="attachment-large size-large" alt="" decoding="async" sizes="(max-width: 1024px) 100vw, 1024px">
+
+                                                </a>
+                                            </div>
+
+
+                                            <div class="entry-caption content">
+
+                                                <h5 class="entry-title">
+                                                    <a asp-controller="Home" asp-action="Post" asp-route-id="@post.Id">@post.Title</a>
+                                                </h5>
+                                                <p class="entry-excerpt">
+
+                                                    @post.Description
+                                                </p>
+                                                <div class="entry-more">
+                                                    <a asp-controller="Home" asp-action="AllPost" class="readmore-link pt-button textual">
+                                                        <span>Read More</span>
+                                                        <i class="pticon-arrow"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </article>
+
+
+
+                                }
+
+
+                            </div>
+                            <div class="load-items-area"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="elementor-section elementor-top-section elementor-element elementor-element-a0223fe elementor-section-content-middle elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="dff02d0" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;shape_divider_bottom&quot;:&quot;tilt&quot;}">
+	<div class="elementor-shape elementor-shape-top" data-negative="false">
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none">
+			<path class="elementor-shape-fill" d="M0,6V0h1000v100L0,6z"></path>
+		</svg>
+	</div>
+	<div class="elementor-container elementor-column-gap-default">
+		<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-e2146e2" data-id="e2146e2" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated e-swiper-container">
+				<div class="elementor-element elementor-element-7941894 elementor-widget elementor-widget-pt-heading" data-id="7941894" data-element_type="widget" data-settings="{&quot;decor&quot;:[]}" data-widget_type="pt-heading.default">
+					<div class="elementor-widget-container">
+
+						<div class="pt-heading">
+							<h2 class="pt-heading-title h2">
+								Testimonials from clients
+							</h2>
+						</div>
+
+					</div>
+				</div>
+				<div class="elementor-element elementor-element-e1c8d4c elementor-widget elementor-widget-text-editor" data-id="e1c8d4c" data-element_type="widget" data-widget_type="text-editor.default">
+					<div class="elementor-widget-container">
+						<p>Convallis ullamcorper velit, varius maecenas viverra purus nunc. In suscipit aliquet sociis nibh quis. Neque pellentesque habitant aliquet venenatis at est.</p>
+					</div>
+				</div>
+				<div class="elementor-element elementor-element-30e48a9 elementor-widget elementor-widget-pt-testimonials e-widget-swiper" data-id="30e48a9" data-element_type="widget" data-settings="{&quot;style&quot;:&quot;style-2&quot;,&quot;cols&quot;:1.6599999999999999,&quot;layout&quot;:&quot;carousel&quot;,&quot;arrows_position&quot;:&quot;together&quot;,&quot;cols_tablet&quot;:1.5,&quot;cols_mobile&quot;:1,&quot;navigation_style&quot;:&quot;style-3&quot;}" data-widget_type="pt-testimonials.default">
+					<div class="elementor-widget-container">
+
+						<div class="pt-testimonials layout-carousel style-2 text-align- arrows-together arrows-align-bottom-right">
+							<div class="swiper-container swiper-container-initialized swiper-container-horizontal">
+								<div class="swiper-wrapper" style="transform: translate3d(-746.988px, 0px, 0px); transition-duration: 0ms;">
+
+
+
+									<div class="swiper-slide swiper-slide-prev" style="width: 716.988px; margin-right: 30px;">
+
+										<div class="pt-testimonial">
+
+											<div class="pt-testimonial-content">
+
+												<div class="pt-testimonial-text">
+													I want to thank the team that oversees this wonderful site.
+												</div>
+
+
+												<div class="pt-testimonial-meta">
+
+													<div class="pt-testimonial-avatar">
+														<img loading="lazy" width="800" height="900" src="https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-6.jpg" class="attachment-full size-full" alt="" decoding="async" srcset="https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-6.jpg 800w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-6-450x506.jpg 450w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-6-600x675.jpg 600w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-6-267x300.jpg 267w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-6-768x864.jpg 768w" sizes="(max-width: 800px) 100vw, 800px">
+													</div>
+
+													<div class="pt-testimonial-author-wrapper">
+
+														<div class="pt-testimonial-author">
+															Layla albek
+														</div>
+
+
+														<div class="pt-testimonial-occupation">
+															@@brooksim1
+														</div>
+
+													</div>
+												</div>
+											</div>
+
+
+										</div>
+
+									</div>
+
+
+
+									<div class="swiper-slide swiper-slide-active" style="width: 716.988px; margin-right: 30px;">
+
+										<div class="pt-testimonial">
+
+											<div class="pt-testimonial-content">
+
+												<div class="pt-testimonial-text">
+													Thank you for this valuable information and wonderful advice.
+												</div>
+
+
+												<div class="pt-testimonial-meta">
+
+													<div class="pt-testimonial-avatar">
+														<img loading="lazy" width="800" height="900" src="https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-2.jpg" class="attachment-full size-full" alt="" decoding="async" srcset="https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-2.jpg 800w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-2-450x506.jpg 450w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-2-600x675.jpg 600w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-2-267x300.jpg 267w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-2-768x864.jpg 768w" sizes="(max-width: 800px) 100vw, 800px">
+													</div>
+
+													<div class="pt-testimonial-author-wrapper">
+
+														<div class="pt-testimonial-author">
+															Anas alshamaa
+														</div>
+
+
+														<div class="pt-testimonial-occupation">
+															@@brooksim1
+														</div>
+
+													</div>
+												</div>
+											</div>
+
+
+										</div>
+
+									</div>
+
+
+
+									<div class="swiper-slide swiper-slide-next" style="width: 716.988px; margin-right: 30px;">
+
+										<div class="pt-testimonial">
+
+											<div class="pt-testimonial-content">
+
+												<div class="pt-testimonial-text">
+													Beautiful site and beautiful information. Thank you from the heart.
+												</div>
+
+
+												<div class="pt-testimonial-meta">
+
+													<div class="pt-testimonial-avatar">
+														<img loading="lazy" width="800" height="900" src="https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-7.jpg" class="attachment-full size-full" alt="" decoding="async" srcset="https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-7.jpg 800w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-7-450x506.jpg 450w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-7-600x675.jpg 600w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-7-267x300.jpg 267w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-7-768x864.jpg 768w" sizes="(max-width: 800px) 100vw, 800px">
+													</div>
+
+													<div class="pt-testimonial-author-wrapper">
+
+														<div class="pt-testimonial-author">
+															Hasan mofde
+														</div>
+
+
+														<div class="pt-testimonial-occupation">
+															@@brooksim1
+														</div>
+
+													</div>
+												</div>
+											</div>
+
+
+										</div>
+
+									</div>
+
+
+								</div><span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+							</div>
+
+						</div>
+
+
+
+
+						<div class="pt-swiper-arrows-fraction-2">
+							<div class="pt-swiper-pagination swiper-pagination-fraction"><span class="swiper-pagination-current">2</span> / <span class="swiper-pagination-total">3</span></div>				<div class="pt-line"></div>
+							<div class="pt-swiper-button-prev" tabindex="0" role="button" aria-label="Previous slide" aria-disabled="false"></div>
+							<div class="pt-swiper-button-next" tabindex="0" role="button" aria-label="Next slide" aria-disabled="false"></div>
+						</div>
+
+					</div>
+				</div>
+				<div class="elementor-element elementor-element-8b14c3d elementor-widget__width-initial elementor-absolute elementor-widget elementor-widget-image" data-id="8b14c3d" data-element_type="widget" data-settings="{&quot;_position&quot;:&quot;absolute&quot;}" data-widget_type="image.default">
+					<div class="elementor-widget-container">
+						<img decoding="async" loading="lazy" width="186" height="176" src="https://promo-theme.com/woxfit/wp-content/uploads/2022/12/circle.svg" class="attachment-full size-full wp-image-2014" alt="">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+

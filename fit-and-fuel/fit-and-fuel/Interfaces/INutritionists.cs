@@ -9,7 +9,7 @@ namespace fit_and_fuel.Interfaces
         Task<List<NutritionistDtoView>> GetAllDto();
         Task<List<Nutritionist>> Search(string str);
         Task<List<NutritionistDtoView>> SearchDto(string str);
-
+        
         Task<Nutritionist> GetById(int id);
         Task<NutritionistDtoView> GetByIdDto(int id);
         Task<List<Patient>> GetAllMyPatient(int UserId);
@@ -17,12 +17,13 @@ namespace fit_and_fuel.Interfaces
         Task<List<PatientDtoViewNut>> GetAllMyPatientDto(int UserId);
         Task<List<DietPlan>> GetAllDietPlan(int UserId);
         Task<List<DietPlanDtoView>> GetAllDietPlanDto(int UserId);
-        Task<Nutritionist> GetMyProfile(int id);
+        Task<Nutritionist> GetMyProfile();
         Task<NutritionistDtoView> GetMyProfileDto(int id);
 
-        Task<Nutritionist> Post(int UserId,NutritionistDto nutritionistDto);
+        Task<Nutritionist> Post(NutritionistDto nutritionistDto, IFormFile file);
         Task Put(int id, NutritionistDto nutritionistDto);
         Task Delete(int id);
+        Task<int> Count();
         
     }
 }

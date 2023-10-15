@@ -19,19 +19,19 @@ namespace fit_and_fuel.Services
 {
     public class IdentityUserService : IUserService
     {
-        private readonly IConfiguration _configuration;
         private UserManager<ApplicationUser> userManager;
+        private  SignInManager<ApplicationUser> _signInManager;
         private INotification _notificationService;
-        private readonly string _lastUsedUserIdFilePath;
       
-        private JwtTokenService jwtTokenService;
-        public IdentityUserService(UserManager<ApplicationUser> manager, JwtTokenService jwtTokenService, IConfiguration configuration,INotification notificationService)
+        //private JwtTokenService jwtTokenService;
+        public IdentityUserService(UserManager<ApplicationUser> manager,
+            //JwtTokenService jwtTokenService, 
+            SignInManager<ApplicationUser> signInManager,
+        IConfiguration configuration,INotification notificationService)
         {
             userManager = manager;
-            this.jwtTokenService = jwtTokenService;
-            _configuration = configuration;
-            _lastUsedUserIdFilePath = "lastUsedUserId.json";
-         
+            _signInManager = signInManager;
+            //this.jwtTokenService = jwtTokenService
             _notificationService = notificationService;
         }
 
@@ -44,17 +44,18 @@ namespace fit_and_fuel.Services
 
         public async Task<UserDto> Authenticate(string username, string password)
         {
-            var user = await userManager.FindByNameAsync(username);
+            var result = await _signInManager.PasswordSignInAsync(username, password, true, false);
 
-            if (await userManager.CheckPasswordAsync(user, password))
+
+            if (result.Succeeded)
             {
-                return new UserDto
+                var user = await userManager.FindByNameAsync(username);
+                //// user = await _userManager.FindByNameAsync(username);
+                return new UserDto()
                 {
                     Id = user.Id,
                     Username = user.UserName,
-                    Token = await jwtTokenService.GetToken(user, System.TimeSpan.FromDays(1)),
                     Roles = await userManager.GetRolesAsync(user)
-
                 };
             }
 
@@ -71,13 +72,8 @@ namespace fit_and_fuel.Services
 
         public async Task<UserDto> Register(RegisterUser data, ModelStateDictionary modelState)
         {
-            int lastUsedUserId = ReadLastUsedUserId();
-
-            int newUserId = lastUsedUserId + 1;
-            UpdateLastUsedUserId(newUserId);
             var user = new ApplicationUser
             {
-                Id = newUserId.ToString(),
                 UserName = data.Username,
                 Email = data.Email,
                 PhoneNumber = data.PhoneNumber
@@ -95,7 +91,7 @@ namespace fit_and_fuel.Services
 
                     var content = new NotificationDto()
                     {
-                        Content = $"We have New Nutritionist Need To Improve with Id {user.Id}"
+                        Content = $"We have New Nutritionist Need To Improve with UserName {user.UserName}"
                     };
 
                     await _notificationService.SendNotification("1", content);
@@ -106,7 +102,7 @@ namespace fit_and_fuel.Services
                 {
                     Id = user.Id,
                     Username = user.UserName,
-                    Token = await jwtTokenService.GetToken(user, System.TimeSpan.FromDays(1)),
+                    //Token = await jwtTokenService.GetToken(user, System.TimeSpan.FromDays(1)),
                     Roles = await userManager.GetRolesAsync(user)
 
                 };
@@ -134,32 +130,32 @@ namespace fit_and_fuel.Services
         /// </summary>
         /// <returns>The last used user ID or 0 if file reading fails.</returns>
 
-        private int ReadLastUsedUserId()
-        {
-            try
-            {
-                var json = File.ReadAllText(_lastUsedUserIdFilePath);
-                var jsonObject = JObject.Parse(json);
-                return jsonObject.GetValue("LastUsedUserId").Value<int>();
-            }
-            catch
-            {
-                return 0; // Default value if file reading fails
-            }
-        }
+        //private int ReadLastUsedUserId()
+        //{
+        //    try
+        //    {
+        //        var json = File.ReadAllText(_lastUsedUserIdFilePath);
+        //        var jsonObject = JObject.Parse(json);
+        //        return jsonObject.GetValue("LastUsedUserId").Value<int>();
+        //    }
+        //    catch
+        //    {
+        //        return 0; // Default value if file reading fails
+        //    }
+        //}
 
         /// <summary>
         /// Updates the last used user ID in a JSON file.
         /// </summary>
         /// <param name="newUserId">The new user ID to be updated.</param>
 
-        private void UpdateLastUsedUserId(int newUserId)
-        {
-            var jsonObject = new JObject();
-            jsonObject["LastUsedUserId"] = newUserId;
+        //private void UpdateLastUsedUserId(int newUserId)
+        //{
+        //    var jsonObject = new JObject();
+        //    jsonObject["LastUsedUserId"] = newUserId;
 
-            File.WriteAllText(_lastUsedUserIdFilePath, jsonObject.ToString());
-        }
+        //    File.WriteAllText(_lastUsedUserIdFilePath, jsonObject.ToString());
+        //}
 
         /// <summary>
         /// Retrieves user information based on the provided ClaimsPrincipal.
@@ -174,7 +170,7 @@ namespace fit_and_fuel.Services
             {
                 Id = user.Id,
                 Username = user.UserName,
-                Token = await jwtTokenService.GetToken(user, System.TimeSpan.FromDays(1)),
+                //Token = await jwtTokenService.GetToken(user, System.TimeSpan.FromDays(1)),
                 Roles = await userManager.GetRolesAsync(user)
             };
         }
@@ -209,9 +205,9 @@ namespace fit_and_fuel.Services
         /// <param name="userId">The ID of the user to assign the role to.</param>
         /// <returns>IdentityResult indicating the success or failure of the role assignment.</returns>
 
-        public async Task<IdentityResult> AssignRolesToUser(int userId)
+        public async Task<IdentityResult> AssignRolesToUser(string userName)
          {
-            var user = await userManager.FindByIdAsync(userId.ToString());
+            var user = await userManager.FindByNameAsync(userName);
             if (user == null)
             {
                 
@@ -223,19 +219,24 @@ namespace fit_and_fuel.Services
           
             var content = new NotificationDto()
             {
-                Content = $"welcome New Nutritionist"
+                Content = $"Welcome {userName}, you are now a Nutritionist.\r\nYou can now create your profile by clicking on this" +
+                $" https://localhost:7035/nutritionist/CreateProfile "
             };
 
-            await _notificationService.SendNotification(userId.ToString(), content);
+            await _notificationService.SendNotification(user.Id, content);
 
             return IdentityResult.Success;
          }
 
-
-
-
-
+        public async Task Logout()
+        {
+            await _signInManager.SignOutAsync();
+        }
+       
+           
+        
 
     }
-
 }
+
+

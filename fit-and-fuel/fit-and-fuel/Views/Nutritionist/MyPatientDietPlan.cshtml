@@ -1,0 +1,88 @@
+﻿@model DietPlan
+
+@{
+    Layout = "~/Views/Shared/_PageLayout.cshtml";
+}
+
+
+<div style="background-color:#000 ;height:80px;margin-top:-10px;width:2000px;">
+</div>
+
+<h1>Diet Plan</h1>
+ <p><strong>Start Date:</strong> @Model.StartDate</p>
+<p><strong>End Date:</strong> @Model.EndDate</p> 
+<p><strong>Duration:</strong> @Model.Duration days</p>
+<p><strong>Patient:</strong> @Model.Patient.Name</p>
+<p><strong>Nutritionist:</strong> @Model.nutritionist.Name</p>
+<h2>Diet Plan Days</h2>
+@foreach (var day in Model.days)
+{
+    <h3>@day.DayName (@day.Date.ToShortDateString())</h3>
+    <p><strong>Total Calories for the Day:</strong> @day.TotalCalories</p>
+    <h4>Meals for the Day</h4>
+@* <a asp-controller="Nutritionist" asp-action="AddMeals" asp-route-id="@day.Id"  class="wpcf7-form init" aria-label="Contact form" data-status="init">Add</a>       
+ *@        
+ 
+
+
+@* <h1>@Model.PatientId</h1>
+ *@<form asp-controller="Nutritionist" asp-action="AddMeal" method="post" class="wpcf7-form init" aria-label="Contact form" data-status="init">
+	<div style="display: none;"> </div>
+	<div class="mb-3">
+		<p>
+                <label for="Name">Name Meals</label><br>
+			<span class="wpcf7-form-control-wrap">
+                    <input size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Name Meals" type="text" name="Name">
+			</span>
+		</p>
+	</div>
+        <input value="@day.Id" type="hidden" name="DayId">
+        <input value="@Model.Id" type="hidden" name="DietPlanId">
+
+	<div class="mb-3">
+		<p>
+                <label for="Description">Description</label><br>
+			<span class="wpcf7-form-control-wrap">
+                    <input size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Description" type="text" name="Description">
+			</span>
+		</p>
+	</div>
+        <div class="mb-3">
+            <p>
+                <label for="Calories">Calories</label><br>
+                <span class="wpcf7-form-control-wrap">
+                    <input size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Calories" type="number" name="Calories">
+                </span>
+            </p>
+        </div>  
+
+	<div class="mb-0">
+		<p>
+			<input class="wpcf7-form-control has-spinner wpcf7-submit" type="submit" value="Add"><span class="wpcf7-spinner"></span>
+		</p>
+	</div>
+</form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Meal Name</th>
+                <th>Description</th>
+                <th>Calories</th>
+                <th>Completion</th>
+            </tr>
+        </thead>
+        <tbody>
+           
+            @foreach (var meal in day.meals)
+            {
+                <tr>
+                    <td>@meal.Name</td>
+                    <td>@meal.Description</td>
+                    <td>@meal.Calories</td>
+                    <td>@(meal.Completion ? "Completed" : "Not Completed")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

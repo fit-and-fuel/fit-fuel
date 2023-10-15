@@ -6,7 +6,7 @@ namespace fit_and_fuel.DTOs
     {
         public int Id { get; set; }
 
-        public int? UserId { get; set; }
+        public string? UserId { get; set; }
 
         public int? NutritionistId { get; set; }
         public string Name { get; set; }

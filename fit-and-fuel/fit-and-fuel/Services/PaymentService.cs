@@ -28,7 +28,7 @@ namespace fit_and_fuel.Services
         /// <param name="UserId">The ID of the user making the payment.</param>
         /// <returns>True if the payment is successfully processed and recorded, otherwise false.</returns>
 
-        public async Task<bool> Post(PaymentDto paymentDto, int UserId)
+        public async Task<bool> Post(PaymentDto paymentDto, string UserId)
        {
 
             try
@@ -73,6 +73,11 @@ namespace fit_and_fuel.Services
                 // An exception occurred during payment processing
                 return false;
             }
+        }
+
+        public Task<bool> Post(PaymentDto paymentDto, int UserId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

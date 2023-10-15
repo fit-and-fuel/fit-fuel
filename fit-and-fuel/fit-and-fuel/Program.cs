@@ -2,26 +2,39 @@ using fit_and_fuel.Data;
 using fit_and_fuel.Interfaces;
 using fit_and_fuel.Model;
 using fit_and_fuel.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Azure;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services
+.AddDbContext<AppDbContext>
+(opions => opions
+.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Add services to the container.
 
 
 builder.Services.AddControllers().AddNewtonsoftJson(
               option => option.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
               );
 
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+{
+    options.User.RequireUniqueEmail = true;
+})
+   .AddEntityFrameworkStores<AppDbContext>();
+
 // Add services to the container.
 
-builder.Services.AddScoped<JwtTokenService>();
+//builder.Services.AddScoped<JwtTokenService>();
 builder.Services.AddTransient<IUserService, IdentityUserService>();
 builder.Services.AddTransient<ILike, LikeService>();
 builder.Services.AddTransient<IComment, CommentService>();
-
 builder.Services.AddTransient<INutritionists, NutritionistService>();
 builder.Services.AddTransient<IPatients, PatientService>();
 builder.Services.AddTransient<IDietPlan, DietPlanService>();
@@ -34,12 +47,19 @@ builder.Services.AddTransient<IAvailableTime, AvailableTimeService>();
 builder.Services.AddTransient<IPayment, PaymentService>();
 builder.Services.AddTransient<IClinic, ClinicService>();
 builder.Services.AddTransient<IAppoitments, AppoitmentService>();
-
+//builder.Services.AddScoped<IChatMessage,ChatMessageService>();
 builder.Services.AddTransient<IRating, RatingService>();
 
 builder.Services.AddTransient<INotification, NotificationService>();
 
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie();
 
+builder.Services.AddAzureClients(clientBuilder =>
+{
+    clientBuilder.AddBlobServiceClient(builder.Configuration["ConnectionStrings:StorageAccount:blob"]);
+    clientBuilder.AddQueueServiceClient(builder.Configuration["ConnectionStrings:StorageAccount:queue"]);
+});
 
 builder.Services.AddAuthorization(options =>
 {
@@ -50,22 +70,12 @@ builder.Services.AddAuthorization(options =>
 });
 
 
-
-
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
-{
-    options.User.RequireUniqueEmail = true;
-})
-   .AddEntityFrameworkStores<AppDbContext>();
-
-
 builder.Services.AddSignalR();
-
-builder.Services
-.AddDbContext<AppDbContext>
-(opions => opions
-
-.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.ExpireTimeSpan = TimeSpan.FromDays(7);
+    options.LoginPath = "/User/Login";
+});
 
 var app = builder.Build();
 
@@ -81,9 +91,16 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
+
+//app.MapHub<ChatHub>("/chatHub");
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapHub<ChatHub>("/chatHub");
+    // Other route configurations...
+});
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
