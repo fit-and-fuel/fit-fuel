@@ -54,7 +54,17 @@
 
                         <button type="submit">Confirm</button>
                     </form>
+                    @if (AP.IsConfirmed == true)
+                    {
+                        <a asp-controller="Nutritionist" asp-action="CompleteAppointment" asp-route-id="@AP.Id">Complete </a>
+
+                    }
                 </tr>
+            
+                     
+               
+
+				
                 <tr>
                     <th>@AP.IsCompleted</th>
                 </tr>
