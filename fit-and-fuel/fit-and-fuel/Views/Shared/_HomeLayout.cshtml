@@ -3793,17 +3793,22 @@
                                                             <li id="menu-item-81" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-81"><a href="https://promo-theme.com/woxfit/page-404">Page 404</a></li>
                                                         </ul>
                                                     </li>
+
+                                                    @if (User.IsInRole("Nutritionist")) 
+                                                    {
                                                     <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
-                                                        <a href="https://promo-theme.com/woxfit/shop/">Shop</a><span class="submenu-toggle"></span>
+                                                        <a href="https://promo-theme.com/woxfit/shop/">Managment</a><span class="submenu-toggle"></span>
                                                         <ul class="sub-menu">
-                                                            <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a href="https://promo-theme.com/woxfit/shop/">Product list</a></li>
-                                                            <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a href="https://promo-theme.com/woxfit/shop-left-sidebar/">Left Sidebar</a></li>
-                                                            <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a href="https://promo-theme.com/woxfit/shop-no-sidebar/">No Sidebar</a></li>
-                                                            <li id="menu-item-3430" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3430"><a href="https://promo-theme.com/woxfit/shop-no-sidebar-banner/">No Sidebar + Banner</a></li>
-                                                            <li id="menu-item-101" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-101"><a href="https://promo-theme.com/woxfit/cart/">Cart</a></li>
-                                                            <li id="menu-item-100" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-100"><a href="https://promo-theme.com/woxfit/checkout/">Checkout</a></li>
+                                                            <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Nutritionist" asp-action="MyProfile">Patients</a></li>
+                                                            <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Nutritionist" asp-action="AvailableTimes">Schedule Appointments</a></li>
+                                                            <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="Nutritionist" asp-action="Appointments">Appointments</a></li>
+                                                            
+                                                            <li id="menu-item-3430" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3430"><a asp-controller="Nutritionist" asp-action="AddPost">Add Post</a></li>
+                                                            <li id="menu-item-101" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-101"><a asp-controller="Nutritionist" asp-action="AddPost"> My Posts</a></li>
+                                                          
                                                         </ul>
                                                     </li>
+                                                    }
                                                     <li id="menu-item-3368" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-3368">
                                                         <a asp-controller="Home" asp-action="AllPost">Blog</a><span class="submenu-toggle"></span>
                                                         <ul class="sub-menu">
@@ -3841,7 +3846,7 @@
 
                                         }
                                            <p>
-                                         Welcome @User.Identity.Name
+                                         @User.Identity.Name
                                         </p>
 
                                     }
