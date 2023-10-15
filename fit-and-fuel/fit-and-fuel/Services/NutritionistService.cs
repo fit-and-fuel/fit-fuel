@@ -416,5 +416,10 @@ namespace fit_and_fuel.Services
 		{
 			return await _context.Nutritionists.CountAsync();
 		}
+
+		public Task<Nutritionist> Post(NutritionistDto nutritionistDto)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

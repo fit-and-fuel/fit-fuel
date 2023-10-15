@@ -103,7 +103,7 @@ namespace fit_and_fuel.Controllers
         public async Task<IActionResult> AppoitmentConfirmed(int id)
         {
             await _appoitments.AppoitmentConfirmed(id);
-            return Redirect("Index");
+            return Redirect("Appointments");
 		}
 
 
@@ -151,7 +151,16 @@ namespace fit_and_fuel.Controllers
 			return RedirectToAction("Index", "Home");
 
 		}
-        public IActionResult AddClinic()
+
+
+
+		public async Task<IActionResult> ViewPosts()
+		{
+			var posts = await _post.GetMyPosts();
+			return View(posts);
+		}
+
+		public IActionResult AddClinic()
         {
             return View();
 		}
@@ -164,10 +173,20 @@ namespace fit_and_fuel.Controllers
 		   	 return Redirect("MyProfile");
              
 		}
-		
+
+       
+        public async Task<IActionResult> CompleteAppointment(int id)
+        {
+            await _appoitments.AppoitmentCompleted(id);
+            return RedirectToAction("Appointments","Nutritionist");
+
+        }
+	
 
 
-	}
+
+
+        }
 }
 
 	

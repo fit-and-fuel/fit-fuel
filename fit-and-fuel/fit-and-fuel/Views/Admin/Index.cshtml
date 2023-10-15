@@ -45,6 +45,18 @@
 	<button type="submit" class="btn btn-primary btn-custom-sm">Add Role</button>
 </form>
 
+<form asp-controller="Admin" asp-action="ConfiremPost" method="post" class="needs-validation m-5">
+    <div class="mb-3 w-25">
+        <label for="userName" class="form-label">Post</label>
+        <input type="text" name="id" class="form-control" required>
+        <div class="invalid-feedback">
+            Please enter a valid id post.
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-custom-sm">Improve post</button>
+</form>
+
 <div class="row m-5">
     <div class="col-md-4">
         <div class="card">
