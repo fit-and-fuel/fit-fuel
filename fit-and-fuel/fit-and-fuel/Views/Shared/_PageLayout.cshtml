@@ -7,6 +7,7 @@
 	<title>Timetable &#8211; WoxFit</title>
 <meta name='robots' content='noindex, nofollow' />
 <link rel='dns-prefetch' href='//fonts.googleapis.com' />
+   
 <script>
 window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14.0.0\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/promo-theme.com\/woxfit\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.3.1"}};
 /*! This file is auto-generated */
@@ -3242,17 +3243,21 @@ var zilla_likes = {"ajaxurl":"https:\/\/promo-theme.com\/woxfit\/wp-admin\/admin
 </li>
 	<li id="menu-item-81" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-81"><a href="https://promo-theme.com/woxfit/page-404">Page 404</a></li>
 </ul>
-</li>
-<li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32"><a href="https://promo-theme.com/woxfit/shop/">Shop</a><span class="submenu-toggle"></span>
-<ul class="sub-menu">
-	<li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a href="https://promo-theme.com/woxfit/shop/">Product list</a></li>
-	<li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a href="https://promo-theme.com/woxfit/shop-left-sidebar/">Left Sidebar</a></li>
-	<li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a href="https://promo-theme.com/woxfit/shop-no-sidebar/">No Sidebar</a></li>
-	<li id="menu-item-3430" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3430"><a href="https://promo-theme.com/woxfit/shop-no-sidebar-banner/">No Sidebar + Banner</a></li>
-	<li id="menu-item-101" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-101"><a href="https://promo-theme.com/woxfit/cart/">Cart</a></li>
-	<li id="menu-item-100" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-100"><a href="https://promo-theme.com/woxfit/checkout/">Checkout</a></li>
-</ul>
-</li>
+                                                        @if (User.IsInRole("Nutritionist"))
+                                                        {
+                                                        <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
+                                                            <a href="https://promo-theme.com/woxfit/shop/">Managment</a><span class="submenu-toggle"></span>
+                                                            <ul class="sub-menu">
+                                                                <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Nutritionist" asp-action="MyProfile">Patients</a></li>
+                                                                <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Nutritionist" asp-action="AvailableTimes">Schedule Appointments</a></li>
+                                                                <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="Nutritionist" asp-action="Appointments">Appointments</a></li>
+
+                                                                <li id="menu-item-3430" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3430"><a asp-controller="Nutritionist" asp-action="AddPost">Add Post</a></li>
+                                                                <li id="menu-item-101" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-101"><a asp-controller="Nutritionist" asp-action="AddPost"> My Posts</a></li>
+
+                                                            </ul>
+                                                        </li>
+                                                        }
                                                     <li id="menu-item-3368" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-3368">
                                                         <a asp-controller="Home" asp-action="AllPost">Blog</a><span class="submenu-toggle"></span>
 <ul class="sub-menu">
@@ -3306,7 +3311,14 @@ var zilla_likes = {"ajaxurl":"https:\/\/promo-theme.com\/woxfit\/wp-admin\/admin
                                 <div class="elementor-widget-container" style="color: white;">
                                     @if (User.Identity.IsAuthenticated)
                                     {
-                                        <a asp-controller="User" asp-action="Logout">Logout</a>
+                                        <a asp-controller="User" asp-action="Logout">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-top:5px;">
+                                                <path d="M15.016 7.38948V6.45648C15.016 4.42148 13.366 2.77148 11.331 2.77148H6.45597C4.42197 2.77148 2.77197 4.42148 2.77197 6.45648V17.5865C2.77197 19.6215 4.42197 21.2715 6.45597 21.2715H11.341C13.37 21.2715 15.016 19.6265 15.016 17.5975V16.6545" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                                <path d="M21.8096 12.0214H9.76855" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                                <path d="M18.8813 9.10626L21.8093 12.0213L18.8813 14.9373" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                            </svg>
+                                        
+                                        </a>
                                     }
                                     else
                                     {

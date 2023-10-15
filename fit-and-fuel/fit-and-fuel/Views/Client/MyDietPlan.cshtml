@@ -2,18 +2,65 @@
 @{
     Layout = "~/Views/Shared/_PageLayout.cshtml";
 }
-<div class="container">
+<style>
+
+    /* Style for Duration, Start Date, and End Date */
+    .container h1.display-4 {
+        text-align: center;
+        margin-top: 30px;
+        border-top: 2px solid #333;
+        border-bottom: 2px solid #333;
+        padding: 10px 0;
+        font-weight: bold;
+    }
+
+    /* Style for Diet Plan Days */
+    .card {
+        margin-top: 30px;
+    }
+
+    .card-header {
+        background-color: #333;
+    }
+
+        .card-header h3 {
+            color: #fff;
+            text-align: center;
+            margin: 0;
+            padding: 10px;
+        }
+
+    .card-body {
+        padding: 10px;
+    }
+
+    .card-text.font-weight-bold {
+        margin-top: 10px;
+    }
+
+    /* Style for Meals Table */
+    .table {
+        margin-top: 10px;
+    }
+
+    /* Add space between each day's div */
+    .row > .card:not(:last-child) {
+        margin-bottom: 30px;
+    }
+
+</style>
+<div class="container" style="margin-top:60px; width:80%; ">
     <div class="row tm-blog-sidebar-row">
         <div class="col-lg-12">
             <div class="main-content-area">
                 <div data-elementor-type="wp-post" data-elementor-id="5468" class="elementor elementor-5468">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Client" asp-action="Create">Create Account</a>
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Client" asp-action="MealForToday">Meal For Today</a>
+                    
 
                     <div class="container">
                         <h1 class="display-4">Diet Plan</h1>
                         <div class="row">
                             <div class="col-md-6">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Client" asp-action="MealForToday">Meal For Today</a>
                                 <p class="font-weight-bold">Start Date: @Model.StartDate</p>
                                 <p class="font-weight-bold">End Date: @Model.EndDate</p>
                                 <p class="font-weight-bold">Duration: @Model.Duration days</p>
@@ -24,12 +71,13 @@
 
                         @foreach (var day in Model.days)
                         {
-                            <div class="card mt-3">
-                                <div class="card-header bg-dark text-white">
-                                    <h3 class="text-white">@day.DayName (@day.Date.ToShortDateString())</h3>
+                            <div style="border:groove; display:flex; " class="card mt-3">
+                                <div style="display:flex; width:27px;" class="card-header bg-dark text-white">
+                                    <h5 class="text-white">@day.DayName </h5>
+                                   @* <h5>(@day.Date.ToShortDateString())</h5>*@
                                 </div>
                                 <div class="card-body">
-                                    <p class="card-text font-weight-bold">Total Calories for the Day: @day.TotalCalories</p>
+                                   
 
                                     <h4>Meals for the Day</h4>
                                     <table class="table table-striped">
@@ -53,7 +101,9 @@
                                             }
                                         </tbody>
                                     </table>
+                                    <p class="card-text font-weight-bold">Total Calories for the Day: @day.TotalCalories</p>
                                 </div>
+                               
                             </div>
                         }
                     </div>
