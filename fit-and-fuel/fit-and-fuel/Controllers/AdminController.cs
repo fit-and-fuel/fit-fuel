@@ -42,7 +42,7 @@ namespace fit_and_fuel.Controllers
 		}
         public async Task<IActionResult> Posts()
         {
-            var posts = await _post.GetAll();
+            var posts = await _post.GetAllPosts();
             return View(posts);
         }
 		public async Task<IActionResult> Patients()
