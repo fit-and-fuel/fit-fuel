@@ -14,12 +14,12 @@ namespace fit_and_fuel.Interfaces
         Task SelectNut(int NutId, int UserId);
         Task<List<Patient>> Search(string str);
         Task<List<PatientDtoView>> SearchDto(string str);
-        Task<DietPlan> GetMyDietPlan(int UserId);
+        Task<DietPlan> GetMyDietPlan();
         Task<DietPlanDtoView> GetMyDietPlanDto(int UserId);
-        Task<List<Meal>> GetMyMealsForToday(int UserId);
+        Task<List<Meal>> GetMyMealsForToday();
        
 
-        Task MealIsCompletion(int UserId, int MealId);
+        Task MealIsCompletion( int MealId);
         Task<Patient> Post(PatientDto patientDto);
         
         Task Put(int id, PatientDto patientDto);

@@ -39,13 +39,13 @@ namespace fit_and_fuel.Model
             message1.Timestamp = DateTime.UtcNow;
             message1.ReceiverId = myprofile.nutritionist.UserId;
             message1.Content = message;
-
+            message= myprofile.Name + " : " + message;
             // Save the message to the database
             _dbContext.ChatMessages.Add(message1);
             await _dbContext.SaveChangesAsync();
             // Broadcast the message to all connected clients
 
-            await Clients.User(myprofile.nutritionist.UserId).SendAsync("ReceiveMessage",message);
+            await Clients.User(myprofile.nutritionist.UserId).SendAsync("ReceiveMessage", message);
             await Clients.User(userId).SendAsync("ReceiveMessage",  message);
 
         }
@@ -67,7 +67,7 @@ namespace fit_and_fuel.Model
             message1.Timestamp = DateTime.UtcNow;
             message1.ReceiverId = toUserid.UserId;
             message1.Content = message;
-
+            message = myprofile.Name + " : " + message;
             // Save the message to the database
             _dbContext.ChatMessages.Add(message1);
             await _dbContext.SaveChangesAsync();

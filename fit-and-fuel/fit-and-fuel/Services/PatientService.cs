@@ -203,10 +203,12 @@ namespace fit_and_fuel.Services
         /// <param name="UserId">The ID of the patient.</param>
         /// <returns>The DietPlan object associated with the patient's nutritionist.</returns>
 
-        public async Task<DietPlan> GetMyDietPlan(string UserId)
+        public async Task<DietPlan> GetMyDietPlan()
         {
-            var dietPlan = await _context.Patients
-       .Where(n => n.UserId == UserId)
+			string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+			var dietPlan = await _context.Patients
+       .Where(n => n.UserId == userId)
        .Include(d => d.dietPlan)
        .ThenInclude(d=>d.days)
        .ThenInclude(d => d.meals)
@@ -218,7 +220,7 @@ namespace fit_and_fuel.Services
         }
         public async Task<DietPlanDtoView> GetMyDietPlanDto(string UserId)
         {
-            var dietplan = await GetMyDietPlan(UserId);
+            var dietplan = await GetMyDietPlan();
             if (dietplan != null)
             {
                 var dietplanToReturn = new DietPlanDtoView
@@ -259,9 +261,11 @@ namespace fit_and_fuel.Services
         /// <returns>A list of Meal objects representing the patient's meals for the current day.</returns>
 
 
-        public async Task<List<Meal>> GetMyMealsForToday(string UserId)
+        public async Task<List<Meal>> GetMyMealsForToday()
         {
-            var myDietPlan = await GetMyDietPlan(UserId);
+            string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var myDietPlan = await GetMyDietPlan();
 
             // Find the meals for the current day and flatten the structure
             var mealsForToday = myDietPlan.days
@@ -290,11 +294,13 @@ namespace fit_and_fuel.Services
         /// <param name="UserId">The ID of the patient.</param>
         /// <param name="MealId">The ID of the meal to mark as completed.</param>
 
-        public async Task MealIsCompletion(string UserId, int MealId)
+        public async Task MealIsCompletion( int MealId)
         {
-            var mealToday = await GetMyMealsForToday(UserId);
+            string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var mealToday = await GetMyMealsForToday();
             var mealToUpdate = mealToday.FirstOrDefault(m => m.Id == MealId);
-            var patient = await _context.Patients.Where(p=>p.UserId==UserId).FirstOrDefaultAsync();
+            var patient = await _context.Patients.Where(p=>p.UserId== userId).FirstOrDefaultAsync();
             if (mealToUpdate == null)
             {
                 throw new Exception("this meal is not Today");
@@ -307,11 +313,11 @@ namespace fit_and_fuel.Services
                 meal.Completion = true;
                 var nut = await _context.Patients
                     .Include(p=>p.nutritionist)
-                    .FirstOrDefaultAsync(p => p.UserId == UserId);
+                    .FirstOrDefaultAsync(p => p.UserId == userId);
               
                 var content = new NotificationDto()
                 {
-                    Content = $"Your patient {patient.Name}  with UserId: {UserId}  take meal {meal.Name} with id {meal.Id} "
+                    Content = $"Your patient {patient.Name}  with UserId: {userId}  take meal {meal.Name} with id {meal.Id} "
                 };
 
                 await _notificationService.SendNotification(nut.nutritionist.UserId.ToString(), content);

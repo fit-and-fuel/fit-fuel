@@ -12,54 +12,7 @@
     }
 </div>
 
-@*<form asp-controller="Chat" asp-action="SendMessage" method="post">
-    <div class="mb-3">
-        <label for="ReceiverId">Content</label><br>
-        <input class="form-control" id="ReceiverId" type="text" name="ReceiverId">
-    </div>
-    <div class="mb-3">
-        <label for="Content">Content</label><br>
-        <input class="form-control" id="Content" type="text" name="Content">
-    </div>
-    <div class="mb-0">
-        <button class="btn btn-primary" id="sendmessage" type="submit">Submit</button>
-    </div>
-</form>
 
-<script src="https://cdn.jsdelivr.net/npm/@@ microsoft/signalr@7.0.12/dist/browser/signalr.min.js"></script>
-<script>
-    const connection = new signalR.HubConnectionBuilder()
-        .withUrl("/chatHub")
-        .build();
-
-    connection.start().catch(function (err) {
-        return console.error(err.toString());
-    });
-
-    // Use jQuery for event handling
-    $(function () {
-        $("#sendmessage").on("click", function (event) {
-            event.preventDefault();
-            const message = $("#Content").val();
-            const messageDto = {
-                ReceiverId: "ReceiverIdHere",
-                Content: message
-            };
-            connection.invoke("SendMessage", messageDto)
-                .catch(function (err) {
-                    return console.error(err.toString());
-                });
-        });
-    });
-
-    connection.on("ReceiveMessage", (user, message) => {
-        var encodedMsg = user + ": " + message;
-        var p = document.createElement("p");
-        p.textContent = encodedMsg;
-        document.getElementById("discussion").appendChild(p);
-    });
-</script>
-*@
 <div>
     <div>
 
@@ -75,9 +28,3 @@
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/lib/signalr/dist/browser/signalr.js"></script>
 <script src="~/js/site.js"></script>
-@*<div>
-    <input type="text" id="txtUser" /><br />
-    <input type="text" id="toUser" /><br />
-    <textarea id="txtMessage"></textarea><br />
-    <button id="btnSend">Send</button>
-</div>*@

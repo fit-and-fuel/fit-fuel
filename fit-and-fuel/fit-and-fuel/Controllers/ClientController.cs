@@ -32,5 +32,21 @@ namespace fit_and_fuel.Controllers
             await _patients.Post(patientDto);
             return RedirectToAction("Index", "Home");
         }
+		public async Task<IActionResult> MyDietPlan()
+		{
+            var dietplan = await _patients.GetMyDietPlan();
+			return View(dietplan);
+		}
+        public async Task<IActionResult> MealForToday()
+        {
+            var meals = await _patients.GetMyMealsForToday();
+            return View(meals);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Completion(int id)
+        {
+            await _patients.MealIsCompletion(id);
+            return RedirectToAction("MealForToday");
+        }
     }
 }
