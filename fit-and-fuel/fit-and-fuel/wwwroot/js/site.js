@@ -6,7 +6,7 @@
 //    li.textContent = msg;
 //    $("#list").prepend(li);
 //});
-connection.on("ReceiveMessage", function ( message) {
+connection.on("ReceiveMessage", function (message) {
     var msg = message;
     var li = document.createElement("li");
     li.textContent = msg;

@@ -219,7 +219,8 @@ namespace fit_and_fuel.Services
           
             var content = new NotificationDto()
             {
-                Content = $"welcome New Nutritionist"
+                Content = $"Welcome {userName}, you are now a Nutritionist.\r\nYou can now create your profile by clicking on this" +
+                $" https://localhost:7035/nutritionist/CreateProfile "
             };
 
             await _notificationService.SendNotification(user.Id, content);

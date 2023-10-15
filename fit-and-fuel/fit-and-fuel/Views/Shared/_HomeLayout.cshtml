@@ -3734,7 +3734,8 @@
                 width: 50%;
             }
 
-            }</style>		<div data-elementor-type="wp-post" data-elementor-id="1884" class="elementor elementor-1884">
+            }</style>		
+            <div data-elementor-type="wp-post" data-elementor-id="1884" class="elementor elementor-1884">
             <section class="elementor-section elementor-top-section elementor-element elementor-element-72045ac elementor-section-content-middle elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="72045ac" data-element_type="section">
                 <div class="elementor-container elementor-column-gap-default">
                     <div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-eccc0fb" data-id="eccc0fb" data-element_type="column">
@@ -3766,7 +3767,7 @@
                                                             <li id="menu-item-46" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-46"><a asp-controller="Nutritionist" asp-action="AvailableTimes">Available Times</a></li>
                                                             <li id="menu-item-46" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-46"><a asp-controller="Nutritionist" asp-action="CreateProfile">Create nutritionsist profile</a></li>
                                                             <li id="menu-item-47" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-47"><a asp-controller="Nutritionist" asp-action="MyProfile">My Profile nutrition</a></li>
-                                                            <li id="menu-item-48" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-48"><a href="https://promo-theme.com/woxfit/online-course/">Online Course</a></li>
+                                                            <li id="menu-item-48" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-48"><a asp-controller="Client" asp-action="MyProfile">My Profile client</a></li>
                                                             <li id="menu-item-49" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-49"><a href="https://promo-theme.com/woxfit/sports-nutrition-shop/">Sports Nutrition Shop</a></li>
                                                             <li id="menu-item-50" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-50"><a href="https://promo-theme.com/woxfit/parallax-showcase/">Parallax Showcase</a></li>
                                                         </ul>
@@ -3833,7 +3834,10 @@
                                         @* <div class="pt-search-toggle search-toggle"></div>*@
                                         if (count > 0)
                                         {
-                                            <a asp-controller="Notification" asp-action="Index">@count</a>
+                                            <a asp-controller="Notification" asp-action="Index">
+                                                <span class="pt-cart-count">@count</span>
+                                            </a>
+                                         
 
                                         }
                                            <p>
@@ -3850,6 +3854,7 @@
 
                                 </div>
                             </div>
+
                             <div class="elementor-element elementor-element-7b87b2e elementor-widget__width-auto elementor-widget-divider--view-line elementor-widget elementor-widget-divider" data-id="7b87b2e" data-element_type="widget" data-widget_type="divider.default">
                                 <div class="elementor-widget-container">
                                     <style>
@@ -4268,8 +4273,15 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="pt-swiper-arrows"><div class="pt-swiper-button-prev"></div><div class="pt-swiper-button-next"></div></div>
-                                                <div class="pt-swiper-fraction"></div>
+                                                <div class="pt-swiper-arrows">
+                                                    <div class="pt-swiper-button-prev"></div>
+                                                    <div class="pt-swiper-button-next">
+
+                                                    </div>
+                                                </div>
+                                                <div class="pt-swiper-fraction">
+
+                                                </div>
                                             </div>
 
                                         </div>
