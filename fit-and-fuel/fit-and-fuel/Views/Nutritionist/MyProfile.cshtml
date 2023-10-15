@@ -10,51 +10,10 @@
 
 
 
-
-
-<section class="elementor-section elementor-top-section elementor-element elementor-element-58e1447 elementor-reverse-tablet elementor-reverse-mobile elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="58e1447" data-element_type="section" style="margin: 10px; background-color: #f5f5f5; border-radius: 10px; padding: 20px;">
+<section class="elementor-section elementor-top-section elementor-element elementor-element-58e1447 elementor-reverse-tablet elementor-reverse-mobile elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="58e1447" data-element_type="section" style=" background-color: #f5f5f5; border-radius: 10px; padding: 20px;">
     <div class="elementor-container elementor-column-gap-default">
-        <div class="elementor-column elementor-col-30 elementor-top-column elementor-element" style="padding: 15px;">
-            <div class="elementor-column elementor-top-column elementor-element elementor-element-334311b" data-id="334311b" data-element_type="column">
-                <div class="elementor-widget-wrap elementor-element-populated">
-                    <div class="elementor-element elementor-element-d680ce4 elementor-widget elementor-widget-pt-categories-3" data-id="d680ce4" data-element_type="widget" data-widget_type="pt-categories-3.default">
-                        <div class="elementor-widget-container">
-                            <div class="pt-categories-3">
-                                <div class="pt-category">
-                                    <div class="pt-category-title">
-                                        <a asp-controller="Nutritionist" asp-action="Appointments">
-                                            My Appointments
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="pt-category">
-                                    <div class="pt-category-title">
-                                        <a asp-controller="Nutritionist" asp-action="AvailableTimes">
-                                            Schedule Appointments
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="pt-category">
-                                    <div class="pt-category-title">
-                                        <a href="/woxfit/timetable/">
-                                            My Posts
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="pt-category">
-                                    <div class="pt-category-title">
-                                        <a href="/woxfit/timetable/">
-                                            Add Post
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="elementor-column elementor-col-69 elementor-top-column elementor-element elementor-element-71aa8e7">
+       
+        <div class="elementor-column  elementor-top-column elementor-element elementor-element-71aa8e7">
             <div class="elementor-widget-wrap elementor-element-populated">
                 <div class="card">
                     <div class="card-body p-0">
@@ -65,62 +24,79 @@
                             <div id="empoloyees-tblwrapper_wrapper" class="dataTables_wrapper no-footer">
                                 <div class="dt-buttons">
                                 </div>
-                                <table class="table table-bordered table-hover" style="border-radius: 10px;">
-                                    <thead>
-                                        <tr role="row">
-                                            <th rowspan="1" colspan="1" style="width: 265.266px;">Name</th>
-                                            <th rowspan="1" colspan="1" style="width: 199.391px;">Gender</th>
-                                            <th rowspan="1" colspan="1" style="width: 182.688px;">Age</th>
-                                            <th rowspan="1" colspan="1" style="width: 207.828px;">Contact Number</th>
-                                            <th rowspan="1" colspan="2" style="width: 125.672px;">View</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach (var patient in Model.patients)
-                                        {
-                                            <tr role="row" class="odd">
-                                                <td>
-                                                    <div class="products" style="display: flex; align-items: center;">
-                                                        <img src="/img/pic2.jpg" class="avatar avatar-md" style="margin-right: 10px; vertical-align: middle; height: 2.813rem; width: 2.813rem; border-radius: 50%;" alt="">
-                                                        <div>
-                                                            <h6 style="margin-bottom: 0; font-size: 15px;">@patient.Name</h6>
-                                                            <span></span>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td><span>@patient.Gender</span></td>
-                                                <td><span class="text-primary">30</span></td>
-                                                <td>
-                                                    <span>@patient.PhoneNumber</span>
-                                                </td>
-                                                <td>
-                                                    <span class="badge badge-success light border-0">
-
-                                                    </span>
-                                                </td>
-                                                <td>
-                                                    <span class="badge badge-success light border-0" style="display: flex; justify-content: space-evenly; gap: 10px;">
-                                                        <a asp-controller="Nutritionist" asp-action="" asp-route-id="@patient.Id">
-                                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M19.0714 19.0699C16.0152 22.1263 11.4898 22.7867 7.78642 21.074C7.23971 20.8539 6.79148 20.676 6.36537 20.676C5.17849 20.683 3.70117 21.8339 2.93336 21.067C2.16555 20.2991 3.31726 18.8206 3.31726 17.6266C3.31726 17.2004 3.14642 16.7602 2.92632 16.2124C1.21283 12.5096 1.87411 7.98269 4.93026 4.92721C8.8316 1.02443 15.17 1.02443 19.0714 4.9262C22.9797 8.83501 22.9727 15.1681 19.0714 19.0699Z" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                                                <path d="M15.9393 12.413H15.9483" stroke="#130F26" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                                                <path d="M11.9306 12.413H11.9396" stroke="#130F26" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                                                <path d="M7.92128 12.413H7.93028" stroke="#130F26" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                                            </svg>
-                                                        </a>
-                                                       if (@patient.dietPlan != null)
-    {
-        <a asp-controller="Nutritionist" asp-action="MyPatientDietPlan" asp-route-id="@patient.dietPlan.Id">view dietplan</a>
-
-    }
-   else{ <a asp-controller="Nutritionist" asp-action="CreateDietPlan" asp-route-id="@patient.Id">Create dietplan</a> }
-                                                        
-                                                    </span>
-                                                </td>
+                                <div class="table-container">
+                                    <table class="" style="border-radius: 10px; overflow-y: scroll; overflow-x: scroll;">
+                                        <thead>
+                                            <tr role="row">
+                                                <th rowspan="1" colspan="1" style="width: 265.266px;">Name</th>
+                                                <th rowspan="1" colspan="1" style="width: 199.391px;">Gender</th>
+                                                <th rowspan="1" colspan="1" style="width: 182.688px;">Age</th>
+                                                <th rowspan="1" colspan="1" style="width: 207.828px;">Contact Number</th>
+                                                <th rowspan="1" colspan="1" style="width: 125.672px;">DietPlan</th>
+                                                <th rowspan="1" colspan="1" style="width: 125.672px;">Chat</th>
                                             </tr>
-                                        }
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var patient in Model.patients)
+                                            {
+                                                <tr role="row" class="odd">
+                                                    <td>
+                                                        <div class="products" style="display: flex; align-items: center;">
+                                                            <img src="/img/pic2.jpg" class="avatar avatar-md" style="margin-right: 10px; vertical-align: middle; height: 2.813rem; width: 2.813rem; border-radius: 50%;" alt="">
+                                                            <div>
+                                                                <h6 style="margin-bottom: 0; font-size: 13px;">@patient.Name</h6>
+                                                                <span></span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td><span>@patient.Gender</span></td>
+                                                    <td><span class="text-primary">30</span></td>
+                                                    <td>
+                                                        <span>@patient.PhoneNumber</span>
+                                                    </td>
+
+                                                    <td style="padding-inline-start:10px;">
+                                                        <span class="badge badge-success light border-0">
+                                                            @if (@patient.dietPlan != null)
+                                                            {
+                                                                <a asp-controller="Nutritionist" asp-action="MyPatientDietPlan" asp-route-id="@patient.dietPlan.Id">
+                                                                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M15.1614 12.0531C15.1614 13.7991 13.7454 15.2141 11.9994 15.2141C10.2534 15.2141 8.83838 13.7991 8.83838 12.0531C8.83838 10.3061 10.2534 8.89111 11.9994 8.89111C13.7454 8.89111 15.1614 10.3061 15.1614 12.0531Z" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M11.998 19.3549C15.806 19.3549 19.289 16.6169 21.25 12.0529C19.289 7.48892 15.806 4.75092 11.998 4.75092H12.002C8.194 4.75092 4.711 7.48892 2.75 12.0529C4.711 16.6169 8.194 19.3549 12.002 19.3549H11.998Z" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                                                    </svg>
+                                                                </a>
+                                                            }
+                                                            else
+                                                            {
+                                                                <a asp-controller="Nutritionist" asp-action="CreateDietPlan" asp-route-id="@patient.Id">
+                                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M14.7366 2.76193H8.08455C6.00455 2.75393 4.29955 4.41093 4.25055 6.49093V17.3399C4.21555 19.3899 5.84855 21.0809 7.89955 21.1169C7.96055 21.1169 8.02255 21.1169 8.08455 21.1149H16.0726C18.1416 21.0939 19.8056 19.4089 19.8026 17.3399V8.03993L14.7366 2.76193Z" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                                                        <path d="M14.4741 2.75012V5.65912C14.4741 7.07912 15.6231 8.23012 17.0431 8.23412H19.7971" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                                                        <path d="M14.2936 12.9142H9.39355" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                                                        <path d="M11.8442 15.3639V10.4639" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                                                    </svg>
+                                                                </a>
+                                                            }
+                                                        </span>
+                                                    </td>
+                                                    <td rowspan="1" colspan="1">
+                                                        <span class="badge badge-success light border-0">
+                                                            <a asp-controller="Chat" asp-action="nutritionistChat" asp-route-id="@patient.Id">
+                                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M19.0714 19.0699C16.0152 22.1263 11.4898 22.7867 7.78642 21.074C7.23971 20.8539 6.79148 20.676 6.36537 20.676C5.17849 20.683 3.70117 21.8339 2.93336 21.067C2.16555 20.2991 3.31726 18.8206 3.31726 17.6266C3.31726 17.2004 3.14642 16.7602 2.92632 16.2124C1.21283 12.5096 1.87411 7.98269 4.93026 4.92721C8.8316 1.02443 15.17 1.02443 19.0714 4.9262C22.9797 8.83501 22.9727 15.1681 19.0714 19.0699Z" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                                                    <path d="M15.9393 12.413H15.9483" stroke="#130F26" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                                    <path d="M11.9306 12.413H11.9396" stroke="#130F26" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                                    <path d="M7.92128 12.413H7.93028" stroke="#130F26" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                                </svg>
+                                                            </a>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+
                             </div>
                         </div>
                     </div>
