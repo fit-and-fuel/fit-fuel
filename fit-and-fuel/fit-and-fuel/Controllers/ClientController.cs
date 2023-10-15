@@ -27,9 +27,12 @@ namespace fit_and_fuel.Controllers
         }
         [Authorize(Roles = "Patient")]
 		[HttpPost]
-        public async Task<IActionResult> Create(PatientDto patientDto)
+        public async Task<IActionResult> Create(PatientDto patientDto, IFormFile file)
         {
-            await _patients.Post(patientDto);
+            ModelState.Remove("file");
+
+
+            await _patients.Post(patientDto, file);
             return RedirectToAction("Index", "Home");
         }
 		public async Task<IActionResult> MyDietPlan()

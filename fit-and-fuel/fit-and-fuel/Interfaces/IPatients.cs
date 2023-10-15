@@ -19,8 +19,11 @@ namespace fit_and_fuel.Interfaces
         Task<List<Meal>> GetMyMealsForToday();
        
 
+
         Task MealIsCompletion( int MealId);
-        Task<Patient> Post(PatientDto patientDto);
+
+        Task<Patient> Post(PatientDto patientDto, IFormFile file);
+
         
         Task Put(int id, PatientDto patientDto);
         Task Delete(int id);

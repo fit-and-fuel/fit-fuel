@@ -1,4 +1,6 @@
-﻿using fit_and_fuel.Data;
+﻿using Azure.Storage.Blobs.Models;
+using Azure.Storage.Blobs;
+using fit_and_fuel.Data;
 using fit_and_fuel.DTOs;
 using fit_and_fuel.Interfaces;
 using fit_and_fuel.Model;
@@ -13,15 +15,18 @@ namespace fit_and_fuel.Services
 		private UserManager<ApplicationUser> _userManager;
 		private readonly AppDbContext _context;
 		private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IConfiguration _configuration;
 
-		private INotification _notificationService;
-        public PatientService(AppDbContext context,  INotification notificationService, IHttpContextAccessor httpContextAccessor, UserManager<ApplicationUser> userManager)
+
+        private INotification _notificationService;
+        public PatientService(AppDbContext context,  INotification notificationService, IHttpContextAccessor httpContextAccessor, UserManager<ApplicationUser> userManager, IConfiguration configuration)
         {
             _context = context;
          
             _notificationService = notificationService;
             _httpContextAccessor = httpContextAccessor;
             _userManager = userManager;
+            _configuration = configuration;
         }
 
         /// <summary>
@@ -117,9 +122,11 @@ namespace fit_and_fuel.Services
         /// <param name="patientDto">DTO containing patient information.</param>
         /// <returns>A newly created Patient object.</returns>
 
-        public async Task<Patient> Post(PatientDto patientDto)
+        public async Task<Patient> Post(PatientDto patientDto, IFormFile file)
         {
-		string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var imageUrl = await UploadFile(file);
+            string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
 			var patientExists = await GetAll();
             var patientList = patientExists.Where(p => p.UserId == userId).FirstOrDefault();
@@ -139,7 +146,7 @@ namespace fit_and_fuel.Services
 					PhoneNumber = userPhonenumber,
 					//NutritionistId = patientDto.NutritionistId,
 
-					imgURl = patientDto.imgURl
+					imgURl = imageUrl
 				};
 				await _context.Patients.AddAsync(patient);
 				await _context.SaveChangesAsync();
@@ -148,6 +155,35 @@ namespace fit_and_fuel.Services
 			}
             return null;
 		}
+
+        public async Task<string> UploadFile(IFormFile file)
+        {
+            var URL = "https://ecommerceprojectimages.blob.core.windows.net/images/noimage.png";
+            if (file != null)
+            {
+                BlobContainerClient blobContainerClient =
+                    new BlobContainerClient(_configuration.GetConnectionString("StorageAccount"), "images");
+
+                await blobContainerClient.CreateIfNotExistsAsync();
+
+                BlobClient blobClient = blobContainerClient.GetBlobClient(file.FileName);
+
+                using var fileStream = file.OpenReadStream();
+
+                BlobUploadOptions blobUploadOptions = new BlobUploadOptions()
+                {
+                    HttpHeaders = new BlobHttpHeaders { ContentType = file.ContentType }
+                };
+
+                if (!blobClient.Exists())
+                {
+                    await blobClient.UploadAsync(fileStream, blobUploadOptions);
+                }
+                URL = blobClient.Uri.ToString();
+            }
+            return URL;
+        }
+
 
         /// <summary>
         /// Updates the information of a specific patient.
