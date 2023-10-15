@@ -104,12 +104,15 @@
 
 			<thead class="thead-dark">
 				<tr>
+
 					<th scope="col">Num</th>
+					<th scope="col">Patient</th>
+
 					<th scope="col">Time</th>
 					<th scope="col">Status</th>
 					<th scope="col">Is Confirmed</th>
 					<th scope="col">Is Completed</th>
-					<th scope="col">Confirm? </th>
+					<th scope="col">Action </th>
 
 
 
@@ -123,6 +126,12 @@
 				{
 					<tr>
 						<th style="text-align:center;" scope="row">@rowNumber</th>
+						<td>
+@* 							<a asp-controller="Clinet" asp-action=""></a
+ *@								
+								@at.Patient.Name
+								</td>
+
 						<td>@at.Time</td>
 						<td>@at.Status</td>
 						@if (at.IsConfirmed == true)
@@ -151,16 +160,29 @@
 							</td>
 						}
 
+						@if (at.IsConfirmed == false)
+						{
+							<td>
+								<form asp-controller="Nutritionist" asp-action="AppoitmentConfirmed" method="post">
+									<input name="id" value="@at.Id" type="hidden">
+
+									<button type="submit">Confirm</button>
+								</form>
+							</td>
+						}
+
+						else{
 
 						<td>
-							<form asp-controller="Nutritionist" asp-action="AppoitmentConfirmed" method="post">
-								<input name="id" value="@at.Id" type="hidden">
-
-								<button type="submit">Confirm</button>
-							</form>
+							<a asp-controller="Nutritionist" asp-action="CompleteAppointment" asp-route-id="@at.Id">Complete </a>
 						</td>
+						}
+					
 
+						
+						
 
+						
 					</tr>
 					rowNumber++;
 				}
