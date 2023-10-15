@@ -42,7 +42,7 @@ namespace fit_and_fuel.Controllers
 		}
         public async Task<IActionResult> Posts()
         {
-            var posts = await _post.GetAll();
+            var posts = await _post.GetAllPosts();
             return View(posts);
         }
 		public async Task<IActionResult> Patients()
@@ -55,6 +55,14 @@ namespace fit_and_fuel.Controllers
         {
             await _userService.AssignRolesToUser(userName);
             return RedirectToAction("Index","Home");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ConfiremPost(int id)
+        {
+            await _post.ImprovedPost(id);
+
+            return RedirectToAction("Index", "Admin");
         }
     }
 }

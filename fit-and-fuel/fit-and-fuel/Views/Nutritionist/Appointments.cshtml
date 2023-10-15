@@ -3,6 +3,26 @@
 }
 
 @model IEnumerable<ViewAppointment>
+
+	<style>
+	table {
+		margin: 0 auto;
+		width:70%;
+	}
+
+	h2:hover {
+		color: #D6FD51;
+	}
+
+	th, td, thead {
+		padding: 8px;
+		text-align: center; /* Center the text in cells */
+	}
+
+		td:hover {
+			background-color: #D6FD51; /* Change the background color when hovering over a cell */
+		}
+	</style>
 <section style="height:100px" class="elementor-section elementor-top-section elementor-element elementor-element-ae4cf5a elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="ae4cf5a" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
 	<div class="elementor-background-overlay"></div>
 	<div class="elementor-container elementor-column-gap-default">
@@ -34,7 +54,7 @@
 	</div>
 </section>
 
-@foreach(var AP in Model){
+@*@foreach(var AP in Model){
    <center>
         <table>
             <thead>
@@ -54,7 +74,17 @@
 
                         <button type="submit">Confirm</button>
                     </form>
+                    @if (AP.IsConfirmed == true)
+                    {
+                        <a asp-controller="Nutritionist" asp-action="CompleteAppointment" asp-route-id="@AP.Id">Complete </a>
+
+                    }
                 </tr>
+            
+                     
+               
+
+				
                 <tr>
                     <th>@AP.IsCompleted</th>
                 </tr>
@@ -62,4 +92,80 @@
         </table>
    </center>
 
-}
+}*@
+<center>
+	<div style="margin:20px 0px 20px 0px;">
+		<div class="pt-heading">
+			<h2 class="pt-heading-title h2" style="font-size:40px; text-align:center;">
+				My Appointments
+			</h2>
+		</div>
+		<table class="table table-hover">
+
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">Num</th>
+					<th scope="col">Time</th>
+					<th scope="col">Status</th>
+					<th scope="col">Is Confirmed</th>
+					<th scope="col">Is Completed</th>
+					<th scope="col">Confirm? </th>
+
+
+
+				</tr>
+			</thead>
+			<tbody>
+				@{
+					var rowNumber = 1;
+				}
+				@foreach (var at in Model)
+				{
+					<tr>
+						<th style="text-align:center;" scope="row">@rowNumber</th>
+						<td>@at.Time</td>
+						<td>@at.Status</td>
+						@if (at.IsConfirmed == true)
+						{
+							<td style="color:green;">
+								Confirmed
+							</td>
+						}
+						else
+						{
+							<td style="color:red;">
+								Not Confirmed
+							</td>
+						}
+
+						@if (at.IsCompleted == true)
+						{
+							<td style="color:green;">
+								Completed
+							</td>
+						}
+						else
+						{
+							<td style="color:red;">
+								Not Yet
+							</td>
+						}
+
+
+						<td>
+							<form asp-controller="Nutritionist" asp-action="AppoitmentConfirmed" method="post">
+								<input name="id" value="@at.Id" type="hidden">
+
+								<button type="submit">Confirm</button>
+							</form>
+						</td>
+
+
+					</tr>
+					rowNumber++;
+				}
+			</tbody>
+
+		</table>
+	</div>
+</center>

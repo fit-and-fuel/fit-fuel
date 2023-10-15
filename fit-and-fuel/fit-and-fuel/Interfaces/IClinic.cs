@@ -10,6 +10,8 @@ namespace fit_and_fuel.Interfaces
         Task<Clinic> GetById(int id);
         Task<ClinicDtoView> GetByIdDto(int id);
         Task Post(ClinicDto clinicDto,int UserId);
+        Task Post(ClinicDto clinicDto);
+
 
         Task Put(ClinicDto clinicDto,int UserId);
         Task Delete(int Userid);

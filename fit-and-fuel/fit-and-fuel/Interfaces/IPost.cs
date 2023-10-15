@@ -14,5 +14,9 @@ namespace fit_and_fuel.Interfaces
         Task Put(int id, PostDto PostDto, int postId);
         Task Delete(int id,int UserId);
 		Task<int> Count();
+
+		Task<List<Post>> GetMyPosts();
+		Task<List<Post>> GetAllPosts();
+
 	}
 }

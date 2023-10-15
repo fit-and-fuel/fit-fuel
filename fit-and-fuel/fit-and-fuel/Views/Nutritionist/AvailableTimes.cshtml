@@ -9,77 +9,180 @@
 </div>
 
 
-@foreach(var time in Model)
-{
-	<div class="m-5">
-    <p>@time.DayOfWeek</p>
-    <p>@time.Time</p>
-    <br>
-	</div>
-}
+<style>
+	
+	
 
-<section class="elementor-section elementor-top-section elementor-element elementor-element-153008a elementor-section-content-bottom elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="153008a" data-element_type="section">
-	<div class="elementor-container elementor-column-gap-default">
-		<div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-aac29d5" data-id="aac29d5" data-element_type="column">
-			<div class="elementor-widget-wrap elementor-element-populated">
-				<div class="elementor-element elementor-element-4d11961 elementor-widget elementor-widget-pt-heading" data-id="4d11961" data-element_type="widget" data-settings="{&quot;decor&quot;:[]}" data-widget_type="pt-heading.default">
-					<div class="elementor-widget-container">
+	table {
+		margin: 0 auto; 
+		
+	}
 
-						<div class="pt-heading">
-							<h4 class="pt-heading-title h3">
-								Your Profile
-							</h4>
-						</div>
+	h2:hover{
+		color: #D6FD51;
+	}
+	th, td,thead {
+		padding: 8px;
+		text-align: center; /* Center the text in cells */
+	}
 
-					</div>
-				</div>
-				<div class="elementor-element elementor-element-a5d8048 elementor-widget elementor-widget-pt-contact-form-7" data-id="a5d8048" data-element_type="widget" data-widget_type="pt-contact-form-7.default">
-					<div class="elementor-widget-container">
+		td:hover {
+			background-color: #D6FD51; /* Change the background color when hovering over a cell */
+		}
 
-						<div class="pt-contact-form-7">
-							@*
-							here is the problem
-							<div class="wpcf7 js">*@
+	   form {
+        text-align: center;
+        animation: fade-in 1s ease-in-out;
+    }
 
-							<div class="screen-reader-response"><p role="status" aria-live="polite" aria-atomic="true"></p> <ul></ul></div>
-							<form asp-controller="Nutritionist" asp-action="AddAvailableTime" method="post" class="wpcf7-form init" aria-label="Contact form" novalidate="novalidate" data-status="init">
-								<div style="display: none;">
-								</div>
-								<div class="mb-3">
-									<label for="DayOfWeek">Day Of Week</label>
-									<Select id="DayOfWeek" name="DayOfWeek" class="form-control">
-										<option value="Sunday">Sunday</option>
-										<option value="Monday">Monday</option>
-										<option value="Tuesday">Tuesday</option>
-										<option value="Wednesday">Wednesday</option>
-										<option value="Thursday">Thursday</option>
-										<option value="Friday">Friday</option>
-										<option value="Saturday">Saturday</option>
+    /* Add some spacing for the form elements */
+    .mb-3 {
+        margin-bottom: 15px;
+    }
 
-									</Select>
-								</div>
-								<div class="mb-3">
-									<p>
-										<label for="Time">Time</label><br>
-										<span class="wpcf7-form-control-wrap">
-											<input size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" id="Time" aria-required="true" aria-invalid="false" type="time" name="Time">
-										</span>
-									</p>
-								</div>
+    /* Style the select element */
+    select.form-control {
+        width: 100%; /* Make the select element full width */
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        transition: border-color 0.3s, box-shadow 0.3s;
 
-								<div class="mb-0">
-									<p>
-										<input class="wpcf7-form-control has-spinner wpcf7-submit" type="submit" value="Add Time"><span class="wpcf7-spinner"></span>
-									</p>
-								</div><div class="wpcf7-response-output" aria-hidden="true"></div>
-							</form>
-							<div asp-validation-summary="All"></div>
-						</div>
+      
+    }
 
+    /* Style the time input */
+    input[type="time"] {
+        width: 100%; /* Make the time input full width */
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        transition: border-color 0.3s, box-shadow 0.3s;
 
-					</div>
-				</div>
-			</div>
+       
+    }
+
+</style>
+@*
+<nav class="navbar" style="height:70px; width:80%; margin: 0 auto; background-color:burlywood; margin-top:50px; display:flex; justify-content:space-between; align-items:center;">
+	
+		<h6>Choose Your Available Time</h6>
+	
+	
+	<form style="display:flex;  justify-content:space-between; gap:10px;" asp-controller="Nutritionist" asp-action="AddAvailableTime" method="post" class="form-inline">
+		<div >
+			<label for="DayOfWeek">Day Of Week:</label>
+			<select style="height:40px;" id="DayOfWeek" name="DayOfWeek" class="form-control">
+				<option value="Sunday">Sunday</option>
+				<option value="Monday">Monday</option>
+				<option value="Tuesday">Tuesday</option>
+				<option value="Wednesday">Wednesday</option>
+				<option value="Thursday">Thursday</option>
+				<option value="Friday">Friday</option>
+				<option value="Saturday">Saturday</option>
+			</select>
 		</div>
+		<div >
+			<label for="Time">Time:</label>
+			<input style="height:40px;" size="40" class="form-control" id="Time" type="time" name="Time">
+		</div>
+		<button class="btn btn-primary" type="submit">Add Time</button>
+	</form>
+</nav>
+	<div asp-validation-summary="All"></div>
+*@
+
+
+<div style="width:50%;margin: 0 auto; ">
+	
+	<div>
+		<br />
+		<div class="pt-heading">
+			<h2 class="pt-heading-title h2" style="font-size:40px; text-align:center;">
+				Choose Your Available Time
+			</h2>
+		</div>
+		<br />
+		<form asp-controller="Nutritionist" asp-action="AddAvailableTime" method="post">
+			<center>
+				<div class="mb-3">
+					<label for="DayOfWeek">Day Of Week</label>
+					<Select id="DayOfWeek" name="DayOfWeek" class="form-control">
+						<option value="Sunday">Sunday</option>
+						<option value="Monday">Monday</option>
+						<option value="Tuesday">Tuesday</option>
+						<option value="Wednesday">Wednesday</option>
+						<option value="Thursday">Thursday</option>
+						<option value="Friday">Friday</option>
+						<option value="Saturday">Saturday</option>
+
+					</Select>
+				</div>
+
+
+				<div class="mb-3">
+					<p>
+						<label for="Time">Time</label><br>
+						<span class="wpcf7-form-control-wrap">
+							<input size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" id="Time" aria-required="true" aria-invalid="false" type="time" name="Time">
+						</span>
+					</p>
+				</div>
+			</center>
+			<center>
+				<div class="elementor-element elementor-element-3e11bac elementor-widget elementor-widget-pt-button" data-id="3e11bac" data-element_type="widget" data-widget_type="pt-button.default">
+					<div class="elementor-widget-container">
+
+						<a class="pt-button filled-2 ">
+							<input type="submit" value="Add Time">
+						</a>
+
+					</div>
+				</div>
+			</center>
+		</form>
+		<div asp-validation-summary="All"></div>
 	</div>
-</section>
+
+	<br />
+
+
+
+	<div>
+		<br />
+		<div class="pt-heading">
+			<h2 class="pt-heading-title h2" style="font-size:40px; text-align:center;">
+				 Your Times
+			</h2>
+		</div>
+		<table class="table table-hover">
+
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">Num</th>
+					<th scope="col">Day</th>
+					<th scope="col">Time</th>
+
+				</tr>
+			</thead>
+			<tbody>
+				@{
+					var rowNumber = 1;
+				}
+				@foreach (var at in Model)
+				{
+					<tr>
+						<th style="text-align:center;" scope="row">@rowNumber</th>
+						<td>@at.DayOfWeek</td>
+						<td>@at.Time</td>
+
+					</tr>
+					rowNumber++;
+				}
+			</tbody>
+
+		</table>
+	</div>
+	
+</div>
+

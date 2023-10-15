@@ -15,8 +15,9 @@ namespace fit_and_fuel.Controllers
         private readonly IDietPlan _dietplan;
 		private readonly IMeals _meals;
 		private readonly IPost _post;
+		private readonly IClinic _clinic;
 
-        public NutritionistController(INutritionists nutritionists, IAvailableTime availableTime, IAppoitments appoitments, IDietPlan dietplan, IMeals meals, IPost post)
+        public NutritionistController(INutritionists nutritionists, IAvailableTime availableTime, IAppoitments appoitments, IDietPlan dietplan, IMeals meals, IPost post,IClinic clinic)
 		{
 			_nutritionists = nutritionists;
 			_availableTime = availableTime;
@@ -24,6 +25,7 @@ namespace fit_and_fuel.Controllers
              _dietplan = dietplan;
 			_meals = meals;
 			_post = post;
+			_clinic = clinic;
 
         }
 		public async Task<IActionResult> Appointments()
@@ -101,7 +103,7 @@ namespace fit_and_fuel.Controllers
         public async Task<IActionResult> AppoitmentConfirmed(int id)
         {
             await _appoitments.AppoitmentConfirmed(id);
-            return Redirect("Index");
+            return Redirect("Appointments");
 		}
 
 
@@ -152,8 +154,39 @@ namespace fit_and_fuel.Controllers
 
 
 
+		public async Task<IActionResult> ViewPosts()
+		{
+			var posts = await _post.GetMyPosts();
+			return View(posts);
+		}
 
-	}
+		public IActionResult AddClinic()
+        {
+            return View();
+		}
+
+
+		[HttpPost]
+		public async Task<IActionResult> AddClinic(ClinicDto clinicDto)
+		{
+			 await _clinic.Post(clinicDto);
+		   	 return Redirect("MyProfile");
+             
+		}
+
+       
+        public async Task<IActionResult> CompleteAppointment(int id)
+        {
+            await _appoitments.AppoitmentCompleted(id);
+            return RedirectToAction("Appointments","Nutritionist");
+
+        }
+	
+
+
+
+
+        }
 }
 
 	

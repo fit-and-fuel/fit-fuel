@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace fit_and_fuel.Migrations
 {
     /// <inheritdoc />
-    public partial class regster : Migration
+    public partial class first : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -76,7 +76,8 @@ namespace fit_and_fuel.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Timestamp = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ReadNotfication = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -542,9 +543,9 @@ namespace fit_and_fuel.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "1", 0, "e52cb70d-d009-4fa3-b6bb-b92c1eb000da", "adminUser@example.com", true, false, null, "adminUser@EXAMPLE.COM", "ADMIN", "AQAAAAIAAYagAAAAEG3iljj+bcz9Y5xibWV4BtNh0tPOhQgcG7SGv/MEUy06UYWfV1eRyvKYXC8xoMvF1A==", "1234567890", false, "7eea1770-8df8-49ba-bddc-27987f4e1853", false, "admin" },
-                    { "2", 0, "12d3211d-488f-4237-ab31-03174c38705c", "nutritionistUser@example.com", true, false, null, "nutritionistUser@EXAMPLE.COM", "NUTRITIONIST", "AQAAAAIAAYagAAAAEA5yHAhp/AidXd7imoz4UJVgSnBhbiX17S0IGhtOVqFGXuofkje9CcRa/64/2cBCTA==", "1234567890", false, "b7022264-a7f0-4ae1-8f3d-2404c7cb6a8a", false, "nutritionist" },
-                    { "3", 0, "4bf0a67d-b220-491f-a452-2c6b5ae386f6", "patientUser@example.com", true, false, null, "patientUser@EXAMPLE.COM", "PATIENT", "AQAAAAIAAYagAAAAEHFvKvN0WFf9Zsg3NtRMKuTWtzA5ffNzo8RwDnGgpK3y04N9Nv3vMmUpxMAU/eloxQ==", "1234567890", false, "72167936-d027-4d2b-af5b-17ae7b2a62e4", false, "patient" }
+                    { "1", 0, "ac0f2cd5-58bd-475f-8235-ff5371f1f018", "adminUser@example.com", true, false, null, "adminUser@EXAMPLE.COM", "ADMIN", "AQAAAAIAAYagAAAAEPeOKeCLUElENhmfzy44oeEmNjtmdpVZJXTvCdb3UF380g3clXI+Btd/OoiuIusg9w==", "1234567890", false, "baa9a67e-8bea-494e-8dc4-f36996690baa", false, "admin" },
+                    { "2", 0, "ed0d2697-5867-47b6-b94d-37b687312d1f", "nutritionistUser@example.com", true, false, null, "nutritionistUser@EXAMPLE.COM", "NUTRITIONIST", "AQAAAAIAAYagAAAAEJSlpwZ2hFEzUg3RKh1PBp8NwX8aCvjSWLAiUh3FKkE0/nqKjHAxkORNX7pFcIkHig==", "1234567890", false, "b4c872fc-6891-44b9-b618-36953933968d", false, "nutritionist" },
+                    { "3", 0, "8b932d2f-d880-4c97-9f4c-4d51cc367289", "patientUser@example.com", true, false, null, "patientUser@EXAMPLE.COM", "PATIENT", "AQAAAAIAAYagAAAAEBpeiLHPc0pRnWFPTfd9/0RVfDUwtza/Cpy4HKxppn3fRe3fMJx0oVoOoGWy+LcOBw==", "1234567890", false, "8f9bf557-b395-4b35-9f7d-22092c0d10d1", false, "patient" }
                 });
 
             migrationBuilder.InsertData(
@@ -599,8 +600,8 @@ namespace fit_and_fuel.Migrations
                 columns: new[] { "Id", "Description", "ImageUrl", "IsImproved", "NutritionistId", "Time", "Title" },
                 values: new object[,]
                 {
-                    { 1, "Learn how to make healthier food choices.", "image_url_1", false, 1, new DateTime(2023, 10, 10, 11, 59, 5, 938, DateTimeKind.Local).AddTicks(5911), "Healthy Eating Tips" },
-                    { 2, "Understanding the importance of a balanced diet.", "image_url_2", false, 2, new DateTime(2023, 10, 10, 11, 59, 5, 938, DateTimeKind.Local).AddTicks(5925), "Balanced Diet Importance" }
+                    { 1, "Learn how to make healthier food choices.", "image_url_1", false, 1, new DateTime(2023, 10, 15, 14, 30, 59, 571, DateTimeKind.Local).AddTicks(9908), "Healthy Eating Tips" },
+                    { 2, "Understanding the importance of a balanced diet.", "image_url_2", false, 2, new DateTime(2023, 10, 15, 14, 30, 59, 571, DateTimeKind.Local).AddTicks(9924), "Balanced Diet Importance" }
                 });
 
             migrationBuilder.InsertData(
@@ -608,8 +609,8 @@ namespace fit_and_fuel.Migrations
                 columns: new[] { "Id", "IsCompleted", "IsConfirmed", "NutritionistId", "PatientId", "Status", "Time" },
                 values: new object[,]
                 {
-                    { 1, false, false, 1, 1, "Scheduled", new DateTime(2023, 10, 10, 12, 59, 5, 938, DateTimeKind.Local).AddTicks(6044) },
-                    { 2, false, false, 2, 2, "Scheduled", new DateTime(2023, 10, 10, 13, 59, 5, 938, DateTimeKind.Local).AddTicks(6058) }
+                    { 1, false, false, 1, 1, "Scheduled", new DateTime(2023, 10, 15, 15, 30, 59, 571, DateTimeKind.Local).AddTicks(9935) },
+                    { 2, false, false, 2, 2, "Scheduled", new DateTime(2023, 10, 15, 16, 30, 59, 571, DateTimeKind.Local).AddTicks(9945) }
                 });
 
             migrationBuilder.InsertData(
@@ -653,7 +654,9 @@ namespace fit_and_fuel.Migrations
                 values: new object[,]
                 {
                     { 1, 300, false, 1, "Oatmeal with fruits", "Breakfast" },
-                    { 2, 500, false, 1, "Grilled chicken salad", "Lunch" }
+                    { 2, 500, false, 1, "Grilled chicken salad", "Lunch" },
+                    { 3, 500, false, 2, "Grilled meat salad", "Lunch" },
+                    { 4, 200, false, 2, "egss and milk", "BreakFast" }
                 });
 
             migrationBuilder.CreateIndex(

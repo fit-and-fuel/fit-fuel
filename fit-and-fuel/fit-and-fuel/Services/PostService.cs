@@ -67,7 +67,7 @@ namespace fit_and_fuel.Services
         public async Task<List<Post>> GetAll()
         {
             var Allposts = await _context.Posts
-            //.Where(p=>p.IsImproved==true)
+            .Where(p=>p.IsImproved==true)
             .Include(p => p.nutritionist)
             .ToListAsync();
             return Allposts;
@@ -261,5 +261,30 @@ namespace fit_and_fuel.Services
         {
             throw new NotImplementedException();
         }
-    }
+
+		public async Task<List<Post>> GetMyPosts()
+		{
+			string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var nutritionist = await _context.Nutritionists.Where(n=>n.UserId == userId).FirstOrDefaultAsync();
+
+			var Allposts = await _context.Posts
+            .Where(p=>p.NutritionistId == nutritionist.Id)
+            //.Include(p => p.nutritionist)
+            .ToListAsync();
+
+			return Allposts;
+
+		}
+
+		public async Task<List<Post>> GetAllPosts()
+		{
+			var AllPosts = await _context.Posts
+				.OrderByDescending(p => p.Id)
+				.Include(p => p.nutritionist)
+				.ToListAsync();
+
+			return AllPosts;
+		}
+
+	}
 }
