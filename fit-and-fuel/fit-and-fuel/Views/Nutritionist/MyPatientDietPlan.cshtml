@@ -20,6 +20,49 @@
     <h3>@day.DayName (@day.Date.ToShortDateString())</h3>
     <p><strong>Total Calories for the Day:</strong> @day.TotalCalories</p>
     <h4>Meals for the Day</h4>
+@* <a asp-controller="Nutritionist" asp-action="AddMeals" asp-route-id="@day.Id"  class="wpcf7-form init" aria-label="Contact form" data-status="init">Add</a>       
+ *@        
+ 
+
+
+@* <h1>@Model.PatientId</h1>
+ *@<form asp-controller="Nutritionist" asp-action="AddMeal" method="post" class="wpcf7-form init" aria-label="Contact form" data-status="init">
+	<div style="display: none;"> </div>
+	<div class="mb-3">
+		<p>
+                <label for="Name">Name Meals</label><br>
+			<span class="wpcf7-form-control-wrap">
+                    <input size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Name Meals" type="text" name="Name">
+			</span>
+		</p>
+	</div>
+        <input value="@day.Id" type="hidden" name="DayId">
+        <input value="@Model.Id" type="hidden" name="DietPlanId">
+
+	<div class="mb-3">
+		<p>
+                <label for="Description">Description</label><br>
+			<span class="wpcf7-form-control-wrap">
+                    <input size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Description" type="text" name="Description">
+			</span>
+		</p>
+	</div>
+        <div class="mb-3">
+            <p>
+                <label for="Calories">Calories</label><br>
+                <span class="wpcf7-form-control-wrap">
+                    <input size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Calories" type="number" name="Calories">
+                </span>
+            </p>
+        </div>  
+
+	<div class="mb-0">
+		<p>
+			<input class="wpcf7-form-control has-spinner wpcf7-submit" type="submit" value="Add"><span class="wpcf7-spinner"></span>
+		</p>
+	</div>
+</form>
+
     <table>
         <thead>
             <tr>

@@ -7,7 +7,7 @@
 //    $("#list").prepend(li);
 //});
 connection.on("ReceiveMessage", function ( message) {
-    var msg = message;
+    var msg ="N :"+ message;
     var li = document.createElement("li");
     li.textContent = msg;
     $("#list").prepend(li);
@@ -24,6 +24,6 @@ connection.start().catch(function (err) {
 $("#btnSend").on("click", function () {
  
     var message = $("#txtMessage").val();
-    
-    connection.invoke("SendMessage", message);
+    var toUser = $("#toUser").val();
+    connection.invoke("SendMessageNut", message, toUser);
 });

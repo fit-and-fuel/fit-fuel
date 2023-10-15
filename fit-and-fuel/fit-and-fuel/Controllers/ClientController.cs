@@ -20,11 +20,19 @@ namespace fit_and_fuel.Controllers
         {
             return View();
         }
-		[Authorize(Roles = "Patient")]
-		[HttpPost]
-        public async Task<IActionResult> Create(PatientDto patientDto)
+        public async Task<IActionResult> MyProfile()
         {
-            await _patients.Post(patientDto);
+            var myprofile = await _patients.GetMyProfile();
+            return View(myprofile);
+        }
+        [Authorize(Roles = "Patient")]
+		[HttpPost]
+        public async Task<IActionResult> Create(PatientDto patientDto, IFormFile file)
+        {
+            ModelState.Remove("file");
+
+
+            await _patients.Post(patientDto, file);
             return RedirectToAction("Index", "Home");
         }
     }

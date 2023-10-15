@@ -8,6 +8,7 @@ namespace fit_and_fuel.Interfaces
         Task<List<Patient>> GetAll();
         Task<List<PatientDtoView>> GetAllDto();
         Task<Patient> GetById(int id);
+        Task<Patient> GetMyProfile();
         Task<PatientDtoView> GetByIdDto(int id);
 
         Task SelectNut(int NutId, int UserId);
@@ -19,7 +20,7 @@ namespace fit_and_fuel.Interfaces
        
 
         Task MealIsCompletion(int UserId, int MealId);
-        Task<Patient> Post(PatientDto patientDto);
+        Task<Patient> Post(PatientDto patientDto, IFormFile file);
         
         Task Put(int id, PatientDto patientDto);
         Task Delete(int id);

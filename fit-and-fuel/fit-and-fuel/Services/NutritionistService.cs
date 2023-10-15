@@ -1,11 +1,15 @@
-﻿using fit_and_fuel.Data;
+﻿using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
+using fit_and_fuel.Data;
 using fit_and_fuel.DTOs;
 using fit_and_fuel.Interfaces;
 using fit_and_fuel.Model;
 using Microsoft.AspNetCore.Identity;
 //using Humanizer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Security.Policy;
 //using static NuGet.Packaging.PackagingConstants;
@@ -21,13 +25,16 @@ namespace fit_and_fuel.Services
         private readonly AppDbContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private UserManager<ApplicationUser> _userManager;
+        private readonly IConfiguration _configuration;
 
 
-        public NutritionistService(AppDbContext context, IHttpContextAccessor httpContextAccessor, UserManager<ApplicationUser> userManager)
+
+        public NutritionistService(AppDbContext context, IHttpContextAccessor httpContextAccessor, UserManager<ApplicationUser> userManager, IConfiguration configuration)
         {
             _context = context;
             _httpContextAccessor = httpContextAccessor;
             _userManager = userManager;
+            _configuration = configuration;
         }
 
         /// <summary>
@@ -261,8 +268,10 @@ namespace fit_and_fuel.Services
         /// <param name="nutritionistDto">DTO containing nutritionist information.</param>
         /// <returns>A newly created Nutritionist object.</returns>
 
-        public async Task<Nutritionist> Post( NutritionistDto nutritionistDto)
+        public async Task<Nutritionist> Post( NutritionistDto nutritionistDto, IFormFile file)
         {
+            var imageUrl = await UploadFile(file);
+
             string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var user = await _userManager.FindByIdAsync(userId);
 			var NutList = _context.Nutritionists.Where(p => p.UserId == userId).FirstOrDefault();
@@ -277,14 +286,42 @@ namespace fit_and_fuel.Services
 					Gender = nutritionistDto.Gender,
 					Age = nutritionistDto.Age,
 					CvURl = nutritionistDto.CvURl,
-					imgURl = nutritionistDto.imgURl
-				};
+					imgURl = imageUrl
+                };
 				await _context.Nutritionists.AddAsync(nut);
 				await _context.SaveChangesAsync();
 
 				return nut;
 			}
             return null;
+        }
+
+        public async Task<string> UploadFile(IFormFile file)
+        {
+            var URL = "https://ecommerceprojectimages.blob.core.windows.net/images/noimage.png";
+            if (file != null)
+            {
+                BlobContainerClient blobContainerClient =
+                    new BlobContainerClient(_configuration.GetConnectionString("StorageAccount"), "images");
+
+                await blobContainerClient.CreateIfNotExistsAsync();
+
+                BlobClient blobClient = blobContainerClient.GetBlobClient(file.FileName);
+
+                using var fileStream = file.OpenReadStream();
+
+                BlobUploadOptions blobUploadOptions = new BlobUploadOptions()
+                {
+                    HttpHeaders = new BlobHttpHeaders { ContentType = file.ContentType }
+                };
+
+                if (!blobClient.Exists())
+                {
+                    await blobClient.UploadAsync(fileStream, blobUploadOptions);
+                }
+                URL = blobClient.Uri.ToString();
+            }
+            return URL;
         }
 
         /// <summary>

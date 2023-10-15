@@ -9,7 +9,7 @@ namespace fit_and_fuel.Interfaces
         Task<List<PostDtoView>> GetAllDto();
         Task<Post> GetById(int id);
         Task<PostDtoView> GetByIdDto(int id);
-        Task<Post> Post(int UserId,PostDto PostDto);
+        Task<Post> Post(PostDto PostDto, IFormFile file);
         Task<bool> ImprovedPost (int PostId);
         Task Put(int id, PostDto PostDto, int postId);
         Task Delete(int id,int UserId);

@@ -13,13 +13,17 @@ namespace fit_and_fuel.Controllers
 		private readonly IAvailableTime _availableTime;
         private readonly IAppoitments _appoitments;
         private readonly IDietPlan _dietplan;
+		private readonly IMeals _meals;
+		private readonly IPost _post;
 
-        public NutritionistController(INutritionists nutritionists, IAvailableTime availableTime, IAppoitments appoitments, IDietPlan dietplan)
+        public NutritionistController(INutritionists nutritionists, IAvailableTime availableTime, IAppoitments appoitments, IDietPlan dietplan, IMeals meals, IPost post)
 		{
 			_nutritionists = nutritionists;
 			_availableTime = availableTime;
 			_appoitments = appoitments;
              _dietplan = dietplan;
+			_meals = meals;
+			_post = post;
 
         }
 		public async Task<IActionResult> Appointments()
@@ -40,13 +44,15 @@ namespace fit_and_fuel.Controllers
 
 
 		[HttpPost]
-        public async Task<IActionResult> CreateProfile(NutritionistDto nut)
+        public async Task<IActionResult> CreateProfile(NutritionistDto nut, IFormFile file)
         {
-			//if (!ModelState.IsValid)
-			//{
-			//	return View();
-			//}
-			await _nutritionists.Post(nut);
+            //if (!ModelState.IsValid)
+            //{
+            //	return View();
+            //}
+            ModelState.Remove("file");
+
+            await _nutritionists.Post(nut, file);
 
 			return RedirectToAction("Index","Home");
         }
@@ -96,9 +102,58 @@ namespace fit_and_fuel.Controllers
         {
             await _appoitments.AppoitmentConfirmed(id);
             return Redirect("Index");
+		}
+
+
+        public async Task<IActionResult> CreateDietPlan(int id)
+		{
+			var dite = new DietPlanDto(); 
+			dite.PatientId= id;
+            return View(dite);
+		}
+
+        [HttpPost]
+
+		public async Task<IActionResult> CreateDietPlan(DietPlanDto diteplain)
+		{
+			 await _dietplan.PostDietPlanWithDay(diteplain);
+
+			return Redirect("MyProfile");
+
+		}
+
+     
+        [HttpPost]
+        public async Task<IActionResult> AddMeal(MealDto meal)
+        {
+            await _meals.Post(meal);
+
+			return Redirect($"MyPatientDietPlan/{meal.DietPlanId}");
+
         }
 
-    }
+
+		public IActionResult AddPost()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> AddPost(PostDto post, IFormFile file)
+		{
+			ModelState.Remove("file");
+
+
+			await _post.Post(post, file);
+
+			return RedirectToAction("Index", "Home");
+
+		}
+
+
+
+
+	}
 }
 
 	
