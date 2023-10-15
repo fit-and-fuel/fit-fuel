@@ -114,10 +114,13 @@ namespace fit_and_fuel.Services
         /// <param name="id">The ID of the appointment to mark as completed.</param>
         /// <returns>True if the appointment was marked as completed, otherwise false.</returns>
         
-        public async Task<bool> AppoitmentCompleted(string UserId, int id)
+        public async Task<bool> AppoitmentCompleted(int id)
         {
+            string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+
             var appoitments = await _context.Appoitments
-                .Where(a => a.nutritionist.UserId == UserId).ToListAsync();
+                .Where(a => a.nutritionist.UserId == userId).ToListAsync();
             
             var appoitment = appoitments.Where(a => a.Id == id).FirstOrDefault();
 

@@ -67,7 +67,7 @@ namespace fit_and_fuel.Services
         public async Task<List<Post>> GetAll()
         {
             var Allposts = await _context.Posts
-            //.Where(p=>p.IsImproved==true)
+            .Where(p=>p.IsImproved==true)
             .Include(p => p.nutritionist)
             .ToListAsync();
             return Allposts;

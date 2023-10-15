@@ -13,7 +13,7 @@ namespace fit_and_fuel.Interfaces
         Task<Appoitment> Post(string UserId,AppoitmentDto appoitmentDto,int NutritionistId);
         Task AppoitmentConfirmed(int id);
         Task<Appoitment> SelectAppoitment(int timeId);
-        Task<bool> AppoitmentCompleted(string UserId, int id);
+        Task<bool> AppoitmentCompleted( int id);
         Task Put(int id, AppoitmentDto appoitmentDto);
         Task Delete(int id);
 		Task<int> Count();
