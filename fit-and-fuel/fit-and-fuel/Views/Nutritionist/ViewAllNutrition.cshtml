@@ -1,0 +1,77 @@
+﻿@model IEnumerable<NutritionistDtoView>;
+
+<form asp-controller="Nutritionist" asp-action="ViewAllNutrition" method="get" class="mb-4">
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search by name" name="searchTerm" />
+        &ensp;
+        <div class="input-group-append">
+            <button class="btn btn-outline-dark" type="submit">Search</button>
+        </div>
+    </div>
+</form>
+     @foreach (var n in Model)
+{
+    <article class="portfolio-item istp-item col-md-6 col-lg-3 category-30 popup-item">
+        <div class="wrap">
+            <div class="pt-team-member">
+
+
+                <div class="pt-team-member-image">
+
+                    @*         <img loading="lazy" width="800" height="900" src="~/img/Nutritionist-1.jpg" class="attachment-full size-full" alt="" decoding="async" sizes="(max-width: 800px) 100vw, 800px">
+                *@
+
+                    <img src="@n.imgURl" class="card-img-top img-fixed-height" alt="@n.Name">
+
+
+                    <div class="social-links">
+                        <a asp-controller="Nutritionist" asp-action="NutDetails" asp-route-id="@n.Id">
+                            View Details
+                        </a>
+
+                    </div>
+                </div>
+
+
+                <div class="pt-team-member-title">
+                    @n.Name
+                </div>
+
+
+                <div class="pt-team-member-subtitle">
+                    @{
+                        if (n.AverageRating.HasValue)
+                        {
+                            int fullStars = (int)n.AverageRating.Value;
+                            int halfStar = (int)((n.AverageRating.Value - fullStars) * 2);
+
+                            for (int i = 0; i < fullStars; i++)
+                            {
+                                <i class="fa-sharp fa-solid fa-star text-orange" style="color:orange"></i>
+                            }
+
+                            if (halfStar == 1)
+                            {
+                                <i class="fa-solid fa-star-half-stroke text-orange" style="color:orange"></i>
+                            }
+                            else if (halfStar == 2)
+                            {
+                                <i class="fa-sharp fa-solid fa-star text-orange" style="color:orange"></i>
+                            }
+
+                        }
+                        else
+                        {
+                            <p>No rating available</p>
+                        }
+                    }
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </article>
+}
