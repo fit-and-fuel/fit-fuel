@@ -28,7 +28,22 @@ namespace fit_and_fuel.Controllers
 			_clinic = clinic;
 
         }
-		public async Task<IActionResult> Appointments()
+
+		public async Task<IActionResult> ViewAllNutrition(string searchTerm)
+		{
+			var nut = await _nutritionists.GetAllDto();
+
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                searchTerm = searchTerm.Trim();
+                nut = nut
+                    .Where(p => p.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+            }
+            return View(nut);
+
+				}
+				public async Task<IActionResult> Appointments()
 		{
 			var Appoitment = await _appoitments.GetMyById();
 			return View(Appoitment);
