@@ -204,6 +204,7 @@ namespace fit_and_fuel.Services
         {
             var nut = await _context.Nutritionists
             .Include(p => p.patients)
+             .Include(n => n.Ratings)
             .Include(c => c.clinic)
             .Include(a=>a.appoitments)
             .Include(AT => AT.AvaliableTimes)
