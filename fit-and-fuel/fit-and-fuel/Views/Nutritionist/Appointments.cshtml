@@ -128,9 +128,12 @@
 						<th style="text-align:center;" scope="row">@rowNumber</th>
 						<td>
 @* 							<a asp-controller="Clinet" asp-action=""></a
- *@								
-								@at.Patient.Name
-								</td>
+ *@	
+
+		    <a asp-controller="Client" asp-action="DetailPatient" asp-route-Id="@at.Patient.Id">@at.Patient.Name</a>
+
+			
+		</td>
 
 						<td>@at.Time</td>
 						<td>@at.Status</td>
