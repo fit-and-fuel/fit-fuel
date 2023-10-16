@@ -188,7 +188,7 @@ namespace fit_and_fuel.Services
                 Status = a.Status,
                 Patient = new PatientView
                 {
-                    Id = a.Id,
+                    Id = a.Patient.Id,
 
                     Name = a.Patient.Name,
                     Gender = a.Patient.Gender,
@@ -197,7 +197,7 @@ namespace fit_and_fuel.Services
                 },
                 nutritionist = new NutritionView
                 {
-                    Id = a.Id,
+                    Id = a.nutritionist.Id,
 
                     Name = a.nutritionist.Name,
                     Gender = a.nutritionist.Gender
