@@ -3,10 +3,12 @@
 @{
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
+
 }
 
 
 <section class="elementor-section elementor-top-section elementor-element elementor-element-ae784e8 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="ae784e8" data-element_type="section">
+
     <div class="elementor-container elementor-column-gap-default">
         <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-9a3533e" data-id="9a3533e" data-element_type="column">
             <div class="elementor-widget-wrap elementor-element-populated">
@@ -60,7 +62,34 @@
 
 
                                                 <div class="pt-team-member-subtitle">
-                                                    @n.Age
+                                                    @{
+                                                        if (n.AverageRating.HasValue)
+                                                        {
+                                                            int fullStars = (int)n.AverageRating.Value;
+                                                            int halfStar = (int)((n.AverageRating.Value - fullStars) * 2);
+
+                                                            for (int i = 0; i < fullStars; i++)
+                                                            {
+                                                                <i class="fa-sharp fa-solid fa-star text-orange" style="color:orange"></i>
+                                                            }
+
+                                                            if (halfStar == 1)
+                                                            {
+                                                                <i class="fa-solid fa-star-half-stroke text-orange" style="color:orange"></i>
+                                                            }
+                                                            else if (halfStar == 2)
+                                                            {
+                                                                <i class="fa-sharp fa-solid fa-star text-orange" style="color:orange"></i>
+                                                            }
+                                                           
+                                                        }
+                                                        else
+                                                        {
+                                                            <p>No rating available</p>
+                                                        }
+                                                    }
+
+													
                                                 </div>
 
 
@@ -315,9 +344,6 @@
 							</div>
 
 						</div>
-
-
-
 
 						<div class="pt-swiper-arrows-fraction-2">
 							<div class="pt-swiper-pagination swiper-pagination-fraction"><span class="swiper-pagination-current">2</span> / <span class="swiper-pagination-total">3</span></div>				<div class="pt-line"></div>

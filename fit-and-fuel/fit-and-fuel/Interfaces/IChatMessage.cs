@@ -8,5 +8,6 @@ namespace fit_and_fuel.Interfaces
     {
         Task SendMessage(ChatMessageDto messageDto);
         Task<List<ChatMessage>> ReceiveMessages();
+        Task<List<ChatMessage>> ReceiveMessagesNutritionist(int patientId);
     }
 }
