@@ -19,13 +19,13 @@ namespace fit_and_fuel.Controllers
         }
         public async Task<IActionResult> nutritionistChat(int id)
         {
-            var messages = await _chatMessage.ReceiveMessages();
+            var messages = await _chatMessage.ReceiveMessagesNutritionist(id);
             var nutritionistModle = new NutritionistVM
             {
                 Patinetid = id,
                 ChatMessages = messages
             };
-            
+
             return View(nutritionistModle);
         }
         [HttpPost]
