@@ -10,9 +10,10 @@ namespace fit_and_fuel.Controllers
     public class ClientController : Controller
     {
 		private readonly IPatients _patients;
-
-        public ClientController(IPatients patients)
+        private readonly IRating _rating;
+        public ClientController(IPatients patients,IRating rating)
         {
+            _rating = rating;
             _patients = patients;
         }
 		[Authorize(Roles = "Patient")]
@@ -50,6 +51,17 @@ namespace fit_and_fuel.Controllers
         {
             await _patients.MealIsCompletion(id);
             return RedirectToAction("MealForToday");
+        }
+        public ActionResult AddRating()
+        {
+           
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddRating(RatingDto ratingDto)
+        {
+            await _rating.AddRating(ratingDto);
+            return RedirectToAction("index");
         }
     }
 }

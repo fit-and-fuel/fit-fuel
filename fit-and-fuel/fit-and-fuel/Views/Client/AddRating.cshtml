@@ -1,0 +1,41 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@*   public int Value { get; set; }
+        public string Comment { get; set; }*@
+
+<form asp-controller="Client" asp-action="AddRating" method="post" class="wpcf7-form init" aria-label="Contact form" novalidate="novalidate" data-status="init">
+	<div style="display: none;">
+	</div>
+
+	<div class="mb-3">
+		<p>
+			<label for="Value">Value</label><br>
+			<span class="wpcf7-form-control-wrap">
+				<select class="wpcf7-form-control wpcf7-select wpcf7-validates-as-required" id="Value" aria-required="true" aria-invalid="false" name="Value">
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+				</select>
+			</span>
+		</p>
+	</div>
+	<div class="mb-3">
+		<p>
+			<label for="Comment">Comment</label><br>
+			<span class="wpcf7-form-control-wrap" >
+				<input size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" id="Comment" aria-required="true" aria-invalid="false" placeholder="Comment" type="text" name="Comment">
+			</span>
+		</p>
+	</div>
+
+	<div class="mb-0">
+		<p>
+			<input class="wpcf7-form-control has-spinner wpcf7-submit" type="submit" value="add"><span class="wpcf7-spinner"></span>
+		</p>
+	</div><div class="wpcf7-response-output" aria-hidden="true"></div>
+</form>

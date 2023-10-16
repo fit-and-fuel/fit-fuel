@@ -6,15 +6,17 @@ using fit_and_fuel.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
+using System.Security.Claims;
 
 namespace fit_and_fuel.Services
 {
     public class RatingService : IRating
     {
         private readonly AppDbContext _context;
-
-        public RatingService(AppDbContext context)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public RatingService(AppDbContext context, IHttpContextAccessor httpContextAccessor)
         {
+            _httpContextAccessor= httpContextAccessor;
             _context = context;
         }
 
@@ -37,10 +39,12 @@ namespace fit_and_fuel.Services
         /// <param name="patientId">The ID of the patient giving the rating.</param>
         /// <param name="ratingDto">DTO containing rating information.</param>
 
-        public async Task AddRating(int patientId, RatingDto ratingDto)
+        public async Task AddRating(RatingDto ratingDto)
         {
+            string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
             var patient = await _context.Patients.Include(p => p.nutritionist)
-                .FirstOrDefaultAsync(/*p => p.UserId == patientId*/);
+                .FirstOrDefaultAsync(p => p.UserId == userId);
             if (patient == null || patient.nutritionist == null)
             {
                 throw new InvalidOperationException("Patient or Nutritionist not found.");
@@ -49,7 +53,7 @@ namespace fit_and_fuel.Services
             var rating = new Rating
             {
                 NutritionistId = patient.nutritionist.Id,
-                PatientId = patientId,
+                PatientId = patient.Id,
                 Value = ratingDto.Value,
                 Comment = ratingDto.Comment
             };

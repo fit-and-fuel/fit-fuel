@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
+
 }
 
 
@@ -60,7 +61,34 @@
 
 
                                                 <div class="pt-team-member-subtitle">
-                                                    @n.Age
+                                                    @{
+                                                        if (n.AverageRating.HasValue)
+                                                        {
+                                                            int fullStars = (int)n.AverageRating.Value;
+                                                            int halfStar = (int)((n.AverageRating.Value - fullStars) * 2);
+
+                                                            for (int i = 0; i < fullStars; i++)
+                                                            {
+                                                                <i class="fa-sharp fa-solid fa-star text-orange" style="color:orange"></i>
+                                                            }
+
+                                                            if (halfStar == 1)
+                                                            {
+                                                                <i class="fa-solid fa-star-half-stroke text-orange" style="color:orange"></i>
+                                                            }
+                                                            else if (halfStar == 2)
+                                                            {
+                                                                <i class="fa-sharp fa-solid fa-star text-orange" style="color:orange"></i>
+                                                            }
+                                                           
+                                                        }
+                                                        else
+                                                        {
+                                                            <p>No rating available</p>
+                                                        }
+                                                    }
+
+													
                                                 </div>
 
 
