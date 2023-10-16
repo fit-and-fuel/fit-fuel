@@ -10,7 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>WoxFit &#8211; Fitness &amp; Gym WordPress Theme</title>
+    <title>Fit & Fuel</title>
     <meta name='robots' content='noindex, nofollow' />
     <link rel='dns-prefetch' href='//fonts.googleapis.com' />
 
@@ -3797,7 +3797,7 @@
                                                     @if (User.IsInRole("Nutritionist")) 
                                                     {
                                                     <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
-                                                        <a href="https://promo-theme.com/woxfit/shop/">Managment</a><span class="submenu-toggle"></span>
+                                                        <a>Managment</a><span class="submenu-toggle"></span>
                                                         <ul class="sub-menu">
                                                             <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Nutritionist" asp-action="MyProfile">Patients</a></li>
                                                             <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Nutritionist" asp-action="AvailableTimes">Schedule Appointments</a></li>
@@ -3816,6 +3816,7 @@
                                                             <li id="menu-item-3367" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3367"><a href="https://promo-theme.com/woxfit/blog-classic/">Classic</a></li>
                                                         </ul>
                                                     </li>
+                                                    <li id="menu-item-3242" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3242"><a asp-controller="Home" asp-action="About">About</a></li>
                                                     <li id="menu-item-3242" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3242"><a href="https://promo-theme.com/woxfit/contact/">Contact</a></li>
                                                 </ul>
                                             </div>
@@ -4064,6 +4065,21 @@
                                                             <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-100"><a href="https://promo-theme.com/woxfit/checkout/">Checkout</a></li>
                                                         </ul>
                                                     </li>
+                                                    @if (User.IsInRole("Nutritionist"))
+                                                    {
+                                                        <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
+                                                            <a>Managment</a><span class="submenu-toggle"></span>
+                                                            <ul class="sub-menu">
+                                                                <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Nutritionist" asp-action="MyProfile">Patients</a></li>
+                                                                <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Nutritionist" asp-action="AvailableTimes">Schedule Appointments</a></li>
+                                                                <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="Nutritionist" asp-action="Appointments">Appointments</a></li>
+
+                                                                <li id="menu-item-3430" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3430"><a asp-controller="Nutritionist" asp-action="AddPost">Add Post</a></li>
+                                                                <li id="menu-item-101" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-101"><a asp-controller="Nutritionist" asp-action="AddPost"> My Posts</a></li>
+
+                                                            </ul>
+                                                        </li>
+                                                    }
                                                     <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-3368">
                                                         <a href="https://promo-theme.com/woxfit/blog-grid/">Blog</a><span class="submenu-toggle"></span>
                                                         <ul class="sub-menu">
@@ -4071,6 +4087,7 @@
                                                             <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3367"><a href="https://promo-theme.com/woxfit/blog-classic/">Classic</a></li>
                                                         </ul>
                                                     </li>
+                                                    <li id="menu-item-3242" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3242"><a asp-controller="Home" asp-action="About">About</a></li>
                                                     <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3242"><a href="https://promo-theme.com/woxfit/contact/">Contact</a></li>
                                                 </ul>
                                             </div>
@@ -4144,6 +4161,22 @@
                             <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-100"><a href="https://promo-theme.com/woxfit/checkout/">Checkout</a></li>
                         </ul>
                     </li>
+
+                    @if (User.IsInRole("Nutritionist"))
+                    {
+                        <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
+                            <a>Managment</a><span class="submenu-toggle"></span>
+                            <ul class="sub-menu">
+                                <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Nutritionist" asp-action="MyProfile">Patients</a></li>
+                                <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Nutritionist" asp-action="AvailableTimes">Schedule Appointments</a></li>
+                                <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="Nutritionist" asp-action="Appointments">Appointments</a></li>
+
+                                <li id="menu-item-3430" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3430"><a asp-controller="Nutritionist" asp-action="AddPost">Add Post</a></li>
+                                <li id="menu-item-101" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-101"><a asp-controller="Nutritionist" asp-action="AddPost"> My Posts</a></li>
+
+                            </ul>
+                        </li>
+                    }
                     <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-3368">
                         <a href="https://promo-theme.com/woxfit/blog-grid/">Blog</a><span class="submenu-toggle"></span>
                         <ul class="sub-menu">
@@ -4151,6 +4184,7 @@
                             <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3367"><a href="https://promo-theme.com/woxfit/blog-classic/">Classic</a></li>
                         </ul>
                     </li>
+                    <li id="menu-item-3242" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3242"><a asp-controller="Home" asp-action="About">About</a></li>
                     <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3242"><a href="https://promo-theme.com/woxfit/contact/">Contact</a></li>
                 </ul>
             </nav>

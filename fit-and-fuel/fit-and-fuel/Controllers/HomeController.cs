@@ -50,6 +50,12 @@ namespace fit_and_fuel.Controllers
         }
 
 
+        public IActionResult About()
+        {
+            return View();
+        }
+
+
         [Authorize]
         public IActionResult Privacy()
         {
