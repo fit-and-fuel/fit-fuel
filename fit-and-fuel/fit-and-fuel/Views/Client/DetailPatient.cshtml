@@ -4,13 +4,47 @@
 }
 <div style="background-color:#000 ;height:80px;margin-top:-10px;width:2000px;">
 </div>
-<h1>Detail Patient</h1>
-<p>@Model.Name</p>
+<h2>Detail Patient</h2>
+
+<div> 
+    <h6>Name :  @Model.Name</h6>
+    <h6>Imgae :  @Model.imgURl</h6>
+    <h6>Gender :  @Model.Gender</h6>
+    <h6>Age :  @Model.Age</h6>
+    <h6>Phone Number :  @Model.PhoneNumber</h6>
+</div>
+
+<div>
+    @*// Link to Nutritions *@
+    <h2>Link to your Nutrition</h2>
+    @if (Model.nutritionist != null)
+    {
+        <h2>@Model.nutritionist.Name</h2>
+    }
+</div>
+
+<div>
+    @if (Model.healthRecord != null)
+    {
+        <h1>Health Record</h1>
+        <h2> Height: @Model.healthRecord.Height</h2>
+        <h2> Weight: @Model.healthRecord.Weight</h2>
+        <h2> BMI:  @Model.healthRecord.BMI</h2>
+        <h2>Illnesses:  @Model.healthRecord.Illnesses</h2>
+    }
+    @*// Link to health record *@
+
+</div>
+<div>
+    @*// Link to Appointment *@
+    <h2>Link to your Appointments</h2>
+</div>
+
 @if (Model.nutritionist != null)
 {
     <p>@Model.nutritionist.Name</p>
-
 }
+
 <a asp-controller="chat" asp-action="index">send message</a>
 
 <div>
@@ -20,5 +54,4 @@
 </div>
 <div>
     <a class="nav-link text-dark" asp-area="" asp-controller="Client" asp-action="MealForToday">Meal For Today</a>
-
 </div>
