@@ -26,14 +26,56 @@
                         <td>@meal.Description</td>
                         <td class="color-success">@meal.Calories</td>
                         <td>
-                            <form asp-controller="Client" asp-action="Completion" asp-route-id="@meal.Id" method="post">
-                                <div class="tm-sc-button btn-view-details">
-                                    <button type="submit" class="badge @(meal.Completion ? "badge-success" : "badge-danger")">
-                                        @(meal.Completion ? "Completed" : "Not Completed")
-                                    </button>
-                                </div>
+                            @if (meal.Completion == true)
+                            {
+                                <button class="badge badge-success">
+                                    Completed
+                                </button>
+                            }
+                            else
+                            {
+                                @*  <button type="submit" class="badge @(meal.Completion ? "badge-success" : "badge-danger")">
+                        @(meal.Completion ? "Completed" : "Not Completed")
+                        </button>*@
+                                <button class="badge badge-danger" data-bs-toggle="modal" data-bs-target="#CompleteModal-@meal.Id">Not Completed</button>
 
-                            </form>
+                            }
+                            @* <form asp-controller="Client" asp-action="Completion" asp-route-id="@meal.Id" method="post">
+                        <div class="tm-sc-button btn-view-details">
+                        <button type="submit" class="badge @(meal.Completion ? "badge-success" : "badge-danger")" >
+                        @(meal.Completion ? "Completed" : "Not Completed")
+                        </button>
+                        </div>
+
+                        </form>*@
+                            @* <button data-bs-toggle="modal" data-bs-target="#CompleteModal-@meal.Id">Complete</button>*@
+                            <!-- Improve Post Modal -->
+                            <div class="modal fade" id="CompleteModal-@meal.Id">
+                                <div class="modal-dialog modal-dialog-centered modal-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Complete</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Are you sure you want to Complete this meal?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <form asp-controller="Client" asp-action="Completion" asp-route-id="@meal.Id" method="post">
+                                                <div class="tm-sc-button btn-view-details">
+                                                    <button type="submit" class="badge badge-success">
+                                                        Make it Complete
+                                                    </button>
+                                                </div>
+
+                                            </form>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 }
@@ -43,9 +85,19 @@
 </div>
 <style>
     /* Custom styles for the table */
-  
+
 </style>
 <link href="~/css/site1.css" rel="stylesheet" type="text/css" />
+<link href="~/css/ModelStyle.css" rel="stylesheet">
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
 
 
 
