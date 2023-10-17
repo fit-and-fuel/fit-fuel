@@ -17,5 +17,8 @@ namespace fit_and_fuel.Interfaces
         Task DeleteComment(int id, int UserId);
 
         Task PutComment(int id , CommentDto commentDto, int UserId);
-    }
+        // for comment interface (without userId):
+		Task PostCommnet(CommentDto commentDto);
+
+	}
 }

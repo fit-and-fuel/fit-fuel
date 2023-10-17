@@ -103,6 +103,7 @@ namespace fit_and_fuel.Services
             .Include(p => p.nutritionist)
             .Include(p=>p.likes)
             .Include(p=>p.Comments)
+            .ThenInclude(n => n.Patient)
             .Where(p => p.Id == id).FirstOrDefaultAsync();
             return post;
         }
