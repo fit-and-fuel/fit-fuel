@@ -1,0 +1,104 @@
+﻿
+.container {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto 40px auto;
+    padding: 20px;
+    
+}
+
+
+
+.pt-heading {
+    text-align: center;
+    margin: 40px 0 30px 0;
+}
+
+
+.heading {
+    font-size: 24px;
+    margin: 0;
+    color: white;
+}
+
+
+.card-body {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+.third-post {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+ 
+    .third-post img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        margin-right: 20px;
+        border-radius: 5px;
+    }
+
+
+.post-1 {
+    display: flex;
+    flex-direction: column;
+}
+
+
+h4 {
+    font-size: 20px;
+    margin: 0;
+}
+
+
+span {
+    color: #888;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.Isconfirmeddiv {
+    margin-bottom: 10px;
+    
+}
+
+.approved {
+    background-color: #D6FD51;
+    color: white;
+    border-radius: 5px;
+}
+
+
+.pending {
+    background-color: #FF9F00;
+    color: white;
+    border-radius: 5px;
+}
+
+.badge-sm {
+    font-size: 0.6875rem;
+    padding: 0.3125rem 0.5rem;
+    line-height: 0.6875rem;
+}
+
+@media (max-width: 768px) {
+    .post-container
+
+{
+    flex-direction: column; 
+}
+
+.post-container img {
+    width: 100%;
+    margin-bottom: 10px;
+    height:70%;
+}
+
+}
+

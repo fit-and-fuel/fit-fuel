@@ -3247,14 +3247,14 @@ var zilla_likes = {"ajaxurl":"https:\/\/promo-theme.com\/woxfit\/wp-admin\/admin
                                                         @if (User.IsInRole("Nutritionist"))
                                                         {
                                                         <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
-                                                            <a href="https://promo-theme.com/woxfit/shop/">Managment</a><span class="submenu-toggle"></span>
+                                                            <a >Managment</a><span class="submenu-toggle"></span>
                                                             <ul class="sub-menu">
                                                                 <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Nutritionist" asp-action="MyProfile">Patients</a></li>
                                                                 <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Nutritionist" asp-action="AvailableTimes">Schedule Appointments</a></li>
                                                                 <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="Nutritionist" asp-action="Appointments">Appointments</a></li>
 
                                                                 <li id="menu-item-3430" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3430"><a asp-controller="Nutritionist" asp-action="AddPost">Add Post</a></li>
-                                                                <li id="menu-item-101" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-101"><a asp-controller="Nutritionist" asp-action="AddPost"> My Posts</a></li>
+                                                                <li id="menu-item-101" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-101"><a asp-controller="Nutritionist" asp-action="ViewPosts"> My Posts</a></li>
 
                                                             </ul>
                                                         </li>
@@ -3295,7 +3295,7 @@ var zilla_likes = {"ajaxurl":"https:\/\/promo-theme.com\/woxfit\/wp-admin\/admin
                                     }
                                     else
                                     {
-                                        <a asp-controller="User" asp-action="Register">Sign Up</a>
+                                        <a asp-controller="User" asp-action="Register">SignUp</a>
 
                                     }
 				</div>
@@ -3325,7 +3325,7 @@ var zilla_likes = {"ajaxurl":"https:\/\/promo-theme.com\/woxfit\/wp-admin\/admin
                                     else
                                     {
 
-                                        <a asp-controller="User" asp-action="Login">LOGIN</a>
+                                        <a asp-controller="User" asp-action="Login">LogIn</a>
                                     }
 		@*<div class="pt-cart">
 			<a class="pt-cart-link" href="https://promo-theme.com/woxfit/cart/">
@@ -3384,7 +3384,24 @@ var zilla_likes = {"ajaxurl":"https:\/\/promo-theme.com\/woxfit\/wp-admin\/admin
 	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-100"><a href="https://promo-theme.com/woxfit/checkout/">Checkout</a></li>
 </ul>
 </li>
-<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-3368"><a href="https://promo-theme.com/woxfit/blog-grid/">
+
+                                                    @if (User.IsInRole("Nutritionist"))
+                                                    {
+                                                        <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
+                                                            <a>Managment</a><span class="submenu-toggle"></span>
+                                                            <ul class="sub-menu">
+                                                                <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Nutritionist" asp-action="MyProfile">Patients</a></li>
+                                                                <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Nutritionist" asp-action="AvailableTimes">Schedule Appointments</a></li>
+                                                                <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="Nutritionist" asp-action="Appointments">Appointments</a></li>
+
+                                                                <li id="menu-item-3430" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3430"><a asp-controller="Nutritionist" asp-action="AddPost">Add Post</a></li>
+                                                                <li id="menu-item-101" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-101"><a asp-controller="Nutritionist" asp-action="ViewPosts"> My Posts</a></li>
+
+                                                            </ul>
+                                                        </li>
+                                                    }
+
+                                                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-3368">Blog<a href="https://promo-theme.com/woxfit/blog-grid/">
     </a><span class="submenu-toggle"></span>
 <ul class="sub-menu">
 	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3366"><a href="https://promo-theme.com/woxfit/blog-grid/">Grid</a></li>
@@ -3468,7 +3485,7 @@ var zilla_likes = {"ajaxurl":"https:\/\/promo-theme.com\/woxfit\/wp-admin\/admin
                                 <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="Nutritionist" asp-action="Appointments">Appointments</a></li>
 
                                 <li id="menu-item-3430" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3430"><a asp-controller="Nutritionist" asp-action="AddPost">Add Post</a></li>
-                                <li id="menu-item-101" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-101"><a asp-controller="Nutritionist" asp-action="AddPost"> My Posts</a></li>
+                                <li id="menu-item-101" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-101"><a asp-controller="Nutritionist" asp-action="ViewPosts"> My Posts</a></li>
 
                             </ul>
                         </li>
