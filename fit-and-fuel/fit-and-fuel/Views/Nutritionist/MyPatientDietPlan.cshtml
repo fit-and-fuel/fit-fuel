@@ -3,85 +3,296 @@
 @{
     Layout = "~/Views/Shared/_PageLayout.cshtml";
 }
+<style>
 
+ @@media screen and (max-width: 768px) {
+    .addMeal {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .addMeal div {
+        width: 100%;
+        margin: 0 auto;
+    }
+}
+    body {
+        background-color: #f5f5f5;
+    }
+
+    .container div.display-4 {
+        text-align: center;
+        margin-top: 30px;
+        border-top: 2px solid #333;
+        border-bottom: 2px solid #333;
+        padding: 10px 0;
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
+
+
+    .card {
+        margin-top: 30px;
+    }
+
+
+    .card-header h3 {
+        color: #fff;
+        text-align: center;
+        margin: 0;
+        padding: 10px;
+    }
+
+    .card-body {
+        padding: 10px;
+    }
+
+    .card-text.font-weight-bold {
+        margin-top: 10px;
+    }
+
+
+    .table {
+        margin-top: 10px;
+    }
+
+
+    .row > .card:not(:last-child) {
+        margin-bottom: 30px;
+    }
+
+    .LightGreen {
+        background-color: #4F7344;
+    }
+
+    .DarkGreen {
+        background-color: #2C4A37;
+    }
+
+    table, th, td {
+        text-align: center;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 12px;
+    }
+
+    td {
+        word-wrap: break-word;
+        max-width: 300px;
+    }
+
+</style>
 
 <div style="background-color:#141414 ;height:80px;margin-top:-10px;width:2000px;">
 </div>
-<h1>Diet Plan</h1>
- <p><strong>Start Date:</strong> @Model.StartDate</p>
-<p><strong>End Date:</strong> @Model.EndDate</p> 
-<p><strong>Duration:</strong> @Model.Duration days</p>
-<p><strong>Patient:</strong> @Model.Patient.Name</p>
-<p><strong>Nutritionist:</strong> @Model.nutritionist.Name</p>
-<h2>Diet Plan Days</h2>
-@foreach (var day in Model.days)
-{
-    <h3>@day.DayName (@day.Date.ToShortDateString())</h3>
-    <p><strong>Total Calories for the Day:</strong> @day.TotalCalories</p>
-    <h4>Meals for the Day</h4>
-@* <a asp-controller="Nutritionist" asp-action="AddMeals" asp-route-id="@day.Id"  class="wpcf7-form init" aria-label="Contact form" data-status="init">Add</a>       
- *@        
- 
 
 
-@* <h1>@Model.PatientId</h1>
- *@<form asp-controller="Nutritionist" asp-action="AddMeal" method="post" class="wpcf7-form init" aria-label="Contact form" data-status="init">
-	<div style="display: none;"> </div>
-	<div class="mb-3">
-		<p>
-                <label for="Name">Name Meals</label><br>
-			<span class="wpcf7-form-control-wrap">
-                    <input size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Name Meals" type="text" name="Name">
-			</span>
-		</p>
-	</div>
-        <input value="@day.Id" type="hidden" name="DayId">
-        <input value="@Model.Id" type="hidden" name="DietPlanId">
+<div class="container" style="margin-top:60px; width:80%; margin-bottom:100px;">
+    <div style="background-color:white; " class="row tm-blog-sidebar-row">
+        <div class="col-lg-12">
+            <div class="main-content-area">
+                <div data-elementor-type="wp-post" data-elementor-id="5468" class="elementor elementor-5468">
 
-	<div class="mb-3">
-		<p>
-                <label for="Description">Description</label><br>
-			<span class="wpcf7-form-control-wrap">
-                    <input size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Description" type="text" name="Description">
-			</span>
-		</p>
-	</div>
-        <div class="mb-3">
-            <p>
-                <label for="Calories">Calories</label><br>
-                <span class="wpcf7-form-control-wrap">
-                    <input size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Calories" type="number" name="Calories">
-                </span>
-            </p>
-        </div>  
 
-	<div class="mb-0">
-		<p>
-			<input class="wpcf7-form-control has-spinner wpcf7-submit" type="submit" value="Add"><span class="wpcf7-spinner"></span>
-		</p>
-	</div>
-</form>
+                    <div class="container">
+                        <div class="display-4">
+                            <h1 style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Create Diet Plan</h1>
+                            <div style="width:60%; margin:0 auto; display:flex; justify-content:space-between;">
+                                <p><strong>Nutritionist:</strong> @Model.nutritionist.Name</p>
+                                <p><strong>Patient:</strong> @Model.Patient.Name</p>
+                            </div>
+                        </div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Meal Name</th>
-                <th>Description</th>
-                <th>Calories</th>
-                <th>Completion</th>
-            </tr>
-        </thead>
-        <tbody>
-           
-            @foreach (var meal in day.meals)
-            {
-                <tr>
-                    <td>@meal.Name</td>
-                    <td>@meal.Description</td>
-                    <td>@meal.Calories</td>
-                    <td>@(meal.Completion ? "Completed" : "Not Completed")</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
+                        <div style="width:100%;">
+
+                            <div>
+                                <div style="width:80%; margin:0 auto; display: flex; justify-content: space-between;">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M3.09277 9.40427H20.9167" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M16.442 13.3097H16.4512" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M12.0045 13.3097H12.0137" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M7.55769 13.3097H7.56695" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M16.442 17.1962H16.4512" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M12.0045 17.1962H12.0137" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M7.55769 17.1962H7.56695" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M16.0438 2V5.29078" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M7.96564 2V5.29078" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2383 3.57922H7.77096C4.83427 3.57922 3 5.21516 3 8.22225V17.2719C3 20.3263 4.83427 22 7.77096 22H16.229C19.175 22 21 20.3546 21 17.3475V8.22225C21.0092 5.21516 19.1842 3.57922 16.2383 3.57922Z" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    <hr style="text-align:center; height: 2px; width: 800px; margin: 10px; border: none; background-color: #000;">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M3.09277 9.40427H20.9167" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M16.442 13.3097H16.4512" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M12.0045 13.3097H12.0137" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M7.55769 13.3097H7.56695" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M16.442 17.1962H16.4512" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M12.0045 17.1962H12.0137" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M7.55769 17.1962H7.56695" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M16.0438 2V5.29078" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M7.96564 2V5.29078" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2383 3.57922H7.77096C4.83427 3.57922 3 5.21516 3 8.22225V17.2719C3 20.3263 4.83427 22 7.77096 22H16.229C19.175 22 21 20.3546 21 17.3475V8.22225C21.0092 5.21516 19.1842 3.57922 16.2383 3.57922Z" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </div>
+
+                                <div style="width:80%; margin:0 auto; display:flex; justify-content:space-between;">
+                                    <p class="font-weight-bold">Start From: @Model.StartDate</p>
+                                    <p class="font-weight-bold">End : @Model.EndDate</p>
+                                </div>
+                                <div style="display:flex; width:80%; margin:0 auto;">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M21.25 12.0005C21.25 17.1095 17.109 21.2505 12 21.2505C6.891 21.2505 2.75 17.1095 2.75 12.0005C2.75 6.89149 6.891 2.75049 12 2.75049C17.109 2.75049 21.25 6.89149 21.25 12.0005Z" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M15.4316 14.9429L11.6616 12.6939V7.84686" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    <p class="font-weight-bold">Duration: @Model.Duration days</p>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <h2 style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;" class="mt-5">Diet Plan Days</h2>
+                        @{
+                            var num = 1;
+                            string color;
+
+                        }
+                        @foreach (var day in Model.days)
+                        {
+                            <div style="border:groove; border-radius:10px; display:flex; justify-content:space-between; " class="card mt-3">
+
+                                @{
+                                    if (num % 2 == 0)
+                                    {
+                                        color = "#4F7344";
+                                    }
+                                    else
+                                    {
+                                        color = "#2C4A37";
+                                    }
+                                }
+                                <div style="background-color:@color;  border-radius: 10px 0 0 10px; display:flex; align-items:center; justify-content:center; width:60px; " class="card-header bg-dark text-white">
+                                    <h5 style=" text-align:center;  width:27px; color:white;" class="text-white">@day.DayName </h5>
+                                    @* <h5>(@day.Date.ToShortDateString())</h5>*@
+                                </div>
+                                <div style=" display:flex; flex-direction:column; justify-content:space-between; width:700px; padding:8px; margin:0 auto;" class="card-body">
+                                  @*  <form asp-controller="Nutritionist" asp-action="AddMeal" method="post">
+                                        <h5 style="text-align:center;">Add Meals</h5>
+                                        <div style="display:flex;  gap:60px; justify-content:space-between;">
+                                           
+
+                                         
+
+                                           
+                                              
+                                           
+                                        </div>
+                                      
+                                        
+
+                                    </form>*@
+                                    <form style="flex-wrap:wrap;" asp-controller="Nutritionist" asp-action="AddMeal" method="post" class="addMeal wpcf7-form init" aria-label="Contact form" data-status="init">
+                                        <h5 style="text-align:center;">Add Meals</h5>
+                                        <div style="display: none;"> </div>
+                                        <div style="display:flex;  gap:60px; justify-content:space-between;">
+                                            <div style="display:flex; flex-direction:column; justify-content:space-between; gap:8px;">
+                                                <div style="display:flex; gap:8px; ">
+                                                    <div class="mb-3">
+
+                                                        <p>
+                                                            <label for="Name">Name Meals</label><br>
+                                                            <span class="wpcf7-form-control-wrap">
+                                                                <input  size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Name Meals" type="text" name="Name">
+                                                            </span>
+                                                        </p>
+                                                    </div>
+                                                    <input value="@day.Id" type="hidden" name="DayId">
+                                                    <input value="@Model.Id" type="hidden" name="DietPlanId">
+
+                                                    <div class="mb-3">
+                                                        <p>
+                                                            <label for="Calories">Calories</label><br>
+                                                            <span class="wpcf7-form-control-wrap">
+                                                                <input style="height:46px; " size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Calories" type="number" name="Calories">
+                                                            </span>
+                                                        </p>
+                                                    </div>
+
+                                                </div>
+
+
+
+                                                <div class="mb-3">
+                                                    <p>
+                                                        <label for="Description">Description</label><br>
+                                                        <span class="wpcf7-form-control-wrap">
+                                                            <input size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Description" type="text" name="Description">
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+
+
+                                            <div style="display:flex; justify-content:center;align-items:center;">
+                                                <div class="mb-0">
+                                                    <p>
+                                                        <input class="wpcf7-form-control has-spinner wpcf7-submit" type="submit" value="Add"><span class="wpcf7-spinner"></span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                      
+                                    </form>
+                                   
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Meal Name</th>
+                                                <th>Description</th>
+                                                <th>Calories</th>
+                                                <th>Completion</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var meal in day.meals)
+                                            {
+                                                <tr>
+                                                    <td>@meal.Name</td>
+                                                    <td>@meal.Description</td>
+                                                    <td>@meal.Calories</td>
+                                                    <td>
+                                                        @(
+                                                            meal.Completion ? "Completed" : "Not Completed"
+                                                            )
+                                                    </td>
+                                                </tr>
+
+                                            }
+                                        </tbody>
+                                    </table>
+                                    <p style=" background-color:@color; color:aliceblue; padding:8px;" class="card-text font-weight-bold">Total Calories for the Day: @day.TotalCalories</p>
+
+
+                                </div>
+                                <div style=" background-color:@color ; border-radius: 0 10px 10px 0; width:20px;"></div>
+                            </div>
+
+
+                            num++;
+                        }
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

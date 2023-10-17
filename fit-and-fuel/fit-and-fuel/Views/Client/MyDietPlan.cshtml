@@ -8,7 +8,7 @@
 
 <style>
 
-    /* Style for Duration, Start Date, and End Date */
+
     body{
         background-color:#f5f5f5;
     }
@@ -22,13 +22,12 @@
         margin-bottom:8px;
     }
 
-    /* Style for Diet Plan Days */
+    
     .card {
         margin-top: 30px;
     }
 
-    
-
+  
         .card-header h3 {
             color: #fff;
             text-align: center;
@@ -44,12 +43,12 @@
         margin-top: 10px;
     }
 
-    /* Style for Meals Table */
+   
     .table {
         margin-top: 10px;
     }
 
-    /* Add space between each day's div */
+    
     .row > .card:not(:last-child) {
         margin-bottom: 30px;
     }
@@ -72,8 +71,8 @@
     }
 
     td {
-        word-wrap: break-word; /* This ensures long descriptions wrap to the next line */
-        max-width: 300px; /* You can adjust the max-width as needed */
+        word-wrap: break-word; 
+        max-width: 300px; 
     }
 
 </style>
@@ -184,32 +183,13 @@
                                             {
                                                 <tr>
                                                     <td>@meal.Name</td>
-                                                    <td> a flat cake, often thin and round, prepared from a starch-based batter </td>
+                                                    <td>@meal.Description</td>
                                                     <td>@meal.Calories</td>
-                                                    <td>@(
-                                                    meal.Completion ? "Completed" : "Not Completed"
-                                                    )</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>@meal.Name</td>
-                                                    <td> a flat cake, often thin and round, prepared from a starch-based batter </td>
-                                                    <td>@meal.Calories</td>
-                                                    <td>
-                                                        @(
-                                                            meal.Completion ? "Completed" : "Not Completed"
-                                                            )
+                                                    <td style="color: @(meal.Completion ? "green" : "red")">
+                                                        @(meal.Completion ? "Completed" : "Not Completed")
                                                     </td>
                                                 </tr>
-                                                <tr>
-                                                    <td>@meal.Name</td>
-                                                    <td> a flat cake, often thin and round, prepared from a starch-based batter </td>
-                                                    <td>@meal.Calories</td>
-                                                    <td>
-                                                        @(
-                                                            meal.Completion ? "Completed" : "Not Completed"
-                                                            )
-                                                    </td>
-                                                </tr>
+                                            
                                             }
                                         </tbody>
                                     </table>
