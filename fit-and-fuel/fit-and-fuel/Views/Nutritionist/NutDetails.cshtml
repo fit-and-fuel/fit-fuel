@@ -6,7 +6,8 @@
 
 <link href="~/css/NutDetails.css" rel="stylesheet">
 
-
+<div style="background-color:#141414 ;height:80px;margin-top:-10px;width:2000px;">
+</div>
 
 <section  class="dark">
 	<div   class="container py-4 ">
@@ -24,9 +25,34 @@
 				<div class="postcard__subtitle ">
 
                     <p>Age : @Model.Age <br />
-                        <span>Phone Number : @Model.PhoneNumber</span> <br />
+                        <span>Phone Number : @Model.PhoneNumber </span> <br />
                         <span><a style="text-decoration:underline; color:#79dd09;" href="@Model.CvURl">Download CV</a></span></p>
-                       
+                    @{
+                        if (Model.AverageRating.HasValue)
+                        {
+                            int fullStars = (int)Model.AverageRating.Value;
+                            int halfStar = (int)((Model.AverageRating.Value - fullStars) * 2);
+
+                            for (int i = 0; i < fullStars; i++)
+                            {
+                                <i class="fa-sharp fa-solid fa-star text-orange" style="color:orange"></i>
+                            }
+
+                            if (halfStar == 1)
+                            {
+                                <i class="fa-solid fa-star-half-stroke text-orange" style="color:orange"></i>
+                            }
+                            else if (halfStar == 2)
+                            {
+                                <i class="fa-sharp fa-solid fa-star text-orange" style="color:orange"></i>
+                            }
+
+                        }
+                        else
+                        {
+                            <p>No rating available</p>
+                        }
+                    }
 
                    
                         

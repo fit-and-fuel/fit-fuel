@@ -68,10 +68,12 @@ namespace fit_and_fuel.Services
             .ToListAsync();
             return patients;
         }
+
+
+
         public async Task<List<PatientDtoView>> GetAllDto()
         {
-      
-        var patients = await GetAll();
+            var patients = await GetAll();
             var patientsToReturn = patients.Select(patients => new PatientDtoView
             {
                 Id = patients.Id,
@@ -84,6 +86,7 @@ namespace fit_and_fuel.Services
                 NutritionistId= patients.NutritionistId
             }).ToList();
            return patientsToReturn;
+        
         }
         /// <summary>
         /// Retrieves a specific patient by their user ID.
@@ -91,15 +94,17 @@ namespace fit_and_fuel.Services
         /// <param name="id">The user ID of the patient to retrieve.</param>
         /// <returns>A Patient object representing the specified patient.</returns>
 
-        public async Task<Patient> GetById(string id)
+
+        public async Task<Patient> GetById(int id)
         {            //.Include(p => p.appoitments)
             //.Include(p => p.dietPlan)
             //.Include(p => p.nutritionist)
-            var patient = await _context.Patients.Where(p => p.UserId == id).FirstOrDefaultAsync();
+            var patient = await _context.Patients.Where(p => p.Id == id).FirstOrDefaultAsync();
             return patient;
         }
-        public async Task<PatientDtoView> GetByIdDto(string id)
+        public async Task<PatientDtoView> GetByIdDto(int id)
         {
+
             var patient = await GetById(id);
             var patientsToReturn = new PatientDtoView
             {
@@ -113,6 +118,7 @@ namespace fit_and_fuel.Services
                 NutritionistId = patient.NutritionistId
             };
             return patientsToReturn;
+
         }
 
         /// <summary>
@@ -362,15 +368,7 @@ namespace fit_and_fuel.Services
             }
         }
 
-        public Task<Patient> GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<PatientDtoView> GetByIdDto(int id)
-        {
-            throw new NotImplementedException();
-        }
+       
 
         public Task SelectNut(int NutId, int UserId)
         {

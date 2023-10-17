@@ -2,6 +2,9 @@
 	Layout = "~/Views/Shared/_PageLayout.cshtml";
 }
 
+<div style="background-color:#141414 ;height:80px;margin-top:-10px;width:2000px;">
+</div>
+
 @model IEnumerable<ViewAppointment>
 
 	<style>
@@ -124,13 +127,17 @@
 				}
 				@foreach (var at in Model)
 				{
+
 					<tr>
 						<th style="text-align:center;" scope="row">@rowNumber</th>
 						<td>
 @* 							<a asp-controller="Clinet" asp-action=""></a
- *@								
-								@at.Patient.Name
-								</td>
+ *@	
+
+		    <a asp-controller="Client" asp-action="DetailPatient" asp-route-Id="@at.Patient.Id">@at.Patient.Name</a>
+
+			
+		</td>
 
 						<td>@at.Time</td>
 						<td>@at.Status</td>
@@ -163,31 +170,120 @@
 						@if (at.IsConfirmed == false)
 						{
 							<td>
-								<form asp-controller="Nutritionist" asp-action="AppoitmentConfirmed" method="post">
+								@*<form asp-controller="Nutritionist" asp-action="AppoitmentConfirmed" method="post">
 									<input name="id" value="@at.Id" type="hidden">
 
 									<button type="submit">Confirm</button>
-								</form>
+								</form>*@
+								<button data-bs-toggle="modal" data-bs-target="#ConfirmedModal-@at.Id">Confirm</button>
+								<!-- Improve Post Modal -->
+								<div class="modal fade" id="ConfirmedModal-@at.Id">
+									<div class="modal-dialog modal-dialog-centered modal-centered" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title">Confirm</h5>
+												<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+											</div>
+											<div class="modal-body">
+												<p>Are you sure you want to Confirm this patient?</p>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+												<form asp-controller="Nutritionist" asp-action="AppoitmentConfirmed" method="post">
+													<input name="id" value="@at.Id" type="hidden">
+													<button type="submit" class="btn btn-success">Confirm</button>
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+
+
 							</td>
+
 						}
 
 						else{
 
 						<td>
-							<a asp-controller="Nutritionist" asp-action="CompleteAppointment" asp-route-id="@at.Id">Complete </a>
+							
+								<button data-bs-toggle="modal" data-bs-target="#CompleteModal-@at.Id">Complete</button>
+								<!-- Improve Post Modal -->
+								<div class="modal fade" id="CompleteModal-@at.Id">
+									<div class="modal-dialog modal-dialog-centered modal-centered" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title">Complete</h5>
+												<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+											</div>
+											<div class="modal-body">
+												<p>Are you sure you want to Complete this patient?</p>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+
+												<a asp-controller="Nutritionist" asp-action="CompleteAppointment" asp-route-id="@at.Id" class="btn btn-success">Complete</a>
+												
+											</div>
+										</div>
+									</div>
+								</div>
+
 						</td>
 						}
-					
-
 						
 						
 
 						
 					</tr>
 					rowNumber++;
+
 				}
 			</tbody>
 
 		</table>
 	</div>
 </center>
+@*<div class="col-md-4 mr-5">
+	<div class="float-end mr-5 mt-4">
+		<button type="button" class="btn btn-danger mb-2" data-bs-toggle="modal" data-bs-target="#improveModal">Delete</button>
+	</div>
+</div>
+
+<!-- Improve Post Modal -->
+<div class="modal fade" id="improveModal">
+	<div class="modal-dialog modal-dialog-centered modal-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Improve Post</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+			</div>
+			<div class="modal-body">
+				<p>Are you sure you want to improve this post?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+				<form asp-controller="Admin" asp-action="ConfirmPost" method="post">
+					<input type="hidden" name="id" value="">
+					<button type="submit" class="btn btn-success">Improve</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>*@
+
+
+
+<link href="~/css/ModelStyle.css" rel="stylesheet">
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+

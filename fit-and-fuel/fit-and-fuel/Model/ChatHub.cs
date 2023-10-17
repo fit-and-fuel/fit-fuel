@@ -20,10 +20,10 @@ namespace fit_and_fuel.Model
         //}
         public ChatHub(AppDbContext dbContext, IHttpContextAccessor httpContextAccessor)
         {
-            _dbContext= dbContext;
-            _httpContextAccessor= httpContextAccessor;
+            _dbContext = dbContext;
+            _httpContextAccessor = httpContextAccessor;
         }
-        public async Task SendMessage( string message)
+        public async Task SendMessage(string message)
         {
             // Store the message in the database
             // ...
@@ -38,15 +38,15 @@ namespace fit_and_fuel.Model
             // Set the timestamp
             message1.Timestamp = DateTime.UtcNow;
             message1.ReceiverId = myprofile.nutritionist.UserId;
-            message1.Content = message;
-            message= myprofile.Name + " : " + message;
+            message1.Content = myprofile.Name + " : " + message;
+            message = myprofile.Name + " : " + message;
             // Save the message to the database
             _dbContext.ChatMessages.Add(message1);
             await _dbContext.SaveChangesAsync();
             // Broadcast the message to all connected clients
 
             await Clients.User(myprofile.nutritionist.UserId).SendAsync("ReceiveMessage", message);
-            await Clients.User(userId).SendAsync("ReceiveMessage",  message);
+            await Clients.User(userId).SendAsync("SendMessage", message);
 
         }
         public async Task SendMessageNut(string message, string toUser)
@@ -66,7 +66,7 @@ namespace fit_and_fuel.Model
             // Set the timestamp
             message1.Timestamp = DateTime.UtcNow;
             message1.ReceiverId = toUserid.UserId;
-            message1.Content = message;
+            message1.Content = myprofile.Name + " : " + message;
             message = myprofile.Name + " : " + message;
             // Save the message to the database
             _dbContext.ChatMessages.Add(message1);
@@ -74,7 +74,7 @@ namespace fit_and_fuel.Model
             // Broadcast the message to all connected clients
 
             await Clients.User(toUserid.UserId).SendAsync("ReceiveMessage", message);
-            await Clients.User(userId).SendAsync("ReceiveMessage", message);
+            await Clients.User(userId).SendAsync("SendMessage", message);
 
         }
         //public async Task SendMessage(string fromUser, string message, string toUser)
