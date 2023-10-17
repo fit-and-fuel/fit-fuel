@@ -51,18 +51,66 @@
 			<div class="comments-area" id="comments">
 
 				<div id="respond" class="comment-respond">
-					<h3 id="reply-title" class="comment-reply-title">Add a Comment <small><a rel="nofollow" id="cancel-comment-reply-link" href="/woxfit/we-believe-that-our-best-work-creates-value-for-our-society-2/#respond" style="display:none;">Cancel reply</a></small></h3><form action="https://promo-theme.com/woxfit/wp-comments-post.php" method="post" id="commentform" class="comment-form">
-						<p class="comment-form-comment"><label for="comment">Comment <span class="required">*</span></label> <textarea id="comment" name="comment" rows="5" placeholder="Text something..." cols="45" maxlength="65525" required="required"></textarea></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" placeholder="Your name" name="author" type="text" value="" size="30" maxlength="245" autocomplete="name" required="required"></p>
-						<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" placeholder="Your e-mail" name="email" type="text" value="" size="30" maxlength="100" autocomplete="email" required="required"></p>
-						<p class="form-submit">
-							<input name="submit" type="submit" id="submit" class="submit" value="Submit"> <input type="hidden" name="comment_post_ID" value="3342" id="comment_post_ID">
-							<input type="hidden" name="comment_parent" id="comment_parent" value="0">
-						</p>
+					<h3 id="reply-title" class="comment-reply-title">Add a Comment <small><a rel="nofollow" id="cancel-comment-reply-link" href="/woxfit/we-believe-that-our-best-work-creates-value-for-our-society-2/#respond" style="display:none;">Cancel reply</a></small></h3>
+					<form asp-controller="Comment" asp-action="AddComment" method="post" class="wpcf7-form init" aria-label="Contact form" novalidate="novalidate" data-status="init" enctype="multipart/form-data">
+						<div style="display: none;">
+						</div>
+						<input type="hidden" name="postId" value=@Model.Id></input>
+
+						<div class="mb-3">
+							<p class="wpcf7">
+								<label for="Content">Comment</label><br>
+								<span class="wpcf7-form-control-wrap">
+									<textarea size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" id="Content" aria-required="true" aria-invalid="false" placeholder="Comment" type="text" name="Content" style="height:auto;"></textarea>
+								</span>
+							</p>
+						</div>
+
+						<div class="mb-0">
+							<p class="wpcf7">
+								<input class="wpcf7-form-control has-spinner wpcf7-submit" type="submit" value="Add"><span class="wpcf7-spinner"></span>
+							</p>
+						</div><div class="wpcf7-response-output" aria-hidden="true"></div>
 					</form>
 				</div><!-- #respond -->
 			</div>
+		</div>
+		<div class="comments-list">
+			<h3 class="comment-section-title">Comments</h3>
+			@foreach (var comment in Model.Comments)
+			{
+					<p>@comment.Patient.Name</p>
+
+				<div class="comment">
+					<div class="comment-content">
+						<p>@comment.content</p>
+					</div>
+				</div>
+			}
 		</div>
 		<div class="col-2 col-lg-2">
 		</div>
 	</div>
 </div>
+
+<style>
+	.comments-list {
+		margin-top: 20px;
+	}
+
+	.comment {
+		padding: 10px;
+		border: 1px solid #ccc;
+		margin-bottom: 10px;
+	}
+
+	.comment-content p {
+		margin: 0;
+	}
+
+	.comment-section-title {
+		font-size: 1.25em;
+		margin-bottom: 10px;
+	}
+
+</style>
