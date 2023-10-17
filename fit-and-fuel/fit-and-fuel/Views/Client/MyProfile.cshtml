@@ -2,11 +2,15 @@
 @{
     Layout = "~/Views/Shared/_PageLayout.cshtml";
 }
-<div style="background-color:#000 ;height:80px;margin-top:-10px;width:2000px;">
+<div style="background-color:#141414 ;height:80px;margin-top:-10px;width:2000px;">
 </div>
 
 <p>@Model.Name</p>
-<p>@Model.nutritionist.Name</p>
+@if (Model.nutritionist != null)
+{
+    <p>@Model.nutritionist.Name</p>
+
+}
 <a asp-controller="chat" asp-action="index">send message</a>
 
 <div>

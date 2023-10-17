@@ -10,7 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>WoxFit &#8211; Fitness &amp; Gym WordPress Theme</title>
+    <title>Fit & Fuel</title>
     <meta name='robots' content='noindex, nofollow' />
     <link rel='dns-prefetch' href='//fonts.googleapis.com' />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -3798,7 +3798,7 @@
                                                     @if (User.IsInRole("Nutritionist")) 
                                                     {
                                                     <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
-                                                        <a href="https://promo-theme.com/woxfit/shop/">Managment</a><span class="submenu-toggle"></span>
+                                                        <a>Managment</a><span class="submenu-toggle"></span>
                                                         <ul class="sub-menu">
                                                             <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Nutritionist" asp-action="MyProfile">Patients</a></li>
                                                             <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Nutritionist" asp-action="AvailableTimes">Schedule Appointments</a></li>
@@ -3817,7 +3817,8 @@
                                                             <li id="menu-item-3367" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3367"><a href="https://promo-theme.com/woxfit/blog-classic/">Classic</a></li>
                                                         </ul>
                                                     </li>
-                                                    <li id="menu-item-3242" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3242"><a href="https://promo-theme.com/woxfit/contact/">Contact</a></li>
+                                                    <li id="menu-item-3242" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3242"><a asp-controller="Home" asp-action="About">About</a></li>
+                                                    <li id="menu-item-3242" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3242"><a asp-controller="Home" asp-action="Contact">Contact</a></li>
                                                 </ul>
                                             </div>
                                         </nav>
@@ -4065,6 +4066,21 @@
                                                             <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-100"><a href="https://promo-theme.com/woxfit/checkout/">Checkout</a></li>
                                                         </ul>
                                                     </li>
+                                                    @if (User.IsInRole("Nutritionist"))
+                                                    {
+                                                        <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
+                                                            <a>Managment</a><span class="submenu-toggle"></span>
+                                                            <ul class="sub-menu">
+                                                                <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Nutritionist" asp-action="MyProfile">Patients</a></li>
+                                                                <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Nutritionist" asp-action="AvailableTimes">Schedule Appointments</a></li>
+                                                                <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="Nutritionist" asp-action="Appointments">Appointments</a></li>
+
+                                                                <li id="menu-item-3430" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3430"><a asp-controller="Nutritionist" asp-action="AddPost">Add Post</a></li>
+                                                                <li id="menu-item-101" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-101"><a asp-controller="Nutritionist" asp-action="AddPost"> My Posts</a></li>
+
+                                                            </ul>
+                                                        </li>
+                                                    }
                                                     <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-3368">
                                                         <a href="https://promo-theme.com/woxfit/blog-grid/">Blog</a><span class="submenu-toggle"></span>
                                                         <ul class="sub-menu">
@@ -4072,7 +4088,8 @@
                                                             <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3367"><a href="https://promo-theme.com/woxfit/blog-classic/">Classic</a></li>
                                                         </ul>
                                                     </li>
-                                                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3242"><a href="https://promo-theme.com/woxfit/contact/">Contact</a></li>
+                                                    <li id="menu-item-3242" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3242"><a asp-controller="Home" asp-action="About">About</a></li>
+                                                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3242"><a asp-controller="Home" asp-action="Contact">Contact</a></li>
                                                 </ul>
                                             </div>
                                         </nav>
@@ -4145,6 +4162,22 @@
                             <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-100"><a href="https://promo-theme.com/woxfit/checkout/">Checkout</a></li>
                         </ul>
                     </li>
+
+                    @if (User.IsInRole("Nutritionist"))
+                    {
+                        <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
+                            <a>Managment</a><span class="submenu-toggle"></span>
+                            <ul class="sub-menu">
+                                <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Nutritionist" asp-action="MyProfile">Patients</a></li>
+                                <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Nutritionist" asp-action="AvailableTimes">Schedule Appointments</a></li>
+                                <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="Nutritionist" asp-action="Appointments">Appointments</a></li>
+
+                                <li id="menu-item-3430" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3430"><a asp-controller="Nutritionist" asp-action="AddPost">Add Post</a></li>
+                                <li id="menu-item-101" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-101"><a asp-controller="Nutritionist" asp-action="AddPost"> My Posts</a></li>
+
+                            </ul>
+                        </li>
+                    }
                     <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-3368">
                         <a href="https://promo-theme.com/woxfit/blog-grid/">Blog</a><span class="submenu-toggle"></span>
                         <ul class="sub-menu">
@@ -4152,7 +4185,8 @@
                             <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3367"><a href="https://promo-theme.com/woxfit/blog-classic/">Classic</a></li>
                         </ul>
                     </li>
-                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3242"><a href="https://promo-theme.com/woxfit/contact/">Contact</a></li>
+                    <li id="menu-item-3242" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3242"><a asp-controller="Home" asp-action="About">About</a></li>
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3242"><a asp-controller="Home" asp-action="Contact">Contact</a></li>
                 </ul>
             </nav>
         </div>
@@ -4593,14 +4627,16 @@
                                                 <div class="elementor-widget-container">
 
                                                     <div class="site-logo">
-                                                        <a href="https://promo-theme.com/woxfit/" rel="home">WoxFit</a>
+                                                        <a href="https://promo-theme.com/woxfit/" rel="home">Fit & Fuel</a>
                                                     </div>
 
                                                 </div>
                                             </div>
                                             <div class="elementor-element elementor-element-8a9f9d2 elementor-widget elementor-widget-text-editor" data-id="8a9f9d2" data-element_type="widget" data-widget_type="text-editor.default">
                                                 <div class="elementor-widget-container">
-                                                    <p>Parturient porttitor quam mattis ipsum imperdiet habitasse orci. Risus integer.</p>
+                                                    <p>
+                                                        We help you reach your health and fitness goals, so you can live a life full of joy and satisfaction.
+                                                    </p>
                                                 </div>
                                             </div>
                                             <div class="elementor-element elementor-element-96c3eb8 elementor-shape-circle elementor-grid-0 elementor-widget elementor-widget-social-icons" data-id="96c3eb8" data-element_type="widget" data-widget_type="social-icons.default">
@@ -4966,27 +5002,20 @@
 
 
 
-                                                        <a href="/woxfit/about/">
+                                                        <a href="">
                                                             About us
                                                         </a>
 
 
 
-                                                        <a href="/woxfit/blog-classic/">
-                                                            Blog
-                                                        </a>
+                                                       
 
 
 
-                                                        <a href="/woxfit/personal-trainer/">
-                                                            Careers
-                                                        </a>
+                                                        
 
 
-
-                                                        <a href="/woxfit/contact/">
-                                                            Jobs
-                                                        </a>
+                                                        
 
 
                                                     </div>
@@ -5009,27 +5038,23 @@
 
 
 
-                                                        <a href="/woxfit/about/">
-                                                            How we work
+                                                        <a href="">
+                                                            Our Nutritionists
                                                         </a>
 
 
 
-                                                        <a href="/woxfit/portfolio-grid-3-cols/">
+                                                        <a href="">
                                                             Portfolio
                                                         </a>
 
 
 
-                                                        <a href="/woxfit/shop/">
-                                                            Pricing
-                                                        </a>
+                                                      
 
 
 
-                                                        <a href="/woxfit/services/#">
-                                                            More
-                                                        </a>
+                                                        
 
 
                                                     </div>
@@ -5052,27 +5077,22 @@
 
 
 
-                                                        <a href="/woxfit/contact/">
+                                                        <a href="">
                                                             Contact us
                                                         </a>
 
 
 
-                                                        <a href="/woxfit/contact/">
+                                                        <a href="/">
                                                             Online Chat
                                                         </a>
 
 
 
-                                                        <a href="/woxfit/contact/">
-                                                            Whatsapp
-                                                        </a>
+                                                       
 
 
-
-                                                        <a href="/woxfit/contact/">
-                                                            Telegram
-                                                        </a>
+                                                        
 
 
                                                     </div>
@@ -5081,49 +5101,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="elementor-column elementor-col-20 elementor-inner-column elementor-element elementor-element-c770bd5" data-id="c770bd5" data-element_type="column">
-                                        <div class="elementor-widget-wrap elementor-element-populated">
-                                            <div class="elementor-element elementor-element-33dfd0d elementor-widget elementor-widget-heading" data-id="33dfd0d" data-element_type="widget" data-widget_type="heading.default">
-                                                <div class="elementor-widget-container">
-                                                    <p class="elementor-heading-title elementor-size-default">FAQ</p>
-                                                </div>
-                                            </div>
-                                            <div class="elementor-element elementor-element-f282de0 elementor-widget elementor-widget-pt-simple-links" data-id="f282de0" data-element_type="widget" data-settings="{&quot;row_gap&quot;:11}" data-widget_type="pt-simple-links.default">
-                                                <div class="elementor-widget-container">
-
-                                                    <div class="pt-simple-links">
-
-
-
-                                                        <a href="/woxfit/shop/">
-                                                            Account
-                                                        </a>
-
-
-
-                                                        <a href="/woxfit/shop/">
-                                                            Payment
-                                                        </a>
-
-
-
-                                                        <a href="/woxfit/shop/">
-                                                            Orders
-                                                        </a>
-
-
-
-                                                        <a href="/woxfit/shop/">
-                                                            Returns
-                                                        </a>
-
-
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                             </section>
                             <section class="elementor-section elementor-inner-section elementor-element elementor-element-710cfe3 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="710cfe3" data-element_type="section">
@@ -5137,33 +5115,30 @@
 
 
 
-                                                        <a href="/woxfit/about/">
+                                                        <a asp-controller="Home" asp-action="About">
                                                             About us
                                                         </a>
 
 
 
-                                                        <a href="/woxfit/contact/">
+
+                                                        
+
+                                                        <a asp-controller="Home" asp-action="Contact">
                                                             Contact
                                                         </a>
 
 
 
-                                                        <a href="/woxfit/contact/">
-                                                            Privacy policy
-                                                        </a>
+
+                                                       
 
 
 
-                                                        <a href="/woxfit/timetable/">
-                                                            Sitemap
-                                                        </a>
+                                                        
 
 
 
-                                                        <a href="/woxfit/services/">
-                                                            Terms of Use
-                                                        </a>
 
 
                                                     </div>
@@ -5176,7 +5151,7 @@
                                         <div class="elementor-widget-wrap elementor-element-populated">
                                             <div class="elementor-element elementor-element-e2d9908 elementor-widget elementor-widget-text-editor" data-id="e2d9908" data-element_type="widget" data-widget_type="text-editor.default">
                                                 <div class="elementor-widget-container">
-                                                    © 2000-2023, All Rights Reserved
+                                                    © 2023
                                                 </div>
                                             </div>
                                         </div>

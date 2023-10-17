@@ -26,6 +26,12 @@ namespace fit_and_fuel.Controllers
             var myprofile = await _patients.GetMyProfile();
             return View(myprofile);
         }
+        public async Task<IActionResult> DetailPatient(int Id)
+        {
+            var Patient = await _patients.GetById(Id);
+            return View(Patient);
+        }
+
         [Authorize(Roles = "Patient")]
 		[HttpPost]
         public async Task<IActionResult> Create(PatientDto patientDto, IFormFile file)

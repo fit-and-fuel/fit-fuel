@@ -53,7 +53,13 @@ namespace fit_and_fuel.Services
             _context.Posts.Remove(post);
             await _context.SaveChangesAsync();
         }
-
+        public async Task Delete(int id)
+        {
+            var post = await _context.Posts.Where(p => p.Id == id).FirstOrDefaultAsync();
+            
+            _context.Posts.Remove(post);
+            await _context.SaveChangesAsync();
+        }
         public Task Delete(int id, int UserId)
         {
             throw new NotImplementedException();
@@ -103,6 +109,7 @@ namespace fit_and_fuel.Services
             .Include(p => p.nutritionist)
             .Include(p=>p.likes)
             .Include(p=>p.Comments)
+            .ThenInclude(n => n.Patient)
             .Where(p => p.Id == id).FirstOrDefaultAsync();
             return post;
         }
