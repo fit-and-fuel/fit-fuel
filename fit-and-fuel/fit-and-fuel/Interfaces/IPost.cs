@@ -12,7 +12,7 @@ namespace fit_and_fuel.Interfaces
         Task<Post> Post(PostDto PostDto, IFormFile file);
         Task<bool> ImprovedPost (int PostId);
         Task Put(int id, PostDto PostDto, int postId);
-        Task Delete(int id,int UserId);
+        Task Delete(int id);
 		Task<int> Count();
 
 		Task<List<Post>> GetMyPosts();

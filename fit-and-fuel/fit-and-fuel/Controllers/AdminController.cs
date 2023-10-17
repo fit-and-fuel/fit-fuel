@@ -64,5 +64,13 @@ namespace fit_and_fuel.Controllers
 
             return RedirectToAction("Index", "Admin");
         }
+        [HttpPost]
+
+        public async Task<IActionResult> DeletePost(int id)
+        {
+            await _post.Delete(id);
+
+            return RedirectToAction("Posts", "Admin");
+        }
     }
 }

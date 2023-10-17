@@ -3,32 +3,93 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 <div class="container">
-	<div class="card">
-		<div class="card-header border-0">
-			<h4 class="heading mb-0 blog-title">All Post</h4>
-			
-		</div>
-		<div class="card-body">
-			@foreach(var post in Model){
-			<div class="third-post">
-				<img src="~/img/s1.jpg" alt="">
-				<div class="post-1">
-					<div class="post-data">
-						<span class="badge badge-secondary border-0 badge-sm">SEO Tools</span>
-						<a href="javascript:void(0);">
-							<h4>@post.Title</h4></a>
-						<div class="mb-2">
-							<img src="~/img//pic2.jpg" class="avatar rounded-circle me-2 small-post" alt="">
-							<span><b class="text-primary">@post.nutritionist.Name</b> in @post.Time</span>
-						</div>
-						<span>
-							@post.Description
-						</span>
-					</div>
-				</div>
-			</div>
-			}
-		</div>
-	</div>
+    <div class="card">
+        <div class="card-header border-0">
+            <h4 class="heading mb-0 blog-title">All Post</h4>
+        </div>
+        <div class="card-body">
+            @foreach (var post in Model)
+            {
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="third-post">
+                            <img src="~/img/s1.jpg" alt="">
+                            <div class="post-1">
+                                <div class="post-data">
+                                    @if (post.IsImproved == true)
+                                    {
+                                        <button class="badge badge-success border-0 badge-sm">Improved</button>
+                                    }
+                                    else
+                                    {
+                                        <button class="badge badge-warning border-0 badge-sm" data-bs-toggle="modal" data-bs-target="#improveModal+@post.Id">Not Improved</button>
+                                    }
+                                    <a href="javascript:void(0);">
+                                        <h4>@post.Title</h4>
+                                    </a>
+                                    <div class="mb-2">
+                                        <img src="~/img//pic2.jpg" class="avatar rounded-circle me-2 small-post" alt="">
+                                        <span><b class="text-primary">@post.nutritionist.Name</b> in @post.Time</span>
+                                    </div>
+                                    <span>
+                                        @post.Description
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mr-5">
+                        <div class="float-end mr-5 mt-4">
+                            <button type="button" class="btn btn-danger  mb-2" data-bs-toggle="modal" data-bs-target="#deleteModal+@post.Id">Delete</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- improve Post Modal -->
+                <div class="modal fade" id="improveModal+@post.Id" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">improve Post</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Are you sure you want to improve this post?@post.Id</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <form asp-controller="Admin" asp-action="ConfiremPost" method="post">
+                                    <input type="hidden" name="id" value="@post.Id">
+                                    <button type="submit" class="btn btn-success">improve</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+              
+
+                <!-- Delete Post Modal -->
+                <div class="modal fade" id="deleteModal+@post.Id" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Delete Post</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Are you sure you want to delete this post?@post.Id</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <form asp-controller="Admin" asp-action="DeletePost" method="post">
+                                    <input type="hidden" name="id" value="@post.Id">
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
 </div>
