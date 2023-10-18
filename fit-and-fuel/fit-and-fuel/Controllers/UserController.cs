@@ -9,12 +9,14 @@ namespace fit_and_fuel.Controllers
 {
     public class UserController : Controller
     {
+        private readonly IEmailSender _emailSender;
         private IUserService _userService;
 
       
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, IEmailSender emailSender)
         {
             _userService = userService;
+            _emailSender = emailSender;
         }
 
         public IActionResult Index()
@@ -28,7 +30,17 @@ namespace fit_and_fuel.Controllers
         [HttpPost]
         public async Task<ActionResult<UserDto>> Register(RegisterUser data)
         {
-            var res = await _userService.Register(data, this.ModelState);
+            bool IsNutritionist = false;
+			if (data.Roles[0] == "Nutritionist")
+            {
+				IsNutritionist= true;
+				
+			}
+				var res = await _userService.Register(data, this.ModelState);
+            if (IsNutritionist) {
+                //this for Send Email
+                //await _emailSender.EmailToUser(data.Email, data.Username);
+            }
 			var resRole = await _userService.Authenticate(data.Username, data.Password);
 
 			if (!ModelState.IsValid)
@@ -45,6 +57,7 @@ namespace fit_and_fuel.Controllers
 			{
                 return RedirectToAction("Index", "Client");
 			}
+           
 			return RedirectToAction("Index","Home");
         }
         public IActionResult Login()

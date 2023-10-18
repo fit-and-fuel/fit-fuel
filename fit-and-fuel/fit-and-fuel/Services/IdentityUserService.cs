@@ -22,17 +22,18 @@ namespace fit_and_fuel.Services
         private UserManager<ApplicationUser> userManager;
         private  SignInManager<ApplicationUser> _signInManager;
         private INotification _notificationService;
-      
+        private readonly IEmailSender _emailSender;
         //private JwtTokenService jwtTokenService;
         public IdentityUserService(UserManager<ApplicationUser> manager,
             //JwtTokenService jwtTokenService, 
             SignInManager<ApplicationUser> signInManager,
-        IConfiguration configuration,INotification notificationService)
+        IConfiguration configuration,INotification notificationService, IEmailSender emailSender)
         {
             userManager = manager;
             _signInManager = signInManager;
             //this.jwtTokenService = jwtTokenService
             _notificationService = notificationService;
+            _emailSender = emailSender;
         }
 
         /// <summary>
@@ -216,7 +217,8 @@ namespace fit_and_fuel.Services
 
             
             await userManager.AddToRoleAsync(user, "Nutritionist");
-          
+            // this for email 
+            //await _emailSender.EmailToUserRole(user.Email, userName);
             var content = new NotificationDto()
             {
                 Content = $"Welcome {userName}, you are now a Nutritionist.\r\nYou can now create your profile by clicking on this" +
