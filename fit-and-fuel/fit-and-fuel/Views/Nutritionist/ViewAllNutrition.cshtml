@@ -20,10 +20,10 @@
             <div class="elementor-widget-wrap elementor-element-populated">
                 <div class="elementor-element elementor-element-1b2f897 elementor-widget elementor-widget-pt-portfolio" data-id="1b2f897" data-element_type="widget" data-settings="{&quot;cols_md&quot;:2,&quot;cols_lg&quot;:4,&quot;navigation&quot;:&quot;load_more&quot;,&quot;type&quot;:&quot;grid&quot;}" data-widget_type="pt-portfolio.default">
                     <div class="elementor-widget-container">
-                        <div class="elementor-element elementor-element-ec6c0ff elementor-widget elementor-widget-pt-heading" data-id="ec6c0ff" data-element_type="widget" data-settings="{&quot;decor&quot;:[]}" data-widget_type="pt-heading.default">
+                        <div class="elementor-element elementor-element-ec6c0ff elementor-widget elementor-widget-pt-heading" data-id="ec6c0ff" data-element_type="widget" data-settings="{&quot;decor&quot;:[]}" data-widget_type="pt-heading.default" style="margin-bottom:60px;">
                             <div class="elementor-widget-container">
 
-                                <div class="pt-heading" >
+                                <div class="pt-heading" style="text-align:center; margin:20px 0;">
                                     <h2 class="pt-heading-title h2">
                                         Our Nutritionists
                                     </h2>
@@ -36,7 +36,7 @@
                             <div class="input-group" style="display:flex; align-items: center;">
                                 <input type="text" class="form-control" placeholder="Search by name" name="searchTerm" style="border: none; border-bottom: 1px solid #ccc; border-radius: 0; padding: 10px 0; " />
                                 &ensp;
-                                <div class="input-group-append" >
+                                <div class="input-group-append">
                                     <button class="btn btn-outline-dark" type="submit">
                                         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <circle cx="11.7664" cy="11.7666" r="8.98856" stroke="#ccc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -71,10 +71,10 @@
                                                     <img src="@n.imgURl" class="card-img-top img-fixed-height" alt="@n.Name">
 
 
-                                                    <div class="social-links" style="width:100%; margin:0;" >
+                                                    <div class="social-links" style="width:100%; margin:0;">
                                                         <a asp-controller="Nutritionist" asp-action="NutDetails" asp-route-id="@n.Id" style="display:flex; align-items:center;">
                                                             View
-                                                            
+
                                                         </a>
 
                                                     </div>
@@ -139,7 +139,7 @@
 </section>
 
 <style>
-                                                
+
     .pt-team-member .social-links {
         opacity: 0;
         visibility: hidden;
@@ -159,10 +159,10 @@
     }
 
 
-    .pt-team-member .social-links a{
+        .pt-team-member .social-links a {
             width: 48px;
             height: 48px;
-             border-radius: 50%; 
+            border-radius: 50%;
             /* border-radius: 5px; */
             background-color: #D6FD51;
             color: #000;
@@ -170,9 +170,9 @@
             line-height: 48px;
             text-align: center;
             transition: opacity 0.3s, visibility 0.3s;
-            display:flex;
+            display: flex;
             align-items: center;
             justify-content: center;
-            font-size:13px;
-    }
+            font-size: 13px;
+        }
 </style>                                             

@@ -15,38 +15,38 @@ namespace fit_and_fuel.Services
     public class PostService : IPost
     {
         private readonly AppDbContext _context;
-       
+
         private INotification _notificationService;
-		private readonly IHttpContextAccessor _httpContextAccessor;
-		private readonly IConfiguration _configuration;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IConfiguration _configuration;
 
 
 
-		public PostService(AppDbContext context, INotification notificationService, IHttpContextAccessor httpContextAccessor, IConfiguration configuration)
+        public PostService(AppDbContext context, INotification notificationService, IHttpContextAccessor httpContextAccessor, IConfiguration configuration)
         {
             _context = context;
-            
+
             _notificationService = notificationService;
             _httpContextAccessor = httpContextAccessor;
             _configuration = configuration;
         }
 
-		public async Task<int> Count()
-		{
-			return await _context.Posts.CountAsync();
-		}
+        public async Task<int> Count()
+        {
+            return await _context.Posts.CountAsync();
+        }
 
-		/// <summary>
-		/// Deletes a post with the specified ID.
-		/// </summary>
-		/// <param name="id">The ID of the post to delete.</param>
-		/// <param name="UserId">The ID of the user attempting the deletion.</param>
+        /// <summary>
+        /// Deletes a post with the specified ID.
+        /// </summary>
+        /// <param name="id">The ID of the post to delete.</param>
+        /// <param name="UserId">The ID of the user attempting the deletion.</param>
 
-		public async Task Delete(int id, string UserId)
+        public async Task Delete(int id, string UserId)
         {
             var post = await _context.Posts.Where(p => p.Id == id).FirstOrDefaultAsync();
             var nut = await _context.Nutritionists.FirstOrDefaultAsync(n => n.UserId == UserId);
-            if (post.NutritionistId != nut.Id )
+            if (post.NutritionistId != nut.Id)
             {
                 throw new Exception("you can`t Delete post not belong to you why you want to do that?");
             }
@@ -56,7 +56,7 @@ namespace fit_and_fuel.Services
         public async Task Delete(int id)
         {
             var post = await _context.Posts.Where(p => p.Id == id).FirstOrDefaultAsync();
-            
+
             _context.Posts.Remove(post);
             await _context.SaveChangesAsync();
         }
@@ -73,12 +73,12 @@ namespace fit_and_fuel.Services
         public async Task<List<Post>> GetAll()
         {
             var Allposts = await _context.Posts
-            .Where(p=>p.IsImproved==true)
+            .Where(p => p.IsImproved == true)
             .Include(p => p.nutritionist)
             .ToListAsync();
             return Allposts;
         }
-       
+
 
         public async Task<List<PostDtoView>> GetAllDto()
         {
@@ -107,8 +107,8 @@ namespace fit_and_fuel.Services
         {
             var post = await _context.Posts
             .Include(p => p.nutritionist)
-            .Include(p=>p.likes)
-            .Include(p=>p.Comments)
+            .Include(p => p.likes)
+            .Include(p => p.Comments)
             .ThenInclude(n => n.Patient)
             .Where(p => p.Id == id).FirstOrDefaultAsync();
             return post;
@@ -117,7 +117,7 @@ namespace fit_and_fuel.Services
         public async Task<PostDtoView> GetByIdDto(int id)
         {
             var post = await GetById(id);
-            var postsToReturn =  new PostDtoView
+            var postsToReturn = new PostDtoView
             {
                 Id = post.Id,
                 Title = post.Title,
@@ -146,7 +146,7 @@ namespace fit_and_fuel.Services
             {
                 var nut = await _context.Nutritionists.FirstOrDefaultAsync(n => n.Id == post.NutritionistId);
 
-               
+
 
                 var content = new NotificationDto()
                 {
@@ -169,12 +169,12 @@ namespace fit_and_fuel.Services
 
         public async Task<Post> Post(PostDto PostDto, IFormFile file)
         {
-			var imageUrl = await UploadFile(file);
+            var imageUrl = await UploadFile(file);
 
 
-			string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-			var nut = await _context.Nutritionists.FirstOrDefaultAsync(n => n.UserId == userId);
+            var nut = await _context.Nutritionists.FirstOrDefaultAsync(n => n.UserId == userId);
 
             var newPost = new Post();
 
@@ -186,7 +186,7 @@ namespace fit_and_fuel.Services
 
             await _context.Posts.AddAsync(newPost);
             await _context.SaveChangesAsync();
-      
+
             var content = new NotificationDto()
             {
                 Content = $"New Post Need To Improve with PostId : {newPost.Id}"
@@ -204,37 +204,37 @@ namespace fit_and_fuel.Services
             return newPost;
         }
 
-		public async Task<string> UploadFile(IFormFile file)
-		{
-			var URL = "https://ecommerceprojectimages.blob.core.windows.net/images/noimage.png";
-			if (file != null)
-			{
-				BlobContainerClient blobContainerClient =
-					new BlobContainerClient(_configuration.GetConnectionString("StorageAccount"), "images");
+        public async Task<string> UploadFile(IFormFile file)
+        {
+            var URL = "https://ecommerceprojectimages.blob.core.windows.net/images/noimage.png";
+            if (file != null)
+            {
+                BlobContainerClient blobContainerClient =
+                    new BlobContainerClient(_configuration.GetConnectionString("StorageAccount"), "images");
 
-				await blobContainerClient.CreateIfNotExistsAsync();
+                await blobContainerClient.CreateIfNotExistsAsync();
 
-				BlobClient blobClient = blobContainerClient.GetBlobClient(file.FileName);
+                BlobClient blobClient = blobContainerClient.GetBlobClient(file.FileName);
 
-				using var fileStream = file.OpenReadStream();
+                using var fileStream = file.OpenReadStream();
 
-				BlobUploadOptions blobUploadOptions = new BlobUploadOptions()
-				{
-					HttpHeaders = new BlobHttpHeaders { ContentType = file.ContentType }
-				};
+                BlobUploadOptions blobUploadOptions = new BlobUploadOptions()
+                {
+                    HttpHeaders = new BlobHttpHeaders { ContentType = file.ContentType }
+                };
 
-				if (!blobClient.Exists())
-				{
-					await blobClient.UploadAsync(fileStream, blobUploadOptions);
-				}
-				URL = blobClient.Uri.ToString();
-			}
-			return URL;
-		}
+                if (!blobClient.Exists())
+                {
+                    await blobClient.UploadAsync(fileStream, blobUploadOptions);
+                }
+                URL = blobClient.Uri.ToString();
+            }
+            return URL;
+        }
 
 
 
-		public Task<Post> Post(int UserId, PostDto PostDto)
+        public Task<Post> Post(int UserId, PostDto PostDto)
         {
             throw new NotImplementedException();
         }
@@ -249,7 +249,7 @@ namespace fit_and_fuel.Services
 
         public async Task Put(string UserId, PostDto PostDto, int postId)
         {
-           var newPost = await _context.Posts.Where(p => p.Id == postId).FirstOrDefaultAsync();
+            var newPost = await _context.Posts.Where(p => p.Id == postId).FirstOrDefaultAsync();
             var nut = await _context.Nutritionists.FirstOrDefaultAsync(n => n.UserId == UserId);
             if (nut != null && newPost.NutritionistId != nut.Id)
             {
@@ -259,7 +259,7 @@ namespace fit_and_fuel.Services
             newPost.Description = PostDto.Description;
             newPost.ImageUrl = PostDto.ImageUrl;
             newPost.Time = DateTime.Now;
-            
+
 
             await _context.SaveChangesAsync();
         }
@@ -269,29 +269,29 @@ namespace fit_and_fuel.Services
             throw new NotImplementedException();
         }
 
-		public async Task<List<Post>> GetMyPosts()
-		{
-			string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var nutritionist = await _context.Nutritionists.Where(n=>n.UserId == userId).FirstOrDefaultAsync();
+        public async Task<List<Post>> GetMyPosts()
+        {
+            string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var nutritionist = await _context.Nutritionists.Where(n => n.UserId == userId).FirstOrDefaultAsync();
 
-			var Allposts = await _context.Posts
-            .Where(p=>p.NutritionistId == nutritionist.Id)
+            var Allposts = await _context.Posts
+            .Where(p => p.NutritionistId == nutritionist.Id)
             //.Include(p => p.nutritionist)
             .ToListAsync();
 
-			return Allposts;
+            return Allposts;
 
-		}
+        }
 
-		public async Task<List<Post>> GetAllPosts()
-		{
-			var AllPosts = await _context.Posts
-				.OrderByDescending(p => p.Id)
-				.Include(p => p.nutritionist)
-				.ToListAsync();
+        public async Task<List<Post>> GetAllPosts()
+        {
+            var AllPosts = await _context.Posts
+                .OrderByDescending(p => p.Id)
+                .Include(p => p.nutritionist)
+                .ToListAsync();
 
-			return AllPosts;
-		}
+            return AllPosts;
+        }
 
-	}
+    }
 }

@@ -13,7 +13,7 @@ namespace fit_and_fuel.Controllers
         private readonly INutritionists _nutritionists;
         private readonly IPost _post;
 
-        public HomeController(ILogger<HomeController> logger, INutritionists nutritionists ,IPost post )
+        public HomeController(ILogger<HomeController> logger, INutritionists nutritionists, IPost post)
         {
             _logger = logger;
             _nutritionists = nutritionists;
@@ -22,12 +22,12 @@ namespace fit_and_fuel.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var post =await _post.GetAll();
+            var post = await _post.GetAll();
 
             var nutritionist = await _nutritionists.GetAll();
-            var HomeView=new HomeViewModel();
-            HomeView.nutritionists=nutritionist;
-            HomeView.posts=post;
+            var HomeView = new HomeViewModel();
+            HomeView.nutritionists = nutritionist;
+            HomeView.posts = post;
 
             return View(HomeView);
 
@@ -54,13 +54,13 @@ namespace fit_and_fuel.Controllers
         {
             return View();
         }
-		public IActionResult Contact()
-		{
-			return View();
-		}
+        public IActionResult Contact()
+        {
+            return View();
+        }
 
 
-		[Authorize]
+        [Authorize]
         public IActionResult Privacy()
         {
             return View();
