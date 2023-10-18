@@ -1534,9 +1534,9 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
         }
 
         /*
-                The .ext utility is a top-level class that we use to target contents within our patterns.
-                We use it here to ensure columns blocks display well across themes.
-                */
+                                                                                        The .ext utility is a top-level class that we use to target contents within our patterns.
+                                                                                        We use it here to ensure columns blocks display well across themes.
+                                                                                        */
 
         .wp-block-columns[class*="fullwidth-cols"] {
             /* no suggestion */
@@ -1650,9 +1650,9 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
         }
 
         /*
-                    The `tablet:fullwidth-cols` and `desktop:fullwidth-cols` utilities are used
-                    to counter the core/columns responsive for at our breakpoints.
-                */
+                                                                                            The `tablet:fullwidth-cols` and `desktop:fullwidth-cols` utilities are used
+                                                                                            to counter the core/columns responsive for at our breakpoints.
+                                                                                        */
 
         media (max-width: 781px) {
             .tablet\:fullwidth-cols.wp-block-columns:not(.is-not-stacked-on-mobile)
@@ -3740,8 +3740,8 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                 width: 50%;
             }
 
-            }</style>		
-            <div data-elementor-type="wp-post" data-elementor-id="1884" class="elementor elementor-1884">
+            }</style>
+        <div data-elementor-type="wp-post" data-elementor-id="1884" class="elementor elementor-1884">
             <section class="elementor-section elementor-top-section elementor-element elementor-element-72045ac elementor-section-content-middle elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="72045ac" data-element_type="section">
                 <div class="elementor-container elementor-column-gap-default">
                     <div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-eccc0fb" data-id="eccc0fb" data-element_type="column">
@@ -3800,8 +3800,9 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                                         </ul>
                                                     </li>
 
-                                                    @if (User.IsInRole("Nutritionist")) 
+                                                    @if (User.IsInRole("Nutritionist"))
                                                     {
+
                                                     <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
                                                         <a>Managment</a><span class="submenu-toggle"></span>
                                                         <ul class="sub-menu">
@@ -3811,11 +3812,15 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                                                 <li id="menu-item-3430" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3430"><a asp-controller="Nutritionist" asp-action="AddClinic">Add Clinic</a></li>
 
                                                             <li id="menu-item-3430" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3430"><a asp-controller="Nutritionist" asp-action="AddPost">Add Post</a></li>
+
                                                                 <li id="menu-item-101" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-101"><a asp-controller="Nutritionist" asp-action="ViewPosts"> My Posts</a></li>
-                                                          
-                                                        </ul>
-                                                    </li>
+
+                                                            </ul>
+                                                        </li>
                                                     }
+
+                                                    <li id="menu-item-3368" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-3368"><a asp-controller="Home" asp-action="AllPost">Blog</a></li>
+
                                                     @if (User.IsInRole("Patient"))
                                                     {
                                                         <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
@@ -3828,13 +3833,8 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                                             </ul>
                                                         </li>
                                                     }
-                                                    <li id="menu-item-3368" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-3368">
-                                                        <a asp-controller="Home" asp-action="AllPost">Blog</a><span class="submenu-toggle"></span>
-                                                        <ul class="sub-menu">
-                                                            <li id="menu-item-3366" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3366"><a href="https://promo-theme.com/woxfit/blog-grid/">Grid</a></li>
-                                                            <li id="menu-item-3367" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3367"><a href="https://promo-theme.com/woxfit/blog-classic/">Classic</a></li>
-                                                        </ul>
-                                                    </li>
+                                                
+
                                                     <li id="menu-item-3242" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3242"><a asp-controller="Home" asp-action="About">About</a></li>
                                                     <li id="menu-item-3242" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3242"><a asp-controller="Home" asp-action="Contact">Contact</a></li>
                                                 </ul>
@@ -3855,18 +3855,18 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                             <div class="elementor-element elementor-element-b1122cc elementor-widget__width-auto elementor-widget elementor-widget-pt-search" data-id="b1122cc" data-element_type="widget" data-widget_type="pt-search.default">
                                 <div class="elementor-widget-container " style="color: white;">
                                     @if (User.Identity.IsAuthenticated)
-                                    {                   
+                                    {
                                         @* <div class="pt-search-toggle search-toggle"></div>*@
                                         if (count > 0)
                                         {
                                             <a asp-controller="Notification" asp-action="Index">
                                                 <span class="pt-cart-count">@count</span>
                                             </a>
-                                         
+
 
                                         }
-                                           <p>
-                                         @User.Identity.Name
+                                        <p>
+                                            @User.Identity.Name
                                         </p>
 
                                     }
@@ -4004,7 +4004,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                 <div class="elementor-widget-container " style="color: white;">
                                     @if (User.Identity.IsAuthenticated)
                                     {
-                                        <a asp-controller="User" asp-action="Logout" >
+                                        <a asp-controller="User" asp-action="Logout">
                                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-top:5px;">
                                                 <path d="M15.016 7.38948V6.45648C15.016 4.42148 13.366 2.77148 11.331 2.77148H6.45597C4.42197 2.77148 2.77197 4.42148 2.77197 6.45648V17.5865C2.77197 19.6215 4.42197 21.2715 6.45597 21.2715H11.341C13.37 21.2715 15.016 19.6265 15.016 17.5975V16.6545" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                                 <path d="M21.8096 12.0214H9.76855" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -4012,7 +4012,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                             </svg>
 
                                         </a>
-    
+
                                     }
                                     else
                                     {
@@ -4099,13 +4099,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                                             </ul>
                                                         </li>
                                                     }
-                                                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-3368">
-                                                        <a href="https://promo-theme.com/woxfit/blog-grid/">Blog</a><span class="submenu-toggle"></span>
-                                                        <ul class="sub-menu">
-                                                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3366"><a href="https://promo-theme.com/woxfit/blog-grid/">Grid</a></li>
-                                                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3367"><a href="https://promo-theme.com/woxfit/blog-classic/">Classic</a></li>
-                                                        </ul>
-                                                    </li>
+                                                    <li id="menu-item-3368" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-3368"><a asp-controller="Home" asp-action="AllPost">Blog</a></li>
                                                     <li id="menu-item-3242" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3242"><a asp-controller="Home" asp-action="About">About</a></li>
                                                     <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3242"><a asp-controller="Home" asp-action="Contact">Contact</a></li>
                                                 </ul>
@@ -4196,13 +4190,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                             </ul>
                         </li>
                     }
-                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-3368">
-                        <a href="https://promo-theme.com/woxfit/blog-grid/">Blog</a><span class="submenu-toggle"></span>
-                        <ul class="sub-menu">
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3366"><a href="https://promo-theme.com/woxfit/blog-grid/">Grid</a></li>
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3367"><a href="https://promo-theme.com/woxfit/blog-classic/">Classic</a></li>
-                        </ul>
-                    </li>
+                    <li id="menu-item-3368" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-3368"><a asp-controller="Home" asp-action="AllPost">Blog</a></li>
                     <li id="menu-item-3242" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3242"><a asp-controller="Home" asp-action="About">About</a></li>
                     <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3242"><a asp-controller="Home" asp-action="Contact">Contact</a></li>
                 </ul>
@@ -4276,7 +4264,6 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                                                     </div>
 
                                                                     <div class="pt-slide-text">
-                                                                     
                                                                     </div>
 
                                                                     <div class="pt-slide-buttons">
@@ -4350,6 +4337,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                                 </script>
 
                                                 <div class="pt-swiper-arrows">
+
                                                     <div class="pt-swiper-button-prev" style="display: none;"></div>
                                                     <i class="fas fa-arrow-left" class="arrow-icon" style="z-index: 10;
         cursor: pointer;
@@ -4368,6 +4356,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
 
                                                 <div class="pt-swiper-fraction">
                                                    
+
                                                 </div>
                                             </div>
 
@@ -5055,14 +5044,14 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
 
 
 
-                                                       
 
 
 
-                                                        
 
 
-                                                        
+
+
+
 
 
                                                     </div>
@@ -5097,11 +5086,11 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
 
 
 
-                                                      
 
 
 
-                                                        
+
+
 
 
                                                     </div>
@@ -5136,10 +5125,10 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
 
 
 
-                                                       
 
 
-                                                        
+
+
 
 
                                                     </div>
@@ -5148,7 +5137,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                             </section>
                             <section class="elementor-section elementor-inner-section elementor-element elementor-element-710cfe3 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="710cfe3" data-element_type="section">
@@ -5169,7 +5158,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
 
 
 
-                                                        
+
 
                                                         <a asp-controller="Home" asp-action="Contact">
                                                             Contact
@@ -5178,11 +5167,11 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
 
 
 
-                                                       
 
 
 
-                                                        
+
+
 
 
 
