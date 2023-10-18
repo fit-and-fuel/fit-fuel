@@ -49,7 +49,7 @@ builder.Services.AddTransient<IClinic, ClinicService>();
 builder.Services.AddTransient<IAppoitments, AppoitmentService>();
 //builder.Services.AddScoped<IChatMessage,ChatMessageService>();
 builder.Services.AddTransient<IRating, RatingService>();
-
+builder.Services.AddScoped<IEmailSender, SendEmailService>();
 builder.Services.AddTransient<INotification, NotificationService>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
