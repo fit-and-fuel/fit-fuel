@@ -98,8 +98,12 @@ namespace fit_and_fuel.Services
         public async Task<Patient> GetById(int id)
         {            //.Include(p => p.appoitments)
             //.Include(p => p.dietPlan)
-            //.Include(p => p.nutritionist)
-            var patient = await _context.Patients.Where(p => p.Id == id).FirstOrDefaultAsync();
+            
+            var patient = await _context.Patients
+                 .Include(p => p.nutritionist)
+                .Where(p => p.Id == id)
+               
+                .FirstOrDefaultAsync();
             return patient;
         }
         public async Task<PatientDtoView> GetByIdDto(int id)
