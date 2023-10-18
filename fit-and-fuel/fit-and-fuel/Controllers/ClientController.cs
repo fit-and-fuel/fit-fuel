@@ -72,6 +72,14 @@ namespace fit_and_fuel.Controllers
             return RedirectToAction("index");
         }
 
+        
+
+        public async Task<IActionResult>  ViewHealthRecord(string Id)
+        {
+          var MyHealthRecord =  await _healthRecord.GetMyHealthRecord(Id);
+            return View(MyHealthRecord);
+        }
+
         public ActionResult AddHealthRecord()
         {
             return View();

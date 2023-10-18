@@ -8,7 +8,10 @@ namespace fit_and_fuel.Interfaces
         Task<List<HealthRecord>> GetAll(int UserId);
         Task<List<HealthRecordDtoView>> GetAllDto(int UserId);
         Task<HealthRecord> GetMyHealthRecord(int id);
-        Task<HealthRecordDtoView> GetMyHealthRecordDto(int id);
+        public Task<HealthRecord> GetMyHealthRecord(string id);
+
+
+		Task<HealthRecordDtoView> GetMyHealthRecordDto(int id);
         Task<List<HealthRecord>> ForMyPatinets(int UserId);
         Task<List<HealthRecordDtoView>> ForMyPatinetsDto(int UserId);
         Task<HealthRecord> Post( HealthRecordDto HealthRecordDto);

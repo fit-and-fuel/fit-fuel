@@ -1,0 +1,41 @@
+﻿@model HealthRecord
+
+@{
+	Layout = "~/Views/Shared/_PageLayout.cshtml";
+}
+<div>
+	<br />
+	<div class="pt-heading">
+		<h2 class="pt-heading-title h2" style="font-size:40px; text-align:center;">
+			Health Record for @Model.Patient.Name
+		</h2>
+	</div>
+	<table class="table table-hover">
+
+		<thead class="thead-dark">
+			<tr>
+				
+				<th scope="col">Hieght</th>
+				<th scope="col">Weight</th>
+				<th scope="col">BMI</th>
+				<th scope="col">Illnesses</th>
+			</tr>
+		</thead>
+		<tbody>
+			@{
+				var rowNumber = 1;
+			}
+			
+				<tr>
+					<td>@Model.Height</td>
+					<td>@Model.Weight</td>
+					<td>@Model.BMI</td>
+				<td>@Model.Illnesses</td>
+
+				</tr>
+		
+			
+		</tbody>
+
+	</table>
+</div>
