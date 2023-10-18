@@ -1,0 +1,240 @@
+﻿/*
+Responsive Footer - Contact bar with animated icons
+Code: Marco Natolli
+Hire me: marconatolli@gmail.com
+Note: remove .centroassoluto before adding to your page
+*/
+
+.centroassoluto {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+p {
+    font-size: 14px;
+}
+
+
+@media only screen and (min-width: 768px) {
+    .ftC {
+        float: left;
+        display: flex;
+        flex-direction: COLUMN;
+        justify-content: space-around;
+        margin: 0;
+        text-align: center;
+        vertical-align: middle;
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .ftC {
+        display: flex;
+        flex-direction: COLUMN;
+        justify-content: space-around;
+        margin: 0;
+        text-align: center;
+        width: 100%;
+    }
+}
+
+.ftC a {
+    color: #808080;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+@media only screen and (min-width: 768px) {
+    .sparisci {
+        display: block;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .sparisci {
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .sparisci2 {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .sparisci2 {
+        display: block;
+    }
+}
+
+
+
+
+.ftC p {
+    margin: 0px;
+    color: #808080;
+}
+
+.ftcontatti {
+    display: flex;
+    justify-content: center;
+}
+
+@media only screen and (max-width: 768px) {
+    .colonnacontatti {
+        width: 100%;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .colonnacontatti {
+        width: 30%;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .orizcontatti {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .orizcontatti {
+        display: flex;
+        justify-content: space-around;
+    }
+}
+
+
+.stroke-solid {
+    stroke-dashoffset: 0;
+    stroke-dashArray: 300;
+    stroke-width: 2px;
+    transition: stroke-dashoffset 0.8s ease, opacity 0.5s ease;
+}
+
+.stroke-under {
+    stroke-dashoffset: 00;
+    stroke-dashArray: 300;
+    stroke-width: 1px;
+}
+
+.st0 {
+    fill: #808080;
+    display: inline-block;
+    border: 0;
+    position: absolute;
+    -webkit-transition: all 200ms ease-in;
+    -webkit-transform: scale(1);
+    -ms-transition: all 200ms ease-in;
+    -ms-transform: scale(1);
+    -moz-transition: all 200ms ease-in;
+    -moz-transform: scale(1);
+    transition: all 200ms ease-in;
+    transform-origin: 50% 50%;
+    transform: scale(1);
+}
+
+
+#play:hover .stroke-solid {
+    opacity: 1;
+    stroke-dashoffset: -300;
+}
+
+#play:hover .st0 {
+    fill: #202020;
+    -webkit-transition: all 100ms ease-in;
+    -webkit-transform: scale(1.05);
+    -ms-transition: all 100ms ease-in;
+    -ms-transform: scale(1.05);
+    -moz-transition: all 100ms ease-in;
+    -moz-transform: scale(1.05);
+    transition: all 100ms ease-in;
+    transform-origin: 50% 50%;
+    transform: scale(1.05);
+}
+
+
+
+
+
+.orizcont {
+    margin-top: 102px;
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.vl {
+    border-left: 1px solid #dadada;
+}
+
+.ol {
+    border-top: 1px solid #dadada;
+    width: 100%;
+}
+
+.fill-height-or-more {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+    .fill-height-or-more > div {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+@media only screen and (min-width: 768px) {
+    .ol {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .vl {
+        display: none;
+    }
+
+    .orizcont {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+
+    .fill-height-or-more > div {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+
+    .fill-height-or-more {
+        display: flex;
+        padding: 20px;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+}
+
+.some-area {
+    padding-left: 10px;
+    padding-right: 10px;
+}
