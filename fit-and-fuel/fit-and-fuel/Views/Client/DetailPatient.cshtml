@@ -2,56 +2,111 @@
 @{
     Layout = "~/Views/Shared/_PageLayout.cshtml";
 }
+<link href="~/css/NutDetails.css" rel="stylesheet">
 <div style="background-color:#000 ;height:80px;margin-top:-10px;width:2000px;">
 </div>
-<h2>Detail Patient</h2>
 
-<div> 
-    <h6>Name :  @Model.Name</h6>
-    <h6>Imgae :  @Model.imgURl</h6>
-    <h6>Gender :  @Model.Gender</h6>
-    <h6>Age :  @Model.Age</h6>
-    <h6>Phone Number :  @Model.PhoneNumber</h6>
-</div>
 
-<div>
-    @*// Link to Nutritions *@
-    <h2>Link to your Nutrition</h2>
-    @if (Model.nutritionist != null)
-    {
-        <h2>@Model.nutritionist.Name</h2>
-    }
-</div>
+<style>
+ 
+</style>
 
-<div>
-    @if (Model.healthRecord != null)
-    {
-        <h1>Health Record</h1>
-        <h2> Height: @Model.healthRecord.Height</h2>
-        <h2> Weight: @Model.healthRecord.Weight</h2>
-        <h2> BMI:  @Model.healthRecord.BMI</h2>
-        <h2>Illnesses:  @Model.healthRecord.Illnesses</h2>
-    }
-    @*// Link to health record *@
 
-</div>
-<div>
-    @*// Link to Appointment *@
-    <h2>Link to your Appointments</h2>
-</div>
+<section style="padding:70px;" >
+	<div class="container py-2">
 
-@if (Model.nutritionist != null)
-{
-    <p>@Model.nutritionist.Name</p>
-}
 
-<a asp-controller="chat" asp-action="index">send message</a>
+        <article style="background-color:#f9f9f9;" class="postcard light green">
+			<a class="postcard__img_link" href="#">
+				<img class="postcard__img" src="~/img/s1.jpg" alt="Image Title" />
+			</a>
+			<div  class="postcard__text t-dark">
+				<h1 style="margin-left:8px;" class="postcard__title green"><a href="#">About @Model.Name</a></h1>
+				<div class="postcard__subtitle small">
+                    <ul style="list-style:none; font-size:18px;">
+                        <li ><strong> Gender </strong><span>@Model.Gender</span></li>
+                        <li><strong> Age </strong><span>@Model.Age</span></li>
+                        <li><strong> Phone Number </strong><span>@Model.PhoneNumber</span></li>
+                       <li><strong>Nutritionist Name</strong>
+                            @if (Model.nutritionist != null)
+                            {
+                                <span>@Model.nutritionist.Name</span>
+                            }
+                            else
+                            {
+                                <span>No Nutritionist Yet</span>
+                            }
+                       </li>
 
-<div>
-    <a asp-controller="Client" asp-action="MyDietPlan">
-        view Diet plane
-    </a>
-</div>
-<div>
-    <a class="nav-link text-dark" asp-area="" asp-controller="Client" asp-action="MealForToday">Meal For Today</a>
-</div>
+                       
+
+                    </ul>
+
+				</div>
+				<div class="postcard__bar"></div>
+				<div class="postcard__preview-txt">
+                   @* @if (Model.healthRecord != null)
+                    {*@
+                    <h1 class="postcard__title green"><a href="#">Health Record</a></h1>
+                        <table class="table table-hover">
+
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Height</th>
+                                <th scope="col">Weight</th>
+                                <th scope="col">BMI</th>
+                                <th scope="col">Illnesses</th>
+                            </tr>
+                        </thead>
+                            <tbody>
+                                
+                                    <tr>
+                                   @* <th> @Model.healthRecord.Height</th>
+                                    <td>@Model.healthRecord.Weight</td>
+                                    <td>@Model.healthRecord.BMI</td>
+                                    <td>@Model.healthRecord.Illnesses</td>*@
+                                    <td>160</td>
+                                    <td>160</td>
+                                    <td>160</td>
+                                    <td>Nothing</td>
+                                        
+                                    </tr>
+                                 
+                                
+                            </tbody>
+                        </table>
+                  
+                    
+                    </div>
+                @if (User.IsInRole("Patient"))
+                {
+                    <ul class="postcard__tagbox">
+                        <li class="tag__item play green">
+                            <a asp-controller="chat" asp-action="index"><i class="fa-solid fa-message"></i>Send Message</a>
+                        </li>
+                        <li class="tag__item play green">
+                            <a asp-controller="Client" asp-action="MyDietPlan"><i class="fa-solid fa-sheet-plastic"></i>View Diet Plan</a>
+                        </li>
+
+                        <li class="tag__item play green">
+                            <a asp-controller="Client" asp-action="MealForToday"><i class="fa-solid fa-bowl-food"></i>Meals For Today</a>
+                        </li>
+                        <li class="tag__item play green">
+                            <a ><i class="fa-solid fa-bowl-food"></i>My Nutritionist</a>
+                        </li>
+                    </ul>
+                }
+
+              
+			</div>
+		</article>
+		
+	</div>
+</section>
+
+
+
+    
+
+
+
