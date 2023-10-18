@@ -11,10 +11,12 @@ namespace fit_and_fuel.Controllers
     {
 		private readonly IPatients _patients;
         private readonly IRating _rating;
-        public ClientController(IPatients patients,IRating rating)
+        private readonly IHealthRecord _healthRecord;
+        public ClientController(IPatients patients,IRating rating, IHealthRecord healthRecord)
         {
             _rating = rating;
             _patients = patients;
+            _healthRecord = healthRecord;
         }
 		[Authorize(Roles = "Patient")]
 		public IActionResult Index()
@@ -68,6 +70,18 @@ namespace fit_and_fuel.Controllers
         {
             await _rating.AddRating(ratingDto);
             return RedirectToAction("index");
+        }
+
+        public ActionResult AddHealthRecord()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddHealthRecord(HealthRecordDto health)
+        {
+           var Health = await _healthRecord.Post(health);
+
+            return RedirectToAction("Index","Home");
         }
     }
 }
