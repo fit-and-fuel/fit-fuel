@@ -1,5 +1,6 @@
 ﻿using fit_and_fuel.DTOs;
 using fit_and_fuel.Interfaces;
+using fit_and_fuel.Model;
 using Microsoft.AspNetCore.Mvc;
 
 namespace fit_and_fuel.Controllers
@@ -26,8 +27,8 @@ namespace fit_and_fuel.Controllers
 		public async Task<IActionResult> AddComment(CommentDto commentDto)
 		{
 			await _comment.PostCommnet(commentDto);
-			//return RedirectToAction("Index", "Comment");
-			return RedirectToAction("Index", "Home");
+
+			return RedirectToAction("Post", "Home", new { id = commentDto.postId });
 		}
 
 	}
