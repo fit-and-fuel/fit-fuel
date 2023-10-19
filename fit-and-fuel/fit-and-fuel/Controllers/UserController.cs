@@ -41,7 +41,7 @@ namespace fit_and_fuel.Controllers
                 //this for Send Email
                 //await _emailSender.EmailToUser(data.Email, data.Username);
             }
-			var resRole = await _userService.Authenticate(data.Username, data.Password);
+            var resRole = await _userService.Authenticate(data.Username, data.Password);
 
 			if (!ModelState.IsValid)
             {
