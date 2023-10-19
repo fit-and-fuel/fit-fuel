@@ -12,7 +12,7 @@ namespace fit_and_fuel.Controllers
         private readonly IEmailSender _emailSender;
         private IUserService _userService;
 
-      
+
         public UserController(IUserService userService, IEmailSender emailSender)
         {
             _userService = userService;
@@ -30,24 +30,25 @@ namespace fit_and_fuel.Controllers
         [HttpPost]
         public async Task<ActionResult<UserDto>> Register(RegisterUser data)
         {
-			if (!ModelState.IsValid)
-			{
-				return View();
-			}
-			bool IsNutritionist = false;
-			if (data.Roles[0] == "Nutritionist")
+            if (!ModelState.IsValid)
             {
-				IsNutritionist= true;
-				
-			}
-				var res = await _userService.Register(data, this.ModelState);
-            if (IsNutritionist) {
+                return View();
+            }
+            bool IsNutritionist = false;
+            if (data.Roles[0] == "Nutritionist")
+            {
+                IsNutritionist = true;
+
+            }
+            var res = await _userService.Register(data, this.ModelState);
+            if (IsNutritionist)
+            {
                 //this for Send Email
                 //await _emailSender.EmailToUser(data.Email, data.Username);
             }
             var resRole = await _userService.Authenticate(data.Username, data.Password);
 
-			if (!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(res);
             }
@@ -58,11 +59,11 @@ namespace fit_and_fuel.Controllers
             }
 
             if (resRole.Roles[0] == "Patient")
-			{
+            {
                 return RedirectToAction("Index", "Client");
-			}
-           
-			return RedirectToAction("Index","Home");
+            }
+
+            return RedirectToAction("Index", "Home");
         }
         public IActionResult Login()
         {
@@ -80,8 +81,8 @@ namespace fit_and_fuel.Controllers
             {
                 return RedirectToAction("Index", "Admin");
             }
-		
-			return RedirectToAction("Index", "Home");
+
+            return RedirectToAction("Index", "Home");
         }
         public async Task<IActionResult> Logout()
         {
