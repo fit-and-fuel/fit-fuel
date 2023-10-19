@@ -1,8 +1,11 @@
 ﻿@using fit_and_fuel.Interfaces
 @inject INotification notfication;
-
+@inject IChatMessage chatMessage;
 @{
     var count = await notfication.CountNot();
+    var notifications = await notfication.GetNotificationsForUser();
+    var visibleNotifications = notifications.Take(3).ToList();
+
 }
 
 <!doctype html>
@@ -3778,27 +3781,6 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                                             <li id="menu-item-50" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-50"><a href="https://promo-theme.com/woxfit/parallax-showcase/">Parallax Showcase</a></li>
                                                         </ul>
                                                     </li>
-                                                    <li id="menu-item-34" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-34">
-                                                        <a href="#">Pages</a><span class="submenu-toggle"></span>
-                                                        <ul class="sub-menu">
-                                                            <li id="menu-item-27" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-27"><a href="https://promo-theme.com/woxfit/about/">About</a></li>
-                                                            <li id="menu-item-3241" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3241"><a href="https://promo-theme.com/woxfit/services/">Services</a></li>
-                                                            <li id="menu-item-3240" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3240"><a href="https://promo-theme.com/woxfit/single-service/">Single Service</a></li>
-                                                            <li id="menu-item-3239" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3239"><a href="https://promo-theme.com/woxfit/timetable/">Timetable</a></li>
-                                                            <li id="menu-item-3306" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-3306">
-                                                                <a href="https://promo-theme.com/woxfit/portfolio-grid-3-cols-2/">Portfolio</a><span class="submenu-toggle"></span>
-                                                                <ul class="sub-menu">
-                                                                    <li id="menu-item-3305" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3305"><a href="https://promo-theme.com/woxfit/portfolio-grid-3-cols-2/">Grid 2 Cols</a></li>
-                                                                    <li id="menu-item-3304" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3304"><a href="https://promo-theme.com/woxfit/portfolio-grid-3-cols/">Grid 3 Cols</a></li>
-                                                                    <li id="menu-item-3303" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3303"><a href="https://promo-theme.com/woxfit/portfolio-grid-4-cols/">Grid 4 Cols</a></li>
-                                                                    <li id="menu-item-3302" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3302"><a href="https://promo-theme.com/woxfit/portfolio-masonry-2-cols/">Masonry 2 Cols</a></li>
-                                                                    <li id="menu-item-3301" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3301"><a href="https://promo-theme.com/woxfit/portfolio-masonry-3-cols/">Masonry 3 Cols</a></li>
-                                                                    <li id="menu-item-3300" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3300"><a href="https://promo-theme.com/woxfit/portfolio-masonry-4-cols/">Masonry 4 Cols</a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li id="menu-item-81" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-81"><a href="https://promo-theme.com/woxfit/page-404">Page 404</a></li>
-                                                        </ul>
-                                                    </li>
 
                                                     @if (User.IsInRole("Nutritionist"))
                                                     {
@@ -3837,6 +3819,36 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
 
                                                     <li id="menu-item-3242" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3242"><a asp-controller="Home" asp-action="About">About</a></li>
                                                     <li id="menu-item-3242" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3242"><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+                                                    <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
+                                                        <a>
+                                                            @if (count > 0)
+                                                            {
+                                                            <span class="pt-cart-count">@count</span>
+                                                            }
+                                                            <i class="fas fa-bell"></i>
+                                                            
+                                                        </a><span class="submenu-toggle"></span>
+
+
+                                                        <ul class="sub-menu">
+                                                            @foreach (var notificat in visibleNotifications)
+                                                            {
+                                                                <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102" style="width:400px; background-color: #f0f0f0; border: 1px solid #ddd; margin: 10px; padding: 10px; border-radius: 5px;">
+                                                                    <h6 class="mb-1" style="font-size: 13px;">@notificat.Content</h6>
+                                                                    <small class="d-block">@notificat.Timestamp</small>
+                                                                </li>
+                                                            }
+                                                            <a asp-controller="Notification" asp-action="Index" >Show All</a>
+                                                        </ul>
+
+
+                                                      
+
+                                                       
+
+
+
+                                                    </li>
                                                 </ul>
                                             </div>
                                         </nav>
@@ -3854,6 +3866,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                         <div class="elementor-widget-wrap elementor-element-populated">
                             <div class="elementor-element elementor-element-b1122cc elementor-widget__width-auto elementor-widget elementor-widget-pt-search" data-id="b1122cc" data-element_type="widget" data-widget_type="pt-search.default">
                                 <div class="elementor-widget-container " style="color: white;">
+
                                     @if (User.Identity.IsAuthenticated)
                                     {
                                         @* <div class="pt-search-toggle search-toggle"></div>*@
@@ -4052,27 +4065,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                                             <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-50"><a href="https://promo-theme.com/woxfit/parallax-showcase/">Parallax Showcase</a></li>
                                                         </ul>
                                                     </li>
-                                                    <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-34">
-                                                        <a href="#">Pages</a><span class="submenu-toggle"></span>
-                                                        <ul class="sub-menu">
-                                                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-27"><a href="https://promo-theme.com/woxfit/about/">About</a></li>
-                                                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3241"><a href="https://promo-theme.com/woxfit/services/">Services</a></li>
-                                                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3240"><a href="https://promo-theme.com/woxfit/single-service/">Single Service</a></li>
-                                                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3239"><a href="https://promo-theme.com/woxfit/timetable/">Timetable</a></li>
-                                                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-3306">
-                                                                <a href="https://promo-theme.com/woxfit/portfolio-grid-3-cols-2/">Portfolio</a><span class="submenu-toggle"></span>
-                                                                <ul class="sub-menu">
-                                                                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3305"><a href="https://promo-theme.com/woxfit/portfolio-grid-3-cols-2/">Grid 2 Cols</a></li>
-                                                                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3304"><a href="https://promo-theme.com/woxfit/portfolio-grid-3-cols/">Grid 3 Cols</a></li>
-                                                                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3303"><a href="https://promo-theme.com/woxfit/portfolio-grid-4-cols/">Grid 4 Cols</a></li>
-                                                                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3302"><a href="https://promo-theme.com/woxfit/portfolio-masonry-2-cols/">Masonry 2 Cols</a></li>
-                                                                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3301"><a href="https://promo-theme.com/woxfit/portfolio-masonry-3-cols/">Masonry 3 Cols</a></li>
-                                                                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3300"><a href="https://promo-theme.com/woxfit/portfolio-masonry-4-cols/">Masonry 4 Cols</a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-81"><a href="https://promo-theme.com/woxfit/page-404">Page 404</a></li>
-                                                        </ul>
-                                                    </li>
+                                                   
                                                     <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
                                                         <a href="https://promo-theme.com/woxfit/shop/">Shop</a><span class="submenu-toggle"></span>
                                                         <ul class="sub-menu">
@@ -4142,7 +4135,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                             <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-50"><a href="https://promo-theme.com/woxfit/parallax-showcase/">Parallax Showcase</a></li>
                         </ul>
                     </li>
-                    <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-34">
+@*                    <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-34">
                         <a href="#">Pages</a><span class="submenu-toggle"></span>
                         <ul class="sub-menu">
                             <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-27"><a href="https://promo-theme.com/woxfit/about/">About</a></li>
@@ -4163,7 +4156,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                             <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-81"><a href="https://promo-theme.com/woxfit/page-404">Page 404</a></li>
                         </ul>
                     </li>
-                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
+*@                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
                         <a href="https://promo-theme.com/woxfit/shop/">Shop</a><span class="submenu-toggle"></span>
                         <ul class="sub-menu">
                             <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a href="https://promo-theme.com/woxfit/shop/">Product list</a></li>
@@ -4368,6 +4361,87 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                     </section>
                     <div class="elementor-container elementor-column-gap-default">
                         <div>
+                          @*   @if (User.Identity.IsAuthenticated){
+                              
+                            <button id="showChatButton" style="
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #1877F2; /* Facebook blue */
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 50px; /* Make it rounded */
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+">
+                                Show Chat
+                            </button>
+
+                            <div id="chatContainer" class="col-xl-4 col-md-6 chat-map" style="
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #fff; /* White background for chat container */
+    color: #333; /* Dark text color */
+    padding: 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    max-height: 80vh; /* Limit the chat container height */
+    overflow-y: auto; /* Add vertical scroll if needed */
+">
+                                    @{
+                                    var Messages = await chatMessage.ReceiveMessages();
+                                    }
+                                @foreach (var message in @Messages)
+                                {
+                                    @if (message.SenderId == Model.FirstOrDefault().SenderId)
+                                    {
+                                        <div class="media">
+                                            <div class="message-received w-auto">
+                                                <div class="d-flex">
+                                                    <div class="ms-1 text">
+                                                        <p class="mb-1">@message.Content</p>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="media justify-content-end align-items-end ms-auto">
+                                            <div class="message-sent w-auto">
+                                                <p class="mb-1">@message.Content</p>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                                    
+                            </div>
+
+                            <script>
+                                // Get references to the button and chat container
+                                var showChatButton = document.getElementById('showChatButton');
+                                var chatContainer = document.getElementById('chatContainer');
+
+                                // Add a click event listener to the button
+                                showChatButton.addEventListener('click', function () {
+                                    // Toggle the chat's visibility
+                                    if (chatContainer.style.display === 'none') {
+                                        chatContainer.style.display = 'block';
+                                    } else {
+                                        chatContainer.style.display = 'none';
+                                    }
+                                });
+                            </script>
+                            }*@
                             @RenderBody()
                         </div>
                     </div>
@@ -4378,7 +4452,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
             </div>
         </article>
     </main>
-
+   
     <footer class="site-footer">
         <style>
             .elementor-271 .elementor-element.elementor-element-c7f1433:not(.elementor-motion-effects-element-type-background), .elementor-271 .elementor-element.elementor-element-c7f1433 > .elementor-motion-effects-container > .elementor-motion-effects-layer {
