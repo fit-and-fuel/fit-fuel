@@ -1,6 +1,7 @@
 ﻿@{
 	Layout = "~/Views/Shared/_PageLayout.cshtml";
 }
+@model RegisterUser
 
 <section class="elementor-section elementor-top-section elementor-element elementor-element-ae4cf5a elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="ae4cf5a" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
 	<div class="elementor-background-overlay"></div>
@@ -74,25 +75,29 @@
 								<div class="mb-3">
 									<p>
 										<label for="name">UserName</label><br>
-										<span class="wpcf7-form-control-wrap"><input size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" id="name" aria-required="true" aria-invalid="false" placeholder="UserName" type="text" name="Username"></span>
+										<span asp-validation-for="Username" class="wpcf7-form-control-wrap"></span>
+											<input asp-for="Username" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" id="name" aria-required="true" aria-invalid="false" placeholder="UserName" type="text" name="Username">
 									</p>
 								</div>
 								<div class="mb-3">
 									<p>
 										<label for="password">Password</label><br>
-										<span class="wpcf7-form-control-wrap"><input size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" id="password" aria-required="true" aria-invalid="false" placeholder="Password" type="password" name="Password"></span>
+										<span asp-validation-for="Password" class="wpcf7-form-control-wrap"></span>
+										<input asp-for="Password" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" id="password" aria-required="true" aria-invalid="false" placeholder="Password" type="password" name="Password">
 									</p>
 								</div>
 								<div class="mb-3">
 									<p>
 										<label for="email">Email</label><br>
-										<span class="wpcf7-form-control-wrap"><input size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" id="email" aria-required="true" aria-invalid="false" placeholder="Email" type="text" name="Email"></span>
+										<span asp-validation-for="Email" class="wpcf7-form-control-wrap text-danger"></span>
+										<input asp-for="Email" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" id="email" aria-required="true" aria-invalid="false" placeholder="Email" type="text" name="Email">
 									</p>
 								</div>
 								<div class="mb-3">
 									<p>
-										<label for="password">Phone Number</label><br>
-										<span class="wpcf7-form-control-wrap"><input size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" id="password" aria-required="true" aria-invalid="false" placeholder="Password" type="text" name="PhoneNumber"></span>
+										<label for="PhoneNumber">Phone Number</label><br>
+										<span asp-validation-for="PhoneNumber" class="wpcf7-form-control-wrap"></span>
+										<input asp-for="PhoneNumber" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" id="password" aria-required="true" aria-invalid="false" placeholder="Password" type="text" name="PhoneNumber">
 									</p>
 								</div>
 
@@ -110,8 +115,8 @@
 									</p>
 								</div><div class="wpcf7-response-output" aria-hidden="true"></div>
 							</form>
-							<div asp-validation-summary="All"></div>
-						</div>
+@* 							<div asp-validation-summary="All"></div>
+ *@						</div>
 
 
 					</div>

@@ -66,11 +66,11 @@ namespace fit_and_fuel.Controllers
 		[HttpPost]
         public async Task<IActionResult> CreateProfile(NutritionistDto nut, IFormFile file)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //	return View();
-            //}
-            ModelState.Remove("file");
+			if (!ModelState.IsValid)
+			{
+				return View();
+			}
+			ModelState.Remove("file");
 
             await _nutritionists.Post(nut, file);
 
@@ -161,6 +161,10 @@ namespace fit_and_fuel.Controllers
 		[HttpPost]
 		public async Task<IActionResult> AddPost(PostDto post, IFormFile file)
 		{
+			if (!ModelState.IsValid)
+			{
+				return View();
+			}
 			ModelState.Remove("file");
 
 

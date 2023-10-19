@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Nutritionist
+
+@{
 	Layout = "~/Views/Shared/_PageLayout.cshtml";
 }
 
@@ -76,10 +78,10 @@
 
 								<div class="mb-3">
 									<p>
-										<label for="name">Name</label><br>
-										<span class="wpcf7-form-control-wrap">
-											<input size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" id="name" aria-required="true" aria-invalid="false" placeholder="UserName" type="text" name="Name">
-										</span>
+									<p>
+										<label asp-for="Name"></label><br>
+										<span asp-validation-for="Name" class="text-danger"></span>
+										<input asp-for="Name" class="wpcf7-form-control wpcf7-text" placeholder="UserName">
 									</p>
 								</div>
 								@* 								<div class="mb-3">
@@ -123,10 +125,8 @@
 									</p>
 								</div><div class="wpcf7-response-output" aria-hidden="true"></div>
 							</form>
-							<div asp-validation-summary="All"></div>
-						</div>
-
-
+@* 							<div asp-validation-summary="All"></div>
+ *@						</div>
 					</div>
 				</div>
 			</div>

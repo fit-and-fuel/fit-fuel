@@ -30,7 +30,11 @@ namespace fit_and_fuel.Controllers
         [HttpPost]
         public async Task<ActionResult<UserDto>> Register(RegisterUser data)
         {
-            bool IsNutritionist = false;
+			if (!ModelState.IsValid)
+			{
+				return View();
+			}
+			bool IsNutritionist = false;
 			if (data.Roles[0] == "Nutritionist")
             {
 				IsNutritionist= true;
