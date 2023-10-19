@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Post
+
+@{
 	Layout = "~/Views/Shared/_PageLayout.cshtml";
 }
 
@@ -61,9 +63,9 @@
 								<div class="mb-3">
 									<p class="wpcf7">
 										<label for="Title">Title</label><br>
-										<span class="wpcf7-form-control-wrap">
+										<span asp-validation-for="Title" class="wpcf7-form-control-wrap"></span>
 											<input size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" id="Title" aria-required="true" aria-invalid="false" placeholder="Title" type="text" name="Title">
-										</span>
+										
 									</p>
 								</div>
 								<div class="mb-3">
@@ -77,7 +79,7 @@
     text-transform: uppercase;">imgURl</label><br>
 									<p class="wpcf7" style="border: 1.5px solid var(--color-border); border-radius: 4px;">
 										
-										<span class="wpcf7-form-control-wrap" >
+										<span asp-validation-for="ImageUrl" class="wpcf7-form-control-wrap"></span>
 											<label class="custom-file-label" for="imgURl" style="background-color: #000000; margin:0px; border-radius: 4px 0 0 4px;
     color: #fff;
     padding: 10px 20px;
@@ -85,17 +87,17 @@
     cursor: pointer;
 opacity:1;
     ">Choose File</label>
-										<input type="file" id="imgURl" name="file" class="form-control" accept="image/*" style="display: none;"
+										<input asp-for="ImageUrl" type="file" id="imgURl" name="file" class="form-control" accept="image/*" style="display: none;"
 										/>
-										</span>
+										
 									</p>
 								</div>
 								<div class="mb-3">
 									<p class="wpcf7">
 										<label for="Description">Description</label><br>
-										<span class="wpcf7-form-control-wrap">
-											<textarea size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" id="Description" aria-required="true" aria-invalid="false" placeholder="Description" type="text" name="Description" style="height:auto;"></textarea>
-										</span>
+										<span asp-validation-for="Description" class="wpcf7-form-control-wrap"></span>
+											<textarea asp-for="Description" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" id="Description" aria-required="true" aria-invalid="false" placeholder="Description" type="text" name="Description" style="height:auto;"></textarea>
+										
 									</p>
 								</div>
 
@@ -105,7 +107,7 @@ opacity:1;
 									</p>
 								</div><div class="wpcf7-response-output" aria-hidden="true"></div>
 							</form>
-							<div asp-validation-summary="All"></div>
+							@* <div asp-validation-summary="All"></div> *@
 						</div>
 
 
