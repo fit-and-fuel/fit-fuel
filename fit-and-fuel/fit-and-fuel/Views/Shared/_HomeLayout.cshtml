@@ -1,6 +1,6 @@
 ﻿@using fit_and_fuel.Interfaces
 @inject INotification notfication;
-@inject IChatMessage chatMessage;
+@inject INutritionists nutritionists;
 @{
     var count = await notfication.CountNot();
     var notifications = await notfication.GetNotificationsForUser();
@@ -3810,6 +3810,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                                             <ul class="sub-menu">
                                                                    <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Client" asp-action="MyDietPlan">My DietPlan</a></li>
                                                                 <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Client" asp-action="MealForToday">Meal For Today</a></li>
+                                                                <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Client" asp-action="addrating">add rating</a></li>
                                                                 <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="chat" asp-action="index">send message</a></li>
 
                                                             </ul>
@@ -4361,8 +4362,9 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                     </section>
                     <div class="elementor-container elementor-column-gap-default">
                         <div>
-                          @*   @if (User.Identity.IsAuthenticated){
-                              
+                            @if (User.Identity.IsAuthenticated && User.IsInRole("Patient"))
+                            {
+                               
                             <button id="showChatButton" style="
     position: fixed;
     bottom: 20px;
@@ -4395,53 +4397,165 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
     max-height: 80vh; /* Limit the chat container height */
     overflow-y: auto; /* Add vertical scroll if needed */
 ">
-                                    @{
-                                    var Messages = await chatMessage.ReceiveMessages();
-                                    }
-                                @foreach (var message in @Messages)
-                                {
-                                    @if (message.SenderId == Model.FirstOrDefault().SenderId)
-                                    {
-                                        <div class="media">
-                                            <div class="message-received w-auto">
-                                                <div class="d-flex">
-                                                    <div class="ms-1 text">
-                                                        <p class="mb-1">@message.Content</p>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="media justify-content-end align-items-end ms-auto">
-                                            <div class="message-sent w-auto">
-                                                <p class="mb-1">@message.Content</p>
-                                            </div>
-                                        </div>
-                                    }
-                                }
+                               @await Component.InvokeAsync("ChatList")
                                     
                             </div>
 
-                            <script>
-                                // Get references to the button and chat container
-                                var showChatButton = document.getElementById('showChatButton');
-                                var chatContainer = document.getElementById('chatContainer');
+                                <script>
+                                    // Get references to the button and chat container
+                                    var showChatButton = document.getElementById('showChatButton');
+                                    var chatContainer = document.getElementById('chatContainer');
 
-                                // Add a click event listener to the button
-                                showChatButton.addEventListener('click', function () {
-                                    // Toggle the chat's visibility
-                                    if (chatContainer.style.display === 'none') {
-                                        chatContainer.style.display = 'block';
-                                    } else {
-                                        chatContainer.style.display = 'none';
+                                    // Add a click event listener to the button
+                                    showChatButton.addEventListener('click', function () {
+                                        // Toggle the chat's visibility
+                                        if (chatContainer.style.display === 'none') {
+                                            chatContainer.style.display = 'block';
+                                        } else {
+                                            chatContainer.style.display = 'none';
+                                        }
+                                    });
+
+                                    // Add a click event listener to the document to close the chat when clicking outside
+                                    document.addEventListener('click', function (event) {
+                                        // Check if the click target is not the chat container or the show chat button
+                                        if (event.target !== chatContainer && event.target !== showChatButton) {
+                                            chatContainer.style.display = 'none';
+                                        }
+                                    });
+
+                                    // Prevent clicks within the chat container from closing it
+                                    chatContainer.addEventListener('click', function (event) {
+                                        event.stopPropagation();
+                                    });
+                                </script>
+
+                            }
+
+                            @if (User.Identity.IsAuthenticated && User.IsInRole("Nutritionist"))
+                            {
+
+                                <button id="showChatButton" style="
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #1877F2; /* Facebook blue */
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 50px; /* Make it rounded */
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+">
+                                    Show Chat
+                                </button>
+
+                                <div id="chatContainer" class="col-xl-4 col-md-6 chat-map" style="
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #fff; /* White background for chat container */
+    color: #333; /* Dark text color */
+    padding: 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    max-height: 80vh; /* Limit the chat container height */
+    overflow-y: auto; /* Add vertical scroll if needed */
+">
+                                    @{
+                                        var mypaient = await nutritionists.GetMyProfile();
                                     }
-                                });
-                            </script>
-                            }*@
+                                    @if(mypaient != null){
+                                    @foreach (var patient in mypaient.patients)
+                                    {
+                                        <div class="patient-name" onclick="toggleChat('@patient.Id')">
+                                            <p>@patient.Name</p>
+                                        </div>
+                                            <div id="chat-@patient.Id" class="chat-container" style="display: none;">
+                                                @await Component.InvokeAsync("ChatNut", new { id = patient.Id })
+                                            </div>
+
+
+                                    }
+                                    }
+                                </div>
+
+                                <script>
+                                    function toggleChat(patientId) {
+                                        var chatContainer = document.getElementById('chat-' + patientId);
+
+                                        if (chatContainer.style.display === 'none') {
+                                            chatContainer.style.display = 'block';
+                                            // Initialize the SignalR connection for this chat container
+                                            initSignalR(patientId);
+                                        } else {
+                                            chatContainer.style.display = 'none';
+                                            // Dispose of the SignalR connection for this chat container
+                                            disposeSignalR(patientId);
+                                        }
+                                    }
+
+                                    // Dictionary to store SignalR connections for each patient's chat container
+                                    var signalRConnections = {};
+
+                                    // Function to initialize the SignalR connection for a specific patient
+                                    function initSignalR(patientId) {
+                                        if (!signalRConnections[patientId]) {
+                                            signalRConnections[patientId] = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+
+                                            // Add your connection.on handlers here
+
+                                            signalRConnections[patientId].start().catch(function (err) {
+                                                console.error(err.toString());
+                                            });
+                                        }
+                                    }
+
+                                    // Function to dispose of the SignalR connection for a specific patient
+                                    function disposeSignalR(patientId) {
+                                        if (signalRConnections[patientId]) {
+                                            signalRConnections[patientId].stop();
+                                            delete signalRConnections[patientId];
+                                        }
+                                    }
+                                </script>
+
+                                <script>
+                                    // Get references to the button and chat container
+                                    var showChatButton = document.getElementById('showChatButton');
+                                    var chatContainer = document.getElementById('chatContainer');
+
+                                    // Add a click event listener to the button
+                                    showChatButton.addEventListener('click', function () {
+                                        // Toggle the chat's visibility
+                                        if (chatContainer.style.display === 'none') {
+                                            chatContainer.style.display = 'block';
+                                        } else {
+                                            chatContainer.style.display = 'none';
+                                        }
+                                    });
+
+                                    // Add a click event listener to the document to close the chat when clicking outside
+                                    document.addEventListener('click', function (event) {
+                                        // Check if the click target is not the chat container or the show chat button
+                                        if (event.target !== chatContainer && event.target !== showChatButton) {
+                                            chatContainer.style.display = 'none';
+                                        }
+                                    });
+
+                                    // Prevent clicks within the chat container from closing it
+                                    chatContainer.addEventListener('click', function (event) {
+                                        event.stopPropagation();
+                                    });
+                                </script>
+
+                            }
+
                             @RenderBody()
                         </div>
                     </div>

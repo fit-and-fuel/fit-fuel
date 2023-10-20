@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using fit_and_fuel.Data;
 
@@ -11,9 +12,11 @@ using fit_and_fuel.Data;
 namespace fit_and_fuel.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231020183425_patientimg")]
+    partial class patientimg
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -277,22 +280,18 @@ namespace fit_and_fuel.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-
                             ConcurrencyStamp = "dc2d6a03-c404-4983-9974-f057a60228c9",
-
                             Email = "adminUser@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "adminUser@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN",
-
                             PasswordHash = "AQAAAAIAAYagAAAAEPjnt4KiZfLeGjn0/WE8HYC97VB6yRMq78FDhosgoGcV4cmuELTh/PCiLEZiV+1QqQ==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "a2f3ca97-6885-4eb8-bbbe-3293019926a0",
                             TwoFactorEnabled = false,
                             UserName = "admin"
-
                         });
                 });
 
@@ -330,8 +329,6 @@ namespace fit_and_fuel.Migrations
                     b.HasIndex("PatientId");
 
                     b.ToTable("Appoitments");
-
-
                 });
 
             modelBuilder.Entity("fit_and_fuel.Model.AvailableTime", b =>
@@ -762,7 +759,6 @@ namespace fit_and_fuel.Migrations
                     b.HasIndex("NutritionistId");
 
                     b.ToTable("Posts");
-
                 });
 
             modelBuilder.Entity("fit_and_fuel.Model.Rating", b =>
