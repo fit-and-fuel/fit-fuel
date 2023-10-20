@@ -69,7 +69,7 @@ namespace fit_and_fuel.Controllers
         public async Task<IActionResult> AddRating(RatingDto ratingDto)
         {
             await _rating.AddRating(ratingDto);
-            return RedirectToAction("index");
+            return RedirectToAction("index","Home");
         }
 
         

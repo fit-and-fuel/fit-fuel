@@ -1,0 +1,189 @@
+﻿@model NutritionistVM
+<style>
+    /* Styling for the chat container */
+    .chat-box-area {
+        /*background-color: #f0f0f0;*/ /* Background color of the chat container */
+        padding: 10px; /* Padding inside the chat container */
+        border-radius: 10px;
+    }
+
+    /* Styling for received messages */
+    .message-received {
+        background-color: #f7f7f7; /* Background color of received messages */
+        padding: 8px;
+        margin: 5px;
+        border-radius: 10px;
+    }
+
+    /* Styling for sent messages */
+    .message-sent {
+        background-color: #0084ff; /* Background color of sent messages (Facebook blue) */
+        padding: 8px;
+        margin: 5px;
+        border-radius: 10px;
+        color: #fff; /* Text color for sent messages */
+    }
+
+    /* Styling for message text */
+    .message-text {
+        margin: 0;
+    }
+
+    /* Styling for the input field and send button */
+    .txtMessage {
+        width: 80%;
+        padding: 5px;
+        border: none;
+        border-bottom: 1px solid #ddd; /* Underline the input field */
+    }
+
+    .btnSend {
+        background-color: #0084ff; /* Send button background color (Facebook blue) */
+        color: #fff;
+        border: none;
+        border-radius: 20px;
+        padding: 8px 15px;
+        margin-left: 10px;
+        cursor: pointer;
+    }
+</style>
+
+<div class=" chat-map">
+    <div class="card">
+        <div class="card-header border-0 mb-0">
+            <h4 class="heading mb-0">Chat</h4>
+            <div class="d-flex align-items-center cs-settiong">
+            </div>
+        </div>
+        <div class="card-body pt-0">
+            <div class="chat-box-area style-1 dz-scroll" id="list-@Model.Patinetid">
+                @foreach (var message in Model.ChatMessages)
+                {
+                    if (message.SenderId != Model.ChatMessages.FirstOrDefault().SenderId)
+                    {
+                        <div class="media">
+                            <div class="message-received w-auto">
+                                <div class="d-flex">
+                                    <div class="ms-1 text">
+                                        <p class="mb-1">@message.Content</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="media justify-content-end align-items-end ms-auto">
+                            <div class="message-sent w-auto">
+                                <p class="mb-1">@message.Content</p>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+
+        <input type="text" class="txtMessage" />
+        <input type="hidden" class="toUser" value="@Model.Patinetid" />
+        <button class="btnSend">Send</button>
+
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/signalr/dist/browser/signalr.js"></script>
+<script>
+    var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+
+    // Initialize an object to store received messages for each patient
+    var receivedMessages = {};
+
+    connection.on("SendMessage", function (message, id) {
+        var msg = message;
+        var chatContainerId = "list-" + id;
+
+        // Check if the message is already displayed to prevent repetition
+        if (!receivedMessages[chatContainerId] || receivedMessages[chatContainerId] !== msg) {
+            receivedMessages[chatContainerId] = msg;
+
+            var messageStructure = document.createElement("div");
+            messageStructure.className = "media justify-content-end align-items-end ms-auto";
+
+            var messageReceived = document.createElement("div");
+            messageReceived.className = "message-sent w-auto";
+
+            var p = document.createElement("p");
+            p.className = "mb-1";
+            p.textContent = msg;
+
+            // Append the elements to build the structure
+            messageReceived.appendChild(p);
+            messageStructure.appendChild(messageReceived);
+
+            // Append the new message structure to the chat container
+            var chatContainer = document.getElementById(chatContainerId);
+            chatContainer.appendChild(messageStructure);
+        }
+    });
+
+    connection.on("ReceiveMessage", function (message, id) {
+        var msg = message;
+        var chatContainerId = "list-" + id;
+
+        // Check if the message is already displayed to prevent repetition
+        if (!receivedMessages[chatContainerId] || receivedMessages[chatContainerId] !== msg) {
+            receivedMessages[chatContainerId] = msg;
+
+            var messageStructure = document.createElement("div");
+            messageStructure.className = "media";
+
+            var messageReceived = document.createElement("div");
+            messageReceived.className = "message-received w-auto";
+
+            var dFlex = document.createElement("div");
+            dFlex.className = "d-flex";
+
+            var ms1Text = document.createElement("div");
+            ms1Text.className = "ms-1 text";
+
+            var p = document.createElement("p");
+            p.className = "mb-1";
+            p.textContent = msg;
+
+            // Append the elements to build the structure
+            ms1Text.appendChild(p);
+            dFlex.appendChild(ms1Text);
+            messageReceived.appendChild(dFlex);
+            messageStructure.appendChild(messageReceived);
+
+            // Append the new message structure to the chat container
+            var chatContainer = document.getElementById(chatContainerId);
+            chatContainer.appendChild(messageStructure);
+        }
+    });
+
+    connection.start().catch(function (err) {
+        console.error(err.toString());
+    });
+
+    // Add event listeners to send messages
+    $(".btnSend").on("click", function () {
+        // Disable the button to prevent multiple clicks
+        $(this).prop("disabled", true);
+
+        var message = $(this).siblings(".txtMessage").val();
+        var toUser = $(this).siblings(".toUser").val();
+
+        connection.invoke("SendMessageNut", message, toUser).then(function () {
+            // Re-enable the button after the message has been sent
+            $(".btnSend").prop("disabled", false);
+        }).catch(function (error) {
+            console.error(error);
+            // Re-enable the button in case of an error
+            $(".btnSend").prop("disabled", false);
+        });
+    });
+</script>
+
+
+
