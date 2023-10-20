@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using fit_and_fuel.Data;
 
@@ -11,9 +12,11 @@ using fit_and_fuel.Data;
 namespace fit_and_fuel.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231019091326_Latest")]
+    partial class Latest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -186,6 +189,16 @@ namespace fit_and_fuel.Migrations
                         {
                             UserId = "1",
                             RoleId = "admin"
+                        },
+                        new
+                        {
+                            UserId = "2",
+                            RoleId = "nutritionist"
+                        },
+                        new
+                        {
+                            UserId = "3",
+                            RoleId = "patient"
                         });
                 });
 
@@ -277,22 +290,52 @@ namespace fit_and_fuel.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-
-                            ConcurrencyStamp = "dc2d6a03-c404-4983-9974-f057a60228c9",
-
+                            ConcurrencyStamp = "d0e1bf15-5af1-4300-9f92-e93d24b2d271",
                             Email = "adminUser@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "adminUser@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN",
-
-                            PasswordHash = "AQAAAAIAAYagAAAAEPjnt4KiZfLeGjn0/WE8HYC97VB6yRMq78FDhosgoGcV4cmuELTh/PCiLEZiV+1QqQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENnWyjQLUz0NNdkRI+B8Vc/rcgi/A7qrx0TNDvzCbP5Sfad1v5QnEC/YlMedTcCgtQ==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a2f3ca97-6885-4eb8-bbbe-3293019926a0",
+                            SecurityStamp = "e4c57539-3a50-49b7-9796-449014b6c794",
                             TwoFactorEnabled = false,
                             UserName = "admin"
-
+                        },
+                        new
+                        {
+                            Id = "2",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "08589753-dde0-4cf2-b1e4-196d52ce5c6d",
+                            Email = "nutritionistUser@example.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "nutritionistUser@EXAMPLE.COM",
+                            NormalizedUserName = "NUTRITIONIST",
+                            PasswordHash = "AQAAAAIAAYagAAAAEC6uoliV4NmxqUgGErZDUIw+J+nSrEYCtMOC1MdNjASaV4T3seVOO7Ql+6HX+tGKWA==",
+                            PhoneNumber = "1234567890",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "e34bad51-9e03-415d-b45f-7cdb52428c03",
+                            TwoFactorEnabled = false,
+                            UserName = "nutritionist"
+                        },
+                        new
+                        {
+                            Id = "3",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "e7ddca19-f2d9-4c18-b5e5-bba75625a5b4",
+                            Email = "patientUser@example.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "patientUser@EXAMPLE.COM",
+                            NormalizedUserName = "PATIENT",
+                            PasswordHash = "AQAAAAIAAYagAAAAEICvv0BqD/d5AltXqlMNmK9SUQ1YR+xE6I6kFnS7PN00fDMwZdhL/0eurKD+EWKTnA==",
+                            PhoneNumber = "1234567890",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "b4471015-977d-4ce3-b470-4e63a1bb08ff",
+                            TwoFactorEnabled = false,
+                            UserName = "patient"
                         });
                 });
 
@@ -331,7 +374,27 @@ namespace fit_and_fuel.Migrations
 
                     b.ToTable("Appoitments");
 
-
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IsCompleted = false,
+                            IsConfirmed = false,
+                            NutritionistId = 1,
+                            PatientId = 1,
+                            Status = "Scheduled",
+                            Time = new DateTime(2023, 10, 19, 13, 13, 26, 530, DateTimeKind.Local).AddTicks(8988)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IsCompleted = false,
+                            IsConfirmed = false,
+                            NutritionistId = 2,
+                            PatientId = 2,
+                            Status = "Scheduled",
+                            Time = new DateTime(2023, 10, 19, 14, 13, 26, 530, DateTimeKind.Local).AddTicks(8998)
+                        });
                 });
 
             modelBuilder.Entity("fit_and_fuel.Model.AvailableTime", b =>
@@ -415,6 +478,24 @@ namespace fit_and_fuel.Migrations
                         .IsUnique();
 
                     b.ToTable("Clinics");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "123 Main St",
+                            Name = "Healthy Clinic",
+                            NutritionistId = 1,
+                            PhoneNumber = "5555555555"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Address = "456 Elm St",
+                            Name = "Wellness Center",
+                            NutritionistId = 2,
+                            PhoneNumber = "5551234567"
+                        });
                 });
 
             modelBuilder.Entity("fit_and_fuel.Model.Comment", b =>
@@ -467,6 +548,78 @@ namespace fit_and_fuel.Migrations
                     b.HasIndex("DietPlanId");
 
                     b.ToTable("Days");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DayName = "tusday",
+                            DietPlanId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DayName = "tusday",
+                            DietPlanId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DayName = "tusday",
+                            DietPlanId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DayName = "tusday",
+                            DietPlanId = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DayName = "tusday",
+                            DietPlanId = 2
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DayName = "tusday",
+                            DietPlanId = 1
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DayName = "tusday",
+                            DietPlanId = 1
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DayName = "tusday",
+                            DietPlanId = 2
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DayName = "tusday",
+                            DietPlanId = 1
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DayName = "tusday",
+                            DietPlanId = 1
+                        });
                 });
 
             modelBuilder.Entity("fit_and_fuel.Model.DietPlan", b =>
@@ -500,6 +653,26 @@ namespace fit_and_fuel.Migrations
                         .IsUnique();
 
                     b.ToTable("DietPlans");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Duration = 5,
+                            EndDate = new DateTime(2023, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NutritionistId = 1,
+                            PatientId = 1,
+                            StartDate = new DateTime(2023, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Duration = 5,
+                            EndDate = new DateTime(2023, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NutritionistId = 2,
+                            PatientId = 2,
+                            StartDate = new DateTime(2023, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("fit_and_fuel.Model.HealthRecord", b =>
@@ -529,6 +702,24 @@ namespace fit_and_fuel.Migrations
                         .IsUnique();
 
                     b.ToTable("healthRecords");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Height = 175.0,
+                            Illnesses = "None",
+                            PatientId = 1,
+                            Weight = 70.0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Height = 180.0,
+                            Illnesses = "None",
+                            PatientId = 2,
+                            Weight = 80.0
+                        });
                 });
 
             modelBuilder.Entity("fit_and_fuel.Model.Like", b =>
@@ -584,6 +775,44 @@ namespace fit_and_fuel.Migrations
                     b.HasIndex("DayId");
 
                     b.ToTable("Meals");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Calories = 300,
+                            Completion = false,
+                            DayId = 1,
+                            Description = "Oatmeal with fruits",
+                            Name = "Breakfast"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Calories = 500,
+                            Completion = false,
+                            DayId = 1,
+                            Description = "Grilled chicken salad",
+                            Name = "Lunch"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Calories = 500,
+                            Completion = false,
+                            DayId = 2,
+                            Description = "Grilled meat salad",
+                            Name = "Lunch"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Calories = 200,
+                            Completion = false,
+                            DayId = 2,
+                            Description = "egss and milk",
+                            Name = "BreakFast"
+                        });
                 });
 
             modelBuilder.Entity("fit_and_fuel.Model.Notification", b =>
@@ -650,6 +879,29 @@ namespace fit_and_fuel.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Nutritionists");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Age = 30,
+                            CvURl = "cv_url_1",
+                            Gender = "Male",
+                            Name = "John Doe",
+                            PhoneNumber = "123-456-7890",
+                            imgURl = "img_url_1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Age = 28,
+                            CvURl = "cv_url_2",
+                            Gender = "Female",
+                            Name = "Jane Smith",
+                            PhoneNumber = "987-654-3210",
+                            UserId = "2",
+                            imgURl = "img_url_2"
+                        });
                 });
 
             modelBuilder.Entity("fit_and_fuel.Model.Patient", b =>
@@ -690,6 +942,29 @@ namespace fit_and_fuel.Migrations
                     b.HasIndex("NutritionistId");
 
                     b.ToTable("Patients");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Age = 25,
+                            Gender = "Female",
+                            Name = "Alice Johnson",
+                            NutritionistId = 1,
+                            PhoneNumber = "555-123-4567",
+                            UserId = "3",
+                            imgURl = "img_url_1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Age = 0,
+                            Gender = "Male",
+                            Name = "Bob Williams",
+                            NutritionistId = 2,
+                            PhoneNumber = "555-987-6543",
+                            imgURl = "img_url_1"
+                        });
                 });
 
             modelBuilder.Entity("fit_and_fuel.Model.Payment", b =>
@@ -763,6 +1038,27 @@ namespace fit_and_fuel.Migrations
 
                     b.ToTable("Posts");
 
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Learn how to make healthier food choices.",
+                            ImageUrl = "image_url_1",
+                            IsImproved = false,
+                            NutritionistId = 1,
+                            Time = new DateTime(2023, 10, 19, 12, 13, 26, 530, DateTimeKind.Local).AddTicks(8964),
+                            Title = "Healthy Eating Tips"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Understanding the importance of a balanced diet.",
+                            ImageUrl = "image_url_2",
+                            IsImproved = false,
+                            NutritionistId = 2,
+                            Time = new DateTime(2023, 10, 19, 12, 13, 26, 530, DateTimeKind.Local).AddTicks(8975),
+                            Title = "Balanced Diet Importance"
+                        });
                 });
 
             modelBuilder.Entity("fit_and_fuel.Model.Rating", b =>
@@ -789,8 +1085,6 @@ namespace fit_and_fuel.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("NutritionistId");
-
-                    b.HasIndex("PatientId");
 
                     b.ToTable("Ratings");
                 });
@@ -1023,14 +1317,6 @@ namespace fit_and_fuel.Migrations
                         .HasForeignKey("NutritionistId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("fit_and_fuel.Model.Patient", "Patient")
-                        .WithMany()
-                        .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Patient");
                 });
 
             modelBuilder.Entity("fit_and_fuel.Model.Day", b =>

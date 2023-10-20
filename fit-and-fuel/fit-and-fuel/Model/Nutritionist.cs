@@ -1,4 +1,5 @@
 ﻿using fit_and_fuel.Interfaces;
+using System.ComponentModel.DataAnnotations;
 
 namespace fit_and_fuel.Model
 {
@@ -23,7 +24,7 @@ namespace fit_and_fuel.Model
             {
                 if (Ratings == null || Ratings.Count == 0)
                 {
-                    return null; 
+                    return null;
                 }
                 return Ratings.Where(r => r != null && r.Value != null).Average(r => r.Value);
             }
