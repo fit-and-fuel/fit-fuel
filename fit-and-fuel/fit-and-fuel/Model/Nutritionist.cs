@@ -31,7 +31,7 @@ namespace fit_and_fuel.Model
             }
         }
 
-
+        public Price? Price { get; set; }
         public List<AvailableTime>? AvaliableTimes { get; set; }
         public Clinic? clinic { get; set; }
         public ICollection<Appoitment> appoitments { get; set; }

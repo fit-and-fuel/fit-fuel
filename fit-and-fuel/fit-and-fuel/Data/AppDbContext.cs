@@ -261,6 +261,8 @@ namespace fit_and_fuel.Data
 
         public DbSet<Rating> Ratings { get; set; }
 
+        public DbSet<Price> Prices { get; set; } 
+
 
 
     }

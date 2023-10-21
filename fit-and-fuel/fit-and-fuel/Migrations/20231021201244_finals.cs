@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace fit_and_fuel.Migrations
 {
     /// <inheritdoc />
-    public partial class patientimg : Migration
+    public partial class finals : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -301,6 +301,26 @@ namespace fit_and_fuel.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Prices",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    amount = table.Column<double>(type: "float", nullable: false),
+                    NutritionistId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Prices", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Prices_Nutritionists_NutritionistId",
+                        column: x => x.NutritionistId,
+                        principalTable: "Nutritionists",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Appoitments",
                 columns: table => new
                 {
@@ -547,7 +567,7 @@ namespace fit_and_fuel.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "1", 0, "dc2d6a03-c404-4983-9974-f057a60228c9", "adminUser@example.com", true, false, null, "adminUser@EXAMPLE.COM", "ADMIN", "AQAAAAIAAYagAAAAEPjnt4KiZfLeGjn0/WE8HYC97VB6yRMq78FDhosgoGcV4cmuELTh/PCiLEZiV+1QqQ==", "1234567890", false, "a2f3ca97-6885-4eb8-bbbe-3293019926a0", false, "admin" });
+                values: new object[] { "1", 0, "fc3e0f93-7c05-4853-8536-9410caa93245", "adminUser@example.com", true, false, null, "adminUser@EXAMPLE.COM", "ADMIN", "AQAAAAIAAYagAAAAEGkwyP3o0NlgwHIa2VPseKo/pCQTBEileiKUculf4/cRokXj2dLK9XMBm+WKdEj/jQ==", "1234567890", false, "5e8fca42-230c-4ffd-afcf-8770d0f94515", false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoleClaims",
@@ -692,6 +712,12 @@ namespace fit_and_fuel.Migrations
                 column: "NutritionistId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Prices_NutritionistId",
+                table: "Prices",
+                column: "NutritionistId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Ratings_NutritionistId",
                 table: "Ratings",
                 column: "NutritionistId");
@@ -749,6 +775,9 @@ namespace fit_and_fuel.Migrations
 
             migrationBuilder.DropTable(
                 name: "PaymentRecords");
+
+            migrationBuilder.DropTable(
+                name: "Prices");
 
             migrationBuilder.DropTable(
                 name: "Ratings");
