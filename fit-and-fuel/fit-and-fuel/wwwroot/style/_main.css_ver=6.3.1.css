@@ -735,7 +735,7 @@ body[class*=elementor-editor] .site-header {
 .site-menu ul {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px 40px;
+    gap: 8px 25px !important;
     margin: 0;
     padding: 0;
     list-style: none;
