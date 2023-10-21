@@ -543,9 +543,9 @@ namespace fit_and_fuel.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "1", 0, "d0e1bf15-5af1-4300-9f92-e93d24b2d271", "adminUser@example.com", true, false, null, "adminUser@EXAMPLE.COM", "ADMIN", "AQAAAAIAAYagAAAAENnWyjQLUz0NNdkRI+B8Vc/rcgi/A7qrx0TNDvzCbP5Sfad1v5QnEC/YlMedTcCgtQ==", "1234567890", false, "e4c57539-3a50-49b7-9796-449014b6c794", false, "admin" },
-                    { "2", 0, "08589753-dde0-4cf2-b1e4-196d52ce5c6d", "nutritionistUser@example.com", true, false, null, "nutritionistUser@EXAMPLE.COM", "NUTRITIONIST", "AQAAAAIAAYagAAAAEC6uoliV4NmxqUgGErZDUIw+J+nSrEYCtMOC1MdNjASaV4T3seVOO7Ql+6HX+tGKWA==", "1234567890", false, "e34bad51-9e03-415d-b45f-7cdb52428c03", false, "nutritionist" },
-                    { "3", 0, "e7ddca19-f2d9-4c18-b5e5-bba75625a5b4", "patientUser@example.com", true, false, null, "patientUser@EXAMPLE.COM", "PATIENT", "AQAAAAIAAYagAAAAEICvv0BqD/d5AltXqlMNmK9SUQ1YR+xE6I6kFnS7PN00fDMwZdhL/0eurKD+EWKTnA==", "1234567890", false, "b4471015-977d-4ce3-b470-4e63a1bb08ff", false, "patient" }
+                    { "1", 0, "b37ee5d6-d4e2-4985-adb7-fb43c2fe6522", "adminUser@example.com", true, false, null, "adminUser@EXAMPLE.COM", "ADMIN", "AQAAAAIAAYagAAAAEB/C4JMxlJ1LAYqINL5dIxz/ZYyxlUv+IHhEL9TcANnmnFDfj5g1BNNdVeFhMdTNPw==", "1234567890", false, "88a2d88d-88d8-4f84-82c2-c1f9e129e2d0", false, "admin" },
+                    { "2", 0, "7d546069-f8fa-43cf-82bc-68838424d7cf", "nutritionistUser@example.com", true, false, null, "nutritionistUser@EXAMPLE.COM", "NUTRITIONIST", "AQAAAAIAAYagAAAAEBg3RuvUc+wkzsmMEYHoIQScldU6Ed+u7cJXSq/zK4yH1GFBZ2qbpv4MuTorH6DPlg==", "1234567890", false, "e0ca3ff6-ada7-4a94-855b-b683ddafcfca", false, "nutritionist" },
+                    { "3", 0, "147ac1e7-1ca6-43d8-90fa-4ccce2815320", "patientUser@example.com", true, false, null, "patientUser@EXAMPLE.COM", "PATIENT", "AQAAAAIAAYagAAAAEP4mldxj+COfTBH8VX3dqUt9UksV/wyYonxzrQ8PXUDSfJ7ZlVUYd04iZy6Vhcu9kw==", "1234567890", false, "92b7d230-6e47-4a5c-a2bc-503eb8bf428b", false, "patient" }
                 });
 
             migrationBuilder.InsertData(
@@ -600,8 +600,8 @@ namespace fit_and_fuel.Migrations
                 columns: new[] { "Id", "Description", "ImageUrl", "IsImproved", "NutritionistId", "Time", "Title" },
                 values: new object[,]
                 {
-                    { 1, "Learn how to make healthier food choices.", "image_url_1", false, 1, new DateTime(2023, 10, 19, 12, 13, 26, 530, DateTimeKind.Local).AddTicks(8964), "Healthy Eating Tips" },
-                    { 2, "Understanding the importance of a balanced diet.", "image_url_2", false, 2, new DateTime(2023, 10, 19, 12, 13, 26, 530, DateTimeKind.Local).AddTicks(8975), "Balanced Diet Importance" }
+                    { 1, "Learn how to make healthier food choices.", "image_url_1", false, 1, new DateTime(2023, 10, 21, 17, 24, 25, 871, DateTimeKind.Local).AddTicks(6651), "Healthy Eating Tips" },
+                    { 2, "Understanding the importance of a balanced diet.", "image_url_2", false, 2, new DateTime(2023, 10, 21, 17, 24, 25, 871, DateTimeKind.Local).AddTicks(6659), "Balanced Diet Importance" }
                 });
 
             migrationBuilder.InsertData(
@@ -609,8 +609,8 @@ namespace fit_and_fuel.Migrations
                 columns: new[] { "Id", "IsCompleted", "IsConfirmed", "NutritionistId", "PatientId", "Status", "Time" },
                 values: new object[,]
                 {
-                    { 1, false, false, 1, 1, "Scheduled", new DateTime(2023, 10, 19, 13, 13, 26, 530, DateTimeKind.Local).AddTicks(8988) },
-                    { 2, false, false, 2, 2, "Scheduled", new DateTime(2023, 10, 19, 14, 13, 26, 530, DateTimeKind.Local).AddTicks(8998) }
+                    { 1, false, false, 1, 1, "Scheduled", new DateTime(2023, 10, 21, 18, 24, 25, 871, DateTimeKind.Local).AddTicks(6671) },
+                    { 2, false, false, 2, 2, "Scheduled", new DateTime(2023, 10, 21, 19, 24, 25, 871, DateTimeKind.Local).AddTicks(6680) }
                 });
 
             migrationBuilder.InsertData(

@@ -43,12 +43,12 @@ namespace fit_and_fuel.Services
         /// <param name="password">The password of the user.</param>
         /// <returns>UserDto containing user information and authentication token if successful, null if authentication fails.</returns>
 
-        public async Task<UserDto> Authenticate(string username, string password)
+        public async Task<UserDto> Authenticate(string username, string password, ModelStateDictionary model)
         {
             var result = await _signInManager.PasswordSignInAsync(username, password, true, false);
+			var users = await userManager.FindByNameAsync(username);
 
-
-            if (result.Succeeded)
+			if (result.Succeeded)
             {
                 var user = await userManager.FindByNameAsync(username);
                 //// user = await _userManager.FindByNameAsync(username);
@@ -59,8 +59,15 @@ namespace fit_and_fuel.Services
                     Roles = await userManager.GetRolesAsync(user)
                 };
             }
-
-            return null;
+			if (users == null)
+			{
+				model.AddModelError("users.Username", "User name is not correct");
+			}
+			else
+			{
+				model.AddModelError("users.Password", "Password is not correct");
+			}
+			return null;
 
         }
 

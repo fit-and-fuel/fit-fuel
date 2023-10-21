@@ -20,7 +20,7 @@ namespace fit_and_fuel.Interfaces
         Task<Nutritionist> GetMyProfile();
         Task<NutritionistDtoView> GetMyProfileDto(int id);
 
-        Task<Nutritionist> Post(NutritionistDto nutritionistDto, IFormFile file);
+        Task<Nutritionist> Post(NutritionistDto nutritionistDto, IFormFile file, IFormFile cvfile);
         Task Put(int id, NutritionistDto nutritionistDto);
         Task Delete(int id);
         Task<int> Count();

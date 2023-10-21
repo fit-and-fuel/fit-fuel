@@ -45,34 +45,37 @@ namespace fit_and_fuel.Controllers
             }
             return View(nut);
 
-        }
-        public async Task<IActionResult> Appointments()
-        {
-            var Appoitment = await _appoitments.GetMyById();
-            return View(Appoitment);
-        }
 
-        public async Task<IActionResult> NutDetails(int id)
-        {
-            var nut = await _nutritionists.GetById(id);
-            return View(nut);
-        }
-        public IActionResult CreateProfile()
-        {
-            return View();
-        }
+				}
+				public async Task<IActionResult> Appointments()
+		{
+			var Appoitment = await _appoitments.GetMyById();
+			return View(Appoitment);
+		}
+
+		public async Task<IActionResult> NutDetails(int id)
+		{
+			var nut = await _nutritionists.GetById(id);
+			return View(nut);
+		}
+		public IActionResult CreateProfile()
+		{
+			return View();
+		}
 
 
-        [HttpPost]
-        public async Task<IActionResult> CreateProfile(NutritionistDto nut, IFormFile file)
+		[HttpPost]
+        public async Task<IActionResult> CreateProfile(NutritionistDto nut, IFormFile file, IFormFile cvfile)
         {
-            if (!ModelState.IsValid)
-            {
-                return View();
-            }
-            ModelState.Remove("file");
+			//if (!ModelState.IsValid)
+			//{
+			//	return View();
+			//}
+			ModelState.Remove("file");
+			ModelState.Remove("cvfile");
 
-            await _nutritionists.Post(nut, file);
+
+			await _nutritionists.Post(nut, file, cvfile);
 
             return RedirectToAction("Index", "Home");
         }

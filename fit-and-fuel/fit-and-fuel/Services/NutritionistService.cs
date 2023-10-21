@@ -269,9 +269,11 @@ namespace fit_and_fuel.Services
         /// <param name="nutritionistDto">DTO containing nutritionist information.</param>
         /// <returns>A newly created Nutritionist object.</returns>
 
-        public async Task<Nutritionist> Post(NutritionistDto nutritionistDto, IFormFile file)
+        public async Task<Nutritionist> Post( NutritionistDto nutritionistDto, IFormFile file, IFormFile cvfile)
+
         {
             var imageUrl = await UploadFile(file);
+            var cv = await UploadFileCv(cvfile);
 
             string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var user = await _userManager.FindByIdAsync(userId);
@@ -279,15 +281,16 @@ namespace fit_and_fuel.Services
 
             if (NutList == null)
             {
-                var nut = new Nutritionist()
-                {
-                    UserId = userId,
-                    PhoneNumber = user.PhoneNumber,
-                    Name = nutritionistDto.Name,
-                    Gender = nutritionistDto.Gender,
-                    Age = nutritionistDto.Age,
-                    CvURl = nutritionistDto.CvURl,
-                    imgURl = imageUrl
+				var nut = new Nutritionist()
+				{
+					UserId = userId,
+					PhoneNumber = user.PhoneNumber,
+					Name = nutritionistDto.Name,
+					Gender = nutritionistDto.Gender,
+					Age = nutritionistDto.Age,
+					CvURl = cv,
+					imgURl = imageUrl
+
                 };
                 await _context.Nutritionists.AddAsync(nut);
                 await _context.SaveChangesAsync();
@@ -324,14 +327,41 @@ namespace fit_and_fuel.Services
             }
             return URL;
         }
+        ///////////////////////////////////// for cv
+		public async Task<string> UploadFileCv(IFormFile file)
+		{
+            //var URL = "https://ecommerceprojectimages.blob.core.windows.net/images/noimage.png";
+            var URL = "";
+				BlobContainerClient blobContainerClient =
+					new BlobContainerClient(_configuration.GetConnectionString("StorageAccount"), "images");
 
-        /// <summary>
-        /// Updates the profile information of a specific nutritionist.
-        /// </summary>
-        /// <param name="id">The ID of the nutritionist to update.</param>
-        /// <param name="nutritionistDto">DTO containing updated nutritionist information.</param>
+				await blobContainerClient.CreateIfNotExistsAsync();
 
-        public async Task Put(int id, NutritionistDto nutritionistDto)
+				BlobClient blobClient = blobContainerClient.GetBlobClient(file.FileName);
+
+				using var fileStream = file.OpenReadStream();
+
+				BlobUploadOptions blobUploadOptions = new BlobUploadOptions()
+				{
+					HttpHeaders = new BlobHttpHeaders { ContentType = file.ContentType }
+				};
+
+				if (!blobClient.Exists())
+				{
+					await blobClient.UploadAsync(fileStream, blobUploadOptions);
+				}
+				URL = blobClient.Uri.ToString();
+			
+			return URL;
+		}
+
+		/// <summary>
+		/// Updates the profile information of a specific nutritionist.
+		/// </summary>
+		/// <param name="id">The ID of the nutritionist to update.</param>
+		/// <param name="nutritionistDto">DTO containing updated nutritionist information.</param>
+
+		public async Task Put(int id, NutritionistDto nutritionistDto)
         {
             var nut = await _context.Nutritionists.Where(n => n.Id == id).FirstOrDefaultAsync();
             nut.PhoneNumber = nutritionistDto.PhoneNumber;

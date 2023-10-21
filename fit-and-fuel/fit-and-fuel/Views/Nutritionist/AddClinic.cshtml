@@ -1,4 +1,4 @@
-﻿@model Clinic
+﻿@model ClinicDto
 @{
 	Layout = "~/Views/Shared/_PageLayout.cshtml";
 }
@@ -67,7 +67,7 @@
 									<p class="wpcf7">
 										<label for="Name">Name of Clinic</label><br>
 										<span asp-validation-for="Name" class="wpcf7-form-control-wrap"></span>
-											<input asp-for="Name" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" id="name" aria-required="true" aria-invalid="false" placeholder="Name" type="text" name="Name">
+											<input asp-for="Name" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" id="name" aria-required="true" aria-invalid="false" placeholder="Name" type="text" name="Name" required>
 										
 									</p>
 								</div>
@@ -95,7 +95,7 @@
 									</p>
 								</div><div class="wpcf7-response-output" aria-hidden="true"></div>
 							</form>
-							<div asp-validation-summary="All"></div>
+							@* <div asp-validation-summary="All"></div> *@
 						</div>
 
 

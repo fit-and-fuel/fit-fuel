@@ -278,6 +278,7 @@ namespace fit_and_fuel.Migrations
                             Id = "1",
                             AccessFailedCount = 0,
 
+
                             ConcurrencyStamp = "dc2d6a03-c404-4983-9974-f057a60228c9",
 
                             Email = "adminUser@example.com",
@@ -285,6 +286,7 @@ namespace fit_and_fuel.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "adminUser@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN",
+
 
                             PasswordHash = "AQAAAAIAAYagAAAAEPjnt4KiZfLeGjn0/WE8HYC97VB6yRMq78FDhosgoGcV4cmuELTh/PCiLEZiV+1QqQ==",
                             PhoneNumber = "1234567890",
@@ -762,6 +764,7 @@ namespace fit_and_fuel.Migrations
                     b.HasIndex("NutritionistId");
 
                     b.ToTable("Posts");
+
 
                 });
 

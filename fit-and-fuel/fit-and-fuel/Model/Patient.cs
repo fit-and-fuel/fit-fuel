@@ -1,15 +1,19 @@
-﻿namespace fit_and_fuel.Model
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace fit_and_fuel.Model
 {
     public class Patient
     {
         public int Id { get; set; }
 
         public string? UserId { get; set; }
-        public string Name { get; set; }
+		[Required(ErrorMessage = "Name is required.")]
+
+		public string Name { get; set; }
 
         public string Gender { get; set; }
-
-        public int Age { get; set; }
+		[Required(ErrorMessage = "Age is required.")]
+		public int Age { get; set; }
         public string PhoneNumber { get; set; }
         public string imgURl { get; set; }
 

@@ -1,9 +1,8 @@
 @{
     Layout = null;
 }
-
 <link href="~/css/LoginRegister.css" rel="stylesheet">
-
+@model RegisterUser
 
 
 <div class="Main-container">
@@ -18,32 +17,32 @@
                 <span class="login-form-title">SingUp To Access Many Features</span>
 
                 <div class="wrap-input">
-                    <input type="text" class="input" name="Username" placeholder="UserName" required>
-                    <span class="focus-input"></span>
-                    <span class="symbol-input">
+                    <input asp-for="Username" type="text" class="input" name="Username" placeholder="UserName" required>
+                    <span asp-validation-for="Username" class="focus-input"></span>
+                    <spanclass="symbol-input"></span>
                         <i class="fa fa-envelope" aria-hidden="true"></i>
-                    </span>
+                    
                 </div>
                 <div class="wrap-input">
-                    <input type="password" class="input" name="Password" placeholder="Password" required>
-                    <span class="focus-input"></span>
-                    <span class="symbol-input">
+                    <input asp-for="Password" type="password" class="input" name="Password" placeholder="Password" required>
+                    <span asp-validation-for="Password" class="focus-input"></span>
+                    <span class="symbol-input"></span>
                         <i class="fa fa-lock" aria-hidden="true"></i>
-                    </span>
+                    
                 </div>
                 <div class="wrap-input">
-                    <input class="input" placeholder="Email" type="text" name="Email" required>
-                    <span class="focus-input"></span>
-                    <span class="symbol-input">
+                    <input asp-for="Email" class="input" placeholder="Email" type="text" name="Email" required>
+                    <span asp-validation-for="Email" class="focus-input"></span>
+                    <span class="symbol-input"></span>
                         <i class="fa fa-lock" aria-hidden="true"></i>
-                    </span>
+                    
                 </div>
                 <div class="wrap-input">
                     <input class="input" placeholder="Phone Num." type="text" name="PhoneNumber" required>
                     <span class="focus-input"></span>
-                    <span class="symbol-input">
+                    <span class="symbol-input"></span>
                         <i class="fa fa-lock" aria-hidden="true"></i>
-                    </span>
+                    
                 </div>
 
                 <div class="wrap-input">
@@ -69,7 +68,7 @@
                 </div>
 
             </form>
-            <div asp-validation-summary="All"></div>
+            @* <div asp-validation-summary="All"></div> *@
         </div>
     </div>
 </div>
