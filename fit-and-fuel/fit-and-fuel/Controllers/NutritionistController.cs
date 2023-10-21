@@ -7,34 +7,34 @@ using Microsoft.AspNetCore.Mvc;
 namespace fit_and_fuel.Controllers
 {
 
-	public class NutritionistController : Controller
-	{
-		private readonly INutritionists _nutritionists;
-		private readonly IAvailableTime _availableTime;
+    public class NutritionistController : Controller
+    {
+        private readonly INutritionists _nutritionists;
+        private readonly IAvailableTime _availableTime;
         private readonly IAppoitments _appoitments;
         private readonly IDietPlan _dietplan;
-		private readonly IMeals _meals;
-		private readonly IPost _post;
-		private readonly IClinic _clinic;
-		private readonly IComment _comment;
+        private readonly IMeals _meals;
+        private readonly IPost _post;
+        private readonly IClinic _clinic;
+        private readonly IComment _comment;
 
 
-		public NutritionistController(INutritionists nutritionists, IAvailableTime availableTime, IAppoitments appoitments, IDietPlan dietplan, IMeals meals, IPost post,IClinic clinic, IComment comment)
-		{
-			_nutritionists = nutritionists;
-			_availableTime = availableTime;
-			_appoitments = appoitments;
-             _dietplan = dietplan;
-			_meals = meals;
-			_post = post;
-			_clinic = clinic;
-			_comment = comment;
+        public NutritionistController(INutritionists nutritionists, IAvailableTime availableTime, IAppoitments appoitments, IDietPlan dietplan, IMeals meals, IPost post, IClinic clinic, IComment comment)
+        {
+            _nutritionists = nutritionists;
+            _availableTime = availableTime;
+            _appoitments = appoitments;
+            _dietplan = dietplan;
+            _meals = meals;
+            _post = post;
+            _clinic = clinic;
+            _comment = comment;
 
         }
 
-		public async Task<IActionResult> ViewAllNutrition(string searchTerm)
-		{
-			var nut = await _nutritionists.GetAllDto();
+        public async Task<IActionResult> ViewAllNutrition(string searchTerm)
+        {
+            var nut = await _nutritionists.GetAllDto();
 
             if (!string.IsNullOrEmpty(searchTerm))
             {
@@ -44,6 +44,7 @@ namespace fit_and_fuel.Controllers
                     .ToList();
             }
             return View(nut);
+
 
 				}
 				public async Task<IActionResult> Appointments()
@@ -73,9 +74,10 @@ namespace fit_and_fuel.Controllers
 			ModelState.Remove("file");
 			ModelState.Remove("cvfile");
 
+
 			await _nutritionists.Post(nut, file, cvfile);
 
-			return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
 
         public async Task<IActionResult> MyProfile()
@@ -95,123 +97,124 @@ namespace fit_and_fuel.Controllers
         [Authorize(Roles = "Nutritionist")]
 
         public async Task<IActionResult> AvailableTimes()
-		{
-			var av = await _availableTime.GetAll();
-			return View(av);
-		}
-		public async Task<IActionResult> AddAvailableTime()
-		{
+        {
+            var av = await _availableTime.GetAll();
+            return View(av);
+        }
+        public async Task<IActionResult> AddAvailableTime()
+        {
 
-			return View();
-		}
+            return View();
+        }
 
-		[HttpPost]
-		public async Task<IActionResult> AddAvailableTime(AvailableTimeDto availableTimeDto)
-		{
+        [HttpPost]
+        public async Task<IActionResult> AddAvailableTime(AvailableTimeDto availableTimeDto)
+        {
 
-			await _availableTime.Post(availableTimeDto);
-			return Redirect("AvailableTimes");
-		}
-		[HttpPost]
+            await _availableTime.Post(availableTimeDto);
+            return Redirect("AvailableTimes");
+        }
+        [HttpPost]
         public async Task<IActionResult> SelectAppoitment(int id)
         {
-			await _appoitments.SelectAppoitment(id);
-            return RedirectToAction("Index","Home");
+            await _appoitments.SelectAppoitment(id);
+            return RedirectToAction("Index", "Home");
         }
         [HttpPost]
         public async Task<IActionResult> AppoitmentConfirmed(int id)
         {
             await _appoitments.AppoitmentConfirmed(id);
             return Redirect("Appointments");
-		}
+        }
 
 
         public async Task<IActionResult> CreateDietPlan(int id)
-		{
-			var dite = new DietPlanDto(); 
-			dite.PatientId= id;
+        {
+            var dite = new DietPlanDto();
+            dite.PatientId = id;
             return View(dite);
-		}
+        }
 
         [HttpPost]
 
-		public async Task<IActionResult> CreateDietPlan(DietPlanDto diteplain)
-		{
-			 await _dietplan.PostDietPlanWithDay(diteplain);
+        public async Task<IActionResult> CreateDietPlan(DietPlanDto diteplain)
+        {
+            await _dietplan.PostDietPlanWithDay(diteplain);
 
-			return Redirect("MyProfile");
+            return Redirect("MyProfile");
 
-		}
+        }
 
-     
+
         [HttpPost]
         public async Task<IActionResult> AddMeal(MealDto meal)
         {
             await _meals.Post(meal);
 
-			return Redirect($"MyPatientDietPlan/{meal.DietPlanId}");
+            return Redirect($"MyPatientDietPlan/{meal.DietPlanId}");
 
         }
 
 
-		public IActionResult AddPost()
-		{
-			return View();
-		}
-
-		[HttpPost]
-		public async Task<IActionResult> AddPost(PostDto post, IFormFile file)
-		{
-			if (!ModelState.IsValid)
-			{
-				return View();
-			}
-			ModelState.Remove("file");
-
-
-			await _post.Post(post, file);
-
-			return RedirectToAction("Index", "Home");
-
-		}
-
-
-
-		public async Task<IActionResult> ViewPosts()
-		{
-			var posts = await _post.GetMyPosts();
-			return View(posts);
-		}
-
-		public IActionResult AddClinic()
+        public IActionResult AddPost()
         {
             return View();
-		}
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddPost(PostDto post, IFormFile file)
+        {
+            ModelState.Remove("file");
+
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
 
 
-		[HttpPost]
-		public async Task<IActionResult> AddClinic(ClinicDto clinicDto)
-		{
-			 await _clinic.Post(clinicDto);
-		   	 return Redirect("MyProfile");
-             
-		}
 
-       
+            await _post.Post(post, file);
+
+            return RedirectToAction("Index", "Home");
+
+        }
+
+
+
+        public async Task<IActionResult> ViewPosts()
+        {
+            var posts = await _post.GetMyPosts();
+            return View(posts);
+        }
+
+        public IActionResult AddClinic()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> AddClinic(ClinicDto clinicDto)
+        {
+            await _clinic.Post(clinicDto);
+            return Redirect("MyProfile");
+
+        }
+
+
         public async Task<IActionResult> CompleteAppointment(int id)
         {
             await _appoitments.AppoitmentCompleted(id);
-            return RedirectToAction("Appointments","Nutritionist");
+            return RedirectToAction("Appointments", "Nutritionist");
 
         }
-	
 
 
 
 
-        }
+
+    }
 }
 
-	
 
-	
+

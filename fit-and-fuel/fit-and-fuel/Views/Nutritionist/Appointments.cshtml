@@ -1,5 +1,5 @@
 ﻿@{
-	Layout = "~/Views/Shared/_PageLayout.cshtml";
+    Layout = "~/Views/Shared/_PageLayout.cshtml";
 }
 
 <div style="background-color:#141414 ;height:80px;margin-top:-10px;width:2000px;">
@@ -7,55 +7,26 @@
 
 @model IEnumerable<ViewAppointment>
 
-	<style>
-	table {
-		margin: 0 auto;
-		width:70%;
-	}
+<style>
+    table {
+        margin: 0 auto;
+        width: 70%;
+    }
 
-	h2:hover {
-		color: #D6FD51;
-	}
+    h2:hover {
+        color: #D6FD51;
+    }
 
-	th, td, thead {
-		padding: 8px;
-		text-align: center; /* Center the text in cells */
-	}
+    th, td, thead {
+        padding: 8px;
+        text-align: center; /* Center the text in cells */
+    }
 
-		td:hover {
-			background-color: #D6FD51; /* Change the background color when hovering over a cell */
-		}
-	</style>
-<section style="height:100px" class="elementor-section elementor-top-section elementor-element elementor-element-ae4cf5a elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="ae4cf5a" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-	<div class="elementor-background-overlay"></div>
-	<div class="elementor-container elementor-column-gap-default">
-		<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-b1ba2d7" data-id="b1ba2d7" data-element_type="column">
-			<div class="elementor-widget-wrap elementor-element-populated">
-				<div class="elementor-element elementor-element-ca7fcfa elementor-widget elementor-widget-pt-heading" data-id="ca7fcfa" data-element_type="widget" data-settings="{&quot;decor&quot;:[]}" data-widget_type="pt-heading.default">
-					<div class="elementor-widget-container">
+        td:hover {
+            background-color: #D6FD51; /* Change the background color when hovering over a cell */
+        }
+</style>
 
-						<div class="pt-heading">
-							<h1 class="pt-heading-title h1">+
-								Class <span>timetable</span>
-							</h1>
-						</div>
-
-					</div>
-				</div>
-				<div class="elementor-element elementor-element-cf4f9f6 elementor-widget elementor-widget-pt-button" data-id="cf4f9f6" data-element_type="widget" data-widget_type="pt-button.default">
-					<div class="elementor-widget-container">
-
-						<a class="pt-button textual " href="/woxfit/">
-							<span>Back home</span>
-							<i aria-hidden="true" class="pticon pticon-arrow"></i>
-						</a>
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
 
 @*@foreach(var AP in Model){
    <center>
@@ -70,7 +41,7 @@
                     <th>@AP.Status</th>
                 </tr>
                 <tr>
-                   
+
                     <th>@AP.IsConfirmed</th>
                     <form asp-controller="Nutritionist" asp-action="AppoitmentConfirmed" method="post">
                         <input name="id" value="@AP.Id" type="hidden">
@@ -83,11 +54,11 @@
 
                     }
                 </tr>
-            
-                     
-               
 
-				
+
+
+
+
                 <tr>
                     <th>@AP.IsCompleted</th>
                 </tr>
@@ -97,154 +68,155 @@
 
 }*@
 <center>
-	<div style="margin:20px 0px 20px 0px;">
-		<div class="pt-heading">
-			<h2 class="pt-heading-title h2" style="font-size:40px; text-align:center;">
-				My Appointments
-			</h2>
-		</div>
-		<table class="table table-hover">
+    <div style="margin:20px 0px 20px 0px;">
+        <div class="pt-heading">
+            <h2 class="pt-heading-title h2" style="font-size:40px; text-align:center;">
+                My Appointments
+            </h2>
+        </div>
+        <table class="table table-hover">
 
-			<thead class="thead-dark">
-				<tr>
+            <thead class="thead-dark">
+                <tr>
 
-					<th scope="col">Num</th>
-					<th scope="col">Patient</th>
+                    <th scope="col">Num</th>
+                    <th scope="col">Patient</th>
 
-					<th scope="col">Time</th>
-					<th scope="col">Status</th>
-					<th scope="col">Is Confirmed</th>
-					<th scope="col">Is Completed</th>
-					<th scope="col">Action </th>
-
-
-
-				</tr>
-			</thead>
-			<tbody>
-				@{
-					var rowNumber = 1;
-				}
-				@foreach (var at in Model)
-				{
-
-					<tr>
-						<th style="text-align:center;" scope="row">@rowNumber</th>
-						<td>
-@* 							<a asp-controller="Clinet" asp-action=""></a
- *@	
-
-		    <a asp-controller="Client" asp-action="DetailPatient" asp-route-Id="@at.Patient.Id">@at.Patient.Name</a>
-
-			
-		</td>
-
-						<td>@at.Time</td>
-						<td>@at.Status</td>
-						@if (at.IsConfirmed == true)
-						{
-							<td style="color:green;">
-								Confirmed
-							</td>
-						}
-						else
-						{
-							<td style="color:red;">
-								Not Confirmed
-							</td>
-						}
-
-						@if (at.IsCompleted == true)
-						{
-							<td style="color:green;">
-								Completed
-							</td>
-						}
-						else
-						{
-							<td style="color:red;">
-								Not Yet
-							</td>
-						}
-
-						@if (at.IsConfirmed == false)
-						{
-							<td>
-								@*<form asp-controller="Nutritionist" asp-action="AppoitmentConfirmed" method="post">
-									<input name="id" value="@at.Id" type="hidden">
-
-									<button type="submit">Confirm</button>
-								</form>*@
-								<button data-bs-toggle="modal" data-bs-target="#ConfirmedModal-@at.Id">Confirm</button>
-								<!-- Improve Post Modal -->
-								<div class="modal fade" id="ConfirmedModal-@at.Id">
-									<div class="modal-dialog modal-dialog-centered modal-centered" role="document">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h5 class="modal-title">Confirm</h5>
-												<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-											</div>
-											<div class="modal-body">
-												<p>Are you sure you want to Confirm this patient?</p>
-											</div>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-
-												<form asp-controller="Nutritionist" asp-action="AppoitmentConfirmed" method="post">
-													<input name="id" value="@at.Id" type="hidden">
-													<button type="submit" class="btn btn-success">Confirm</button>
-												</form>
-											</div>
-										</div>
-									</div>
-								</div>
+                    <th scope="col">Time</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Is Confirmed</th>
+                    <th scope="col">Is Completed</th>
+                    <th scope="col">Action </th>
 
 
-							</td>
 
-						}
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    var rowNumber = 1;
+                }
+                @foreach (var at in Model)
+                {
 
-						else{
+                    <tr>
+                        <th style="text-align:center;" scope="row">@rowNumber</th>
+                        <td>
+                            @* 							<a asp-controller="Clinet" asp-action=""></a
+                        *@
 
-						<td>
-							
-								<button data-bs-toggle="modal" data-bs-target="#CompleteModal-@at.Id">Complete</button>
-								<!-- Improve Post Modal -->
-								<div class="modal fade" id="CompleteModal-@at.Id">
-									<div class="modal-dialog modal-dialog-centered modal-centered" role="document">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h5 class="modal-title">Complete</h5>
-												<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-											</div>
-											<div class="modal-body">
-												<p>Are you sure you want to Complete this patient?</p>
-											</div>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <a asp-controller="Client" asp-action="DetailPatient" asp-route-Id="@at.Patient.Id">@at.Patient.Name</a>
 
 
-												<a asp-controller="Nutritionist" asp-action="CompleteAppointment" asp-route-id="@at.Id" class="btn btn-success">Complete</a>
-												
-											</div>
-										</div>
-									</div>
-								</div>
+                        </td>
 
-						</td>
-						}
-						
-						
+                        <td>@at.Time</td>
+                        <td>@at.Status</td>
+                        @if (at.IsConfirmed == true)
+                        {
+                            <td style="color:green;">
+                                Confirmed
+                            </td>
+                        }
+                        else
+                        {
+                            <td style="color:red;">
+                                Not Confirmed
+                            </td>
+                        }
 
-						
-					</tr>
-					rowNumber++;
+                        @if (at.IsCompleted == true)
+                        {
+                            <td style="color:green;">
+                                Completed
+                            </td>
+                        }
+                        else
+                        {
+                            <td style="color:red;">
+                                Not Yet
+                            </td>
+                        }
 
-				}
-			</tbody>
+                        @if (at.IsConfirmed == false)
+                        {
+                            <td>
+                                @*<form asp-controller="Nutritionist" asp-action="AppoitmentConfirmed" method="post">
+                        <input name="id" value="@at.Id" type="hidden">
 
-		</table>
-	</div>
+                        <button type="submit">Confirm</button>
+                        </form>*@
+                                <button data-bs-toggle="modal" data-bs-target="#ConfirmedModal-@at.Id">Confirm</button>
+                                <!-- Improve Post Modal -->
+                                <div class="modal fade" id="ConfirmedModal-@at.Id">
+                                    <div class="modal-dialog modal-dialog-centered modal-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Confirm</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Are you sure you want to Confirm this patient?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                                                <form asp-controller="Nutritionist" asp-action="AppoitmentConfirmed" method="post">
+                                                    <input name="id" value="@at.Id" type="hidden">
+                                                    <button type="submit" class="btn btn-success">Confirm</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </td>
+
+                        }
+
+                        else
+                        {
+
+                            <td>
+
+                                <button data-bs-toggle="modal" data-bs-target="#CompleteModal-@at.Id">Complete</button>
+                                <!-- Improve Post Modal -->
+                                <div class="modal fade" id="CompleteModal-@at.Id">
+                                    <div class="modal-dialog modal-dialog-centered modal-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Complete</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Are you sure you want to Complete this patient?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+
+                                                <a asp-controller="Nutritionist" asp-action="CompleteAppointment" asp-route-id="@at.Id" class="btn btn-success">Complete</a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </td>
+                        }
+
+
+
+
+                    </tr>
+                    rowNumber++;
+
+                }
+            </tbody>
+
+        </table>
+    </div>
 </center>
 @*<div class="col-md-4 mr-5">
 	<div class="float-end mr-5 mt-4">

@@ -14,7 +14,12 @@
 						<div id="reports-tbl_wrapper" class="dataTables_wrapper no-footer">
 							<div class="dt-buttons"><button class="dt-button buttons-excel buttons-html5 btn btn-sm border-0" tabindex="0" aria-controls="reports-tbl" type="button"><span><i class="fa-solid fa-file-excel"></i> Export Report</span></button> </div><table id="reports-tbl" class="table dataTable no-footer" role="grid" aria-describedby="reports-tbl_info">
 								<thead>
-									<tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="reports-tbl" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 375.125px;">Name</th><th class="sorting" tabindex="0" aria-controls="reports-tbl" rowspan="1" colspan="1" aria-label="User Name: activate to sort column ascending" style="width: 222.922px;">User Name</th><th class="sorting" tabindex="0" aria-controls="reports-tbl" rowspan="1" colspan="1" aria-label="Contact: activate to sort column ascending" style="width: 277.969px;">Contact</th><th class="sorting" tabindex="0" aria-controls="reports-tbl" rowspan="1" colspan="1" aria-label="Gender: activate to sort column ascending" style="width: 173.031px;">Gender</th><th class="sorting" tabindex="0" aria-controls="reports-tbl" rowspan="1" colspan="1" aria-label="Location: activate to sort column ascending" style="width: 188.5px;">Location</th><th class="sorting" tabindex="0" aria-controls="reports-tbl" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="width: 204.453px;">Status</th></tr>
+									<tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="reports-tbl" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 375.125px;">Information</th>
+										<th class="sorting" tabindex="0" aria-controls="reports-tbl" rowspan="1" colspan="1" aria-label="User Name: activate to sort column ascending" style="width: 222.922px;">User Name</th>
+										<th class="sorting" tabindex="0" aria-controls="reports-tbl" rowspan="1" colspan="1" aria-label="Contact: activate to sort column ascending" style="width: 277.969px;">Contact</th>
+										<th class="sorting" tabindex="0" aria-controls="reports-tbl" rowspan="1" colspan="1" aria-label="Gender: activate to sort column ascending" style="width: 173.031px;">Age</th>
+										<th class="sorting" tabindex="0" aria-controls="reports-tbl" rowspan="1" colspan="1" aria-label="Location: activate to sort column ascending" style="width: 188.5px;">Gender</th>
+										<th class="sorting" tabindex="0" aria-controls="reports-tbl" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="width: 204.453px;">Status</th></tr>
 								</thead>
 								<tbody>
 
@@ -35,8 +40,8 @@
 											<div class="products">
 												<img src=@patient.imgURl class="avatar avatar-md" alt="">
 												<div>
-													<h6>John Antony</h6>
-													<span>Web Designer</span>
+													<h6>@patient.Name</h6>
+													
 												</div>
 											</div>
 										</td>

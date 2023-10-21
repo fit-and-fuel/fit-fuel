@@ -7,7 +7,7 @@ namespace fit_and_fuel.Model
     public class Nutritionist
     {
         public int Id { get; set; }
-		public string Name { get; set; }
+        public string Name { get; set; }
         public string? UserId { get; set; }
         public string Gender { get; set; }
 
@@ -25,7 +25,7 @@ namespace fit_and_fuel.Model
             {
                 if (Ratings == null || Ratings.Count == 0)
                 {
-                    return null; 
+                    return null;
                 }
                 return Ratings.Where(r => r != null && r.Value != null).Average(r => r.Value);
             }

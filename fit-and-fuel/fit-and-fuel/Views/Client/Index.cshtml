@@ -2,147 +2,152 @@
 
 @{
 	Layout = "~/Views/Shared/_PageLayout.cshtml";
+
 }
 
-@* 		//			public string Name { get; set; }
 
-		//public string Gender { get; set; }
-
-		//public int Age { get; set; }
-
-		//public string PhoneNumber { get; set; }
-
-		//public string imgURl { get; set; } *@
 
 
 <div style="background-color:#141414 ;height:80px;margin-top:-10px;width:2000px;">
 </div>
 
-<section class="elementor-section elementor-top-section elementor-element elementor-element-ae4cf5a elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="ae4cf5a" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-	<div class="elementor-background-overlay"></div>
-	<div class="elementor-container elementor-column-gap-default">
-		<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-b1ba2d7" data-id="b1ba2d7" data-element_type="column">
-			<div class="elementor-widget-wrap elementor-element-populated">
-				<div class="elementor-element elementor-element-ca7fcfa elementor-widget elementor-widget-pt-heading" data-id="ca7fcfa" data-element_type="widget" data-settings="{&quot;decor&quot;:[]}" data-widget_type="pt-heading.default">
-					<div class="elementor-widget-container">
 
-						<div class="pt-heading">
-							<h1 class="pt-heading-title h1">
-								Class <span>timetable</span>
-							</h1>
-						</div>
 
-					</div>
-				</div>
-				<div class="elementor-element elementor-element-cf4f9f6 elementor-widget elementor-widget-pt-button" data-id="cf4f9f6" data-element_type="widget" data-widget_type="pt-button.default">
-					<div class="elementor-widget-container">
 
-						<a class="pt-button textual " href="/woxfit/">
-							<span>Back home</span>
-							<i aria-hidden="true" class="pticon pticon-arrow"></i>
-						</a>
 
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+<style>
+
+    #addpostsection {
+        background-image: url('https://beatdieticians.co.za/wp-content/uploads/2022/04/new-slide-4.jpg');
+        background-size: cover;
+        background-position: center;
+        padding: 30px;
+    }
+
+</style>
+
+
+<section class="elementor-section elementor-top-section elementor-element elementor-element-153008a elementor-section-content-bottom elementor-section-boxed elementor-section-height-default elementor-section-height-default" id="addpostsection" data-element_type="section">
+
+    <div class="elementor-container elementor-column-gap-default">
+        <div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-ed8a95a" data-id="ed8a95a" data-element_type="column">
+            <div class="elementor-widget-wrap elementor-element-populated">
+                <div class="elementor-element elementor-element-ef5f742 elementor-widget elementor-widget-image" data-id="ef5f742" data-element_type="widget" data-widget_type="image.default">
+                    <div class="elementor-widget-container">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="elementor-column elementor-col-70 elementor-top-column elementor-element elementor-element-aac29d5" data-id="aac29d5" data-element_type="column">
+            <div class="elementor-widget-wrap elementor-element-populated">
+                <div class="elementor-element elementor-element-4d11961 elementor-widget elementor-widget-pt-heading" data-id="4d11961" data-element_type="widget" data-settings="{&quot;decor&quot;:[]}" data-widget_type="pt-heading.default">
+                    <div class="elementor-widget-container">
+
+                        <div class="pt-heading">
+                            <h4 class="pt-heading-title h3">
+                                SetUp Your Profile
+                            </h4>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="elementor-element elementor-element-a5d8048 elementor-widget elementor-widget-pt-contact-form-7" data-id="a5d8048" data-element_type="widget" data-widget_type="pt-contact-form-7.default">
+                    <div class="elementor-widget-container">
+
+                        <div class="pt-contact-form-7">
+
+
+
+                            <div class="screen-reader-response"><p role="status" aria-live="polite" aria-atomic="true"></p> <ul></ul></div>
+                            <form asp-controller="Client" asp-action="Create" method="post" method="post" class="wpcf7-form init" aria-label="Contact form" novalidate="novalidate" data-status="init" enctype="multipart/form-data">
+                                <div style="display: none;">
+                                </div>
+
+
+
+                                <div class="mb-3">
+                                    <p class="wpcf7">
+                                        <label for="Name">Name</label><br>
+                                        @*  <span asp-validation-for="Name" class="wpcf7-form-control-wrap"></span> *@
+                                        <input size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="UserName" type="text" name="Name">
+                                    </p>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="imgURl" style="cursor: pointer;
+    display: inline-block;
+    margin-bottom: 8px;
+    margin-inline-start: 16px;
+    opacity: 0.5;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;">Your Photo</label><br>
+                                    @* <span asp-validation-for="imgURl" class="wpcf7-form-control-wrap"></span> *@
+                                    <p class="wpcf7" style="border: 1.5px solid var(--color-border); border-radius: 4px;">
+
+
+                                        <label class="custom-file-label" for="imgURl" style="background-color: #000000; margin:0px; border-radius: 4px 0 0 4px;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+opacity:1;
+    ">Choose File</label>
+
+                                        <input type="file" id="imgURl" name="file" class="form-control" accept="image/*" style="display: none;" />
+
+
+
+                                    </p>
+                                </div>
+
+
+
+
+
+                                <div class="mb-3">
+                                    <p class="wpcf7">
+                                        <label for="Gender">Gender</label><br>
+                                        <Select id="Gender" name="Gender" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" style="width: 100%;
+    padding: 10px 16px;
+    border: 1.5px solid var(--color-border);
+    border-radius: 4px;
+    background-color: transparent;">
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                        </Select>
+                                    </p>
+                                </div>
+
+
+
+                                <div class="mb-3">
+                                    <p class="wpcf7">
+                                        <label for="Age">Age</label><br>
+
+                                        <input size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Age" type="number" name="Age" min="1" style="width: 100%;
+    padding: 10px 16px;
+    border: 1.5px solid var(--color-border);
+    border-radius: 4px;
+    background-color: transparent;">
+                                    </p>
+                                </div>
+
+                                <div class="mb-0">
+                                    <p class="wpcf7">
+                                        <input class="wpcf7-form-control has-spinner wpcf7-submit" type="submit" value="Create"><span class="wpcf7-spinner"></span>
+                                    </p>
+                                </div><div class="wpcf7-response-output" aria-hidden="true"></div>
+                            </form>
+                            <div asp-validation-summary="All"></div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
-
-
-<section class="elementor-section elementor-top-section elementor-element elementor-element-153008a elementor-section-content-bottom elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="153008a" data-element_type="section">
-	<div class="elementor-container elementor-column-gap-default">
-		<div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-ed8a95a" data-id="ed8a95a" data-element_type="column">
-			<div class="elementor-widget-wrap elementor-element-populated">
-				<div class="elementor-element elementor-element-ef5f742 elementor-widget elementor-widget-image" data-id="ef5f742" data-element_type="widget" data-widget_type="image.default">
-					<div class="elementor-widget-container">
-						<img decoding="async" loading="lazy" width="1242" height="1336" src="~/img/patientprofile.jpg" class="attachment-full size-full wp-image-2343" alt="" sizes="(max-width: 1242px) 100vw, 1242px">
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-aac29d5" data-id="aac29d5" data-element_type="column">
-			<div class="elementor-widget-wrap elementor-element-populated">
-				<div class="elementor-element elementor-element-4d11961 elementor-widget elementor-widget-pt-heading" data-id="4d11961" data-element_type="widget" data-settings="{&quot;decor&quot;:[]}" data-widget_type="pt-heading.default">
-					<div class="elementor-widget-container">
-
-						<div class="pt-heading">
-							<h4 class="pt-heading-title h3">
-								Your Profile
-							</h4>
-						</div>
-
-					</div>
-				</div>
-				<div class="elementor-element elementor-element-a5d8048 elementor-widget elementor-widget-pt-contact-form-7" data-id="a5d8048" data-element_type="widget" data-widget_type="pt-contact-form-7.default">
-					<div class="elementor-widget-container">
-
-						<div class="pt-contact-form-7">
-							@*
-							here is the problem
-							<div class="wpcf7 js">*@
-
-							<div class="screen-reader-response"><p role="status" aria-live="polite" aria-atomic="true"></p> <ul></ul></div>
-							<form asp-controller="Client" asp-action="Create" method="post" class="wpcf7-form init" aria-label="Contact form" novalidate="novalidate" data-status="init" enctype="multipart/form-data">
-								<div style="display: none;">
-								</div>
-
-								<div class="mb-3">
-									<p>
-										<label for="name">Name</label><br>
-										<span asp-validation-for="Name" class="wpcf7-form-control-wrap"></span>
-									    <input asp-for="Name" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" id="name" aria-required="true" aria-invalid="false" placeholder="UserName" type="text" name="Name">
-									</p>
-								</div>
-@* 								<div class="mb-3">
-									<p>
-										<label for="PhoneNumber">phone number</label><br>
-										<span class="wpcf7-form-control-wrap"><input size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" id="PhoneNumber" aria-required="true" aria-invalid="false" placeholder="PhoneNumber" type="text" name="PhoneNumber"></span>
-									</p>
-								</div> *@
-								<div class="mb-3">
-									<p>
-										<label for="imgURl">imgURl</label><br>
-										@* <span class="wpcf7-form-control-wrap"><input size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" id="imgURl" aria-required="true" aria-invalid="false" placeholder="imgURl" type="text" name="imgURl"></span> *@
-										<input type="file" id="imgURl" name="file" class="form-control" accept="image/*" />
-
-									</p>
-								</div>
-								<div class="mb-3">
-									<label for="Gender">Roles</label>
-									<Select id="Gender" name="Gender" class="form-control">
-										<option value="Male">Male</option>
-										<option value="Female">Female</option>
-									</Select>
-								</div>
-								<div class="mb-3">
-									<p>
-										<label for="Age">Age</label><br>
-										<span asp-validation-for="Age" class="wpcf7-form-control-wrap"></span>
-										<input asp-for="Age" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" id="Age" aria-required="true" aria-invalid="false" placeholder="Age" type="number" name="Age">
-									</p>
-								</div>
-
-								<div class="mb-0">
-									<p>
-										<input class="wpcf7-form-control has-spinner wpcf7-submit" type="submit" value="Update"><span class="wpcf7-spinner"></span>
-									</p>
-								</div><div class="wpcf7-response-output" aria-hidden="true"></div>
-							</form>
-							<div asp-validation-summary="All"></div>
-						</div>
-
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-
-
-
-
 
 
 

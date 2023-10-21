@@ -1,0 +1,138 @@
+﻿@model IEnumerable<fit_and_fuel.Model.ChatMessage>
+@{
+}
+
+
+
+<div >
+    <div class="card">
+        <div class="card-header border-0 mb-0">
+            <h4 class="heading mb-0">Chat</h4>
+            <div class="d-flex align-items-center cs-settiong">
+            </div>
+        </div>
+        <div class="card-body pt-0">
+            <div class="chat-box-area style-1 dz-scroll" id="list">
+                @foreach (var message in Model)
+                {
+                    @if (message.SenderId == Model.FirstOrDefault().SenderId)
+                    {
+                        <div class="media">
+                            <div class="message-received w-auto">
+                                <div class="d-flex">
+                                    <div class="ms-1 text">
+                                        <p class="mb-1">@message.Content</p>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="media justify-content-end align-items-end ms-auto">
+                            <div class="message-sent w-auto">
+                                <p class="mb-1">@message.Content</p>
+                            </div>
+                        </div>
+                    }
+                }
+
+
+
+
+
+            </div>
+
+        </div>
+        <div>
+
+            <textarea id="txtMessage"></textarea><br />
+            <button id="btnSend">Send</button>
+        </div>
+    </div>
+</div>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/site.js"></script>
+<style>
+    /* Custom CSS for Chat Card */
+    .chat-card {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    /* Custom CSS for Chat Header */
+    .chat-header {
+        background-color: #0D99FF;
+        color: #fff;
+        padding: 10px;
+        border-radius: 8px 8px 0 0;
+        display: flex;
+        justify-content: space-between;
+    }
+
+        .chat-header h4 {
+            font-size: 18px;
+            margin: 0;
+        }
+
+    /* Custom CSS for Chat Body */
+    .chat-body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Custom CSS for Chat Messages */
+    .message {
+        padding: 10px;
+        border-radius: 8px;
+        margin: 5px;
+        max-width: 70%;
+    }
+
+    .message-received {
+        background-color: #f5f5f5;
+        align-self: flex-start;
+    }
+
+    .message-sent {
+        background-color: #0D99FF;
+        color: #fff;
+        align-self: flex-end;
+    }
+
+    /* Custom CSS for Chat Input */
+    .chat-input {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        background-color: #f5f5f5;
+        border-radius: 0 0 8px 8px;
+    }
+
+    .chat-textarea {
+        flex: 1;
+        border: none;
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 10px;
+        margin: 0 10px 0 0;
+    }
+
+    .chat-send-btn {
+        background-color: #0D99FF;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+</style>
+

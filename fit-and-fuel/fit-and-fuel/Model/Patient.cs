@@ -5,7 +5,7 @@ namespace fit_and_fuel.Model
     public class Patient
     {
         public int Id { get; set; }
-        
+
         public string? UserId { get; set; }
 		[Required(ErrorMessage = "Name is required.")]
 
