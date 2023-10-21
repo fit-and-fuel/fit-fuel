@@ -12,8 +12,8 @@ using fit_and_fuel.Data;
 namespace fit_and_fuel.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231020183425_patientimg")]
-    partial class patientimg
+    [Migration("20231021175852_one")]
+    partial class one
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -280,16 +280,16 @@ namespace fit_and_fuel.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "dc2d6a03-c404-4983-9974-f057a60228c9",
+                            ConcurrencyStamp = "2a5264ba-e5c5-4a3c-be3b-5247b212c932",
                             Email = "adminUser@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "adminUser@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEPjnt4KiZfLeGjn0/WE8HYC97VB6yRMq78FDhosgoGcV4cmuELTh/PCiLEZiV+1QqQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEA90NaXyWJNjvnKJnkS9JpATa9osC8ss8fWLzRKghwIJpEkFJIEkOTpnLt/KdpM4mw==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a2f3ca97-6885-4eb8-bbbe-3293019926a0",
+                            SecurityStamp = "e92274a5-9ec5-469c-90dd-09caaa0c45b0",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });

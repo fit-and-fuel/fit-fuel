@@ -12,17 +12,17 @@ namespace fit_and_fuel.Services
 {
     public class PatientService : IPatients
     {
-		private UserManager<ApplicationUser> _userManager;
-		private readonly AppDbContext _context;
-		private readonly IHttpContextAccessor _httpContextAccessor;
+        private UserManager<ApplicationUser> _userManager;
+        private readonly AppDbContext _context;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IConfiguration _configuration;
 
 
         private INotification _notificationService;
-        public PatientService(AppDbContext context,  INotification notificationService, IHttpContextAccessor httpContextAccessor, UserManager<ApplicationUser> userManager, IConfiguration configuration)
+        public PatientService(AppDbContext context, INotification notificationService, IHttpContextAccessor httpContextAccessor, UserManager<ApplicationUser> userManager, IConfiguration configuration)
         {
             _context = context;
-         
+
             _notificationService = notificationService;
             _httpContextAccessor = httpContextAccessor;
             _userManager = userManager;
@@ -82,11 +82,11 @@ namespace fit_and_fuel.Services
                 Gender = patients.Gender,
                 Age = patients.Age,
                 PhoneNumber = patients.PhoneNumber,
-                imgURl=patients.imgURl,
-                NutritionistId= patients.NutritionistId
+                imgURl = patients.imgURl,
+                NutritionistId = patients.NutritionistId
             }).ToList();
-           return patientsToReturn;
-        
+            return patientsToReturn;
+
         }
         /// <summary>
         /// Retrieves a specific patient by their user ID.
@@ -97,12 +97,12 @@ namespace fit_and_fuel.Services
 
         public async Task<Patient> GetById(int id)
         {            //.Include(p => p.appoitments)
-            //.Include(p => p.dietPlan)
-            
+                     //.Include(p => p.dietPlan)
+
             var patient = await _context.Patients
                  .Include(p => p.nutritionist)
                 .Where(p => p.Id == id)
-               
+
                 .FirstOrDefaultAsync();
             return patient;
         }
@@ -138,33 +138,33 @@ namespace fit_and_fuel.Services
             var imageUrl = await UploadFile(file);
             string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-			var patientExists = await GetAll();
+            var patientExists = await GetAll();
             var patientList = patientExists.Where(p => p.UserId == userId).FirstOrDefault();
-			var user = await _userManager.FindByIdAsync(userId);
+            var user = await _userManager.FindByIdAsync(userId);
             // var userName = user.UserName;
             var userPhonenumber = user.PhoneNumber;
 
-			if (patientList == null)
+            if (patientList == null)
             {
-				var patient = new Patient()
-				{
-					UserId = userId,
-					Name = patientDto.Name,
-					Gender = patientDto.Gender,
-					Age = patientDto.Age,
+                var patient = new Patient()
+                {
+                    UserId = userId,
+                    Name = patientDto.Name,
+                    Gender = patientDto.Gender,
+                    Age = patientDto.Age,
 
-					PhoneNumber = userPhonenumber,
-					//NutritionistId = patientDto.NutritionistId,
+                    PhoneNumber = userPhonenumber,
+                    //NutritionistId = patientDto.NutritionistId,
 
-					imgURl = imageUrl
-				};
-				await _context.Patients.AddAsync(patient);
-				await _context.SaveChangesAsync();
+                    imgURl = imageUrl
+                };
+                await _context.Patients.AddAsync(patient);
+                await _context.SaveChangesAsync();
 
-				return patient;
-			}
+                return patient;
+            }
             return null;
-		}
+        }
 
         public async Task<string> UploadFile(IFormFile file)
         {
@@ -208,7 +208,7 @@ namespace fit_and_fuel.Services
             patient.Name = patientDto.Name;
             patient.Gender = patientDto.Gender;
             patient.Age = patientDto.Age;
-           
+
             patient.PhoneNumber = patientDto.PhoneNumber;
             //patient.NutritionistId = patientDto.NutritionistId;
             patient.imgURl = patientDto.imgURl;
@@ -251,15 +251,15 @@ namespace fit_and_fuel.Services
 
         public async Task<DietPlan> GetMyDietPlan()
         {
-			string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-			var dietPlan = await _context.Patients
+            var dietPlan = await _context.Patients
        .Where(n => n.UserId == userId)
        .Include(d => d.dietPlan)
-       .ThenInclude(d=>d.days)
+       .ThenInclude(d => d.days)
        .ThenInclude(d => d.meals)
        .Select(n => n.dietPlan)
-       
+
        .FirstOrDefaultAsync();
 
             return dietPlan;
@@ -298,8 +298,8 @@ namespace fit_and_fuel.Services
                 };
                 return dietplanToReturn;
             }
-            return null;       
-                }
+            return null;
+        }
         /// <summary>
         /// Retrieves a list of meals for the current day's diet plan of a patient.
         /// </summary>
@@ -340,27 +340,27 @@ namespace fit_and_fuel.Services
         /// <param name="UserId">The ID of the patient.</param>
         /// <param name="MealId">The ID of the meal to mark as completed.</param>
 
-        public async Task MealIsCompletion( int MealId)
+        public async Task MealIsCompletion(int MealId)
         {
             string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             var mealToday = await GetMyMealsForToday();
             var mealToUpdate = mealToday.FirstOrDefault(m => m.Id == MealId);
-            var patient = await _context.Patients.Where(p=>p.UserId== userId).FirstOrDefaultAsync();
+            var patient = await _context.Patients.Where(p => p.UserId == userId).FirstOrDefaultAsync();
             if (mealToUpdate == null)
             {
                 throw new Exception("this meal is not Today");
             }
             var meal = await _context.Meals
                 .FindAsync(MealId);
-            
+
             if (meal != null)
             {
                 meal.Completion = true;
                 var nut = await _context.Patients
-                    .Include(p=>p.nutritionist)
+                    .Include(p => p.nutritionist)
                     .FirstOrDefaultAsync(p => p.UserId == userId);
-              
+
                 var content = new NotificationDto()
                 {
                     Content = $"Your patient {patient.Name}  with UserId: {userId}  take meal {meal.Name} with id {meal.Id} "
@@ -372,7 +372,7 @@ namespace fit_and_fuel.Services
             }
         }
 
-       
+
 
         public Task SelectNut(int NutId, int UserId)
         {
@@ -404,10 +404,10 @@ namespace fit_and_fuel.Services
             throw new NotImplementedException();
         }
 
-		public async Task<int> Count()
-		{
-			return await _context.Patients.CountAsync();
-		}
+        public async Task<int> Count()
+        {
+            return await _context.Patients.CountAsync();
+        }
 
         public async Task<Patient> GetMyProfile()
         {
@@ -415,7 +415,7 @@ namespace fit_and_fuel.Services
 
             var myprofile = await _context.Patients
                 .Where(p => p.UserId == userId)
-                .Include(p=>p.nutritionist)
+                .Include(p => p.nutritionist)
                 .FirstOrDefaultAsync();
             return myprofile;
 
