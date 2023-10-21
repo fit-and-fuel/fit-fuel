@@ -98,10 +98,30 @@ opacity:1;
                                 </div>
 
                                 <div class="mb-3">
-                                    <p class="wpcf7">
-                                        <label>CV URL</label><br>
-                                        <span asp-validation-for="Name" class="wpcf7-form-control-wrap"></span>
-                                        <input asp-for="CvURl" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="CV URL">
+                                    <label for="CvURl" style="cursor: pointer;
+    display: inline-block;
+    margin-bottom: 8px;
+    margin-inline-start: 16px;
+    opacity: 0.5;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;">Your CV</label><br>
+                                    <span class="wpcf7-form-control-wrap"></span>
+                                    <p class="wpcf7" style="border: 1.5px solid var(--color-border); border-radius: 4px;">
+
+
+                                        <label class="custom-file-label" for="CvURl" style="background-color: #000000; margin:0px; border-radius: 4px 0 0 4px;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+opacity:1;
+    ">Choose File</label>
+
+                                        <input type="file" id="CvURl" name="cvfile" class="form-control"  style="display: none;" />
+
+
+
                                     </p>
                                 </div>
 
