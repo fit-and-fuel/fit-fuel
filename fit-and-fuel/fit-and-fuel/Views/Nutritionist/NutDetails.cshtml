@@ -9,26 +9,27 @@
 <div style="background-color:#141414 ;height:80px;margin-top:-10px;width:2000px;">
 </div>
 
-<section class="dark">
-    <div class="container py-4 ">
-
-        <h1 style="margin-top:70px;" class="h1 text-center" id="pageHeaderTitle">About Nutritionist</h1>
+<section style="padding:70px;">
+    <div class="container py-2">
 
 
-        <article class="postcard dark green">
+        <article style="background-color:#f9f9f9;" class="postcard light green">
             <a class="postcard__img_link" href="#">
-                <img class="postcard__img" src="~/img//Nutritionist-1.jpg" alt="Image Title" />
+                <img class="postcard__img" src="~/img/s1.jpg" alt="Image Title" />
             </a>
-            <div class="postcard__text">
+            <div class="postcard__text t-dark">
+                <h1 style="margin-left:8px;" class="postcard__title green"><a href="#">About @Model.Name</a></h1>
+                <div class="postcard__subtitle small">
+                    <ul style="list-style:none; font-size:18px;">
+                        <li><strong> Gender </strong><span>@Model.Gender</span></li>
+                        <li><strong> Age </strong><span>@Model.Age</span></li>
+                        <li><strong> Phone Number </strong><span>@Model.PhoneNumber</span></li>
+                        <li><a style="text-decoration:underline; color:#D6FD51;" href="@Model.CvURl">Download CV</a></li>
+                      
 
-                <h1 class="postcard__title green"><a href="#">@Model.Name</a></h1>
-                <div class="postcard__subtitle ">
 
-                    <p>
-                        Age : @Model.Age <br />
-                        <span>Phone Number : @Model.PhoneNumber </span> <br />
-                        <span><a style="text-decoration:underline; color:#79dd09;" href="@Model.CvURl">Download CV</a></span>
-                    </p>
+
+                    </ul>
                     @{
                         if (Model.AverageRating.HasValue)
                         {
@@ -56,13 +57,11 @@
                         }
                     }
 
-
-
                 </div>
-
                 <div class="postcard__bar"></div>
                 <div class="postcard__preview-txt">
-                    <br />
+                    @* @if (Model.healthRecord != null)
+                    {*@
                     <h1 class="postcard__title green"><a href="#">Available Times</a></h1>
                     <table class="table table-hover">
 
@@ -96,355 +95,19 @@
                         </tbody>
 
                     </table>
+                
+
 
                 </div>
-            </div>
-        </article>
-        <section class="elementor-section elementor-top-section elementor-element elementor-element-14a702e elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="14a702e" data-element_type="section" style=" margin: 50px 0;  padding: 50px 0; ">
-            <div class="elementor-container elementor-column-gap-extended">
-                <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-02e7c16" data-id="02e7c16" data-element_type="column">
-                    <div class="elementor-widget-wrap elementor-element-populated e-swiper-container">
-                       @* <div class="elementor-element elementor-element-b86e0cc elementor-widget elementor-widget-pt-heading" data-id="b86e0cc" data-element_type="widget" data-settings="{&quot;decor&quot;:[]}" data-widget_type="pt-heading.default">
-                            <div class="elementor-widget-container">
-
-                                <div class="pt-heading" style="text-align:center; margin-bottom:40px; ">
-                                    <h2 class="pt-heading-title h2">
-                                        Our Nutritionists
-                                    </h2>
-                                </div>
-
-                            </div>
-                        </div>*@
-                        <div class="elementor-element elementor-element-80ea4f5 elementor-widget elementor-widget-text-editor" data-id="80ea4f5" data-element_type="widget" data-widget_type="text-editor.default">
-                            <div class="elementor-widget-container">
-                            </div>
-                        </div>
-                        <div class="elementor-element elementor-element-faf1d9d elementor-widget elementor-widget-pt-services e-widget-swiper" data-id="faf1d9d" data-element_type="widget" data-settings="{&quot;cols&quot;:&quot;4&quot;,&quot;layout&quot;:&quot;carousel&quot;,&quot;scrollbar&quot;:&quot;yes&quot;,&quot;arrows_position&quot;:&quot;together&quot;,&quot;cols_mobile&quot;:&quot;1&quot;,&quot;cols_tablet&quot;:3,&quot;gap&quot;:30,&quot;arrows&quot;:&quot;yes&quot;}" data-widget_type="pt-services.default">
-                            <div class="elementor-widget-container">
-
-                                <div class="pt-services-1 layout-carousel arrows-together arrows-align-top-right">
-                                    <div class="swiper-container swiper-container-initialized swiper-container-horizontal">
-                                        <div class="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px);">
-
-                                            @foreach (var n in Model.Ratings)
-                                            {
-                                                <div class="swiper-slide swiper-slide-active" style="width: 427px; margin-right: 30px;" data-swiper-slide-index="0">
-
-                                                    <div class="pt-testimonial">
-
-                                                        <div class="pt-testimonial">
-                                                            @for(int i =0;i<n.Value;i++){
-                                                                <i class="fa-sharp fa-solid fa-star text-orange" style="color:orange"></i>
-                                                            }
-                                                            <div class="pt-testimonial-text">
-                                                                @n.Comment
-                                                            </div>
-
-
-                                                            <div class="pt-testimonial-meta">
-
-                                                                <div class="pt-testimonial-avatar">
-                                                                    <img loading="lazy" width="800" height="900" src="@n.Patient.imgURl" class="attachment-full size-full" alt="" decoding="async" sizes="(max-width: 800px) 100vw, 800px">
-                                                                </div>
-
-                                                                <div class="pt-testimonial-author-wrapper">
-
-                                                                    <div class="pt-testimonial-author">
-                                                                        @n.Patient.Name
-                                                                    </div>
-
-
-                                                                    <div class="pt-testimonial-occupation">
-                                                                       
-                                                                    </div>
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-
-                                                    </div>
-
-                                                </div>
-
-
-
-                                            }
-                                        </div><span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
-                                    </div>
-
-                                  
-
-
-
-                                </div>
-
-
-
-
-
-                                <div class="swiper-scrollbar"><div class="swiper-scrollbar-drag" style="transform: translate3d(0px, 0px, 0px); width: 481.613px;"></div></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-           
-        </section>
-       @* for (int i = 0; i < fullStars; i++)
-        {
-        <i class="fa-sharp fa-solid fa-star text-orange" style="color:orange"></i>
-        }*@
-
-@*        <div class="elementor-element elementor-element-6643cd1 swiper-overflow-visible elementor-widget elementor-widget-pt-testimonials e-widget-swiper" data-id="6643cd1" data-element_type="widget" data-settings="{&quot;loop&quot;:&quot;yes&quot;,&quot;style&quot;:&quot;style-2&quot;,&quot;cols&quot;:1.6599999999999999,&quot;layout&quot;:&quot;carousel&quot;,&quot;arrows_position&quot;:&quot;together&quot;,&quot;cols_mobile&quot;:1,&quot;navigation_style&quot;:&quot;style-2&quot;}" data-widget_type="pt-testimonials.default">
-            <div class="elementor-widget-container">
-
-                <div class="pt-testimonials layout-carousel style-2 text-align- arrows-together arrows-align-bottom-left">
-                    <div class="swiper-container swiper-container-initialized swiper-container-horizontal">
-                        <div class="swiper-wrapper" style="transition-duration: 0ms; transform: translate3d(-3734.94px, 0px, 0px);">
-                            <div class="swiper-slide swiper-slide-duplicate" style="width: 716.988px; margin-right: 30px;" data-swiper-slide-index="1">
-
-                                <div class="pt-testimonial">
-
-                                    <div class="pt-testimonial-content">
-
-                                        <div class="pt-testimonial-text">
-                                            Nulla molestie aliquam dictum suspendisse vulputate dis facilisi. Nibh vitae tortor, non dolor.
-                                        </div>
-
-
-                                        <div class="pt-testimonial-meta">
-
-                                            <div class="pt-testimonial-avatar">
-                                                <img loading="lazy" width="800" height="900" src="https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-2.jpg" class="attachment-full size-full" alt="" decoding="async" srcset="https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-2.jpg 800w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-2-450x506.jpg 450w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-2-600x675.jpg 600w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-2-267x300.jpg 267w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-2-768x864.jpg 768w" sizes="(max-width: 800px) 100vw, 800px">
-                                            </div>
-
-                                            <div class="pt-testimonial-author-wrapper">
-
-                                                <div class="pt-testimonial-author">
-                                                    Brooklyn Simmons
-                                                </div>
-
-
-                                                <div class="pt-testimonial-occupation">
-                                                    @@brooksim1
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                </div>
-
-                            </div>
-                            <div class="swiper-slide swiper-slide-duplicate swiper-slide-duplicate-prev" style="width: 716.988px; margin-right: 30px;" data-swiper-slide-index="2">
-
-                                <div class="pt-testimonial">
-
-                                    <div class="pt-testimonial-content">
-
-                                        <div class="pt-testimonial-text">
-                                            Sed dolor quis lacinia tristique nisi. Risus velit tincidunt a nisl feugiat. Sit massa faucibus.
-                                        </div>
-
-
-                                        <div class="pt-testimonial-meta">
-
-                                            <div class="pt-testimonial-avatar">
-                                                <img loading="lazy" width="800" height="900" src="https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-7.jpg" class="attachment-full size-full" alt="" decoding="async" srcset="https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-7.jpg 800w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-7-450x506.jpg 450w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-7-600x675.jpg 600w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-7-267x300.jpg 267w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-7-768x864.jpg 768w" sizes="(max-width: 800px) 100vw, 800px">
-                                            </div>
-
-                                            <div class="pt-testimonial-author-wrapper">
-
-                                                <div class="pt-testimonial-author">
-                                                    Brooklyn Simmons
-                                                </div>
-
-
-                                                <div class="pt-testimonial-occupation">
-                                                    @@brooksim1
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                </div>
-
-                            </div>
-
-
-
-                            <div class="swiper-slide swiper-slide-duplicate-active" style="width: 716.988px; margin-right: 30px;" data-swiper-slide-index="0">
-
-                                <div class="pt-testimonial">
-
-                                    <div class="pt-testimonial-content">
-
-                                        <div class="pt-testimonial-text">
-                                            Tincidunt congue turpis nisl, vel aliquet sagittis, purus, consequat. Leo vel aenean lectus.
-                                        </div>
-
-
-                                        <div class="pt-testimonial-meta">
-
-                                            <div class="pt-testimonial-avatar">
-                                                <img loading="lazy" width="800" height="900" src="https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-6.jpg" class="attachment-full size-full" alt="" decoding="async" srcset="https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-6.jpg 800w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-6-450x506.jpg 450w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-6-600x675.jpg 600w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-6-267x300.jpg 267w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-6-768x864.jpg 768w" sizes="(max-width: 800px) 100vw, 800px">
-                                            </div>
-
-                                            <div class="pt-testimonial-author-wrapper">
-
-                                                <div class="pt-testimonial-author">
-                                                    Brooklyn Simmons
-                                                </div>
-
-
-                                                <div class="pt-testimonial-occupation">
-                                                    @@brooksim1
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                </div>
-
-                            </div>
-
-
-
-                            <div class="swiper-slide swiper-slide-duplicate-next" style="width: 716.988px; margin-right: 30px;" data-swiper-slide-index="1">
-
-                                <div class="pt-testimonial">
-
-                                    <div class="pt-testimonial-content">
-
-                                        <div class="pt-testimonial-text">
-                                            Nulla molestie aliquam dictum suspendisse vulputate dis facilisi. Nibh vitae tortor, non dolor.
-                                        </div>
-
-
-                                        <div class="pt-testimonial-meta">
-
-                                            <div class="pt-testimonial-avatar">
-                                                <img loading="lazy" width="800" height="900" src="https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-2.jpg" class="attachment-full size-full" alt="" decoding="async" srcset="https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-2.jpg 800w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-2-450x506.jpg 450w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-2-600x675.jpg 600w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-2-267x300.jpg 267w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-2-768x864.jpg 768w" sizes="(max-width: 800px) 100vw, 800px">
-                                            </div>
-
-                                            <div class="pt-testimonial-author-wrapper">
-
-                                                <div class="pt-testimonial-author">
-                                                    Brooklyn Simmons
-                                                </div>
-
-
-                                                <div class="pt-testimonial-occupation">
-                                                    @@brooksim1
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                </div>
-
-                            </div>
-
-
-
-
-
-                            <div class="swiper-slide swiper-slide-duplicate swiper-slide-active" style="width: 716.988px; margin-right: 30px;" data-swiper-slide-index="0">
-
-                                <div class="pt-testimonial">
-
-                                    <div class="pt-testimonial-content">
-
-                                        <div class="pt-testimonial-text">
-                                            Tincidunt congue turpis nisl, vel aliquet sagittis, purus, consequat. Leo vel aenean lectus.
-                                        </div>
-
-
-                                        <div class="pt-testimonial-meta">
-
-                                            <div class="pt-testimonial-avatar">
-                                                <img loading="lazy" width="800" height="900" src="https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-6.jpg" class="attachment-full size-full" alt="" decoding="async" srcset="https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-6.jpg 800w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-6-450x506.jpg 450w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-6-600x675.jpg 600w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-6-267x300.jpg 267w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-6-768x864.jpg 768w" sizes="(max-width: 800px) 100vw, 800px">
-                                            </div>
-
-                                            <div class="pt-testimonial-author-wrapper">
-
-                                                <div class="pt-testimonial-author">
-                                                    Brooklyn Simmons
-                                                </div>
-
-
-                                                <div class="pt-testimonial-occupation">
-                                                    @@brooksim1
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                </div>
-
-                            </div>
-                            <div class="swiper-slide swiper-slide-duplicate swiper-slide-next" style="width: 716.988px; margin-right: 30px;" data-swiper-slide-index="1">
-
-                                <div class="pt-testimonial">
-
-                                    <div class="pt-testimonial-content">
-
-                                        <div class="pt-testimonial-text">
-                                            Nulla molestie aliquam dictum suspendisse vulputate dis facilisi. Nibh vitae tortor, non dolor.
-                                        </div>
-
-
-                                        <div class="pt-testimonial-meta">
-
-                                            <div class="pt-testimonial-avatar">
-                                                <img loading="lazy" width="800" height="900" src="https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-2.jpg" class="attachment-full size-full" alt="" decoding="async" srcset="https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-2.jpg 800w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-2-450x506.jpg 450w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-2-600x675.jpg 600w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-2-267x300.jpg 267w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-2-768x864.jpg 768w" sizes="(max-width: 800px) 100vw, 800px">
-                                            </div>
-
-                                            <div class="pt-testimonial-author-wrapper">
-
-                                                <div class="pt-testimonial-author">
-                                                    Brooklyn Simmons
-                                                </div>
-
-
-                                                <div class="pt-testimonial-occupation">
-                                                    @@brooksim1
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                </div>
-
-                            </div>
-                        </div><span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
-                    </div>
-
-                </div>
-
-
-
-                <div class="pt-swiper-arrows-fraction">
-                    <div class="pt-swiper-button-prev" tabindex="0" role="button" aria-label="Previous slide"></div>
-                    <div class="pt-swiper-pagination swiper-pagination-fraction"><span class="swiper-pagination-current">1</span> / <span class="swiper-pagination-total">3</span></div>				<div class="pt-swiper-button-next" tabindex="0" role="button" aria-label="Next slide"></div>
-                </div>
+              
 
 
             </div>
-        </div>
-*@    </div>
+        </article>
+
+    </div>
 </section>
+
+
+
 

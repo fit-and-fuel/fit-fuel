@@ -18,11 +18,11 @@
                                 <div class="post-data">
                                     @if (post.IsImproved == true)
                                     {
-                                        <button class="badge badge-success border-0 badge-sm">Improved</button>
+                                        <button class="badge badge-success border-0 badge-sm">Approved</button>
                                     }
                                     else
                                     {
-                                        <button class="badge badge-warning border-0 badge-sm" data-bs-toggle="modal" data-bs-target="#improveModal+@post.Id">Not Improved</button>
+                                        <button class="badge badge-warning border-0 badge-sm" data-bs-toggle="modal" data-bs-target="#improveModal+@post.Id">Not approved</button>
                                     }
                                     <a href="javascript:void(0);">
                                         <h4>@post.Title</h4>
@@ -49,17 +49,17 @@
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">improve Post</h5>
+                                <h5 class="modal-title">Approve Post</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                             </div>
                             <div class="modal-body">
-                                <p>Are you sure you want to improve this post?@post.Id</p>
+                                <p>Are you sure you want to Approve this post?@post.Id</p>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <form asp-controller="Admin" asp-action="ConfiremPost" method="post">
                                     <input type="hidden" name="id" value="@post.Id">
-                                    <button type="submit" class="btn btn-success">improve</button>
+                                    <button type="submit" class="btn btn-success">Approve</button>
                                 </form>
                             </div>
                         </div>
