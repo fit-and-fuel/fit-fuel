@@ -13,9 +13,9 @@ namespace fit_and_fuel.Services
     {
 
         private readonly AppDbContext _context;
-		private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-		public AvailableTimeService(AppDbContext context, IHttpContextAccessor httpContextAccessor)
+        public AvailableTimeService(AppDbContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
             _httpContextAccessor = httpContextAccessor;
@@ -30,14 +30,14 @@ namespace fit_and_fuel.Services
         public async Task Delete(string UserId, int id)
         {
             var nut = await _context.Nutritionists
-                .Include(n=>n.AvaliableTimes)
+                .Include(n => n.AvaliableTimes)
                 .FirstOrDefaultAsync(x => x.UserId == UserId);
-            var nutTimes= nut.AvaliableTimes
-                .Where(a=>a.Id == id)
+            var nutTimes = nut.AvaliableTimes
+                .Where(a => a.Id == id)
                 .FirstOrDefault();
             if (nutTimes != null)
             {
-                var timeToRemove=await _context.AvailableTime.FirstOrDefaultAsync(a=>a.Id==id);
+                var timeToRemove = await _context.AvailableTime.FirstOrDefaultAsync(a => a.Id == id);
                 _context.AvailableTime.Remove(timeToRemove);
                 await _context.SaveChangesAsync();
             }
@@ -61,10 +61,10 @@ namespace fit_and_fuel.Services
 
         public async Task<List<AvailableTime>> GetAll()
         {
-			string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-			var availableTimes = await _context.AvailableTime
+            string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var availableTimes = await _context.AvailableTime
                 .Include(a => a.nutritionist)
-                .Where(a=>a.nutritionist.UserId == userId)
+                .Where(a => a.nutritionist.UserId == userId)
                 .ToListAsync();
             return availableTimes;
         }
@@ -88,15 +88,15 @@ namespace fit_and_fuel.Services
         /// </summary>
         /// <param name="UserId">The ID of the nutritionist user.</param>
         /// <param name="availableTimeDto">The details of the available time slot to create.</param>
-        
+
 
 
         public async Task Post(AvailableTimeDto availableTimeDto)
         {
-			string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-           
-			
-            
+            string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+
+
             var nut = await _context.Nutritionists.FirstOrDefaultAsync(x => x.UserId == userId);
             var avaiTime = new AvailableTime()
             {
@@ -106,7 +106,7 @@ namespace fit_and_fuel.Services
             };
             await _context.AvailableTime.AddAsync(avaiTime);
             await _context.SaveChangesAsync();
-         }
+        }
 
         public Task Post(int UserId, AvailableTimeDto availableTimeDto)
         {
@@ -131,11 +131,11 @@ namespace fit_and_fuel.Services
             var timeToUpdata = await _context.AvailableTime.FirstOrDefaultAsync(a => a.Id == id);
             if (nutTimes != null && timeToUpdata != null)
             {
-                
+
                 timeToUpdata.DayOfWeek = availableTimeDto.DayOfWeek;
-                timeToUpdata .Time = availableTimeDto.Time;
-                
-               
+                timeToUpdata.Time = availableTimeDto.Time;
+
+
                 await _context.SaveChangesAsync();
             }
             else

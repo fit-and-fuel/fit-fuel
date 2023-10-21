@@ -1,7 +1,11 @@
 ﻿@model List<Notification>
 @{
+
     Layout = "~/Views/Shared/_PageLayout.cshtml";
 }
+
+
+<div style="background-color:#141414 ;height:80px;margin-top:-10px;width:2000px;"></div>
 
 @functions {
     // Function to format text with links as HTML anchor tags
@@ -18,15 +22,49 @@
     }
 }
 
-<div class="container mt-5">
-    <table class="table table-bordered">
-        <thead class="thead-light">
+
+
+
+@* <div class="container " style="padding:0 5% 5% 5%;">
+    <div class="pt-heading" style=" padding:5% 5% 5% 0;">
+        <h4 class="pt-heading-title h3">
+            All Notifications
+        </h4>
+    </div>
+
+    <div style="overflow:auto !important;">
+
+        <table class="" style="overflow:auto !important;">
+            <thead class="thead-light">
+                <tr>
+                    <th>Content</th>
+                    <th>Timestamp</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var not in Model)
+                {
+                    <tr>
+                        <td>@Html.Raw(FormatContentWithLinks(not.Content))</td>
+                        <td>@not.Timestamp</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div> *@
+
+
+@*
+<div style="overflow:auto !important; width:600px;">
+    <table style="overflow:auto !important;">
+        <tbody>
             <tr>
                 <th>Content</th>
                 <th>Timestamp</th>
+
+
             </tr>
-        </thead>
-        <tbody>
             @foreach (var not in Model)
             {
                 <tr>
@@ -34,6 +72,88 @@
                     <td>@not.Timestamp</td>
                 </tr>
             }
+
         </tbody>
     </table>
 </div>
+ *@
+
+<style>
+    th {
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+    }
+
+</style>
+
+<section class="elementor-section elementor-top-section elementor-element elementor-element-f5b1962 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="f5b1962" data-element_type="section" style="margin:3% 0 5% 0;">
+    <div class="elementor-container elementor-column-gap-default">
+        <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-bebdcad" data-id="bebdcad" data-element_type="column">
+            <div class="elementor-widget-wrap elementor-element-populated">
+                <section class="elementor-section elementor-top-section elementor-element elementor-element-58e1447 elementor-reverse-tablet elementor-reverse-mobile elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="58e1447" data-element_type="section" style="  padding: 0 0 4% 0;">
+
+
+
+                    <div class="elementor-column  elementor-top-column elementor-element elementor-element-71aa8e7">
+
+                        <div class="elementor-widget-wrap elementor-element-populated">
+                            <div class="elementor-widget-container">
+                                <div class="pt-heading">
+                                    <h4 class="pt-heading-title h3">
+                                        All Notifications
+                                    </h4>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+                <div class="elementor-element elementor-element-bf7188e elementor-widget elementor-widget-timetable" data-id="bf7188e" data-element_type="widget" data-widget_type="timetable.default">
+                    <div class="elementor-widget-container">
+                        <div class="mptt-shortcode-wrapper mptt-table-fixed table-init" style="text-transform: none !important;">
+
+                            <table class="mptt-shortcode-table  mptt-theme-mode" id="#all" data-hide_empty_row="1" style="text-transform: none !important;">
+                                <thead>
+                                    <tr class="mptt-shortcode-row">
+                                        <th data-index="0" data-column-id="1457">Content</th>
+                                        <th data-index="1" data-column-id="1457">Timestamp</th>
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var not in Model)
+                                    {
+                                        <tr class="mptt-shortcode-row-8" data-index="8">
+                                            <td class="mptt-shortcode-event mptt-event-vertical-default event" data-column-id="1452" colspan="1" rowspan="1" style="height:70px;">
+                                                <div data-event-id="1470" data-start="8" data-start-item="8" data-end="9" class="mptt-event-container id-22 mptt-colorized" data-type="event" data-bg_hover_color="" data-bg_color="" data-hover_color="" data-color="" data-min-height="" style="text-align: center; height: 100%; top: 0%;">
+                                                    <div class="mptt-inner-event-content">
+                                                        <span class="event-title">
+                                                            @Html.Raw(FormatContentWithLinks(not.Content))
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </td>
+
+                                            <td class="mptt-shortcode-event mptt-event-vertical-default event" data-column-id="1452" colspan="1" rowspan="1" style="height:70px;">
+                                                <div data-event-id="1470" data-start="8" data-start-item="8" data-end="9" class="mptt-event-container id-22 mptt-colorized" data-type="event" data-bg_hover_color="" data-bg_color="" data-hover_color="" data-color="" data-min-height="" style="text-align: center; height: 100%; top: 0%;">
+                                                    <div class="mptt-inner-event-content">
+                                                        <span class="event-title">@not.Timestamp</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

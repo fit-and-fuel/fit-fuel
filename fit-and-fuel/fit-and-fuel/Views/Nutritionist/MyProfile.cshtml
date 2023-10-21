@@ -1,6 +1,7 @@
 @model Nutritionist
 
 @{
+    // Layout = null;
     Layout = "~/Views/Shared/_PageLayout.cshtml";
 }
 
@@ -9,57 +10,102 @@
 
 
 
-<section class="elementor-section elementor-top-section elementor-element elementor-element-58e1447 elementor-reverse-tablet elementor-reverse-mobile elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="58e1447" data-element_type="section" style=" background-color: #f5f5f5; border-radius: 10px; padding: 20px;">
-   
+<style>
+    th {
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+    }
+</style>
 
-       
-        <div class="elementor-column  elementor-top-column elementor-element elementor-element-71aa8e7">
-
+<section class="elementor-section elementor-top-section elementor-element elementor-element-f5b1962 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="f5b1962" data-element_type="section" style="margin:3% 0 5% 0;">
+    <div class="elementor-container elementor-column-gap-default">
+        <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-bebdcad" data-id="bebdcad" data-element_type="column">
             <div class="elementor-widget-wrap elementor-element-populated">
-                <div class="card">
-                    <div class="card-body p-0">
-                        <div class="table-responsive active-projects style-1">
-                            <div class="tbl-caption">
-                                <h4 class="heading mb-0">My Patients</h4>
-                            </div>
-                            <div id="empoloyees-tblwrapper_wrapper" class="dataTables_wrapper no-footer">
-                                <div class="dt-buttons">
+                <section class="elementor-section elementor-top-section elementor-element elementor-element-58e1447 elementor-reverse-tablet elementor-reverse-mobile elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="58e1447" data-element_type="section" style="  padding: 0 0 4% 0;">
+
+
+
+                    <div class="elementor-column  elementor-top-column elementor-element elementor-element-71aa8e7">
+
+                        <div class="elementor-widget-wrap elementor-element-populated">
+                            <div class="elementor-widget-container">
+                                <div class="pt-heading">
+                                    <h4 class="pt-heading-title h3">
+                                        My Patients
+                                    </h4>
                                 </div>
-                                <div class="table-container">
-                                    <table class="" style="border-radius: 10px; overflow-y: scroll; overflow-x: scroll;">
-                                        <thead>
-                                            <tr role="row">
-                                                <th rowspan="1" colspan="1" style="width: 265.266px;">Name</th>
-                                                <th rowspan="1" colspan="1" style="width: 199.391px;">Gender</th>
-                                                <th rowspan="1" colspan="1" style="width: 182.688px;">Age</th>
-                                                <th rowspan="1" colspan="1" style="width: 207.828px;">Contact Number</th>
-                                                <th rowspan="1" colspan="1" style="width: 125.672px;">DietPlan</th>
-                                                <th rowspan="1" colspan="1" style="width: 125.672px;">Chat</th>
-                                            <th rowspan="1" colspan="1" style="width: 125.672px;">Health Record</th>
 
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach (var patient in Model.patients)
-                                            {
-                                                <tr role="row" class="odd">
-                                                    <td>
-                                                        <div class="products" style="display: flex; align-items: center;">
-                                                            <img src="/img/pic2.jpg" class="avatar avatar-md" style="margin-right: 10px; vertical-align: middle; height: 2.813rem; width: 2.813rem; border-radius: 50%;" alt="">
-                                                            <div>
-                                                                <h6 style="margin-bottom: 0; font-size: 13px;">@patient.Name</h6>
-                                                                <span></span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td><span>@patient.Gender</span></td>
-                                                    <td><span class="text-primary">30</span></td>
-                                                    <td>
-                                                        <span>@patient.PhoneNumber</span>
-                                                    </td>
 
-                                                    <td style="padding-inline-start:10px;">
-                                                        <span class="badge badge-success light border-0">
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+                <div class="elementor-element elementor-element-bf7188e elementor-widget elementor-widget-timetable" data-id="bf7188e" data-element_type="widget" data-widget_type="timetable.default">
+                    <div class="elementor-widget-container">
+                        <div class="mptt-shortcode-wrapper mptt-table-fixed table-init" style="text-transform: none !important;">
+
+                            <table class="mptt-shortcode-table  mptt-theme-mode" id="#all" style="text-transform: none !important;" data-hide_empty_row="1">
+                                <thead>
+                                    <tr class="mptt-shortcode-row">
+                                        <th data-index="0" data-column-id="1457"></th>
+                                        <th data-index="1" data-column-id="1457">Name</th>
+                                        <th data-index="2" data-column-id="1451">Gender</th>
+                                        <th data-index="3" data-column-id="1452">Age</th>
+                                        <th data-index="4" data-column-id="1453">Phone Num.</th>
+                                        <th data-index="5" data-column-id="1454">DietPlan</th>
+                                        <th data-index="6" data-column-id="1455">Chat</th>
+                                        <th data-index="7" data-column-id="1456">HealthRecord</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var patient in Model.patients)
+                                    {
+                                        <tr class="mptt-shortcode-row-8" data-index="8">
+                                            <td class="mptt-shortcode-event mptt-event-vertical-default event" data-column-id="1452" colspan="1" rowspan="1" style="height:70px;">
+                                                <div data-event-id="1470" data-start="8" data-start-item="8" data-end="9" class="mptt-event-container id-22 mptt-colorized" data-type="event" data-bg_hover_color="" data-bg_color="" data-hover_color="" data-color="" data-min-height="" style="text-align: center; height: 100%; top: 0%;">
+                                                    <div class="mptt-inner-event-content">
+                                                        <span class="event-title">
+                                                            <img src="@patient.imgURl" class="avatar avatar-md" style="  height: 2.813rem; width: 2.813rem; border-radius: 50%;" alt="">
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </td>
+
+                                            <td class="mptt-shortcode-event mptt-event-vertical-default event" data-column-id="1452" colspan="1" rowspan="1" style="height:70px;">
+                                                <div data-event-id="1470" data-start="8" data-start-item="8" data-end="9" class="mptt-event-container id-22 mptt-colorized" data-type="event" data-bg_hover_color="" data-bg_color="" data-hover_color="" data-color="" data-min-height="" style="text-align: center; height: 100%; top: 0%;">
+                                                    <div class="mptt-inner-event-content">
+                                                        <span class="event-title">@patient.Name</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="mptt-shortcode-event mptt-event-vertical-default event" data-column-id="1452" colspan="1" rowspan="1" style="height:70px;">
+                                                <div data-event-id="1470" data-start="8" data-start-item="8" data-end="9" class="mptt-event-container id-22 mptt-colorized" data-type="event" data-bg_hover_color="" data-bg_color="" data-hover_color="" data-color="" data-min-height="" style="text-align: center; height: 100%; top: 0%;">
+                                                    <div class="mptt-inner-event-content">
+                                                        <span class="event-title">@patient.Gender</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="mptt-shortcode-event mptt-event-vertical-default event" data-column-id="1453" colspan="1" rowspan="1" style="height:70px;">
+                                                <div data-event-id="1458" data-start="8" data-start-item="8" data-end="11" class="mptt-event-container id-11 mptt-colorized" data-type="event" data-bg_hover_color="" data-bg_color="" data-hover_color="" data-color="" data-min-height="" style="text-align: center; height: 100%; top: 0%;">
+                                                    <div class="mptt-inner-event-content">
+                                                        <span class="event-title">@patient.Age</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="mptt-shortcode-event mptt-event-vertical-default event" data-column-id="1453" colspan="1" rowspan="1" style="height:70px;">
+                                                <div data-event-id="1458" data-start="8" data-start-item="8" data-end="11" class="mptt-event-container id-11 mptt-colorized" data-type="event" data-bg_hover_color="" data-bg_color="" data-hover_color="" data-color="" data-min-height="" style="text-align: center; height: 100%; top: 0%;">
+                                                    <div class="mptt-inner-event-content">
+                                                        <span class="event-title">@patient.PhoneNumber</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+
+                                            <td class="mptt-shortcode-event mptt-event-vertical-default event" data-column-id="1455" colspan="1" rowspan="1" style="height:70px;">
+                                                <div data-event-id="1471" data-start="8" data-start-item="8" data-end="10" class="mptt-event-container id-27 mptt-colorized" data-type="event" data-bg_hover_color="" data-bg_color="" data-hover_color="" data-color="" data-min-height="" style="text-align: center; height: 100%; top: 0%;">
+                                                    <div class="mptt-inner-event-content">
+                                                        <span class="event-title">
                                                             @if (@patient.dietPlan != null)
                                                             {
                                                                 <a asp-controller="Nutritionist" asp-action="MyPatientDietPlan" asp-route-id="@patient.dietPlan.Id">
@@ -81,9 +127,13 @@
                                                                 </a>
                                                             }
                                                         </span>
-                                                    </td>
-                                                    <td rowspan="1" colspan="1">
-                                                        <span class="badge badge-success light border-0">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="mptt-shortcode-event mptt-event-vertical-default event" data-column-id="1456" colspan="1" rowspan="1" style="height:70px;">
+                                                <div data-event-id="1469" data-start="8" data-start-item="8" data-end="9" class="mptt-event-container id-19 mptt-colorized" data-type="event" data-bg_hover_color="" data-bg_color="" data-hover_color="" data-color="" data-min-height="" style="text-align: center; height: 100%; top: 0%;">
+                                                    <div class="mptt-inner-event-content">
+                                                        <span class="event-title">
                                                             <a asp-controller="Chat" asp-action="nutritionistChat" asp-route-id="@patient.Id">
                                                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M19.0714 19.0699C16.0152 22.1263 11.4898 22.7867 7.78642 21.074C7.23971 20.8539 6.79148 20.676 6.36537 20.676C5.17849 20.683 3.70117 21.8339 2.93336 21.067C2.16555 20.2991 3.31726 18.8206 3.31726 17.6266C3.31726 17.2004 3.14642 16.7602 2.92632 16.2124C1.21283 12.5096 1.87411 7.98269 4.93026 4.92721C8.8316 1.02443 15.17 1.02443 19.0714 4.9262C22.9797 8.83501 22.9727 15.1681 19.0714 19.0699Z" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -93,28 +143,30 @@
                                                                 </svg>
                                                             </a>
                                                         </span>
-                                                    </td>
-                                                <td rowspan="1" colspan="1">
-                                                    <span class="badge badge-success light border-0">
-                                                        <a asp-controller="Client" asp-action="ViewHealthRecord" asp-route-Id="@patient.UserId">
-                                                          @*   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M19.0714 19.0699C16.0152 22.1263 11.4898 22.7867 7.78642 21.074C7.23971 20.8539 6.79148 20.676 6.36537 20.676C5.17849 20.683 3.70117 21.8339 2.93336 21.067C2.16555 20.2991 3.31726 18.8206 3.31726 17.6266C3.31726 17.2004 3.14642 16.7602 2.92632 16.2124C1.21283 12.5096 1.87411 7.98269 4.93026 4.92721C8.8316 1.02443 15.17 1.02443 19.0714 4.9262C22.9797 8.83501 22.9727 15.1681 19.0714 19.0699Z" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                                                <path d="M15.9393 12.413H15.9483" stroke="#130F26" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                                                <path d="M11.9306 12.413H11.9396" stroke="#130F26" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                                                <path d="M7.92128 12.413H7.93028" stroke="#130F26" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                                            </svg> *@
-                                                            View Health record
-                                                        </a>
-                                                    </span>
-                                                </td>
-                                                </tr>
-                                            }
-                                        </tbody>
-                                    </table>
-                                </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="mptt-shortcode-event mptt-event-vertical-default event" data-column-id="1457" colspan="1" rowspan="1" style="height:70px;">
+                                                <div data-event-id="1458" data-start="8" data-start-item="8" data-end="10" class="mptt-event-container id-14 mptt-colorized" data-type="event" data-bg_hover_color="" data-bg_color="" data-hover_color="" data-color="" data-min-height="" style="text-align: center; height: 100%; top: 0%;">
+                                                    <div class="mptt-inner-event-content">
+                                                        <span class="event-title">
+                                                            <a asp-controller="Client" asp-action="ViewHealthRecord" asp-route-Id="@patient.UserId">
 
+                                                                <svg width="29" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M15.1614 12.0531C15.1614 13.7991 13.7454 15.2141 11.9994 15.2141C10.2534 15.2141 8.83838 13.7991 8.83838 12.0531C8.83838 10.3061 10.2534 8.89111 11.9994 8.89111C13.7454 8.89111 15.1614 10.3061 15.1614 12.0531Z" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M11.998 19.3549C15.806 19.3549 19.289 16.6169 21.25 12.0529C19.289 7.48892 15.806 4.75092 11.998 4.75092H12.002C8.194 4.75092 4.711 7.48892 2.75 12.0529C4.711 16.6169 8.194 19.3549 12.002 19.3549H11.998Z" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                                                </svg>
 
-                            </div>
+                                                            </a>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
                         </div>
                     </div>
                 </div>
@@ -122,6 +174,3 @@
         </div>
     </div>
 </section>
-
-
-
