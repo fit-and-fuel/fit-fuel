@@ -17,9 +17,12 @@ namespace fit_and_fuel.Controllers
         private readonly IPost _post;
         private readonly IClinic _clinic;
         private readonly IComment _comment;
+        private readonly IPrice _price;
 
 
-        public NutritionistController(INutritionists nutritionists, IAvailableTime availableTime, IAppoitments appoitments, IDietPlan dietplan, IMeals meals, IPost post, IClinic clinic, IComment comment)
+        public NutritionistController(INutritionists nutritionists,
+            IPrice price,
+            IAvailableTime availableTime, IAppoitments appoitments, IDietPlan dietplan, IMeals meals, IPost post, IClinic clinic, IComment comment)
         {
             _nutritionists = nutritionists;
             _availableTime = availableTime;
@@ -29,6 +32,7 @@ namespace fit_and_fuel.Controllers
             _post = post;
             _clinic = clinic;
             _comment = comment;
+            _price = price; 
 
         }
 
@@ -197,6 +201,21 @@ namespace fit_and_fuel.Controllers
         public async Task<IActionResult> AddClinic(ClinicDto clinicDto)
         {
             await _clinic.Post(clinicDto);
+            // redirect to profile nutrition
+            return Redirect("MyProfile");
+
+        }
+
+        public IActionResult AddPrice()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddPrice(PriceDto priceDto)
+        {
+            await _price.Post(priceDto);
+            // redirect to profile nutrition
             return Redirect("MyProfile");
 
         }

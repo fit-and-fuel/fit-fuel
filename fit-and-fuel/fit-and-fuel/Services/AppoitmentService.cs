@@ -83,7 +83,7 @@ namespace fit_and_fuel.Services
         public async Task AppoitmentConfirmed(int id)
         {
             string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var appoitments = await _context.Appoitments
+            var appoitments = await _context.Appoitments.Include(b=>b.nutritionist)
                 .Where(a => a.nutritionist.UserId == userId).ToListAsync();
             var  appoitment=appoitments.Where(a => a.Id == id).FirstOrDefault();
             if (appoitment != null) 
@@ -96,7 +96,7 @@ namespace fit_and_fuel.Services
                
                 var content = new NotificationDto()
                 {
-                    Content = "Your  Appoitment is Confirmed "
+                    Content = $"Your  Appoitment with nutrition {appoitment.nutritionist.Name} is Confirmed "
                 };
 
                 await _notificationService.SendNotification(patient.UserId.ToString(), content);

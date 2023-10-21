@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using fit_and_fuel.Data;
 
@@ -11,9 +12,11 @@ using fit_and_fuel.Data;
 namespace fit_and_fuel.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231021201244_finals")]
+    partial class finals
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -277,20 +280,16 @@ namespace fit_and_fuel.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-
                             ConcurrencyStamp = "fc3e0f93-7c05-4853-8536-9410caa93245",
-
                             Email = "adminUser@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "adminUser@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN",
-
                             PasswordHash = "AQAAAAIAAYagAAAAEGkwyP3o0NlgwHIa2VPseKo/pCQTBEileiKUculf4/cRokXj2dLK9XMBm+WKdEj/jQ==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "5e8fca42-230c-4ffd-afcf-8770d0f94515",
-
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -760,7 +759,6 @@ namespace fit_and_fuel.Migrations
                     b.HasIndex("NutritionistId");
 
                     b.ToTable("Posts");
-
                 });
 
             modelBuilder.Entity("fit_and_fuel.Model.Price", b =>
@@ -783,7 +781,6 @@ namespace fit_and_fuel.Migrations
                         .IsUnique();
 
                     b.ToTable("Prices");
-
                 });
 
             modelBuilder.Entity("fit_and_fuel.Model.Rating", b =>
