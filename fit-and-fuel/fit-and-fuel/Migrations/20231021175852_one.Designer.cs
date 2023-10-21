@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using fit_and_fuel.Data;
 
@@ -11,9 +12,11 @@ using fit_and_fuel.Data;
 namespace fit_and_fuel.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231021175852_one")]
+    partial class one
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -277,20 +280,16 @@ namespace fit_and_fuel.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-
-                            ConcurrencyStamp = "fc3e0f93-7c05-4853-8536-9410caa93245",
-
+                            ConcurrencyStamp = "2a5264ba-e5c5-4a3c-be3b-5247b212c932",
                             Email = "adminUser@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "adminUser@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN",
-
-                            PasswordHash = "AQAAAAIAAYagAAAAEGkwyP3o0NlgwHIa2VPseKo/pCQTBEileiKUculf4/cRokXj2dLK9XMBm+WKdEj/jQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEA90NaXyWJNjvnKJnkS9JpATa9osC8ss8fWLzRKghwIJpEkFJIEkOTpnLt/KdpM4mw==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5e8fca42-230c-4ffd-afcf-8770d0f94515",
-
+                            SecurityStamp = "e92274a5-9ec5-469c-90dd-09caaa0c45b0",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -760,30 +759,6 @@ namespace fit_and_fuel.Migrations
                     b.HasIndex("NutritionistId");
 
                     b.ToTable("Posts");
-
-                });
-
-            modelBuilder.Entity("fit_and_fuel.Model.Price", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("NutritionistId")
-                        .HasColumnType("int");
-
-                    b.Property<double>("amount")
-                        .HasColumnType("float");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NutritionistId")
-                        .IsUnique();
-
-                    b.ToTable("Prices");
-
                 });
 
             modelBuilder.Entity("fit_and_fuel.Model.Rating", b =>
@@ -1037,17 +1012,6 @@ namespace fit_and_fuel.Migrations
                     b.Navigation("nutritionist");
                 });
 
-            modelBuilder.Entity("fit_and_fuel.Model.Price", b =>
-                {
-                    b.HasOne("fit_and_fuel.Model.Nutritionist", "Nutritionist")
-                        .WithOne("Price")
-                        .HasForeignKey("fit_and_fuel.Model.Price", "NutritionistId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Nutritionist");
-                });
-
             modelBuilder.Entity("fit_and_fuel.Model.Rating", b =>
                 {
                     b.HasOne("fit_and_fuel.Model.Nutritionist", null)
@@ -1078,8 +1042,6 @@ namespace fit_and_fuel.Migrations
             modelBuilder.Entity("fit_and_fuel.Model.Nutritionist", b =>
                 {
                     b.Navigation("AvaliableTimes");
-
-                    b.Navigation("Price");
 
                     b.Navigation("Ratings");
 
