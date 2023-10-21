@@ -79,7 +79,24 @@
         word-wrap: break-word;
         max-width: 300px;
     }
+     @@media (max-width: 700px) {
+        table {
+            font-size: 8px; 
+        }
+        th, td {
+            padding: 3px; 
+        }
+    }
 
+    @@media (max-width: 300px) {
+        table {
+            font-size: 4px;
+        }
+
+        th, td {
+            padding: 3px;
+        }
+    }
 </style>
 
 <div style="background-color:#141414 ;height:80px;margin-top:-10px;width:2000px;">
