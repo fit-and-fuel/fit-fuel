@@ -45,7 +45,7 @@ namespace fit_and_fuel.Controllers
                 //this for Send Email
                 //await _emailSender.EmailToUser(data.Email, data.Username);
             }
-            var resRole = await _userService.Authenticate(data.Username, data.Password);
+            var resRole = await _userService.Authenticate(data.Username, data.Password, this.ModelState);
 
 			if (!ModelState.IsValid)
             {
@@ -66,17 +66,30 @@ namespace fit_and_fuel.Controllers
         }
         public IActionResult Login()
         {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
             return View();
         }
         [HttpPost]
         public async Task<ActionResult<UserDto>> Login(LoginData data)
         {
-            var res = await _userService.Authenticate(data.Username, data.Password);
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            var res = await _userService.Authenticate(data.Username, data.Password, this.ModelState);
             if (!ModelState.IsValid)
             {
                 return View(res);
             }
-            if (res.Roles[0] == "Admin")
+            if (res == null)
+            {
+				return RedirectToAction("Login", "User");
+
+			}
+			if (res.Roles[0] == "Admin")
             {
                 return RedirectToAction("Index", "Admin");
             }

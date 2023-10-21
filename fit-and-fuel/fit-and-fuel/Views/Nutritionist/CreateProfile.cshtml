@@ -1,4 +1,4 @@
-﻿@model Nutritionist
+﻿@model NutritionistDto
 
 @{
 	Layout = "~/Views/Shared/_PageLayout.cshtml";
@@ -95,14 +95,15 @@
 								<div class="mb-3">
 									<p>
 										<label for="imgURl">imgURl</label><br>
-										@* <span class="wpcf7-form-control-wrap"><input size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" id="imgURl" aria-required="true" aria-invalid="false" placeholder="imgURl" type="text" name="imgURl"></span> *@
-										<input type="file" id="imgURl" name="file" class="form-control" accept="image/*" />
+										<span class="wpcf7-form-control-wrap"></span>
+										<input type="file" id="imgURl" name="file" accept="image/*" />
 									</p>
 								</div>
 								<div class="mb-3">
 									<p>
 										<label for="CvURl">CvURl</label><br>
-										<span class="wpcf7-form-control-wrap"><input size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" id="imgURl" aria-required="true" aria-invalid="false" placeholder="imgURl" type="text" name="CvURl"></span>
+										<span class="wpcf7-form-control-wrap"></span>
+										<input size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" id="CvURl" aria-required="true" aria-invalid="false" placeholder="CvURl" type="file" name="cvfile">
 									</p>
 								</div>
 								<div class="mb-3">
@@ -115,7 +116,8 @@
 								<div class="mb-3">
 									<p>
 										<label for="Age">Age</label><br>
-										<span class="wpcf7-form-control-wrap"><input size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" id="Age" aria-required="true" aria-invalid="false" placeholder="Age" type="number" name="Age"></span>
+										<span asp-validation-for="Age" class="wpcf7-form-control-wrap"></span>
+										<input asp-for="Age" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" id="Age" aria-required="true" aria-invalid="false" placeholder="Age" type="number" name="Age">
 									</p>
 								</div>
 
@@ -125,8 +127,8 @@
 									</p>
 								</div><div class="wpcf7-response-output" aria-hidden="true"></div>
 							</form>
-@* 							<div asp-validation-summary="All"></div>
- *@						</div>
+							@* <div asp-validation-summary="All"></div> *@
+						</div>
 					</div>
 				</div>
 			</div>

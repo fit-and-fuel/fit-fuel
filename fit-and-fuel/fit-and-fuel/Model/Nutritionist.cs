@@ -1,4 +1,5 @@
 ﻿using fit_and_fuel.Interfaces;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.ComponentModel.DataAnnotations;
 
 namespace fit_and_fuel.Model
@@ -16,7 +17,7 @@ namespace fit_and_fuel.Model
 
         public string CvURl { get; set; }
 
-        public string imgURl { get; set; }
+		public string imgURl { get; set; }
 
         public double? AverageRating
         {

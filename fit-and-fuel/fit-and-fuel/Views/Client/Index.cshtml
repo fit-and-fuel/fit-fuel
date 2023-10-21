@@ -1,4 +1,6 @@
-﻿@{
+﻿@model PatientDto
+
+@{
 	Layout = "~/Views/Shared/_PageLayout.cshtml";
 }
 
@@ -88,8 +90,8 @@
 								<div class="mb-3">
 									<p>
 										<label for="name">Name</label><br>
-										<span class="wpcf7-form-control-wrap">
-									    <input size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" id="name" aria-required="true" aria-invalid="false" placeholder="UserName" type="text" name="Name"></span>
+										<span asp-validation-for="Name" class="wpcf7-form-control-wrap"></span>
+									    <input asp-for="Name" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" id="name" aria-required="true" aria-invalid="false" placeholder="UserName" type="text" name="Name">
 									</p>
 								</div>
 @* 								<div class="mb-3">
@@ -116,7 +118,8 @@
 								<div class="mb-3">
 									<p>
 										<label for="Age">Age</label><br>
-										<span class="wpcf7-form-control-wrap"><input size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" id="Age" aria-required="true" aria-invalid="false" placeholder="Age" type="number" name="Age"></span>
+										<span asp-validation-for="Age" class="wpcf7-form-control-wrap"></span>
+										<input asp-for="Age" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" id="Age" aria-required="true" aria-invalid="false" placeholder="Age" type="number" name="Age">
 									</p>
 								</div>
 

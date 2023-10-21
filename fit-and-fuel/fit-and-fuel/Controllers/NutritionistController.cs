@@ -64,15 +64,16 @@ namespace fit_and_fuel.Controllers
 
 
 		[HttpPost]
-        public async Task<IActionResult> CreateProfile(NutritionistDto nut, IFormFile file)
+        public async Task<IActionResult> CreateProfile(NutritionistDto nut, IFormFile file, IFormFile cvfile)
         {
-			if (!ModelState.IsValid)
-			{
-				return View();
-			}
+			//if (!ModelState.IsValid)
+			//{
+			//	return View();
+			//}
 			ModelState.Remove("file");
+			ModelState.Remove("cvfile");
 
-            await _nutritionists.Post(nut, file);
+			await _nutritionists.Post(nut, file, cvfile);
 
 			return RedirectToAction("Index","Home");
         }
