@@ -1566,9 +1566,9 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
         }
 
         /*
-                                                                                                                                                                                                                                                                                                                                                                                                                                                        The .ext utility is a top-level class that we use to target contents within our patterns.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                        We use it here to ensure columns blocks display well across themes.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                        */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        The .ext utility is a top-level class that we use to target contents within our patterns.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        We use it here to ensure columns blocks display well across themes.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        */
 
         .wp-block-columns[class*="fullwidth-cols"] {
             /* no suggestion */
@@ -1682,9 +1682,9 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
         }
 
         /*
-                                                                                                                                                                                                                                                                                                                                                                                                                                                            The `tablet:fullwidth-cols` and `desktop:fullwidth-cols` utilities are used
-                                                                                                                                                                                                                                                                                                                                                                                                                                                            to counter the core/columns responsive for at our breakpoints.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                        */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            The `tablet:fullwidth-cols` and `desktop:fullwidth-cols` utilities are used
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            to counter the core/columns responsive for at our breakpoints.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        */
 
         media (max-width: 781px) {
             .tablet\:fullwidth-cols.wp-block-columns:not(.is-not-stacked-on-mobile)
@@ -3815,8 +3815,9 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                                             <a>Managment</a><span class="submenu-toggle"></span>
                                                             <ul class="sub-menu">
 
-                                                                @if(nut!= null){
-                                                                <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Nutritionist" asp-action="NutDetails" asp-route-id="@nut.Id">My Profile</a></li>
+                                                                @if (nut != null)
+                                                                {
+                                                                    <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Nutritionist" asp-action="NutDetails" asp-route-id="@nut.Id">My Profile</a></li>
                                                                 }
                                                                 <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Nutritionist" asp-action="MyProfile">Patients</a></li>
                                                                 <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Nutritionist" asp-action="AvailableTimes">Schedule Appointments</a></li>
@@ -3854,7 +3855,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                                                 {
                                                                     <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="Client" asp-action="AddHealthRecord">Add Health Record</a></li>
                                                                 }
-                                                                
+
                                                                 <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="chat" asp-action="index">send message</a></li>
                                                                 @if (pat == null)
                                                                 {
@@ -3916,7 +3917,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
 
                                     @if (User.Identity.IsAuthenticated)
                                     {
-                                     
+
                                         <p>
                                             @User.Identity.Name
                                         </p>
@@ -4115,7 +4116,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                                         </li>
                                                     }
 
-                                                    
+
                                                     @if (User.IsInRole("Patient"))
                                                     {
                                                         <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
@@ -4129,7 +4130,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                                                 <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Client" asp-action="MyDietPlan">My DietPlan</a></li>
                                                                 <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Client" asp-action="MealForToday">Meal For Today</a></li>
                                                                 <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Client" asp-action="addrating">Add rating</a></li>
-                                                                @if ( pat != null && pat.healthRecord == null)
+                                                                @if (pat != null && pat.healthRecord == null)
                                                                 {
                                                                     <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="Client" asp-action="AddHealthRecord">Add Health Record</a></li>
                                                                 }
@@ -4217,11 +4218,12 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                         <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
                             <a>Managment</a><span class="submenu-toggle"></span>
                             <ul class="sub-menu">
-                                @if(nut!= null){
-                                <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Nutritionist" asp-action="NutDetails" asp-route-id="@nut.Id">My Profile</a></li>
+                                @if (nut != null)
+                                {
+                                    <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Nutritionist" asp-action="NutDetails" asp-route-id="@nut.Id">My Profile</a></li>
                                 }
 
-                                    
+
                                 <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Nutritionist" asp-action="MyProfile">Patients</a></li>
                                 <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Nutritionist" asp-action="AvailableTimes">Schedule Appointments</a></li>
                                 <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="Nutritionist" asp-action="Appointments">Appointments</a></li>
@@ -4239,17 +4241,17 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                         <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
                             <a>Managment</a><span class="submenu-toggle"></span>
                             <ul class="sub-menu">
-                                 @if (pat != null)
-                                 {
-                                <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Client" asp-action="DetailPatient" asp-route-id="@pat.Id">My Profile</a></li>
-                                 }
+                                @if (pat != null)
+                                {
+                                    <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Client" asp-action="DetailPatient" asp-route-id="@pat.Id">My Profile</a></li>
+                                }
                                 <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Client" asp-action="MyDietPlan">My DietPlan</a></li>
                                 <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Client" asp-action="MealForToday">Meal For Today</a></li>
                                 <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Client" asp-action="addrating">Add rating</a></li>
-                                 @if (pat != null && pat.healthRecord == null)
-                                                                {
-                                                                    <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="Client" asp-action="AddHealthRecord">Add Health Record</a></li>
-                                                                }
+                                @if (pat != null && pat.healthRecord == null)
+                                {
+                                    <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="Client" asp-action="AddHealthRecord">Add Health Record</a></li>
+                                }
                                 <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="chat" asp-action="index">send message</a></li>
                                 @if (pat == null)
                                 {
@@ -4317,7 +4319,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
 
                                                         <div class="pt-slide swiper-slide elementor-repeater-item-a0e358c">
                                                             <div class="pt-slide-image">
-                                                                <img decoding="async" fetchpriority="high" width="1920" height="1279" src="https://img.freepik.com/premium-photo/vegetables-with-water-splash-dark-background-diet-food-nutrition-digestion-generative-ai_90099-5643.jpg" class="attachment-full size-full" alt="" srcset="https://img.freepik.com/premium-photo/vegetables-with-water-splash-dark-background-diet-food-nutrition-digestion-generative-ai_90099-5643.jpg 1920w, https://img.freepik.com/premium-photo/vegetables-with-water-splash-dark-background-diet-food-nutrition-digestion-generative-ai_90099-5643.jpg 1080w, https://img.freepik.com/premium-photo/vegetables-with-water-splash-dark-background-diet-food-nutrition-digestion-generative-ai_90099-5643.jpg 300w, https://img.freepik.com/premium-photo/vegetables-with-water-splash-dark-background-diet-food-nutrition-digestion-generative-ai_90099-5643.jpg 1024w, https://img.freepik.com/premium-photo/vegetables-with-water-splash-dark-background-diet-food-nutrition-digestion-generative-ai_90099-5643.jpg 768w,https://img.freepik.com/premium-photo/vegetables-with-water-splash-dark-background-diet-food-nutrition-digestion-generative-ai_90099-5643.jpg 1536w" sizes="(max-width: 1920px) 100vw, 1920px" />
+                                                                <img decoding="async" fetchpriority="high" width="1920" height="1279" src="~/img/slider1.jpg" class="attachment-full size-full" alt="" />
                                                             </div>
 
                                                             <div class="pt-slide-content-wrapper">
@@ -4327,7 +4329,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                                                     </div>
 
                                                                     <div class="pt-slide-text">
-                                                                        Tailored diet plans for a healthier you."
+                                                                        Tailored diet plans for a healthier you
                                                                     </div>
 
                                                                     <div class="pt-slide-buttons">
@@ -4349,7 +4351,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
 
                                                         <div class="pt-slide swiper-slide elementor-repeater-item-0019f76">
                                                             <div class="pt-slide-image">
-                                                                <img decoding="async" width="1920" height="1282" src="https://i0.wp.com/fitonapp.com/wp-content/uploads/shutterstock_2125340153-scaled.jpg?fit=2560%2C1440&ssl=1" class="attachment-full size-full" alt="" srcset="https://i0.wp.com/fitonapp.com/wp-content/uploads/shutterstock_2125340153-scaled.jpg?fit=2560%2C1440&ssl=1 1920w, https://i0.wp.com/fitonapp.com/wp-content/uploads/shutterstock_2125340153-scaled.jpg?fit=2560%2C1440&ssl=1 1080w, https://i0.wp.com/fitonapp.com/wp-content/uploads/shutterstock_2125340153-scaled.jpg?fit=2560%2C1440&ssl=1 300w, https://i0.wp.com/fitonapp.com/wp-content/uploads/shutterstock_2125340153-scaled.jpg?fit=2560%2C1440&ssl=1 1024w, https://i0.wp.com/fitonapp.com/wp-content/uploads/shutterstock_2125340153-scaled.jpg?fit=2560%2C1440&ssl=1 768w, https://i0.wp.com/fitonapp.com/wp-content/uploads/shutterstock_2125340153-scaled.jpg?fit=2560%2C1440&ssl=1 1536w" sizes="(max-width: 1920px) 100vw, 1920px" />
+                                                                <img decoding="async" fetchpriority="high" width="1920" height="1279" src="~/img/slider2.jpg" class="attachment-full size-full" alt="" />
                                                             </div>
 
                                                             <div class="pt-slide-content-wrapper">
@@ -4382,7 +4384,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
 
                                                         <div class="pt-slide swiper-slide elementor-repeater-item-5bbcb28">
                                                             <div class="pt-slide-image">
-                                                                <img decoding="async" loading="lazy" width="1900" height="950" src="https://img.freepik.com/premium-photo/happy-male-doctor-nutritionist-with-stethoscope-shows-fresh-vegetables-beige-background-diet-plan-concept_1429-9520.jpg?w=2000" class="attachment-full size-full" alt="" srcset="https://img.freepik.com/premium-photo/happy-male-doctor-nutritionist-with-stethoscope-shows-fresh-vegetables-beige-background-diet-plan-concept_1429-9520.jpg?w=2000 1900w, https://img.freepik.com/premium-photo/happy-male-doctor-nutritionist-with-stethoscope-shows-fresh-vegetables-beige-background-diet-plan-concept_1429-9520.jpg?w=2000 1080w, https://img.freepik.com/premium-photo/happy-male-doctor-nutritionist-with-stethoscope-shows-fresh-vegetables-beige-background-diet-plan-concept_1429-9520.jpg?w=2000 300w, https://img.freepik.com/premium-photo/happy-male-doctor-nutritionist-with-stethoscope-shows-fresh-vegetables-beige-background-diet-plan-concept_1429-9520.jpg?w=2000 1024w, https://img.freepik.com/premium-photo/happy-male-doctor-nutritionist-with-stethoscope-shows-fresh-vegetables-beige-background-diet-plan-concept_1429-9520.jpg?w=2000 768w, https://img.freepik.com/premium-photo/happy-male-doctor-nutritionist-with-stethoscope-shows-fresh-vegetables-beige-background-diet-plan-concept_1429-9520.jpg?w=2000 1536w" sizes="(max-width: 1900px) 100vw, 1900px" />
+                                                                <img decoding="async" fetchpriority="high" width="1920" height="1279" src="~/img/silder3.jpg" class="attachment-full size-full" alt="" />
                                                             </div>
 
                                                             <div class="pt-slide-content-wrapper">
@@ -4392,7 +4394,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                                                     </div>
 
                                                                     <div class="pt-slide-text">
-                                                                        Explore posts on the latest health and dietary trends.
+                                                                        Explore posts on the latest health and dietary trends
 
 
                                                                     </div>
