@@ -27,14 +27,19 @@
             </a>
             <div class="postcard__text t-dark">
                 <h1 style="margin-left:8px;" class="postcard__title green"><a href="#">About @Model.Name</a></h1>
-              @*   @if (User.IsInRole("Patient"))
+                @if (User.IsInRole("Patient"))
                 {
                     <a asp-controller="Client" asp-action="Payment"><h6>subscribe $@Model.Price.amount</h6></a>
-                } *@
-               @*  else
+                } 
+                 else if(Model.Price !=null)
                 {
                     <h6>subscribe $@Model.Price.amount</h6>
-                } *@
+                }
+                else
+                {
+                    <h6>subscribe not avalibale yet</h6>
+
+                }
                 <div class="postcard__subtitle small">
                     <ul style="list-style:none; font-size:18px;">
                         <li><strong> Gender </strong><span>@Model.Gender</span></li>

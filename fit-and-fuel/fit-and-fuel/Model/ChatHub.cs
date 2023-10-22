@@ -66,10 +66,15 @@ namespace fit_and_fuel.Model
             var toUserid = await _dbContext.Patients
               .Where(p => p.Id.ToString() == toUser)
               .FirstOrDefaultAsync();
-            if (myprofile.Name + " : " + message == lastmess.Content)
+            if(lastmess != null)
             {
-                return; // Skip sending the message
+                if (myprofile.Name + " : " + message == lastmess.Content)
+                {
+                    return; // Skip sending the message
+                }
+
             }
+         
 
             // ... Rest of your code ...
 
