@@ -277,16 +277,16 @@ namespace fit_and_fuel.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2e69497a-da29-4784-afd2-60937e107b25",
+                            ConcurrencyStamp = "d082cd28-c996-4c54-b65b-a7d7d1f2a403",
                             Email = "adminUser@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "adminUser@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEPgdxnfgpKi6P7jab8WWjOEdO5CWMu1SwXFEpzgD5Q8bi/YQ8kvMehRijssF7/+IXw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGccy2297SsV1OJQfWLiASf/el7imOPDOJdZpyzN8sze5A8fojfUvnsnlbUxZJtdxA==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a812a872-1d84-4c68-9f8b-0b53f3b15819",
+                            SecurityStamp = "2d1dd883-1034-4f69-8557-3ddd351600bf",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
