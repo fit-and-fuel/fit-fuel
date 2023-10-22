@@ -277,20 +277,16 @@ namespace fit_and_fuel.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-
-                            ConcurrencyStamp = "fc3e0f93-7c05-4853-8536-9410caa93245",
-
+                            ConcurrencyStamp = "2e69497a-da29-4784-afd2-60937e107b25",
                             Email = "adminUser@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "adminUser@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN",
-
-                            PasswordHash = "AQAAAAIAAYagAAAAEGkwyP3o0NlgwHIa2VPseKo/pCQTBEileiKUculf4/cRokXj2dLK9XMBm+WKdEj/jQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPgdxnfgpKi6P7jab8WWjOEdO5CWMu1SwXFEpzgD5Q8bi/YQ8kvMehRijssF7/+IXw==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5e8fca42-230c-4ffd-afcf-8770d0f94515",
-
+                            SecurityStamp = "a812a872-1d84-4c68-9f8b-0b53f3b15819",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -760,7 +756,6 @@ namespace fit_and_fuel.Migrations
                     b.HasIndex("NutritionistId");
 
                     b.ToTable("Posts");
-
                 });
 
             modelBuilder.Entity("fit_and_fuel.Model.Price", b =>
@@ -783,7 +778,6 @@ namespace fit_and_fuel.Migrations
                         .IsUnique();
 
                     b.ToTable("Prices");
-
                 });
 
             modelBuilder.Entity("fit_and_fuel.Model.Rating", b =>
