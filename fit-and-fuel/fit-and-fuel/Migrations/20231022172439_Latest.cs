@@ -567,7 +567,7 @@ namespace fit_and_fuel.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "1", 0, "8b1a15ec-a988-47dd-8f7b-816a9595ee30", "adminUser@example.com", true, false, null, "adminUser@EXAMPLE.COM", "ADMIN", "AQAAAAIAAYagAAAAEITGY3XfJrAKUIh01LEETGqJXwWrNeUlk5JAq48sIEbtVDCntC7gLPJCzijhZcuN+w==", "1234567890", false, "5412eb70-a1df-4901-a935-8e84a40ca086", false, "admin" });
+                values: new object[] { "1", 0, "cf4089a6-838e-45d9-abe2-bf681dde2dd0", "adminUser@example.com", true, false, null, "adminUser@EXAMPLE.COM", "ADMIN", "AQAAAAIAAYagAAAAEDFtSlAj9X4fAH2gCmv2ZZggjsihD2IH0ZDtZ/mPtLH6qEXvTcLE4wbPifrhmoFswA==", "1234567890", false, "bad4aa37-a378-4ca1-a501-8e4c400377ae", false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoleClaims",

@@ -26,6 +26,7 @@ builder.Services.AddControllers().AddNewtonsoftJson(
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
     options.User.RequireUniqueEmail = true;
+    options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 -._@+";
 })
    .AddEntityFrameworkStores<AppDbContext>();
 
