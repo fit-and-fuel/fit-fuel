@@ -1551,9 +1551,9 @@
         }
 
         /*
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                The .ext utility is a top-level class that we use to target contents within our patterns.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                We use it here to ensure columns blocks display well across themes.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        The .ext utility is a top-level class that we use to target contents within our patterns.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        We use it here to ensure columns blocks display well across themes.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        */
 
         .wp-block-columns[class*="fullwidth-cols"] {
             /* no suggestion */
@@ -1667,9 +1667,9 @@
         }
 
         /*
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    The `tablet:fullwidth-cols` and `desktop:fullwidth-cols` utilities are used
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    to counter the core/columns responsive for at our breakpoints.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            The `tablet:fullwidth-cols` and `desktop:fullwidth-cols` utilities are used
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            to counter the core/columns responsive for at our breakpoints.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        */
 
         media (max-width: 781px) {
             .tablet\:fullwidth-cols.wp-block-columns:not(.is-not-stacked-on-mobile)
@@ -3789,10 +3789,10 @@
                                                         <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
                                                             <a>Managment</a><span class="submenu-toggle"></span>
                                                             <ul class="sub-menu">
-                                                                 @if (pat != null)
-                                                               {
-                                                                <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Client" asp-action="DetailPatient" asp-route-id="@pat.Id">My Profile</a></li>
-                                                               }
+                                                                @if (pat != null)
+                                                                {
+                                                                    <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Client" asp-action="DetailPatient" asp-route-id="@pat.Id">My Profile</a></li>
+                                                                }
                                                                 <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Client" asp-action="MyDietPlan">My DietPlan</a></li>
                                                                 <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Client" asp-action="MealForToday">Meal For Today</a></li>
                                                                 <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Client" asp-action="addrating">Add rating</a></li>
@@ -3857,10 +3857,10 @@
                             <div class="elementor-element elementor-element-b1122cc elementor-widget__width-auto elementor-widget elementor-widget-pt-search" data-id="b1122cc" data-element_type="widget" data-widget_type="pt-search.default">
                                 <div class="elementor-widget-container" style="color: white;">
 
-                                    
+
                                     @if (User.Identity.IsAuthenticated)
                                     {
-                                        
+
                                         <p>
                                             @User.Identity.Name
                                         </p>
@@ -4065,9 +4065,9 @@
                                                                 <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Client" asp-action="MealForToday">Meal For Today</a></li>
                                                                 <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Client" asp-action="addrating">Add Rating</a></li>
                                                                 @if (pat != null && pat.healthRecord == null)
- {
-     <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="Client" asp-action="AddHealthRecord">Add Health Record</a></li>
- }
+                                                                {
+                                                                    <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="Client" asp-action="AddHealthRecord">Add Health Record</a></li>
+                                                                }
                                                                 <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="chat" asp-action="index">Send Message</a></li>
                                                                 @if (pat == null)
                                                                 {
@@ -4173,10 +4173,10 @@
                         <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
                             <a>Managment</a><span class="submenu-toggle"></span>
                             <ul class="sub-menu">
-                                 @if (pat != null)
- {
-                                <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Client" asp-action="DetailPatient" asp-route-id="@pat.Id">My Profile</a></li>
- }
+                                @if (pat != null)
+                                {
+                                    <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Client" asp-action="DetailPatient" asp-route-id="@pat.Id">My Profile</a></li>
+                                }
                                 <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Client" asp-action="MyDietPlan">My DietPlan</a></li>
                                 <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Client" asp-action="MealForToday">Meal For Today</a></li>
                                 <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Client" asp-action="addrating">Add Rating</a></li>
