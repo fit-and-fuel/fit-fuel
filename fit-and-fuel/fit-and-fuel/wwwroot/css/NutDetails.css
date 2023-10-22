@@ -228,7 +228,7 @@ a, a:hover {
 }
 /* COLORS */
 .postcard .postcard__tagbox .green.play:hover {
-    background: #79dd09;
+    background: #D6FD51 !important;
     color: black;
 }
 

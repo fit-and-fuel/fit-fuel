@@ -4,6 +4,8 @@
 @inject INutritionists nutritionists;
 @inject IPatients patients;
 @inject SignInManager<ApplicationUser> userManager;
+
+
 @{
     var count = await notfication.CountNot();
     var notifications = await notfication.GetNotificationsForUser();
@@ -13,7 +15,10 @@
 
 @{
     var nut = await nutritionists.GetMyProfile();
+
     var pat = await patients.GetMyProfile();
+    var user = await userManager.UserManager.GetUserAsync(User);
+
 
 }
 
@@ -3809,6 +3814,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                                         <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
                                                             <a>Managment</a><span class="submenu-toggle"></span>
                                                             <ul class="sub-menu">
+                                                                <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Nutritionist" asp-action="NutDetails" asp-route-id="@nut.Id">My Profile</a></li>
                                                                 <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Nutritionist" asp-action="MyProfile">Patients</a></li>
                                                                 <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Nutritionist" asp-action="AvailableTimes">Schedule Appointments</a></li>
                                                                 <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="Nutritionist" asp-action="Appointments">Appointments</a></li>
@@ -3833,6 +3839,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                                         <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
                                                             <a>Managment</a><span class="submenu-toggle"></span>
                                                             <ul class="sub-menu">
+                                                                <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Client" asp-action="DetailPatient" asp-route-id="@pat.Id">My Profile</a></li>
                                                                 <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Client" asp-action="MyDietPlan">My DietPlan</a></li>
                                                                 <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Client" asp-action="MealForToday">Meal For Today</a></li>
                                                                 <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Client" asp-action="addrating">add rating</a></li>
@@ -3898,15 +3905,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
 
                                     @if (User.Identity.IsAuthenticated)
                                     {
-                                        @* <div class="pt-search-toggle search-toggle"></div>*@
-                                        if (count > 0)
-                                        {
-                                            <a asp-controller="Notification" asp-action="Index">
-                                                <span class="pt-cart-count">@count</span>
-                                            </a>
-
-
-                                        }
+                                     
                                         <p>
                                             @User.Identity.Name
                                         </p>
@@ -4084,22 +4083,12 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                                         </ul>
                                                     </li>
 
-                                                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
-                                                        <a href="https://promo-theme.com/woxfit/shop/">Shop</a><span class="submenu-toggle"></span>
-                                                        <ul class="sub-menu">
-                                                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a href="https://promo-theme.com/woxfit/shop/">Product list</a></li>
-                                                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a href="https://promo-theme.com/woxfit/shop-left-sidebar/">Left Sidebar</a></li>
-                                                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a href="https://promo-theme.com/woxfit/shop-no-sidebar/">No Sidebar</a></li>
-                                                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3430"><a href="https://promo-theme.com/woxfit/shop-no-sidebar-banner/">No Sidebar + Banner</a></li>
-                                                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-101"><a href="https://promo-theme.com/woxfit/cart/">Cart</a></li>
-                                                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-100"><a href="https://promo-theme.com/woxfit/checkout/">Checkout</a></li>
-                                                        </ul>
-                                                    </li>
                                                     @if (User.IsInRole("Nutritionist"))
                                                     {
                                                         <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
                                                             <a>Managment</a><span class="submenu-toggle"></span>
                                                             <ul class="sub-menu">
+                                                                <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Nutritionist" asp-action="NutDetails" asp-route-id="@nut.Id">My Profile</a></li>
                                                                 <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Nutritionist" asp-action="MyProfile">Patients</a></li>
                                                                 <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Nutritionist" asp-action="AvailableTimes">Schedule Appointments</a></li>
                                                                 <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="Nutritionist" asp-action="Appointments">Appointments</a></li>
@@ -4117,6 +4106,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                                         <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
                                                             <a>Managment</a><span class="submenu-toggle"></span>
                                                             <ul class="sub-menu">
+                                                                <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Client" asp-action="DetailPatient" asp-route-id="@pat.Id">My Profile</a></li>
                                                                 <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Client" asp-action="MyDietPlan">My DietPlan</a></li>
                                                                 <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Client" asp-action="MealForToday">Meal For Today</a></li>
                                                                 <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Client" asp-action="addrating">add rating</a></li>
@@ -4204,6 +4194,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                         <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
                             <a>Managment</a><span class="submenu-toggle"></span>
                             <ul class="sub-menu">
+                                <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Nutritionist" asp-action="NutDetails" asp-route-id="@nut.Id">My Profile</a></li>
                                 <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Nutritionist" asp-action="MyProfile">Patients</a></li>
                                 <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Nutritionist" asp-action="AvailableTimes">Schedule Appointments</a></li>
                                 <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="Nutritionist" asp-action="Appointments">Appointments</a></li>
@@ -4221,6 +4212,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                         <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
                             <a>Managment</a><span class="submenu-toggle"></span>
                             <ul class="sub-menu">
+                                <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Client" asp-action="DetailPatient" asp-route-id="@pat.Id">My Profile</a></li>
                                 <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Client" asp-action="MyDietPlan">My DietPlan</a></li>
                                 <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Client" asp-action="MealForToday">Meal For Today</a></li>
                                 <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Client" asp-action="addrating">add rating</a></li>

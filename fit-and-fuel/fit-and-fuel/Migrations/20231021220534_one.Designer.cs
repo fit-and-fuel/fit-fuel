@@ -12,7 +12,7 @@ using fit_and_fuel.Data;
 namespace fit_and_fuel.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231021175852_one")]
+    [Migration("20231021220534_one")]
     partial class one
     {
         /// <inheritdoc />
@@ -280,16 +280,16 @@ namespace fit_and_fuel.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2a5264ba-e5c5-4a3c-be3b-5247b212c932",
+                            ConcurrencyStamp = "2e69497a-da29-4784-afd2-60937e107b25",
                             Email = "adminUser@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "adminUser@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEA90NaXyWJNjvnKJnkS9JpATa9osC8ss8fWLzRKghwIJpEkFJIEkOTpnLt/KdpM4mw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPgdxnfgpKi6P7jab8WWjOEdO5CWMu1SwXFEpzgD5Q8bi/YQ8kvMehRijssF7/+IXw==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e92274a5-9ec5-469c-90dd-09caaa0c45b0",
+                            SecurityStamp = "a812a872-1d84-4c68-9f8b-0b53f3b15819",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -761,6 +761,28 @@ namespace fit_and_fuel.Migrations
                     b.ToTable("Posts");
                 });
 
+            modelBuilder.Entity("fit_and_fuel.Model.Price", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("NutritionistId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("amount")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NutritionistId")
+                        .IsUnique();
+
+                    b.ToTable("Prices");
+                });
+
             modelBuilder.Entity("fit_and_fuel.Model.Rating", b =>
                 {
                     b.Property<int>("Id")
@@ -1012,6 +1034,17 @@ namespace fit_and_fuel.Migrations
                     b.Navigation("nutritionist");
                 });
 
+            modelBuilder.Entity("fit_and_fuel.Model.Price", b =>
+                {
+                    b.HasOne("fit_and_fuel.Model.Nutritionist", "Nutritionist")
+                        .WithOne("Price")
+                        .HasForeignKey("fit_and_fuel.Model.Price", "NutritionistId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Nutritionist");
+                });
+
             modelBuilder.Entity("fit_and_fuel.Model.Rating", b =>
                 {
                     b.HasOne("fit_and_fuel.Model.Nutritionist", null)
@@ -1042,6 +1075,8 @@ namespace fit_and_fuel.Migrations
             modelBuilder.Entity("fit_and_fuel.Model.Nutritionist", b =>
                 {
                     b.Navigation("AvaliableTimes");
+
+                    b.Navigation("Price");
 
                     b.Navigation("Ratings");
 
