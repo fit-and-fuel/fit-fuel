@@ -61,11 +61,11 @@ namespace fit_and_fuel.Services
             }
 			if (users == null)
 			{
-				model.AddModelError("users.Username", "User name is not correct");
+				model.AddModelError("Username", "User name is not correct");
 			}
 			else
 			{
-				model.AddModelError("users.Password", "Password is not correct");
+				model.AddModelError("Password", "Password is not correct");
 			}
 			return null;
 

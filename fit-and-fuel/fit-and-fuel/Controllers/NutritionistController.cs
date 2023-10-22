@@ -196,6 +196,10 @@ namespace fit_and_fuel.Controllers
         [HttpPost]
         public async Task<IActionResult> AddClinic(ClinicDto clinicDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
             await _clinic.Post(clinicDto);
             return Redirect("MyProfile");
 
