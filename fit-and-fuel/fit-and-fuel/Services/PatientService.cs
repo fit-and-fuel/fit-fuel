@@ -313,7 +313,10 @@ namespace fit_and_fuel.Services
 			string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
 			var myDietPlan = await GetMyDietPlan();
-
+			if (myDietPlan == null)
+			{
+				return null;
+			}
 			// Find the meals for the current day and flatten the structure
 			var mealsForToday = myDietPlan.days
 				.Where(d => d.Date.Date == DateTime.Now.Date)

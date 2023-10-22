@@ -46,10 +46,10 @@ namespace fit_and_fuel.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(PatientDto patientDto, IFormFile file)
         {
-            if (!ModelState.IsValid)
-            {
-                return View();
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return View("Index");
+            //}
             ModelState.Remove("file");
 
 
