@@ -417,7 +417,8 @@ namespace fit_and_fuel.Services
 			var myprofile = await _context.Patients
 				.Where(p => p.UserId == userId)
 				.Include(p => p.nutritionist)
-				.ThenInclude(b => b.Price)
+                .ThenInclude(b => b.Price)
+                .Include(h=>h.healthRecord)
 				.FirstOrDefaultAsync();
 			return myprofile;
 
