@@ -51,6 +51,7 @@ builder.Services.AddTransient<IAppoitments, AppoitmentService>();
 builder.Services.AddTransient<IRating, RatingService>();
 builder.Services.AddScoped<IEmailSender, SendEmailService>();
 builder.Services.AddTransient<INotification, NotificationService>();
+builder.Services.AddTransient<IPrice, PriceService>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie();

@@ -1,11 +1,40 @@
-﻿@using fit_and_fuel.Interfaces
+﻿@using Microsoft.AspNetCore.Identity;
+@using fit_and_fuel.Interfaces
 @inject INotification notfication;
 @inject INutritionists nutritionists;
+@inject IPatients patients;
+@inject SignInManager<ApplicationUser> userManager;
+
+
 @{
     var count = await notfication.CountNot();
     var notifications = await notfication.GetNotificationsForUser();
     var visibleNotifications = notifications.Take(3).ToList();
 
+}
+
+@{
+    var nut = await nutritionists.GetMyProfile();
+
+    var pat = await patients.GetMyProfile();
+    var user = await userManager.UserManager.GetUserAsync(User);
+
+
+}
+
+@functions {
+    // Function to format text with links as HTML anchor tags
+    string FormatContentWithLinks(string content)
+    {
+        string pattern = @"(https?://\S+)|(www\.\S+)";
+        var regex = new System.Text.RegularExpressions.Regex(pattern);
+
+        return regex.Replace(content, match =>
+        {
+            string url = match.Value;
+            return $"<a href='{url}' target='_blank'>Register</a>";
+        });
+    }
 }
 
 <!doctype html>
@@ -31,7 +60,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
         !function (i, n) { var o, s, e; function c(e) { try { var t = { supportTests: e, timestamp: (new Date).valueOf() }; sessionStorage.setItem(o, JSON.stringify(t)) } catch (e) { } } function p(e, t, n) { e.clearRect(0, 0, e.canvas.width, e.canvas.height), e.fillText(t, 0, 0); var t = new Uint32Array(e.getImageData(0, 0, e.canvas.width, e.canvas.height).data), r = (e.clearRect(0, 0, e.canvas.width, e.canvas.height), e.fillText(n, 0, 0), new Uint32Array(e.getImageData(0, 0, e.canvas.width, e.canvas.height).data)); return t.every(function (e, t) { return e === r[t] }) } function u(e, t, n) { switch (t) { case "flag": return n(e, "\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f", "\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f") ? !1 : !n(e, "\ud83c\uddfa\ud83c\uddf3", "\ud83c\uddfa\u200b\ud83c\uddf3") && !n(e, "\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f", "\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f"); case "emoji": return !n(e, "\ud83e\udef1\ud83c\udffb\u200d\ud83e\udef2\ud83c\udfff", "\ud83e\udef1\ud83c\udffb\u200b\ud83e\udef2\ud83c\udfff") }return !1 } function f(e, t, n) { var r = "undefined" != typeof WorkerGlobalScope && self instanceof WorkerGlobalScope ? new OffscreenCanvas(300, 150) : i.createElement("canvas"), a = r.getContext("2d", { willReadFrequently: !0 }), o = (a.textBaseline = "top", a.font = "600 32px Arial", {}); return e.forEach(function (e) { o[e] = t(a, e, n) }), o } function t(e) { var t = i.createElement("script"); t.src = e, t.defer = !0, i.head.appendChild(t) } "undefined" != typeof Promise && (o = "wpEmojiSettingsSupports", s = ["flag", "emoji"], n.supports = { everything: !0, everythingExceptFlag: !0 }, e = new Promise(function (e) { i.addEventListener("DOMContentLoaded", e, { once: !0 }) }), new Promise(function (t) { var n = function () { try { var e = JSON.parse(sessionStorage.getItem(o)); if ("object" == typeof e && "number" == typeof e.timestamp && (new Date).valueOf() < e.timestamp + 604800 && "object" == typeof e.supportTests) return e.supportTests } catch (e) { } return null }(); if (!n) { if ("undefined" != typeof Worker && "undefined" != typeof OffscreenCanvas && "undefined" != typeof URL && URL.createObjectURL && "undefined" != typeof Blob) try { var e = "postMessage(" + f.toString() + "(" + [JSON.stringify(s), u.toString(), p.toString()].join(",") + "));", r = new Blob([e], { type: "text/javascript" }), a = new Worker(URL.createObjectURL(r), { name: "wpTestEmojiSupports" }); return void (a.onmessage = function (e) { c(n = e.data), a.terminate(), t(n) }) } catch (e) { } c(n = f(s, u, p)) } t(n) }).then(function (e) { for (var t in e) n.supports[t] = e[t], n.supports.everything = n.supports.everything && n.supports[t], "flag" !== t && (n.supports.everythingExceptFlag = n.supports.everythingExceptFlag && n.supports[t]); n.supports.everythingExceptFlag = n.supports.everythingExceptFlag && !n.supports.flag, n.DOMReady = !1, n.readyCallback = function () { n.DOMReady = !0 } }).then(function () { return e }).then(function () { var e; n.supports.everything || (n.readyCallback(), (e = n.source || {}).concatemoji ? t(e.concatemoji) : e.wpemoji && e.twemoji && (t(e.twemoji), t(e.wpemoji))) })) }((window, document), window._wpemojiSettings);
     </script>
     <style>
-        
+
         img.wp-smiley,
         img.emoji {
             display: inline !important;
@@ -1537,9 +1566,9 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
         }
 
         /*
-                                                                                        The .ext utility is a top-level class that we use to target contents within our patterns.
-                                                                                        We use it here to ensure columns blocks display well across themes.
-                                                                                        */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                        The .ext utility is a top-level class that we use to target contents within our patterns.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                        We use it here to ensure columns blocks display well across themes.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                        */
 
         .wp-block-columns[class*="fullwidth-cols"] {
             /* no suggestion */
@@ -1653,9 +1682,9 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
         }
 
         /*
-                                                                                            The `tablet:fullwidth-cols` and `desktop:fullwidth-cols` utilities are used
-                                                                                            to counter the core/columns responsive for at our breakpoints.
-                                                                                        */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                            The `tablet:fullwidth-cols` and `desktop:fullwidth-cols` utilities are used
+                                                                                                                                                                                                                                                                                                                                                                                                                                                            to counter the core/columns responsive for at our breakpoints.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                        */
 
         media (max-width: 781px) {
             .tablet\:fullwidth-cols.wp-block-columns:not(.is-not-stacked-on-mobile)
@@ -3538,9 +3567,10 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
     <link rel='stylesheet' id='swiper-css' href='~/style/swiper.min.css_ver=8.3.2.css' media='all' />
     <link rel='stylesheet' id='pt-widgets-css' href='~/style/widgets.css_ver=6.3.1.css' media='all' />
     <link rel='stylesheet' id='google-fonts-1-css' href='https://fonts.googleapis.com/css?family=Roboto%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CRoboto+Slab%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic&#038;display=swap&#038;ver=6.3.1' media='all' />
-@*    <link rel='stylesheet' id='elementor-icons-shared-0-css' href='https://promo-theme.com/woxfit/wp-content/plugins/elementor/assets/lib/font-awesome/css/fontawesome.min.css?ver=5.15.3' media='all' />
-*@@*    <link rel='stylesheet' id='elementor-icons-fa-brands-css' href='https://promo-theme.com/woxfit/wp-content/plugins/elementor/assets/lib/font-awesome/css/brands.min.css?ver=5.15.3' media='all' />
-*@    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    @*    <link rel='stylesheet' id='elementor-icons-shared-0-css' href='https://promo-theme.com/woxfit/wp-content/plugins/elementor/assets/lib/font-awesome/css/fontawesome.min.css?ver=5.15.3' media='all' />
+    *@@*    <link rel='stylesheet' id='elementor-icons-fa-brands-css' href='https://promo-theme.com/woxfit/wp-content/plugins/elementor/assets/lib/font-awesome/css/brands.min.css?ver=5.15.3' media='all' />
+    *@
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
     <script src='~/style/jquery.min.js' id='jquery-core-js'></script>
     <script src='~/style/jquery-migrate.min.js' id='jquery-migrate-js'></script>
     <script id='zilla-likes-js-extra'>
@@ -3773,28 +3803,34 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                                         <a asp-controller="Home" asp-action="Index" aria-current="page">Home</a><span class="submenu-toggle"></span>
                                                         <ul class="sub-menu">
 
-                                                            <li id="menu-item-46" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-46"><a asp-controller="Nutritionist" asp-action="AvailableTimes">Available Times</a></li>
-                                                            <li id="menu-item-46" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-46"><a asp-controller="Nutritionist" asp-action="CreateProfile">Create nutritionsist profile</a></li>
-                                                            <li id="menu-item-47" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-47"><a asp-controller="Nutritionist" asp-action="MyProfile">My Profile nutrition</a></li>
-                                                            <li id="menu-item-48" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-48"><a asp-controller="Client" asp-action="DetailPatient" >My Profile client</a></li>
+                                                            <li id="menu-item-46" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-46"><a asp-controller="Nutritionist" asp-action="ViewAllNutrition">All Nutritionists</a></li>
+
                                                         </ul>
                                                     </li>
 
                                                     @if (User.IsInRole("Nutritionist"))
                                                     {
 
-                                                    <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
-                                                        <a>Managment</a><span class="submenu-toggle"></span>
-                                                        <ul class="sub-menu">
-                                                            <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Nutritionist" asp-action="MyProfile">Patients</a></li>
-                                                            <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Nutritionist" asp-action="AvailableTimes">Schedule Appointments</a></li>
-                                                            <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="Nutritionist" asp-action="Appointments">Appointments</a></li>
+                                                        <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
+                                                            <a>Managment</a><span class="submenu-toggle"></span>
+                                                            <ul class="sub-menu">
+
+                                                                @if(nut!= null){
+                                                                <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Nutritionist" asp-action="NutDetails" asp-route-id="@nut.Id">My Profile</a></li>
+                                                                }
+                                                                <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Nutritionist" asp-action="MyProfile">Patients</a></li>
+                                                                <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Nutritionist" asp-action="AvailableTimes">Schedule Appointments</a></li>
+                                                                <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="Nutritionist" asp-action="Appointments">Appointments</a></li>
                                                                 <li id="menu-item-3430" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3430"><a asp-controller="Nutritionist" asp-action="AddClinic">Add Clinic</a></li>
 
-                                                            <li id="menu-item-3430" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3430"><a asp-controller="Nutritionist" asp-action="AddPost">Add Post</a></li>
+
+                                                                <li id="menu-item-3430" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3430"><a asp-controller="Nutritionist" asp-action="AddPost">Add Post</a></li>
 
                                                                 <li id="menu-item-101" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-101"><a asp-controller="Nutritionist" asp-action="ViewPosts"> My Posts</a></li>
-
+                                                                @if (nut == null)
+                                                                {
+                                                                    <li id="menu-item-101" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-101"><a asp-controller="Nutritionist" asp-action="CreateProfile"> Create Profile</a></li>
+                                                                }
                                                             </ul>
                                                         </li>
                                                     }
@@ -3806,48 +3842,60 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                                         <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
                                                             <a>Managment</a><span class="submenu-toggle"></span>
                                                             <ul class="sub-menu">
-                                                                   <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Client" asp-action="MyDietPlan">My DietPlan</a></li>
+
+                                                                @if (pat != null)
+                                                                {
+                                                                    <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Client" asp-action="DetailPatient" asp-route-id="@pat.Id">My Profile</a></li>
+                                                                }
+                                                                <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Client" asp-action="MyDietPlan">My DietPlan</a></li>
                                                                 <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Client" asp-action="MealForToday">Meal For Today</a></li>
-                                                                <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Client" asp-action="addrating">add rating</a></li>
+                                                                <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Client" asp-action="addrating">Add rating</a></li>
+                                                                @if (pat.healthRecord == null)
+                                                                {
+                                                                    <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="Client" asp-action="AddHealthRecord">Add Health Record</a></li>
+                                                                }
+                                                                
                                                                 <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="chat" asp-action="index">send message</a></li>
+                                                                @if (pat == null)
+                                                                {
+                                                                    <li id="menu-item-101" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-101"><a asp-controller="Client" asp-action="Index">Create Profile</a></li>
+                                                                }
 
                                                             </ul>
                                                         </li>
                                                     }
-                                                
+
 
                                                     <li id="menu-item-3242" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3242"><a asp-controller="Home" asp-action="About">About</a></li>
                                                     <li id="menu-item-3242" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3242"><a asp-controller="Home" asp-action="Contact">Contact</a></li>
-                                                    <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
-                                                        <a>
-                                                            @if (count > 0)
-                                                            {
-                                                            <span class="pt-cart-count">@count</span>
-                                                            }
-                                                            <i class="fas fa-bell"></i>
-                                                            
-                                                        </a><span class="submenu-toggle"></span>
+
+                                                    @if (User.Identity.IsAuthenticated)
+                                                    {
+                                                        <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
+                                                            <a>
+                                                                @if (count > 0)
+                                                                {
+                                                                    <span class="pt-cart-count">@count</span>
+                                                                }
+                                                                <i class="fas fa-bell"></i>
+
+                                                            </a><span class="submenu-toggle"></span>
 
 
-                                                        <ul class="sub-menu">
-                                                            @foreach (var notificat in visibleNotifications)
-                                                            {
-                                                                <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102" style="width:400px; background-color: #f0f0f0; border: 1px solid #ddd; margin: 10px; padding: 10px; border-radius: 5px;">
-                                                                    <h6 class="mb-1" style="font-size: 13px;">@notificat.Content</h6>
-                                                                    <small class="d-block">@notificat.Timestamp</small>
-                                                                </li>
-                                                            }
-                                                            <a asp-controller="Notification" asp-action="Index" >Show All</a>
-                                                        </ul>
+                                                            <ul class="sub-menu">
+                                                                @foreach (var notificat in visibleNotifications)
+                                                                {
+                                                                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102" style="width:400px; background-color: #f0f0f0; border: 1px solid #ddd; margin: 10px; padding: 10px; border-radius: 5px;">
+                                                                        <h6 class="mb-1" style="font-size: 13px;"> @Html.Raw(FormatContentWithLinks(notificat.Content))</h6>
+                                                                        <small class="d-block">@notificat.Timestamp</small>
+                                                                    </li>
+                                                                }
+                                                                <a asp-controller="Notification" asp-action="Index">Show All</a>
+                                                            </ul>
 
 
-                                                      
-
-                                                       
-
-
-
-                                                    </li>
+                                                        </li>
+                                                    }
                                                 </ul>
                                             </div>
                                         </nav>
@@ -3868,15 +3916,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
 
                                     @if (User.Identity.IsAuthenticated)
                                     {
-                                        @* <div class="pt-search-toggle search-toggle"></div>*@
-                                        if (count > 0)
-                                        {
-                                            <a asp-controller="Notification" asp-action="Index">
-                                                <span class="pt-cart-count">@count</span>
-                                            </a>
-
-
-                                        }
+                                     
                                         <p>
                                             @User.Identity.Name
                                         </p>
@@ -4031,19 +4071,14 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
 
                                         <a asp-controller="User" asp-action="Login">Login</a>
                                     }
-                                    @*      <div class="pt-cart">
-                                    <a class="pt-cart-link" href="https://promo-theme.com/woxfit/cart/">
-                                    <div class="pt-cart-text"></div>
-                                    <div class="pt-cart-count">0</div>
-                                    </a>
 
-                                    <div class="pt-cart-minicart">
-                                    <div class="widget woocommerce widget_shopping_cart"><h2 class="widgettitle">Cart</h2><div class="widget_shopping_cart_content"></div></div>
-                                    </div>
-                                    </div>*@
 
                                 </div>
+
                             </div>
+
+
+
                             <div class="elementor-element elementor-element-85339f0 elementor-widget__width-auto elementor-widget elementor-widget-pt-menu" data-id="85339f0" data-element_type="widget" data-widget_type="pt-menu.default">
                                 <div class="elementor-widget-container">
 
@@ -4052,35 +4087,23 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                             <div class="menu-menu-1-container">
                                                 <ul id="menu-menu-2" class="site-menu-inner">
                                                     <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-21 current_page_item current-menu-ancestor current-menu-parent current_page_parent current_page_ancestor menu-item-has-children menu-item-33">
-                                                        <a href="https://promo-theme.com/woxfit/" aria-current="page">Home</a><span class="submenu-toggle"></span>
+                                                        <a asp-controller="Home" asp-action="Index" aria-current="page">Home</a><span class="submenu-toggle"></span>
                                                         <ul class="sub-menu">
-                                                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-21 current_page_item menu-item-30"><a href="https://promo-theme.com/woxfit/" aria-current="page">Fitness</a></li>
-                                                            <li id="menu-item-46" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-46"><a asp-controller="Nutritionist" asp-action="AvailableTimes">Available Times</a></li>
-                                                            <li id="menu-item-46" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-46"><a asp-controller="Nutritionist" asp-action="CreateProfile">Available Times</a></li>
+                                                            <li id="menu-item-46" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-46"><a asp-controller="Nutritionist" asp-action="ViewAllNutrition">All Nutritionists</a></li>
 
-                                                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-47"><a href="https://promo-theme.com/woxfit/personal-trainer/">Personal Trainer</a></li>
-                                                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-48"><a href="https://promo-theme.com/woxfit/online-course/">Online Course</a></li>
-                                                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-49"><a href="https://promo-theme.com/woxfit/sports-nutrition-shop/">Sports Nutrition Shop</a></li>
-                                                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-50"><a href="https://promo-theme.com/woxfit/parallax-showcase/">Parallax Showcase</a></li>
                                                         </ul>
                                                     </li>
-                                                   
-                                                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
-                                                        <a href="https://promo-theme.com/woxfit/shop/">Shop</a><span class="submenu-toggle"></span>
-                                                        <ul class="sub-menu">
-                                                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a href="https://promo-theme.com/woxfit/shop/">Product list</a></li>
-                                                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a href="https://promo-theme.com/woxfit/shop-left-sidebar/">Left Sidebar</a></li>
-                                                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a href="https://promo-theme.com/woxfit/shop-no-sidebar/">No Sidebar</a></li>
-                                                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3430"><a href="https://promo-theme.com/woxfit/shop-no-sidebar-banner/">No Sidebar + Banner</a></li>
-                                                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-101"><a href="https://promo-theme.com/woxfit/cart/">Cart</a></li>
-                                                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-100"><a href="https://promo-theme.com/woxfit/checkout/">Checkout</a></li>
-                                                        </ul>
-                                                    </li>
+
                                                     @if (User.IsInRole("Nutritionist"))
                                                     {
                                                         <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
                                                             <a>Managment</a><span class="submenu-toggle"></span>
                                                             <ul class="sub-menu">
+
+                                                                @if (nut != null)
+                                                                {
+                                                                    <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Nutritionist" asp-action="NutDetails" asp-route-id="@nut.Id">My Profile</a></li>
+                                                                }
                                                                 <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Nutritionist" asp-action="MyProfile">Patients</a></li>
                                                                 <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Nutritionist" asp-action="AvailableTimes">Schedule Appointments</a></li>
                                                                 <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="Nutritionist" asp-action="Appointments">Appointments</a></li>
@@ -4091,9 +4114,66 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                                             </ul>
                                                         </li>
                                                     }
+
+                                                    
+                                                    @if (User.IsInRole("Patient"))
+                                                    {
+                                                        <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
+                                                            <a>Managment</a><span class="submenu-toggle"></span>
+                                                            <ul class="sub-menu">
+
+                                                                @if (pat != null)
+                                                                {
+                                                                    <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Client" asp-action="DetailPatient" asp-route-id="@pat.Id">My Profile</a></li>
+                                                                }
+                                                                <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Client" asp-action="MyDietPlan">My DietPlan</a></li>
+                                                                <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Client" asp-action="MealForToday">Meal For Today</a></li>
+                                                                <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Client" asp-action="addrating">Add rating</a></li>
+                                                                @if (pat.healthRecord == null)
+                                                                {
+                                                                    <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="Client" asp-action="AddHealthRecord">Add Health Record</a></li>
+                                                                }
+                                                                <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="chat" asp-action="index">send message</a></li>
+                                                                @if (pat == null)
+                                                                {
+                                                                    <li id="menu-item-101" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-101"><a asp-controller="Client" asp-action="Index">Create Profile</a></li>
+                                                                }
+
+                                                            </ul>
+                                                        </li>
+                                                    }
+
                                                     <li id="menu-item-3368" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-3368"><a asp-controller="Home" asp-action="AllPost">Blog</a></li>
                                                     <li id="menu-item-3242" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3242"><a asp-controller="Home" asp-action="About">About</a></li>
                                                     <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3242"><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+
+                                                    @if (User.Identity.IsAuthenticated)
+                                                    {
+                                                        <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
+                                                            <a>
+                                                                @if (count > 0)
+                                                                {
+                                                                    <span class="pt-cart-count">@count</span>
+                                                                }
+                                                                <i class="fas fa-bell"></i>
+
+                                                            </a><span class="submenu-toggle"></span>
+
+
+                                                            <ul class="sub-menu">
+                                                                @foreach (var notificat in visibleNotifications)
+                                                                {
+                                                                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102" style="width:400px; background-color: #f0f0f0; border: 1px solid #ddd; margin: 10px; padding: 10px; border-radius: 5px;">
+                                                                        <h6 class="mb-1" style="font-size: 13px;"> @Html.Raw(FormatContentWithLinks(notificat.Content))</h6>
+                                                                        <small class="d-block">@notificat.Timestamp</small>
+                                                                    </li>
+                                                                }
+                                                                <a asp-controller="Notification" asp-action="Index">Show All</a>
+                                                            </ul>
+
+
+                                                        </li>
+                                                    }
                                                 </ul>
                                             </div>
                                         </nav>
@@ -4124,54 +4204,24 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
             <nav class="mobile-menu">
                 <ul id="menu-menu-3" class="menu">
                     <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-21 current_page_item current-menu-ancestor current-menu-parent current_page_parent current_page_ancestor menu-item-has-children menu-item-33">
-                        <a href="https://promo-theme.com/woxfit/" aria-current="page">Home</a><span class="submenu-toggle"></span>
+                        <a asp-controller="Home" asp-action="Index">Home</a><span class="submenu-toggle"></span>
                         <ul class="sub-menu">
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-21 current_page_item menu-item-30"><a href="https://promo-theme.com/woxfit/" aria-current="page">Fitness</a></li>
-                            <li id="menu-item-46" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-46"><a asp-controller="Nutritionist" asp-action="AvailableTimes">Available Times</a></li>
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-47"><a href="https://promo-theme.com/woxfit/personal-trainer/">Personal Trainer</a></li>
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-48"><a href="https://promo-theme.com/woxfit/online-course/">Online Course</a></li>
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-49"><a href="https://promo-theme.com/woxfit/sports-nutrition-shop/">Sports Nutrition Shop</a></li>
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-50"><a href="https://promo-theme.com/woxfit/parallax-showcase/">Parallax Showcase</a></li>
+                            <li id="menu-item-46" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-46"><a asp-controller="Nutritionist" asp-action="ViewAllNutrition">All Nutritionists</a></li>
                         </ul>
                     </li>
-@*                    <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-34">
-                        <a href="#">Pages</a><span class="submenu-toggle"></span>
-                        <ul class="sub-menu">
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-27"><a href="https://promo-theme.com/woxfit/about/">About</a></li>
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3241"><a href="https://promo-theme.com/woxfit/services/">Services</a></li>
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3240"><a href="https://promo-theme.com/woxfit/single-service/">Single Service</a></li>
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3239"><a href="https://promo-theme.com/woxfit/timetable/">Timetable</a></li>
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-3306">
-                                <a href="https://promo-theme.com/woxfit/portfolio-grid-3-cols-2/">Portfolio</a><span class="submenu-toggle"></span>
-                                <ul class="sub-menu">
-                                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3305"><a href="https://promo-theme.com/woxfit/portfolio-grid-3-cols-2/">Grid 2 Cols</a></li>
-                                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3304"><a href="https://promo-theme.com/woxfit/portfolio-grid-3-cols/">Grid 3 Cols</a></li>
-                                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3303"><a href="https://promo-theme.com/woxfit/portfolio-grid-4-cols/">Grid 4 Cols</a></li>
-                                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3302"><a href="https://promo-theme.com/woxfit/portfolio-masonry-2-cols/">Masonry 2 Cols</a></li>
-                                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3301"><a href="https://promo-theme.com/woxfit/portfolio-masonry-3-cols/">Masonry 3 Cols</a></li>
-                                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3300"><a href="https://promo-theme.com/woxfit/portfolio-masonry-4-cols/">Masonry 4 Cols</a></li>
-                                </ul>
-                            </li>
-                            <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-81"><a href="https://promo-theme.com/woxfit/page-404">Page 404</a></li>
-                        </ul>
-                    </li>
-*@                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
-                        <a href="https://promo-theme.com/woxfit/shop/">Shop</a><span class="submenu-toggle"></span>
-                        <ul class="sub-menu">
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a href="https://promo-theme.com/woxfit/shop/">Product list</a></li>
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a href="https://promo-theme.com/woxfit/shop-left-sidebar/">Left Sidebar</a></li>
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a href="https://promo-theme.com/woxfit/shop-no-sidebar/">No Sidebar</a></li>
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3430"><a href="https://promo-theme.com/woxfit/shop-no-sidebar-banner/">No Sidebar + Banner</a></li>
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-101"><a href="https://promo-theme.com/woxfit/cart/">Cart</a></li>
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-100"><a href="https://promo-theme.com/woxfit/checkout/">Checkout</a></li>
-                        </ul>
-                    </li>
+
+
 
                     @if (User.IsInRole("Nutritionist"))
                     {
                         <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
                             <a>Managment</a><span class="submenu-toggle"></span>
                             <ul class="sub-menu">
+                                @if(nut!= null){
+                                <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Nutritionist" asp-action="NutDetails" asp-route-id="@nut.Id">My Profile</a></li>
+                                }
+
+                                    
                                 <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Nutritionist" asp-action="MyProfile">Patients</a></li>
                                 <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Nutritionist" asp-action="AvailableTimes">Schedule Appointments</a></li>
                                 <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="Nutritionist" asp-action="Appointments">Appointments</a></li>
@@ -4182,9 +4232,64 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                             </ul>
                         </li>
                     }
+
+
+                    @if (User.IsInRole("Patient"))
+                    {
+                        <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
+                            <a>Managment</a><span class="submenu-toggle"></span>
+                            <ul class="sub-menu">
+                                 @if (pat != null)
+                                 {
+                                <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Client" asp-action="DetailPatient" asp-route-id="@pat.Id">My Profile</a></li>
+                                 }
+                                <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Client" asp-action="MyDietPlan">My DietPlan</a></li>
+                                <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Client" asp-action="MealForToday">Meal For Today</a></li>
+                                <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Client" asp-action="addrating">Add rating</a></li>
+                                 @if (pat.healthRecord == null)
+                                                                {
+                                                                    <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="Client" asp-action="AddHealthRecord">Add Health Record</a></li>
+                                                                }
+                                <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="chat" asp-action="index">send message</a></li>
+                                @if (pat == null)
+                                {
+                                    <li id="menu-item-101" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-101"><a asp-controller="Client" asp-action="Index">Create Profile</a></li>
+                                }
+
+                            </ul>
+
+                        </li>
+                    }
                     <li id="menu-item-3368" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-3368"><a asp-controller="Home" asp-action="AllPost">Blog</a></li>
                     <li id="menu-item-3242" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3242"><a asp-controller="Home" asp-action="About">About</a></li>
                     <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3242"><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
+                            <a>
+                                @if (count > 0)
+                                {
+                                    <span class="pt-cart-count">@count</span>
+                                }
+                                <i class="fas fa-bell"></i>
+
+                            </a><span class="submenu-toggle"></span>
+
+
+                            <ul class="sub-menu">
+                                @foreach (var notificat in visibleNotifications)
+                                {
+                                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102" style="width:400px; background-color: #f0f0f0; border: 1px solid #ddd; margin: 10px; padding: 10px; border-radius: 5px;">
+                                        <h6 class="mb-1" style="font-size: 13px;"> @Html.Raw(FormatContentWithLinks(notificat.Content))</h6>
+                                        <small class="d-block">@notificat.Timestamp</small>
+                                    </li>
+                                }
+                                <a asp-controller="Notification" asp-action="Index">Show All</a>
+                            </ul>
+
+
+                        </li>
+                    }
                 </ul>
             </nav>
         </div>
@@ -4226,7 +4331,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                                                     </div>
 
                                                                     <div class="pt-slide-buttons">
-                                                                        <a class="pt-slide-button pt-button filled-2" href="/woxfit/contact/">
+                                                                        <a class="pt-slide-button pt-button filled-2" asp-controller="User" asp-action="Register">
                                                                             <span>Start Now</span>
                                                                         </a>
 
@@ -4236,9 +4341,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                                             </div>
 
 
-                                                            @* <div class="pt-slide-additional-image">
-                                                            <img width="1020" height="1471" src="https://promo-theme.com/woxfit/wp-content/uploads/2023/01/fitness-slide-img-1.png" class="attachment-full size-full" alt="" decoding="async" srcset="https://promo-theme.com/woxfit/wp-content/uploads/2023/01/fitness-slide-img-1.png 1020w, https://promo-theme.com/woxfit/wp-content/uploads/2023/01/fitness-slide-img-1-450x649.png 450w, https://promo-theme.com/woxfit/wp-content/uploads/2023/01/fitness-slide-img-1-600x865.png 600w, https://promo-theme.com/woxfit/wp-content/uploads/2023/01/fitness-slide-img-1-208x300.png 208w, https://promo-theme.com/woxfit/wp-content/uploads/2023/01/fitness-slide-img-1-710x1024.png 710w, https://promo-theme.com/woxfit/wp-content/uploads/2023/01/fitness-slide-img-1-768x1108.png 768w" sizes="(max-width: 1020px) 100vw, 1020px" />
-                                                            </div>*@
+
 
                                                         </div>
 
@@ -4260,7 +4363,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                                                     </div>
 
                                                                     <div class="pt-slide-buttons">
-                                                                        <a class="pt-slide-button pt-button filled-2" href="/woxfit/contact/">
+                                                                        <a class="pt-slide-button pt-button filled-2" asp-controller="User" asp-action="Register">
                                                                             <span>Start Now</span>
                                                                         </a>
 
@@ -4285,7 +4388,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                                             <div class="pt-slide-content-wrapper">
                                                                 <div class="pt-slide-content">
                                                                     <div class="pt-slide-title">
-                                                                       Nutrition <span> Insights</span> 
+                                                                        Nutrition <span> Insights</span>
                                                                     </div>
 
                                                                     <div class="pt-slide-text">
@@ -4295,7 +4398,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                                                     </div>
 
                                                                     <div class="pt-slide-buttons">
-                                                                        <a class="pt-slide-button pt-button filled-2" href="/woxfit/contact/">
+                                                                        <a class="pt-slide-button pt-button filled-2" asp-controller="User" asp-action="Register">
                                                                             <span>Start Now</span>
                                                                         </a>
 
@@ -4348,8 +4451,6 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                                 </div>
 
                                                 <div class="pt-swiper-fraction">
-                                                   
-
                                                 </div>
                                             </div>
 
@@ -4363,8 +4464,8 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                         <div>
                             @if (User.Identity.IsAuthenticated && User.IsInRole("Patient"))
                             {
-                               
-                            <button id="showChatButton" style="
+
+                                <button id="showChatButton" style="
     position: fixed;
     bottom: 20px;
     right: 20px;
@@ -4377,10 +4478,10 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
     z-index: 1000;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
 ">
-                                Show Chat
-                            </button>
+                                    Show Chat
+                                </button>
 
-                            <div id="chatContainer" class="col-xl-4 col-md-6 chat-map" style="
+                                <div id="chatContainer" class="col-xl-4 col-md-6 chat-map" style="
     display: none;
     position: fixed;
     bottom: 20px;
@@ -4396,9 +4497,9 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
     max-height: 80vh; /* Limit the chat container height */
     overflow-y: auto; /* Add vertical scroll if needed */
 ">
-                               @await Component.InvokeAsync("ChatList")
-                                    
-                            </div>
+                                    @await Component.InvokeAsync("ChatList")
+
+                                </div>
 
                                 <script>
                                     // Get references to the button and chat container
@@ -4469,18 +4570,19 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                     @{
                                         var mypaient = await nutritionists.GetMyProfile();
                                     }
-                                    @if(mypaient != null){
-                                    @foreach (var patient in mypaient.patients)
+                                    @if (mypaient != null)
                                     {
-                                        <div class="patient-name" onclick="toggleChat('@patient.Id')">
-                                            <p>@patient.Name</p>
-                                        </div>
+                                        @foreach (var patient in mypaient.patients)
+                                        {
+                                            <div class="patient-name" onclick="toggleChat('@patient.Id')">
+                                                <p>@patient.Name</p>
+                                            </div>
                                             <div id="chat-@patient.Id" class="chat-container" style="display: none;">
                                                 @await Component.InvokeAsync("ChatNut", new { id = patient.Id })
                                             </div>
 
 
-                                    }
+                                        }
                                     }
                                 </div>
 
@@ -4565,7 +4667,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
             </div>
         </article>
     </main>
-   
+
     <footer class="site-footer">
         <style>
             .elementor-271 .elementor-element.elementor-element-c7f1433:not(.elementor-motion-effects-element-type-background), .elementor-271 .elementor-element.elementor-element-c7f1433 > .elementor-motion-effects-container > .elementor-motion-effects-layer {
@@ -4844,13 +4946,13 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                         <div class="elementor-widget-wrap elementor-element-populated">
                             <section class="elementor-section elementor-inner-section elementor-element elementor-element-2f63362 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="2f63362" data-element_type="section">
                                 <div class="elementor-container elementor-column-gap-no">
-                                    <div class="elementor-column elementor-col-20 elementor-inner-column elementor-element elementor-element-8f02c4e" data-id="8f02c4e" data-element_type="column">
+                                    <div class="elementor-column elementor-col-30 elementor-inner-column elementor-element elementor-element-8f02c4e" data-id="8f02c4e" data-element_type="column">
                                         <div class="elementor-widget-wrap elementor-element-populated">
                                             <div class="elementor-element elementor-element-d344b05 elementor-widget elementor-widget-pt-logo" data-id="d344b05" data-element_type="widget" data-widget_type="pt-logo.default">
                                                 <div class="elementor-widget-container">
 
                                                     <div class="site-logo">
-                                                        <a href="https://promo-theme.com/woxfit/" rel="home">Fit & Fuel</a>
+                                                        <a asp-controller="Home" asp-action="Index" rel="home">Fit & Fuel</a>
                                                     </div>
 
                                                 </div>
@@ -5157,19 +5259,19 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                                             border-radius: 50%
                                                         }</style>		<div class="elementor-social-icons-wrapper elementor-grid">
                                                         <span class="elementor-grid-item">
-                                                            <a class="elementor-icon elementor-social-icon elementor-social-icon-instagram elementor-repeater-item-41ced24" href="https://instagram.com/promo_theme/" target="_blank">
+                                                            <a class="elementor-icon elementor-social-icon elementor-social-icon-instagram elementor-repeater-item-41ced24">
                                                                 <span class="elementor-screen-only">Instagram</span>
                                                                 <i class="fab fa-instagram"></i>
                                                             </a>
                                                         </span>
                                                         <span class="elementor-grid-item">
-                                                            <a class="elementor-icon elementor-social-icon elementor-social-icon-twitter elementor-repeater-item-932aa5d" href="https://twitter.com/promotheme" target="_blank">
+                                                            <a class="elementor-icon elementor-social-icon elementor-social-icon-twitter elementor-repeater-item-932aa5d">
                                                                 <span class="elementor-screen-only">Twitter</span>
                                                                 <i class="fab fa-twitter"></i>
                                                             </a>
                                                         </span>
                                                         <span class="elementor-grid-item">
-                                                            <a class="elementor-icon elementor-social-icon elementor-social-icon-facebook elementor-repeater-item-2f499df" href="https://www.facebook.com/promotheme/" target="_blank">
+                                                            <a class="elementor-icon elementor-social-icon elementor-social-icon-facebook elementor-repeater-item-2f499df">
                                                                 <span class="elementor-screen-only">Facebook</span>
                                                                 <i class="fab fa-facebook"></i>
                                                             </a>
@@ -5225,18 +5327,9 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
 
 
 
-                                                        <a href="">
+                                                        <a asp-controller="Home" asp-action="About">
                                                             About us
                                                         </a>
-
-
-
-
-
-
-
-
-
 
 
 
@@ -5260,24 +5353,9 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                                     <div class="pt-simple-links">
 
 
-
-                                                        <a href="">
+                                                        <a asp-controller="Nutritionist" asp-action="ViewAllNutrition">
                                                             Our Nutritionists
                                                         </a>
-
-
-
-                                                        <a href="">
-                                                            Portfolio
-                                                        </a>
-
-
-
-
-
-
-
-
 
 
                                                     </div>
@@ -5300,19 +5378,9 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
 
 
 
-                                                        <a href="">
+                                                        <a asp-controller="Home" asp-action="Contact">
                                                             Contact us
                                                         </a>
-
-
-
-                                                        <a href="/">
-                                                            Online Chat
-                                                        </a>
-
-
-
-
 
 
 
@@ -5352,18 +5420,6 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                                         </a>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
                                                     </div>
 
                                                 </div>
@@ -5374,7 +5430,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                         <div class="elementor-widget-wrap elementor-element-populated">
                                             <div class="elementor-element elementor-element-e2d9908 elementor-widget elementor-widget-text-editor" data-id="e2d9908" data-element_type="widget" data-widget_type="text-editor.default">
                                                 <div class="elementor-widget-container">
-                                                    © 2023
+                                                    © 2023 Fit & Fuel
                                                 </div>
                                             </div>
                                         </div>
@@ -5387,17 +5443,8 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
             </section>
         </div>
     </footer>
-    @*    <div class="site-search">
-    <div class="site-search-title">What are you looking for?</div>
-    <div class="site-search-form">
-    <form role="search" method="get" class="search-form" action="https://promo-theme.com/woxfit/">
-    <input type="search" class="search-field" value="" name="s" placeholder="Search..." />
-    <input type="submit" class="search-submit" value="" />
-    <button type="submit" class="search-submit"></button>
-    </form>
-    </div>
-    <div class="site-search-close search-toggle"></div>
-    </div>*@
+
+
     <script>
         (function () {
             function maybePrefixUrlField() {

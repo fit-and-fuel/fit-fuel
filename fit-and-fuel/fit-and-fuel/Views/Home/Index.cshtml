@@ -7,110 +7,6 @@
 }
 
 
-@* <section class="elementor-section elementor-top-section elementor-element elementor-element-ae784e8 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="ae784e8" data-element_type="section">
-
-    <div class="elementor-container elementor-column-gap-default">
-        <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-9a3533e" data-id="9a3533e" data-element_type="column">
-            <div class="elementor-widget-wrap elementor-element-populated">
-                <div class="elementor-element elementor-element-1b2f897 elementor-widget elementor-widget-pt-portfolio" data-id="1b2f897" data-element_type="widget" data-settings="{&quot;cols_md&quot;:2,&quot;cols_lg&quot;:4,&quot;navigation&quot;:&quot;load_more&quot;,&quot;type&quot;:&quot;grid&quot;}" data-widget_type="pt-portfolio.default">
-                    <div class="elementor-widget-container">
-                        <div class="elementor-element elementor-element-ec6c0ff elementor-widget elementor-widget-pt-heading" data-id="ec6c0ff" data-element_type="widget" data-settings="{&quot;decor&quot;:[]}" data-widget_type="pt-heading.default">
-                            <div class="elementor-widget-container">
-
-                                <div class="pt-heading">
-                                    <h2 class="pt-heading-title h2">
-                                        Our best Nutritionists
-                                    </h2>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="portfolio-block filter-block portfolio-type-grid popup-gallery orientation-default with-filter" data-popup-settings="{&quot;popupTitle&quot;:false,&quot;popupDesc&quot;:false}">
-
-
-                            <div class="row isotope load-wrap" style="position: relative; height: 1082px;">
-                                <div class="grid-sizer col-1"></div>
-
-                                @foreach (var n in Model.nutritionists)
-                                {
-
-                                    <article class="portfolio-item istp-item col-md-6 col-lg-3 category-30 popup-item">
-                                        <div class="wrap">
-                                            <div class="pt-team-member">
-
-
-                                                <div class="pt-team-member-image">
-
-
-
-                                                    <img src="@n.imgURl" class="card-img-top img-fixed-height" alt="@n.Name">
-
-
-                                                    <div class="social-links">
-                                                        <a asp-controller="Nutritionist" asp-action="NutDetails" asp-route-id="@n.Id">
-                                                            View Details
-                                                        </a>
-
-                                                    </div>
-                                                </div>
-
-
-                                                <div class="pt-team-member-title">
-                                                    @n.Name
-                                                </div>
-
-
-                                                <div class="pt-team-member-subtitle">
-                                                    @{
-                                                        if (n.AverageRating.HasValue)
-                                                        {
-                                                            int fullStars = (int)n.AverageRating.Value;
-                                                            int halfStar = (int)((n.AverageRating.Value - fullStars) * 2);
-
-                                                            for (int i = 0; i < fullStars; i++)
-                                                            {
-                                                                <i class="fa-sharp fa-solid fa-star text-orange" style="color:orange"></i>
-                                                            }
-
-                                                            if (halfStar == 1)
-                                                            {
-                                                                <i class="fa-solid fa-star-half-stroke text-orange" style="color:orange"></i>
-                                                            }
-                                                            else if (halfStar == 2)
-                                                            {
-                                                                <i class="fa-sharp fa-solid fa-star text-orange" style="color:orange"></i>
-                                                            }
-
-                                                        }
-                                                        else
-                                                        {
-                                                            <p>No rating available</p>
-                                                        }
-                                                    }
-
-
-                                                </div>
-
-
-                                            </div>
-
-                                        </div>
-                                    </article>
-
-
-                                }
-
-                            </div>
-
-                            <div class="load-items-area"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</section> *@
 
 
 
@@ -334,7 +230,7 @@
                 </div>
                 <div class="elementor-element elementor-element-e1c8d4c elementor-widget elementor-widget-text-editor" data-id="e1c8d4c" data-element_type="widget" data-widget_type="text-editor.default">
                     <div class="elementor-widget-container">
-                        <p>Convallis ullamcorper velit, varius maecenas viverra purus nunc. In suscipit aliquet sociis nibh quis. Neque pellentesque habitant aliquet venenatis at est.</p>
+                        <p>Some of our clients opinions about our services.</p>
                     </div>
                 </div>
                 <div class="elementor-element elementor-element-30e48a9 elementor-widget elementor-widget-pt-testimonials e-widget-swiper" data-id="30e48a9" data-element_type="widget" data-settings="{&quot;style&quot;:&quot;style-2&quot;,&quot;cols&quot;:1.6599999999999999,&quot;layout&quot;:&quot;carousel&quot;,&quot;arrows_position&quot;:&quot;together&quot;,&quot;cols_tablet&quot;:1.5,&quot;cols_mobile&quot;:1,&quot;navigation_style&quot;:&quot;style-3&quot;}" data-widget_type="pt-testimonials.default">

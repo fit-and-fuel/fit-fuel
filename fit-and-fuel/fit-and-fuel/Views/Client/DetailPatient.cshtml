@@ -12,7 +12,7 @@
 
 
 <section style="padding:70px;">
-   
+
     <div class="container py-2">
 
 
@@ -62,14 +62,20 @@
                         <tbody>
 
                             <tr>
-                                @* <th> @Model.healthRecord.Height</th>
-                                <td>@Model.healthRecord.Weight</td>
-                                <td>@Model.healthRecord.BMI</td>
-                                <td>@Model.healthRecord.Illnesses</td>*@
-                                <td>160</td>
+                                @if (Model.healthRecord != null)
+                                {
+                                    <th> @Model.healthRecord.Height</th>
+                                    <td>@Model.healthRecord.Weight</td>
+                                    <td>@Model.healthRecord.BMI</td>
+                                    <td>@Model.healthRecord.Illnesses</td>
+                                }
+
+
+
+                                @*   <td>160</td>
                                 <td>60</td>
                                 <td>24.22</td>
-                                <td>Nothing</td>
+                                <td>Nothing</td> *@
 
                             </tr>
 
@@ -78,31 +84,34 @@
                     </table>
 
 
+
                 </div>
                 @if (User.IsInRole("Patient"))
                 {
                     <ul class="postcard__tagbox">
                         <li class="tag__item play green">
                             <a asp-controller="chat" asp-action="index">
-                                <i class="fas fa-comment"></i> 
-                                Send Message</a>
+                                <i class="fas fa-comment"></i>
+                                Send Message
+                            </a>
                         </li>
                         <li class="tag__item play green">
                             <a asp-controller="Client" asp-action="MyDietPlan">
-                               
-                                <i class="far fa-calendar-alt"></i> 
+
+                                <i class="far fa-calendar-alt"></i>
                                 View Diet Plan
                             </a>
                         </li>
 
                         <li class="tag__item play green">
                             <a asp-controller="Client" asp-action="MealForToday">
-                                <i class="fas fa-utensils"></i> 
-                                Meals For Today</a>
+                                <i class="fas fa-utensils"></i>
+                                Meals For Today
+                            </a>
                         </li>
                         <li class="tag__item play green">
                             <a>
-                                <i class="fas fa-user"></i> 
+                                <i class="fas fa-user"></i>
                                 My Nutritionist
                             </a>
                         </li>

@@ -27,15 +27,35 @@
             </a>
             <div class="postcard__text t-dark">
                 <h1 style="margin-left:8px;" class="postcard__title green"><a href="#">About @Model.Name</a></h1>
+              @*   @if (User.IsInRole("Patient"))
+                {
+                    <a asp-controller="Client" asp-action="Payment"><h6>subscribe $@Model.Price.amount</h6></a>
+                } *@
+               @*  else
+                {
+                    <h6>subscribe $@Model.Price.amount</h6>
+                } *@
                 <div class="postcard__subtitle small">
                     <ul style="list-style:none; font-size:18px;">
                         <li><strong> Gender </strong><span>@Model.Gender</span></li>
                         <li><strong> Age </strong><span>@Model.Age</span></li>
-                        <li><strong> Phone Number </strong><span>@Model.PhoneNumber</span></li>
+                        <li><strong>PhoneNumber </strong><span>@Model.PhoneNumber</span></li>
+
+                        @if (Model.clinic!= null)
+                        {
+                            <li><strong>Clinic Name </strong><span>@Model.clinic.Name</span></li>
+                            <li><strong>Clinic Address </strong><span>@Model.clinic.Address</span></li>
+                            <li><strong>Clinic PhoneNumber </strong><span>@Model.clinic.PhoneNumber</span></li>
+                        }
+                        else
+                        {
+                            <li><strong>Clinic </strong><span>not available</span></li>
+                        }
+
                         <li><a style="text-decoration:underline; color:#D6FD51;" href="@Model.CvURl">Download CV</a></li>
                       
 
-
+                        
 
                     </ul>
                     @{
@@ -94,7 +114,7 @@
                                     <td>
                                         <form asp-controller="Nutritionist" asp-action="SelectAppoitment" method="post">
                                             <input name="id" value="@at.Id" type="hidden">
-                                            <button style="color:#79dd09; text-decoration:underline;" class=" btn btn-outline-success" type="submit">Select</button>
+                                            <button style="color:#D6FD51; text-decoration:underline;" class=" btn btn-outline-success" type="submit">Select</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -112,8 +132,100 @@
 
             </div>
         </article>
+        <section  class="elementor-section elementor-top-section elementor-element elementor-element-14a702e elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="14a702e" data-element_type="section" style="color:black; margin: 50px 0;  padding: 50px 0; ">
+            <div class="elementor-container elementor-column-gap-extended">
+                <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-02e7c16" data-id="02e7c16" data-element_type="column">
+                    <div class="elementor-widget-wrap elementor-element-populated e-swiper-container">
+                        @* <div class="elementor-element elementor-element-b86e0cc elementor-widget elementor-widget-pt-heading" data-id="b86e0cc" data-element_type="widget" data-settings="{&quot;decor&quot;:[]}" data-widget_type="pt-heading.default">
+                        <div class="elementor-widget-container">
 
+                        <div class="pt-heading" style="text-align:center; margin-bottom:40px; ">
+                        <h2 class="pt-heading-title h2">
+                        Our Nutritionists
+                        </h2>
+                        </div>
+
+                        </div>
+                        </div>*@
+                        <div class="elementor-element elementor-element-80ea4f5 elementor-widget elementor-widget-text-editor" data-id="80ea4f5" data-element_type="widget" data-widget_type="text-editor.default">
+                            <div class="elementor-widget-container">
+                            </div>
+                        </div>
+                        <div class="elementor-element elementor-element-faf1d9d elementor-widget elementor-widget-pt-services e-widget-swiper" data-id="faf1d9d" data-element_type="widget" data-settings="{&quot;cols&quot;:&quot;4&quot;,&quot;layout&quot;:&quot;carousel&quot;,&quot;scrollbar&quot;:&quot;yes&quot;,&quot;arrows_position&quot;:&quot;together&quot;,&quot;cols_mobile&quot;:&quot;1&quot;,&quot;cols_tablet&quot;:3,&quot;gap&quot;:30,&quot;arrows&quot;:&quot;yes&quot;}" data-widget_type="pt-services.default">
+                            <div class="elementor-widget-container">
+
+                                <div class="pt-services-1 layout-carousel arrows-together arrows-align-top-right">
+                                    <div class="swiper-container swiper-container-initialized swiper-container-horizontal">
+                                        <div class="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px);">
+
+                                            @foreach (var n in Model.Ratings)
+                                            {
+                                                <div class="swiper-slide swiper-slide-active" style="width: 427px; margin-right: 30px;" data-swiper-slide-index="0">
+
+                                                    <div class="pt-testimonial">
+
+                                                        <div class="pt-testimonial">
+                                                            @for (int i = 0; i < n.Value; i++)
+                                                            {
+                                                                <i class="fa-sharp fa-solid fa-star text-orange" style="color:orange"></i>
+                                                            }
+                                                            <div class="pt-testimonial-text">
+                                                                @n.Comment
+                                                            </div>
+
+
+                                                            <div class="pt-testimonial-meta">
+
+                                                                <div class="pt-testimonial-avatar">
+                                                                    <img loading="lazy" width="800" height="900" src="@n.Patient.imgURl" class="attachment-full size-full" alt="" decoding="async" sizes="(max-width: 800px) 100vw, 800px">
+                                                                </div>
+
+                                                                <div class="pt-testimonial-author-wrapper">
+
+                                                                    <div class="pt-testimonial-author">
+                                                                        @n.Patient.Name
+                                                                    </div>
+
+
+                                                                    <div class="pt-testimonial-occupation">
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+
+                                                </div>
+
+
+
+                                            }
+                                        </div><span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+                                    </div>
+
+
+
+
+
+                                </div>
+
+
+
+
+
+                                <div class="swiper-scrollbar"><div class="swiper-scrollbar-drag" style="transform: translate3d(0px, 0px, 0px); width: 481.613px;"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </section>
     </div>
+
 </section>
 
 

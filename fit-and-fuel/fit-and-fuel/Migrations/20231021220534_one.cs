@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace fit_and_fuel.Migrations
 {
     /// <inheritdoc />
-    public partial class Latest : Migration
+    public partial class one : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -301,21 +301,19 @@ namespace fit_and_fuel.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Ratings",
+                name: "Prices",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    NutritionistId = table.Column<int>(type: "int", nullable: false),
-                    PatientId = table.Column<int>(type: "int", nullable: false),
-                    Value = table.Column<int>(type: "int", nullable: false),
-                    Comment = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    amount = table.Column<double>(type: "float", nullable: false),
+                    NutritionistId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Ratings", x => x.Id);
+                    table.PrimaryKey("PK_Prices", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Ratings_Nutritionists_NutritionistId",
+                        name: "FK_Prices_Nutritionists_NutritionistId",
                         column: x => x.NutritionistId,
                         principalTable: "Nutritionists",
                         principalColumn: "Id",
@@ -432,6 +430,34 @@ namespace fit_and_fuel.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Ratings",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NutritionistId = table.Column<int>(type: "int", nullable: false),
+                    PatientId = table.Column<int>(type: "int", nullable: false),
+                    Value = table.Column<int>(type: "int", nullable: false),
+                    Comment = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ratings", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Ratings_Nutritionists_NutritionistId",
+                        column: x => x.NutritionistId,
+                        principalTable: "Nutritionists",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Ratings_Patients_PatientId",
+                        column: x => x.PatientId,
+                        principalTable: "Patients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Comment",
                 columns: table => new
                 {
@@ -541,21 +567,7 @@ namespace fit_and_fuel.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[,]
-                {
-                    { "1", 0, "b37ee5d6-d4e2-4985-adb7-fb43c2fe6522", "adminUser@example.com", true, false, null, "adminUser@EXAMPLE.COM", "ADMIN", "AQAAAAIAAYagAAAAEB/C4JMxlJ1LAYqINL5dIxz/ZYyxlUv+IHhEL9TcANnmnFDfj5g1BNNdVeFhMdTNPw==", "1234567890", false, "88a2d88d-88d8-4f84-82c2-c1f9e129e2d0", false, "admin" },
-                    { "2", 0, "7d546069-f8fa-43cf-82bc-68838424d7cf", "nutritionistUser@example.com", true, false, null, "nutritionistUser@EXAMPLE.COM", "NUTRITIONIST", "AQAAAAIAAYagAAAAEBg3RuvUc+wkzsmMEYHoIQScldU6Ed+u7cJXSq/zK4yH1GFBZ2qbpv4MuTorH6DPlg==", "1234567890", false, "e0ca3ff6-ada7-4a94-855b-b683ddafcfca", false, "nutritionist" },
-                    { "3", 0, "147ac1e7-1ca6-43d8-90fa-4ccce2815320", "patientUser@example.com", true, false, null, "patientUser@EXAMPLE.COM", "PATIENT", "AQAAAAIAAYagAAAAEP4mldxj+COfTBH8VX3dqUt9UksV/wyYonxzrQ8PXUDSfJ7ZlVUYd04iZy6Vhcu9kw==", "1234567890", false, "92b7d230-6e47-4a5c-a2bc-503eb8bf428b", false, "patient" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Nutritionists",
-                columns: new[] { "Id", "Age", "CvURl", "Gender", "Name", "PhoneNumber", "UserId", "imgURl" },
-                values: new object[,]
-                {
-                    { 1, 30, "cv_url_1", "Male", "John Doe", "123-456-7890", null, "img_url_1" },
-                    { 2, 28, "cv_url_2", "Female", "Jane Smith", "987-654-3210", "2", "img_url_2" }
-                });
+                values: new object[] { "1", 0, "2e69497a-da29-4784-afd2-60937e107b25", "adminUser@example.com", true, false, null, "adminUser@EXAMPLE.COM", "ADMIN", "AQAAAAIAAYagAAAAEPgdxnfgpKi6P7jab8WWjOEdO5CWMu1SwXFEpzgD5Q8bi/YQ8kvMehRijssF7/+IXw==", "1234567890", false, "a812a872-1d84-4c68-9f8b-0b53f3b15819", false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoleClaims",
@@ -570,94 +582,7 @@ namespace fit_and_fuel.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[,]
-                {
-                    { "admin", "1" },
-                    { "nutritionist", "2" },
-                    { "patient", "3" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Clinics",
-                columns: new[] { "Id", "Address", "Name", "NutritionistId", "PhoneNumber" },
-                values: new object[,]
-                {
-                    { 1, "123 Main St", "Healthy Clinic", 1, "5555555555" },
-                    { 2, "456 Elm St", "Wellness Center", 2, "5551234567" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Patients",
-                columns: new[] { "Id", "Age", "Gender", "Name", "NutritionistId", "PhoneNumber", "UserId", "imgURl" },
-                values: new object[,]
-                {
-                    { 1, 25, "Female", "Alice Johnson", 1, "555-123-4567", "3", "img_url_1" },
-                    { 2, 0, "Male", "Bob Williams", 2, "555-987-6543", null, "img_url_1" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Posts",
-                columns: new[] { "Id", "Description", "ImageUrl", "IsImproved", "NutritionistId", "Time", "Title" },
-                values: new object[,]
-                {
-                    { 1, "Learn how to make healthier food choices.", "image_url_1", false, 1, new DateTime(2023, 10, 21, 17, 24, 25, 871, DateTimeKind.Local).AddTicks(6651), "Healthy Eating Tips" },
-                    { 2, "Understanding the importance of a balanced diet.", "image_url_2", false, 2, new DateTime(2023, 10, 21, 17, 24, 25, 871, DateTimeKind.Local).AddTicks(6659), "Balanced Diet Importance" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Appoitments",
-                columns: new[] { "Id", "IsCompleted", "IsConfirmed", "NutritionistId", "PatientId", "Status", "Time" },
-                values: new object[,]
-                {
-                    { 1, false, false, 1, 1, "Scheduled", new DateTime(2023, 10, 21, 18, 24, 25, 871, DateTimeKind.Local).AddTicks(6671) },
-                    { 2, false, false, 2, 2, "Scheduled", new DateTime(2023, 10, 21, 19, 24, 25, 871, DateTimeKind.Local).AddTicks(6680) }
-                });
-
-            migrationBuilder.InsertData(
-                table: "DietPlans",
-                columns: new[] { "Id", "Duration", "EndDate", "NutritionistId", "PatientId", "StartDate" },
-                values: new object[,]
-                {
-                    { 1, 5, new DateTime(2023, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 1, new DateTime(2023, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 2, 5, new DateTime(2023, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 2, new DateTime(2023, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified) }
-                });
-
-            migrationBuilder.InsertData(
-                table: "healthRecords",
-                columns: new[] { "Id", "Height", "Illnesses", "PatientId", "Weight" },
-                values: new object[,]
-                {
-                    { 1, 175.0, "None", 1, 70.0 },
-                    { 2, 180.0, "None", 2, 80.0 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Days",
-                columns: new[] { "Id", "Date", "DayName", "DietPlanId" },
-                values: new object[,]
-                {
-                    { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "tusday", 1 },
-                    { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "tusday", 2 },
-                    { 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "tusday", 1 },
-                    { 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "tusday", 1 },
-                    { 5, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "tusday", 2 },
-                    { 6, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "tusday", 1 },
-                    { 7, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "tusday", 1 },
-                    { 8, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "tusday", 2 },
-                    { 9, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "tusday", 1 },
-                    { 10, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "tusday", 1 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Meals",
-                columns: new[] { "Id", "Calories", "Completion", "DayId", "Description", "Name" },
-                values: new object[,]
-                {
-                    { 1, 300, false, 1, "Oatmeal with fruits", "Breakfast" },
-                    { 2, 500, false, 1, "Grilled chicken salad", "Lunch" },
-                    { 3, 500, false, 2, "Grilled meat salad", "Lunch" },
-                    { 4, 200, false, 2, "egss and milk", "BreakFast" }
-                });
+                values: new object[] { "admin", "1" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Appoitments_NutritionistId",
@@ -787,9 +712,20 @@ namespace fit_and_fuel.Migrations
                 column: "NutritionistId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Prices_NutritionistId",
+                table: "Prices",
+                column: "NutritionistId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Ratings_NutritionistId",
                 table: "Ratings",
                 column: "NutritionistId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ratings_PatientId",
+                table: "Ratings",
+                column: "PatientId");
         }
 
         /// <inheritdoc />
@@ -839,6 +775,9 @@ namespace fit_and_fuel.Migrations
 
             migrationBuilder.DropTable(
                 name: "PaymentRecords");
+
+            migrationBuilder.DropTable(
+                name: "Prices");
 
             migrationBuilder.DropTable(
                 name: "Ratings");

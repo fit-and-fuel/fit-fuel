@@ -12,8 +12,8 @@ using fit_and_fuel.Data;
 namespace fit_and_fuel.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231021142426_Latest")]
-    partial class Latest
+    [Migration("20231021164125_newMigration")]
+    partial class newMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -189,16 +189,6 @@ namespace fit_and_fuel.Migrations
                         {
                             UserId = "1",
                             RoleId = "admin"
-                        },
-                        new
-                        {
-                            UserId = "2",
-                            RoleId = "nutritionist"
-                        },
-                        new
-                        {
-                            UserId = "3",
-                            RoleId = "patient"
                         });
                 });
 
@@ -290,52 +280,18 @@ namespace fit_and_fuel.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b37ee5d6-d4e2-4985-adb7-fb43c2fe6522",
+                            ConcurrencyStamp = "77724c2d-3174-485b-9f65-d7abb463c06b",
                             Email = "adminUser@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "adminUser@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEB/C4JMxlJ1LAYqINL5dIxz/ZYyxlUv+IHhEL9TcANnmnFDfj5g1BNNdVeFhMdTNPw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEL80vfPvMvbeShoedYRfM/sduDWkcHcmdEwhggcfxEQM+QGjf9+wavQ8+BJhKSie7Q==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "88a2d88d-88d8-4f84-82c2-c1f9e129e2d0",
+                            SecurityStamp = "35f9db4d-5e96-4b24-9d2d-38a680689f35",
                             TwoFactorEnabled = false,
                             UserName = "admin"
-                        },
-                        new
-                        {
-                            Id = "2",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "7d546069-f8fa-43cf-82bc-68838424d7cf",
-                            Email = "nutritionistUser@example.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "nutritionistUser@EXAMPLE.COM",
-                            NormalizedUserName = "NUTRITIONIST",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBg3RuvUc+wkzsmMEYHoIQScldU6Ed+u7cJXSq/zK4yH1GFBZ2qbpv4MuTorH6DPlg==",
-                            PhoneNumber = "1234567890",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "e0ca3ff6-ada7-4a94-855b-b683ddafcfca",
-                            TwoFactorEnabled = false,
-                            UserName = "nutritionist"
-                        },
-                        new
-                        {
-                            Id = "3",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "147ac1e7-1ca6-43d8-90fa-4ccce2815320",
-                            Email = "patientUser@example.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "patientUser@EXAMPLE.COM",
-                            NormalizedUserName = "PATIENT",
-                            PasswordHash = "AQAAAAIAAYagAAAAEP4mldxj+COfTBH8VX3dqUt9UksV/wyYonxzrQ8PXUDSfJ7ZlVUYd04iZy6Vhcu9kw==",
-                            PhoneNumber = "1234567890",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "92b7d230-6e47-4a5c-a2bc-503eb8bf428b",
-                            TwoFactorEnabled = false,
-                            UserName = "patient"
                         });
                 });
 
@@ -373,28 +329,6 @@ namespace fit_and_fuel.Migrations
                     b.HasIndex("PatientId");
 
                     b.ToTable("Appoitments");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            IsCompleted = false,
-                            IsConfirmed = false,
-                            NutritionistId = 1,
-                            PatientId = 1,
-                            Status = "Scheduled",
-                            Time = new DateTime(2023, 10, 21, 18, 24, 25, 871, DateTimeKind.Local).AddTicks(6671)
-                        },
-                        new
-                        {
-                            Id = 2,
-                            IsCompleted = false,
-                            IsConfirmed = false,
-                            NutritionistId = 2,
-                            PatientId = 2,
-                            Status = "Scheduled",
-                            Time = new DateTime(2023, 10, 21, 19, 24, 25, 871, DateTimeKind.Local).AddTicks(6680)
-                        });
                 });
 
             modelBuilder.Entity("fit_and_fuel.Model.AvailableTime", b =>
@@ -478,24 +412,6 @@ namespace fit_and_fuel.Migrations
                         .IsUnique();
 
                     b.ToTable("Clinics");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Address = "123 Main St",
-                            Name = "Healthy Clinic",
-                            NutritionistId = 1,
-                            PhoneNumber = "5555555555"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Address = "456 Elm St",
-                            Name = "Wellness Center",
-                            NutritionistId = 2,
-                            PhoneNumber = "5551234567"
-                        });
                 });
 
             modelBuilder.Entity("fit_and_fuel.Model.Comment", b =>
@@ -548,78 +464,6 @@ namespace fit_and_fuel.Migrations
                     b.HasIndex("DietPlanId");
 
                     b.ToTable("Days");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DayName = "tusday",
-                            DietPlanId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DayName = "tusday",
-                            DietPlanId = 2
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DayName = "tusday",
-                            DietPlanId = 1
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DayName = "tusday",
-                            DietPlanId = 1
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DayName = "tusday",
-                            DietPlanId = 2
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DayName = "tusday",
-                            DietPlanId = 1
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DayName = "tusday",
-                            DietPlanId = 1
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DayName = "tusday",
-                            DietPlanId = 2
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DayName = "tusday",
-                            DietPlanId = 1
-                        },
-                        new
-                        {
-                            Id = 10,
-                            Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DayName = "tusday",
-                            DietPlanId = 1
-                        });
                 });
 
             modelBuilder.Entity("fit_and_fuel.Model.DietPlan", b =>
@@ -653,26 +497,6 @@ namespace fit_and_fuel.Migrations
                         .IsUnique();
 
                     b.ToTable("DietPlans");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Duration = 5,
-                            EndDate = new DateTime(2023, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            NutritionistId = 1,
-                            PatientId = 1,
-                            StartDate = new DateTime(2023, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Duration = 5,
-                            EndDate = new DateTime(2023, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            NutritionistId = 2,
-                            PatientId = 2,
-                            StartDate = new DateTime(2023, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        });
                 });
 
             modelBuilder.Entity("fit_and_fuel.Model.HealthRecord", b =>
@@ -702,24 +526,6 @@ namespace fit_and_fuel.Migrations
                         .IsUnique();
 
                     b.ToTable("healthRecords");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Height = 175.0,
-                            Illnesses = "None",
-                            PatientId = 1,
-                            Weight = 70.0
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Height = 180.0,
-                            Illnesses = "None",
-                            PatientId = 2,
-                            Weight = 80.0
-                        });
                 });
 
             modelBuilder.Entity("fit_and_fuel.Model.Like", b =>
@@ -775,44 +581,6 @@ namespace fit_and_fuel.Migrations
                     b.HasIndex("DayId");
 
                     b.ToTable("Meals");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Calories = 300,
-                            Completion = false,
-                            DayId = 1,
-                            Description = "Oatmeal with fruits",
-                            Name = "Breakfast"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Calories = 500,
-                            Completion = false,
-                            DayId = 1,
-                            Description = "Grilled chicken salad",
-                            Name = "Lunch"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Calories = 500,
-                            Completion = false,
-                            DayId = 2,
-                            Description = "Grilled meat salad",
-                            Name = "Lunch"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Calories = 200,
-                            Completion = false,
-                            DayId = 2,
-                            Description = "egss and milk",
-                            Name = "BreakFast"
-                        });
                 });
 
             modelBuilder.Entity("fit_and_fuel.Model.Notification", b =>
@@ -879,29 +647,6 @@ namespace fit_and_fuel.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Nutritionists");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Age = 30,
-                            CvURl = "cv_url_1",
-                            Gender = "Male",
-                            Name = "John Doe",
-                            PhoneNumber = "123-456-7890",
-                            imgURl = "img_url_1"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Age = 28,
-                            CvURl = "cv_url_2",
-                            Gender = "Female",
-                            Name = "Jane Smith",
-                            PhoneNumber = "987-654-3210",
-                            UserId = "2",
-                            imgURl = "img_url_2"
-                        });
                 });
 
             modelBuilder.Entity("fit_and_fuel.Model.Patient", b =>
@@ -942,29 +687,6 @@ namespace fit_and_fuel.Migrations
                     b.HasIndex("NutritionistId");
 
                     b.ToTable("Patients");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Age = 25,
-                            Gender = "Female",
-                            Name = "Alice Johnson",
-                            NutritionistId = 1,
-                            PhoneNumber = "555-123-4567",
-                            UserId = "3",
-                            imgURl = "img_url_1"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Age = 0,
-                            Gender = "Male",
-                            Name = "Bob Williams",
-                            NutritionistId = 2,
-                            PhoneNumber = "555-987-6543",
-                            imgURl = "img_url_1"
-                        });
                 });
 
             modelBuilder.Entity("fit_and_fuel.Model.Payment", b =>
@@ -1037,28 +759,6 @@ namespace fit_and_fuel.Migrations
                     b.HasIndex("NutritionistId");
 
                     b.ToTable("Posts");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Learn how to make healthier food choices.",
-                            ImageUrl = "image_url_1",
-                            IsImproved = false,
-                            NutritionistId = 1,
-                            Time = new DateTime(2023, 10, 21, 17, 24, 25, 871, DateTimeKind.Local).AddTicks(6651),
-                            Title = "Healthy Eating Tips"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "Understanding the importance of a balanced diet.",
-                            ImageUrl = "image_url_2",
-                            IsImproved = false,
-                            NutritionistId = 2,
-                            Time = new DateTime(2023, 10, 21, 17, 24, 25, 871, DateTimeKind.Local).AddTicks(6659),
-                            Title = "Balanced Diet Importance"
-                        });
                 });
 
             modelBuilder.Entity("fit_and_fuel.Model.Rating", b =>
@@ -1085,6 +785,8 @@ namespace fit_and_fuel.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("NutritionistId");
+
+                    b.HasIndex("PatientId");
 
                     b.ToTable("Ratings");
                 });
@@ -1317,6 +1019,14 @@ namespace fit_and_fuel.Migrations
                         .HasForeignKey("NutritionistId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("fit_and_fuel.Model.Patient", "Patient")
+                        .WithMany()
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Patient");
                 });
 
             modelBuilder.Entity("fit_and_fuel.Model.Day", b =>

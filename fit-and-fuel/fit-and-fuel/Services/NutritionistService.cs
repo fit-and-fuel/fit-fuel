@@ -61,8 +61,8 @@ namespace fit_and_fuel.Services
             .Include(p => p.patients)
                 .Include(c => c.clinic)
                 .Include(n => n.Ratings)
-
-            .ToListAsync();
+							.Include(b => b.Price)
+			.ToListAsync();
 
             return nuts;
         }
@@ -208,6 +208,7 @@ namespace fit_and_fuel.Services
             .Include(c => c.clinic)
             .Include(a => a.appoitments)
             .Include(AT => AT.AvaliableTimes)
+            .Include(b=>b.Price)
             .Where(n => n.Id == id).FirstOrDefaultAsync();
             return nut;
         }

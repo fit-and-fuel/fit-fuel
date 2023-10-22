@@ -12,8 +12,8 @@ using fit_and_fuel.Data;
 namespace fit_and_fuel.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231020183425_patientimg")]
-    partial class patientimg
+    [Migration("20231021220534_one")]
+    partial class one
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -280,16 +280,16 @@ namespace fit_and_fuel.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "dc2d6a03-c404-4983-9974-f057a60228c9",
+                            ConcurrencyStamp = "2e69497a-da29-4784-afd2-60937e107b25",
                             Email = "adminUser@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "adminUser@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEPjnt4KiZfLeGjn0/WE8HYC97VB6yRMq78FDhosgoGcV4cmuELTh/PCiLEZiV+1QqQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPgdxnfgpKi6P7jab8WWjOEdO5CWMu1SwXFEpzgD5Q8bi/YQ8kvMehRijssF7/+IXw==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a2f3ca97-6885-4eb8-bbbe-3293019926a0",
+                            SecurityStamp = "a812a872-1d84-4c68-9f8b-0b53f3b15819",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -761,6 +761,28 @@ namespace fit_and_fuel.Migrations
                     b.ToTable("Posts");
                 });
 
+            modelBuilder.Entity("fit_and_fuel.Model.Price", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("NutritionistId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("amount")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NutritionistId")
+                        .IsUnique();
+
+                    b.ToTable("Prices");
+                });
+
             modelBuilder.Entity("fit_and_fuel.Model.Rating", b =>
                 {
                     b.Property<int>("Id")
@@ -1012,6 +1034,17 @@ namespace fit_and_fuel.Migrations
                     b.Navigation("nutritionist");
                 });
 
+            modelBuilder.Entity("fit_and_fuel.Model.Price", b =>
+                {
+                    b.HasOne("fit_and_fuel.Model.Nutritionist", "Nutritionist")
+                        .WithOne("Price")
+                        .HasForeignKey("fit_and_fuel.Model.Price", "NutritionistId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Nutritionist");
+                });
+
             modelBuilder.Entity("fit_and_fuel.Model.Rating", b =>
                 {
                     b.HasOne("fit_and_fuel.Model.Nutritionist", null)
@@ -1042,6 +1075,8 @@ namespace fit_and_fuel.Migrations
             modelBuilder.Entity("fit_and_fuel.Model.Nutritionist", b =>
                 {
                     b.Navigation("AvaliableTimes");
+
+                    b.Navigation("Price");
 
                     b.Navigation("Ratings");
 

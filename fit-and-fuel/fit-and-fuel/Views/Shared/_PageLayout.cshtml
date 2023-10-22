@@ -1,4 +1,35 @@
-﻿
+﻿@using fit_and_fuel.Interfaces
+@inject INotification notfication;
+@inject INutritionists nutritionists;
+@inject IPatients patients;
+@{
+    var count = await notfication.CountNot();
+    var notifications = await notfication.GetNotificationsForUser();
+    var visibleNotifications = notifications.Take(3).ToList();
+
+}
+
+@{
+    var nut = await nutritionists.GetMyProfile();
+    var pat = await patients.GetMyProfile();
+
+}
+
+@functions {
+    // Function to format text with links as HTML anchor tags
+    string FormatContentWithLinks(string content)
+    {
+        string pattern = @"(https?://\S+)|(www\.\S+)";
+        var regex = new System.Text.RegularExpressions.Regex(pattern);
+
+        return regex.Replace(content, match =>
+        {
+            string url = match.Value;
+            return $"<a href='{url}' target='_blank'>Register</a>";
+        });
+    }
+}
+
 <!doctype html>
 <html lang="en-US">
 <head>
@@ -1520,9 +1551,9 @@
         }
 
         /*
-        The .ext utility is a top-level class that we use to target contents within our patterns.
-        We use it here to ensure columns blocks display well across themes.
-        */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                The .ext utility is a top-level class that we use to target contents within our patterns.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                We use it here to ensure columns blocks display well across themes.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 
         .wp-block-columns[class*="fullwidth-cols"] {
             /* no suggestion */
@@ -1636,9 +1667,9 @@
         }
 
         /*
-            The `tablet:fullwidth-cols` and `desktop:fullwidth-cols` utilities are used
-            to counter the core/columns responsive for at our breakpoints.
-        */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    The `tablet:fullwidth-cols` and `desktop:fullwidth-cols` utilities are used
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    to counter the core/columns responsive for at our breakpoints.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 
         media (max-width: 781px) {
             .tablet\:fullwidth-cols.wp-block-columns:not(.is-not-stacked-on-mobile)
@@ -3722,74 +3753,92 @@
                                                     <li id="menu-item-33" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-has-children menu-item-33">
                                                         <a asp-controller="Home" asp-action="Index">Home</a><span class="submenu-toggle"></span>
                                                         <ul class="sub-menu">
-                                                            <li id="menu-item-30" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-30">
-                                                                <a href="https://promo-theme.com/woxfit/">
-                                                                </a>
-                                                            </li>
-                                                            <li id="menu-item-46" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-46"><a asp-controller="Nutritionist" asp-action="AvailableTimes">Available Times</a></li>
-                                                            <li id="menu-item-46" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-46"><a asp-controller="Nutritionist" asp-action="CreateProfile">Create nutritionsist profile</a></li>
 
-                                                            <li id="menu-item-47" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-47"><a href="https://promo-theme.com/woxfit/personal-trainer/">Personal Trainer</a></li>
-                                                            <li id="menu-item-48" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-48"><a href="https://promo-theme.com/woxfit/online-course/">Online Course</a></li>
-                                                            <li id="menu-item-49" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-49"><a href="https://promo-theme.com/woxfit/sports-nutrition-shop/">Sports Nutrition Shop</a></li>
-                                                            <li id="menu-item-50" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-50"><a href="https://promo-theme.com/woxfit/parallax-showcase/">Parallax Showcase</a></li>
+                                                            <li id="menu-item-46" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-46"><a asp-controller="Nutritionist" asp-action="ViewAllNutrition">All Nutritionists</a></li>
                                                         </ul>
                                                     </li>
-                                                    <li id="menu-item-34" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children menu-item-34">
-                                                        <a href="#">Pages</a><span class="submenu-toggle"></span>
-                                                        <ul class="sub-menu">
-                                                            <li id="menu-item-27" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-27"><a href="https://promo-theme.com/woxfit/about/">About</a></li>
-                                                            <li id="menu-item-3241" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3241"><a href="https://promo-theme.com/woxfit/services/">Services</a></li>
-                                                            <li id="menu-item-3240" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3240"><a href="https://promo-theme.com/woxfit/single-service/">Single Service</a></li>
-                                                            <li id="menu-item-3239" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-3205 current_page_item menu-item-3239"><a href="https://promo-theme.com/woxfit/timetable/" aria-current="page">Timetable</a></li>
-                                                            <li id="menu-item-3306" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-3306">
-                                                                <a href="https://promo-theme.com/woxfit/portfolio-grid-3-cols-2/">Portfolio</a><span class="submenu-toggle"></span>
-                                                                <ul class="sub-menu">
-                                                                    <li id="menu-item-3305" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3305"><a href="https://promo-theme.com/woxfit/portfolio-grid-3-cols-2/">Grid 2 Cols</a></li>
-                                                                    <li id="menu-item-3304" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3304"><a href="https://promo-theme.com/woxfit/portfolio-grid-3-cols/">Grid 3 Cols</a></li>
-                                                                    <li id="menu-item-3303" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3303"><a href="https://promo-theme.com/woxfit/portfolio-grid-4-cols/">Grid 4 Cols</a></li>
-                                                                    <li id="menu-item-3302" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3302"><a href="https://promo-theme.com/woxfit/portfolio-masonry-2-cols/">Masonry 2 Cols</a></li>
-                                                                    <li id="menu-item-3301" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3301"><a href="https://promo-theme.com/woxfit/portfolio-masonry-3-cols/">Masonry 3 Cols</a></li>
-                                                                    <li id="menu-item-3300" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3300"><a href="https://promo-theme.com/woxfit/portfolio-masonry-4-cols/">Masonry 4 Cols</a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li id="menu-item-81" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-81"><a href="https://promo-theme.com/woxfit/page-404">Page 404</a></li>
-                                                        </ul>
-                                                        @if (User.IsInRole("Nutritionist"))
-                                                        {
+
+                                                    @if (User.IsInRole("Nutritionist"))
+                                                    {
                                                         <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
                                                             <a>Managment</a><span class="submenu-toggle"></span>
                                                             <ul class="sub-menu">
+                                                                @if (nut != null)
+                                                                {
+                                                                    <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Nutritionist" asp-action="NutDetails" asp-route-id="@nut.Id">My Profile</a></li>
+                                                                }
                                                                 <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Nutritionist" asp-action="MyProfile">Patients</a></li>
                                                                 <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Nutritionist" asp-action="AvailableTimes">Schedule Appointments</a></li>
                                                                 <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="Nutritionist" asp-action="Appointments">Appointments</a></li>
                                                                 <li id="menu-item-3430" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3430"><a asp-controller="Nutritionist" asp-action="AddClinic">Add Clinic</a></li>
                                                                 <li id="menu-item-3430" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3430"><a asp-controller="Nutritionist" asp-action="AddPost">Add Post</a></li>
                                                                 <li id="menu-item-101" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-101"><a asp-controller="Nutritionist" asp-action="ViewPosts"> My Posts</a></li>
-
+                                                                @if (nut == null)
+                                                                {
+                                                                    <li id="menu-item-101" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-101"><a asp-controller="Nutritionist" asp-action="CreateProfile"> Create Profile</a></li>
+                                                                }
                                                             </ul>
                                                         </li>
-                                                        }
+                                                    }
 
                                                     <li id="menu-item-3368" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-3368"><a asp-controller="Home" asp-action="AllPost">Blog</a></li>
 
 
-                                                        @if (User.IsInRole("Patient"))
-                                                        {
+                                                    @if (User.IsInRole("Patient"))
+                                                    {
                                                         <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
                                                             <a>Managment</a><span class="submenu-toggle"></span>
                                                             <ul class="sub-menu">
+                                                                 @if (pat != null)
+                                                               {
+                                                                <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Client" asp-action="DetailPatient" asp-route-id="@pat.Id">My Profile</a></li>
+                                                               }
                                                                 <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Client" asp-action="MyDietPlan">My DietPlan</a></li>
                                                                 <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Client" asp-action="MealForToday">Meal For Today</a></li>
-                                                                <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="chat" asp-action="index">send message</a></li>
-
+                                                                <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Client" asp-action="addrating">Add rating</a></li>
+                                                                @if (pat.healthRecord == null)
+                                                                {
+                                                                    <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="Client" asp-action="AddHealthRecord">Add Health Record</a></li>
+                                                                }
+                                                                <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="chat" asp-action="index">Send Message</a></li>
+                                                                @if (pat == null)
+                                                                {
+                                                                    <li id="menu-item-101" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-101"><a asp-controller="Client" asp-action="Index">Create Profile</a></li>
+                                                                }
                                                             </ul>
                                                         </li>
-                                                        }
+                                                    }
 
 
                                                     <li id="menu-item-3242" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3242"><a asp-controller="Home" asp-action="About">About</a></li>
                                                     <li id="menu-item-3242" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3242"><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+                                                    @if (User.Identity.IsAuthenticated)
+                                                    {
+                                                        <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
+                                                            <a>
+                                                                @if (count > 0)
+                                                                {
+                                                                    <span class="pt-cart-count">@count</span>
+                                                                }
+                                                                <i class="fas fa-bell"></i>
+
+                                                            </a><span class="submenu-toggle"></span>
+
+
+                                                            <ul class="sub-menu">
+                                                                @foreach (var notificat in visibleNotifications)
+                                                                {
+                                                                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102" style="width:400px; background-color: #f0f0f0; border: 1px solid #ddd; margin: 10px; padding: 10px; border-radius: 5px;">
+                                                                        <h6 class="mb-1" style="font-size: 13px;"> @Html.Raw(FormatContentWithLinks(notificat.Content))</h6>
+                                                                        <small class="d-block">@notificat.Timestamp</small>
+                                                                    </li>
+                                                                }
+                                                                <a asp-controller="Notification" asp-action="Index">Show All</a>
+                                                            </ul>
+
+
+                                                        </li>
+                                                    }
                                                 </ul>
                                             </div>
                                         </nav>
@@ -3808,10 +3857,10 @@
                             <div class="elementor-element elementor-element-b1122cc elementor-widget__width-auto elementor-widget elementor-widget-pt-search" data-id="b1122cc" data-element_type="widget" data-widget_type="pt-search.default">
                                 <div class="elementor-widget-container" style="color: white;">
 
-                                    @*	<div class="pt-search-toggle search-toggle"></div>*@
+                                    
                                     @if (User.Identity.IsAuthenticated)
                                     {
-                                        @* <div class="pt-search-toggle search-toggle"></div>*@
+                                        
                                         <p>
                                             @User.Identity.Name
                                         </p>
@@ -3962,15 +4011,7 @@
 
                                         <a asp-controller="User" asp-action="Login">LogIn</a>
                                     }
-                                    @*<div class="pt-cart">
-                                    <a class="pt-cart-link" href="https://promo-theme.com/woxfit/cart/">
-                                    <div class="pt-cart-text"></div>
-                                    <div class="pt-cart-count">0</div>
-                                    </a>
 
-                                    <div class="pt-cart-minicart">
-                                    <div class="widget woocommerce widget_shopping_cart"><h2 class="widgettitle">Cart</h2><div class="widget_shopping_cart_content"></div></div>			</div>
-                                    </div>*@
 
                                 </div>
                             </div>
@@ -3982,57 +4023,23 @@
                                             <div class="menu-menu-1-container">
                                                 <ul id="menu-menu-2" class="site-menu-inner">
                                                     <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-has-children menu-item-33">
-                                                        <a href="https://promo-theme.com/woxfit/">Home</a><span class="submenu-toggle"></span>
+                                                        <a asp-controller="Home" asp-action="Index">Home</a><span class="submenu-toggle"></span>
                                                         <ul class="sub-menu">
-                                                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-30"><a href="https://promo-theme.com/woxfit/">Fitness</a></li>
-                                                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-46"><a href="https://promo-theme.com/woxfit/gym/">Gym</a></li>
-                                                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-47">
-                                                                <a href="https://promo-theme.com/woxfit/personal-trainer/">
-                                                                </a>
-                                                            </li>
-                                                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-48"><a href="https://promo-theme.com/woxfit/online-course/">Online Course</a></li>
-                                                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-49"><a href="https://promo-theme.com/woxfit/sports-nutrition-shop/">Sports Nutrition Shop</a></li>
-                                                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-50"><a href="https://promo-theme.com/woxfit/parallax-showcase/">Parallax Showcase</a></li>
+                                                            <li id="menu-item-46" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-46"><a asp-controller="Nutritionist" asp-action="ViewAllNutrition">All Nutritionists</a></li>
                                                         </ul>
                                                     </li>
-                                                    <li class="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children menu-item-34">
-                                                        <a href="#">Pages</a><span class="submenu-toggle"></span>
-                                                        <ul class="sub-menu">
-                                                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-27"><a href="https://promo-theme.com/woxfit/about/">About</a></li>
-                                                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3241"><a href="https://promo-theme.com/woxfit/services/">Services</a></li>
-                                                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3240"><a href="https://promo-theme.com/woxfit/single-service/">Single Service</a></li>
-                                                            <li class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-3205 current_page_item menu-item-3239"><a href="https://promo-theme.com/woxfit/timetable/" aria-current="page">Timetable</a></li>
-                                                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-3306">
-                                                                <a href="https://promo-theme.com/woxfit/portfolio-grid-3-cols-2/">Portfolio</a><span class="submenu-toggle"></span>
-                                                                <ul class="sub-menu">
-                                                                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3305"><a href="https://promo-theme.com/woxfit/portfolio-grid-3-cols-2/">Grid 2 Cols</a></li>
-                                                                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3304"><a href="https://promo-theme.com/woxfit/portfolio-grid-3-cols/">Grid 3 Cols</a></li>
-                                                                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3303"><a href="https://promo-theme.com/woxfit/portfolio-grid-4-cols/">Grid 4 Cols</a></li>
-                                                                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3302"><a href="https://promo-theme.com/woxfit/portfolio-masonry-2-cols/">Masonry 2 Cols</a></li>
-                                                                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3301"><a href="https://promo-theme.com/woxfit/portfolio-masonry-3-cols/">Masonry 3 Cols</a></li>
-                                                                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3300"><a href="https://promo-theme.com/woxfit/portfolio-masonry-4-cols/">Masonry 4 Cols</a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-81"><a href="https://promo-theme.com/woxfit/page-404">Page 404</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
-                                                        <a href="https://promo-theme.com/woxfit/shop/">Shop</a><span class="submenu-toggle"></span>
-                                                        <ul class="sub-menu">
-                                                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a href="https://promo-theme.com/woxfit/shop/">Product list</a></li>
-                                                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a href="https://promo-theme.com/woxfit/shop-left-sidebar/">Left Sidebar</a></li>
-                                                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a href="https://promo-theme.com/woxfit/shop-no-sidebar/">No Sidebar</a></li>
-                                                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3430"><a href="https://promo-theme.com/woxfit/shop-no-sidebar-banner/">No Sidebar + Banner</a></li>
-                                                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-101"><a href="https://promo-theme.com/woxfit/cart/">Cart</a></li>
-                                                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-100"><a href="https://promo-theme.com/woxfit/checkout/">Checkout</a></li>
-                                                        </ul>
-                                                    </li>
+
+
 
                                                     @if (User.IsInRole("Nutritionist"))
                                                     {
                                                         <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
                                                             <a>Managment</a><span class="submenu-toggle"></span>
                                                             <ul class="sub-menu">
+                                                                @if (nut != null)
+                                                                {
+                                                                    <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Nutritionist" asp-action="NutDetails" asp-route-id="@nut.Id">My Profile</a></li>
+                                                                }
                                                                 <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Nutritionist" asp-action="MyProfile">Patients</a></li>
                                                                 <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Nutritionist" asp-action="AvailableTimes">Schedule Appointments</a></li>
                                                                 <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="Nutritionist" asp-action="Appointments">Appointments</a></li>
@@ -4044,9 +4051,64 @@
                                                         </li>
                                                     }
 
+
+                                                    @if (User.IsInRole("Patient"))
+                                                    {
+                                                        <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
+                                                            <a>Managment</a><span class="submenu-toggle"></span>
+                                                            <ul class="sub-menu">
+                                                                @if (pat != null)
+                                                                {
+                                                                    <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Client" asp-action="DetailPatient" asp-route-id="@pat.Id">My Profile</a></li>
+                                                                }
+                                                                <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Client" asp-action="MyDietPlan">My DietPlan</a></li>
+                                                                <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Client" asp-action="MealForToday">Meal For Today</a></li>
+                                                                <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Client" asp-action="addrating">Add Rating</a></li>
+                                                                 @if (pat.healthRecord == null)
+ {
+     <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="Client" asp-action="AddHealthRecord">Add Health Record</a></li>
+ }
+                                                                <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="chat" asp-action="index">Send Message</a></li>
+                                                                @if (pat == null)
+                                                                {
+                                                                    <li id="menu-item-101" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-101"><a asp-controller="Client" asp-action="Index">Create Profile</a></li>
+                                                                }
+
+                                                            </ul>
+                                                        </li>
+                                                    }
+
                                                     <li id="menu-item-3368" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-3368"><a asp-controller="Home" asp-action="AllPost">Blog</a></li>
                                                     <li id="menu-item-3242" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3242"><a asp-controller="Home" asp-action="About">About</a></li>
                                                     <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3242"><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+
+                                                    @if (User.Identity.IsAuthenticated)
+                                                    {
+                                                        <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
+                                                            <a>
+                                                                @if (count > 0)
+                                                                {
+                                                                    <span class="pt-cart-count">@count</span>
+                                                                }
+                                                                <i class="fas fa-bell"></i>
+
+                                                            </a><span class="submenu-toggle"></span>
+
+
+                                                            <ul class="sub-menu">
+                                                                @foreach (var notificat in visibleNotifications)
+                                                                {
+                                                                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102" style="width:400px; background-color: #f0f0f0; border: 1px solid #ddd; margin: 10px; padding: 10px; border-radius: 5px;">
+                                                                        <h6 class="mb-1" style="font-size: 13px;"> @Html.Raw(FormatContentWithLinks(notificat.Content))</h6>
+                                                                        <small class="d-block">@notificat.Timestamp</small>
+                                                                    </li>
+                                                                }
+                                                                <a asp-controller="Notification" asp-action="Index">Show All</a>
+                                                            </ul>
+
+
+                                                        </li>
+                                                    }
                                                 </ul>
                                             </div>
                                         </nav>
@@ -4077,55 +4139,23 @@
             <nav class="mobile-menu">
                 <ul id="menu-menu-3" class="menu">
                     <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-has-children menu-item-33">
-                        <a href="https://promo-theme.com/woxfit/">Home</a><span class="submenu-toggle"></span>
+                        <a asp-controller="Home" asp-action="Index">Home</a><span class="submenu-toggle"></span>
                         <ul class="sub-menu">
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-30"><a href="https://promo-theme.com/woxfit/">Fitness</a></li>
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-46"><a href="https://promo-theme.com/woxfit/gym/">Gym</a></li>
-                            @*<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-47"><a href="https://promo-theme.com/woxfit/personal-trainer/">Personal Trainer</a></li>*@
-                            @*	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-48"><a href="https://promo-theme.com/woxfit/online-course/">Online Course</a></li>
-                            *@
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-49"><a href="https://promo-theme.com/woxfit/sports-nutrition-shop/">Sports Nutrition Shop</a></li>
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-50"><a href="https://promo-theme.com/woxfit/parallax-showcase/">Parallax Showcase</a></li>
+                            <li id="menu-item-46" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-46"><a asp-controller="Nutritionist" asp-action="ViewAllNutrition">All Nutritionists</a></li>
                         </ul>
                     </li>
-                    <li class="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children menu-item-34">
-                        <a href="#">Pages</a><span class="submenu-toggle"></span>
-                        <ul class="sub-menu">
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-27"><a href="https://promo-theme.com/woxfit/about/">About</a></li>
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3241"><a href="https://promo-theme.com/woxfit/services/">Services</a></li>
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3240"><a href="https://promo-theme.com/woxfit/single-service/">Single Service</a></li>
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-3205 current_page_item menu-item-3239"><a href="https://promo-theme.com/woxfit/timetable/" aria-current="page">Timetable</a></li>
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-3306">
-                                <a href="https://promo-theme.com/woxfit/portfolio-grid-3-cols-2/">Portfolio</a><span class="submenu-toggle"></span>
-                                <ul class="sub-menu">
-                                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3305"><a href="https://promo-theme.com/woxfit/portfolio-grid-3-cols-2/">Grid 2 Cols</a></li>
-                                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3304"><a href="https://promo-theme.com/woxfit/portfolio-grid-3-cols/">Grid 3 Cols</a></li>
-                                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3303"><a href="https://promo-theme.com/woxfit/portfolio-grid-4-cols/">Grid 4 Cols</a></li>
-                                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3302"><a href="https://promo-theme.com/woxfit/portfolio-masonry-2-cols/">Masonry 2 Cols</a></li>
-                                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3301"><a href="https://promo-theme.com/woxfit/portfolio-masonry-3-cols/">Masonry 3 Cols</a></li>
-                                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3300"><a href="https://promo-theme.com/woxfit/portfolio-masonry-4-cols/">Masonry 4 Cols</a></li>
-                                </ul>
-                            </li>
-                            <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-81"><a href="https://promo-theme.com/woxfit/page-404">Page 404</a></li>
-                        </ul>
-                    </li>
-                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
-                        <a href="https://promo-theme.com/woxfit/shop/">Shop</a><span class="submenu-toggle"></span>
-                        <ul class="sub-menu">
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a href="https://promo-theme.com/woxfit/shop/">Product list</a></li>
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a href="https://promo-theme.com/woxfit/shop-left-sidebar/">Left Sidebar</a></li>
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a href="https://promo-theme.com/woxfit/shop-no-sidebar/">No Sidebar</a></li>
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3430"><a href="https://promo-theme.com/woxfit/shop-no-sidebar-banner/">No Sidebar + Banner</a></li>
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-101"><a href="https://promo-theme.com/woxfit/cart/">Cart</a></li>
-                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-100"><a href="https://promo-theme.com/woxfit/checkout/">Checkout</a></li>
-                        </ul>
-                    </li>
+
+
 
                     @if (User.IsInRole("Nutritionist"))
                     {
                         <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
                             <a>Managment</a><span class="submenu-toggle"></span>
                             <ul class="sub-menu">
+                                @if (nut != null)
+                                {
+                                    <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Nutritionist" asp-action="NutDetails" asp-route-id="@nut.Id">My Profile</a></li>
+                                }
                                 <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Nutritionist" asp-action="MyProfile">Patients</a></li>
                                 <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Nutritionist" asp-action="AvailableTimes">Schedule Appointments</a></li>
                                 <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="Nutritionist" asp-action="Appointments">Appointments</a></li>
@@ -4136,11 +4166,66 @@
                             </ul>
                         </li>
                     }
+
+
+                    @if (User.IsInRole("Patient"))
+                    {
+                        <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
+                            <a>Managment</a><span class="submenu-toggle"></span>
+                            <ul class="sub-menu">
+                                 @if (pat != null)
+ {
+                                <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Client" asp-action="DetailPatient" asp-route-id="@pat.Id">My Profile</a></li>
+ }
+                                <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Client" asp-action="MyDietPlan">My DietPlan</a></li>
+                                <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Client" asp-action="MealForToday">Meal For Today</a></li>
+                                <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Client" asp-action="addrating">Add Rating</a></li>
+                                @if (pat.healthRecord == null)
+                                {
+                                    <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="Client" asp-action="AddHealthRecord">Add Health Record</a></li>
+                                }
+                                <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="chat" asp-action="index">Send Message</a></li>
+                                @if (pat == null)
+                                {
+                                    <li id="menu-item-101" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-101"><a asp-controller="Client" asp-action="Index">Create Profile</a></li>
+                                }
+
+                            </ul>
+                        </li>
+                    }
                     <li id="menu-item-3368" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-3368"><a asp-controller="Home" asp-action="AllPost">Blog</a></li>
 
                     <li id="menu-item-3242" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3242"><a asp-controller="Home" asp-action="About">About</a></li>
 
                     <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3242"><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
+                            <a>
+                                @if (count > 0)
+                                {
+                                    <span class="pt-cart-count">@count</span>
+                                }
+                                <i class="fas fa-bell"></i>
+
+                            </a><span class="submenu-toggle"></span>
+
+
+                            <ul class="sub-menu">
+                                @foreach (var notificat in visibleNotifications)
+                                {
+                                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102" style="width:400px; background-color: #f0f0f0; border: 1px solid #ddd; margin: 10px; padding: 10px; border-radius: 5px;">
+                                        <h6 class="mb-1" style="font-size: 13px;"> @Html.Raw(FormatContentWithLinks(notificat.Content))</h6>
+                                        <small class="d-block">@notificat.Timestamp</small>
+                                    </li>
+                                }
+                                <a asp-controller="Notification" asp-action="Index">Show All</a>
+                            </ul>
+
+
+                        </li>
+                    }
                 </ul>
             </nav>
         </div>
@@ -4443,52 +4528,24 @@
                         <div class="elementor-widget-wrap elementor-element-populated">
                             <section class="elementor-section elementor-inner-section elementor-element elementor-element-2f63362 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="2f63362" data-element_type="section">
                                 <div class="elementor-container elementor-column-gap-no">
-                                    <div class="elementor-column elementor-col-20 elementor-inner-column elementor-element elementor-element-8f02c4e" data-id="8f02c4e" data-element_type="column">
+                                    <div class="elementor-column elementor-col-30 elementor-inner-column elementor-element elementor-element-8f02c4e" data-id="8f02c4e" data-element_type="column">
                                         <div class="elementor-widget-wrap elementor-element-populated">
                                             <div class="elementor-element elementor-element-d344b05 elementor-widget elementor-widget-pt-logo" data-id="d344b05" data-element_type="widget" data-widget_type="pt-logo.default">
                                                 <div class="elementor-widget-container">
 
                                                     <div class="site-logo">
-                                                        <a href="https://promo-theme.com/woxfit/" rel="home">WoxFit</a>
+                                                        <a asp-controller="Home" asp-action="Index" rel="home">Fit & Fuel</a>
                                                     </div>
 
                                                 </div>
                                             </div>
                                             <div class="elementor-element elementor-element-8a9f9d2 elementor-widget elementor-widget-text-editor" data-id="8a9f9d2" data-element_type="widget" data-widget_type="text-editor.default">
                                                 <div class="elementor-widget-container">
-                                                    <style>
-                                                        /*! elementor - v3.10.1 - 17-01-2023 */
-                                                        .elementor-widget-text-editor.elementor-drop-cap-view-stacked .elementor-drop-cap {
-                                                            background-color: #818a91;
-                                                            color: #fff
-                                                        }
-
-                                                        .elementor-widget-text-editor.elementor-drop-cap-view-framed .elementor-drop-cap {
-                                                            color: #818a91;
-                                                            border: 3px solid;
-                                                            background-color: transparent
-                                                        }
-
-                                                        .elementor-widget-text-editor:not(.elementor-drop-cap-view-default) .elementor-drop-cap {
-                                                            margin-top: 8px
-                                                        }
-
-                                                        .elementor-widget-text-editor:not(.elementor-drop-cap-view-default) .elementor-drop-cap-letter {
-                                                            width: 1em;
-                                                            height: 1em
-                                                        }
-
-                                                        .elementor-widget-text-editor .elementor-drop-cap {
-                                                            float: left;
-                                                            text-align: center;
-                                                            line-height: 1;
-                                                            font-size: 50px
-                                                        }
-
-                                                        .elementor-widget-text-editor .elementor-drop-cap-letter {
-                                                            display: inline-block
-                                                        }</style>				<p>Parturient porttitor quam mattis ipsum imperdiet habitasse orci. Risus integer.</p>
+                                                    <p>
+                                                        We help you reach your health and fitness goals, so you can live a life full of joy and satisfaction.
+                                                    </p>
                                                 </div>
+
                                             </div>
                                             <div class="elementor-element elementor-element-96c3eb8 elementor-shape-circle elementor-grid-0 elementor-widget elementor-widget-social-icons" data-id="96c3eb8" data-element_type="widget" data-widget_type="social-icons.default">
                                                 <div class="elementor-widget-container">
@@ -4785,19 +4842,19 @@
                                                             border-radius: 50%
                                                         }</style>		<div class="elementor-social-icons-wrapper elementor-grid">
                                                         <span class="elementor-grid-item">
-                                                            <a class="elementor-icon elementor-social-icon elementor-social-icon-instagram elementor-repeater-item-41ced24" href="https://instagram.com/promo_theme/" target="_blank">
+                                                            <a class="elementor-icon elementor-social-icon elementor-social-icon-instagram elementor-repeater-item-41ced24">
                                                                 <span class="elementor-screen-only">Instagram</span>
                                                                 <i class="fab fa-instagram"></i>
                                                             </a>
                                                         </span>
                                                         <span class="elementor-grid-item">
-                                                            <a class="elementor-icon elementor-social-icon elementor-social-icon-twitter elementor-repeater-item-932aa5d" href="https://twitter.com/promotheme" target="_blank">
+                                                            <a class="elementor-icon elementor-social-icon elementor-social-icon-twitter elementor-repeater-item-932aa5d">
                                                                 <span class="elementor-screen-only">Twitter</span>
                                                                 <i class="fab fa-twitter"></i>
                                                             </a>
                                                         </span>
                                                         <span class="elementor-grid-item">
-                                                            <a class="elementor-icon elementor-social-icon elementor-social-icon-facebook elementor-repeater-item-2f499df" href="https://www.facebook.com/promotheme/" target="_blank">
+                                                            <a class="elementor-icon elementor-social-icon elementor-social-icon-facebook elementor-repeater-item-2f499df">
                                                                 <span class="elementor-screen-only">Facebook</span>
                                                                 <i class="fab fa-facebook"></i>
                                                             </a>
@@ -4853,28 +4910,11 @@
 
 
 
-                                                        <a href="/woxfit/about/">
+                                                        <a asp-controller="Home" asp-action="About">
                                                             About us
                                                         </a>
 
 
-
-                                                        <a href="/woxfit/
--classic/">
-
-                                                        </a>
-
-
-
-                                                        <a href="/woxfit/personal-trainer/">
-                                                            Careers
-                                                        </a>
-
-
-
-                                                        <a href="/woxfit/contact/">
-                                                            Jobs
-                                                        </a>
 
 
                                                     </div>
@@ -4896,27 +4936,8 @@
                                                     <div class="pt-simple-links">
 
 
-
-                                                        <a href="/woxfit/about/">
-                                                            How we work
-                                                        </a>
-
-
-
-                                                        <a href="/woxfit/portfolio-grid-3-cols/">
-                                                            Portfolio
-                                                        </a>
-
-
-
-                                                        <a href="/woxfit/shop/">
-                                                            Pricing
-                                                        </a>
-
-
-
-                                                        <a href="/woxfit/services/#">
-                                                            More
+                                                        <a asp-controller="Nutritionist" asp-action="ViewAllNutrition">
+                                                            Our Nutritionists
                                                         </a>
 
 
@@ -4945,73 +4966,13 @@
                                                         </a>
 
 
-
-                                                        <a href="/woxfit/contact/">
-                                                            Online Chat
-                                                        </a>
-
-
-
-                                                        <a href="/woxfit/contact/">
-                                                            Whatsapp
-                                                        </a>
-
-
-
-                                                        <a href="/woxfit/contact/">
-                                                            Telegram
-                                                        </a>
-
-
                                                     </div>
 
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="elementor-column elementor-col-20 elementor-inner-column elementor-element elementor-element-c770bd5" data-id="c770bd5" data-element_type="column">
-                                        <div class="elementor-widget-wrap elementor-element-populated">
-                                            <div class="elementor-element elementor-element-33dfd0d elementor-widget elementor-widget-heading" data-id="33dfd0d" data-element_type="widget" data-widget_type="heading.default">
-                                                <div class="elementor-widget-container">
-                                                    <p class="elementor-heading-title elementor-size-default">FAQ</p>
-                                                </div>
-                                            </div>
-                                            <div class="elementor-element elementor-element-f282de0 elementor-widget elementor-widget-pt-simple-links" data-id="f282de0" data-element_type="widget" data-settings="{&quot;row_gap&quot;:11}" data-widget_type="pt-simple-links.default">
-                                                <div class="elementor-widget-container">
 
-                                                    <div class="pt-simple-links">
-
-
-
-                                                        <a href="/woxfit/shop/">
-                                                            Account
-                                                        </a>
-
-
-
-                                                        <a href="/woxfit/shop/">
-                                                            Payment
-                                                        </a>
-
-
-
-                                                        <a href="/woxfit/shop/">
-                                                            Orders
-                                                        </a>
-
-
-
-                                                        <a href="/woxfit/shop/">
-                                                            Returns
-                                                        </a>
-
-
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </section>
                             <section class="elementor-section elementor-inner-section elementor-element elementor-element-710cfe3 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="710cfe3" data-element_type="section">
@@ -5030,27 +4991,8 @@
                                                         </a>
 
 
-
                                                         <a asp-controller="Home" asp-action="Contact">
                                                             Contact
-                                                        </a>
-
-
-
-                                                        <a href="/woxfit/contact/">
-                                                            Privacy policy
-                                                        </a>
-
-
-
-                                                        <a href="/woxfit/timetable/">
-                                                            Sitemap
-                                                        </a>
-
-
-
-                                                        <a href="/woxfit/services/">
-                                                            Terms of Use
                                                         </a>
 
 
@@ -5064,7 +5006,7 @@
                                         <div class="elementor-widget-wrap elementor-element-populated">
                                             <div class="elementor-element elementor-element-e2d9908 elementor-widget elementor-widget-text-editor" data-id="e2d9908" data-element_type="widget" data-widget_type="text-editor.default">
                                                 <div class="elementor-widget-container">
-                                                    © 2000-2023, All Rights Reserved
+                                                    © 2023 Fit & Fuel
                                                 </div>
                                             </div>
                                         </div>
@@ -5077,17 +5019,8 @@
             </section>
         </div>
     </footer>
-    <div class="site-search">
-        <div class="site-search-title">What are you looking for?</div>
-        <div class="site-search-form">
-            <form role="search" method="get" class="search-form" action="https://promo-theme.com/woxfit/">
-                <input type="search" class="search-field" value="" name="s" placeholder="Search..." />
-                <input type="submit" class="search-submit" value="" />
-                <button type="submit" class="search-submit"></button>
-            </form>
-        </div>
-        <div class="site-search-close search-toggle"></div>
-    </div>
+
+
     <script>
         if (localStorage.getItem('projectImage') && document.querySelector('body').classList.contains('single-pt-portfolio')) {
             let params = JSON.parse(localStorage.getItem('projectImage')),
