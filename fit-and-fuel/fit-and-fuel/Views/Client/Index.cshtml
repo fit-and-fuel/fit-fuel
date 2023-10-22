@@ -68,8 +68,8 @@
                                 <div class="mb-3">
                                     <p class="wpcf7">
                                         <label for="Name">Name</label><br>
-                                        @*  <span asp-validation-for="Name" class="wpcf7-form-control-wrap"></span> *@
-                                        <input size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="UserName" type="text" name="Name">
+                                         <span asp-validation-for="Name" class="wpcf7-form-control-wrap"></span>
+                                        <input asp-for="Name" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="UserName" type="text" name="Name">
                                     </p>
                                 </div>
                                 <div class="mb-3">
@@ -81,7 +81,7 @@
     font-size: 12px;
     font-weight: 500;
     text-transform: uppercase;">Your Photo</label><br>
-                                    @* <span asp-validation-for="imgURl" class="wpcf7-form-control-wrap"></span> *@
+                                    <span asp-validation-for="imgURl" class="wpcf7-form-control-wrap"></span>
                                     <p class="wpcf7" style="border: 1.5px solid var(--color-border); border-radius: 4px;">
 
 
@@ -93,7 +93,7 @@
 opacity:1;
     ">Choose File</label>
 
-                                        <input type="file" id="imgURl" name="file" class="form-control" accept="image/*" style="display: none;" />
+                                        <input asp-for="imgURl" type="file" id="imgURl" name="file" class="form-control" accept="image/*" style="display: none;" />
 
 
 
@@ -138,7 +138,7 @@ opacity:1;
                                     </p>
                                 </div><div class="wpcf7-response-output" aria-hidden="true"></div>
                             </form>
-                            <div asp-validation-summary="All"></div>
+                            @* <div asp-validation-summary="All"></div> *@
                         </div>
 
 
