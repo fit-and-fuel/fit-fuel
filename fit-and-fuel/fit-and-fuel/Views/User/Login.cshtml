@@ -21,17 +21,19 @@
 
 
                 <div class="wrap-input">
+                    <br>
                     <input type="text" class="input" name="Username" placeholder="UserName" required>
-                    <span class="focus-input"></span>
+                    <span asp-validation-for="Username" class="focus-input"></span>
                     <span class="symbol-input">
-                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                        <br><i class="fa fa-envelope" aria-hidden="true"></i>
                     </span>
                 </div>
                 <div class="wrap-input">
-                    <input asp-for="Password" type="password" class="input" name="Password" placeholder="Password" required>
+                    <br>
+                    <input asp-for="Password" type="password" class="input" name="Password" placeholder="Password" required>                    
                     <span asp-validation-for="Password" class="focus-input"></span>
                     <span class="symbol-input">
-                        <i class="fa fa-lock" aria-hidden="true"></i>
+                        <br><i class="fa fa-lock" aria-hidden="true"></i>
                     </span>
                 </div>
 
@@ -48,7 +50,7 @@
                 </div>
 
             </form>
-            <div asp-validation-summary="All"></div>
+            @* <div asp-validation-summary="All"></div> *@
 
         </div>
     </div>

@@ -1,4 +1,4 @@
-﻿
+﻿@model HealthRecordDto
 
 @{
 	Layout = "~/Views/Shared/_PageLayout.cshtml";
@@ -62,6 +62,10 @@
 								<div class="mb-3">
 									<p class="wpcf7">
 										<label for="Height">Height</label><br>
+
+										<span asp-validation-for="Height" class="wpcf7-form-control-wrap"></span>
+										
+
 										<span class="wpcf7-form-control-wrap">
 											<input size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" id="Height" aria-required="true" aria-invalid="false" placeholder="Height" type="number" name="Height" style="width: 100%;
     padding: 10px 16px;
@@ -75,6 +79,10 @@
 								<div class="mb-3">
 								<p class="wpcf7">
 									<label for="Weight">Weight</label><br>
+
+										<span asp-validation-for="Weight" class="wpcf7-form-control-wrap"></span>
+									
+
 									<span class="wpcf7-form-control-wrap">
 											<input size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" id="Weight" aria-required="true" aria-invalid="false" placeholder="Weight" type="number" name="Weight" style="width: 100%;
     padding: 10px 16px;
@@ -82,6 +90,7 @@
     border-radius: 4px;
     background-color: transparent;">
 									</span>
+
 								</p>
 						</div>
 								<div class="mb-3">
@@ -100,7 +109,7 @@
 									</p>
 								</div><div class="wpcf7-response-output" aria-hidden="true"></div>
 							</form>
-							<div asp-validation-summary="All"></div>
+							@* <div asp-validation-summary="All"></div> *@
 						</div>
 
 

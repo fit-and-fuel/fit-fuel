@@ -46,6 +46,10 @@ namespace fit_and_fuel.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(PatientDto patientDto, IFormFile file)
         {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
             ModelState.Remove("file");
 
 
@@ -95,6 +99,10 @@ namespace fit_and_fuel.Controllers
         [HttpPost]
         public async Task<IActionResult> AddHealthRecord(HealthRecordDto health)
         {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
             var Health = await _healthRecord.Post(health);
             //redirect ot profile patient
             return RedirectToAction("Index", "Home");

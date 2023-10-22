@@ -12,7 +12,8 @@ namespace fit_and_fuel.DTOs
         public string Gender { get; set; }
 
 		[Required(ErrorMessage = "Age is required.")]
-		public int Age { get; set; }
+        [Range(15, 100, ErrorMessage = "Age must be between 15 and 100.")]
+        public int Age { get; set; }
 
         public int Height { get; set; }
 
