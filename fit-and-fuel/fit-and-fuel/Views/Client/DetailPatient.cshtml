@@ -111,8 +111,13 @@
                         </li>
                         <li class="tag__item play green">
                             <a>
-                                <i class="fas fa-user"></i>
-                                My Nutritionist
+                                <a asp-controller="Nutritionist" asp-action="NutDetails" asp-route-id="@Model.NutritionistId">
+
+                                    <i class="fas fa-user"></i>
+                                    My Nutritionist
+                                </a>
+
+                               
                             </a>
                         </li>
                     </ul>
