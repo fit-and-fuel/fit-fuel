@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using fit_and_fuel.Data;
 
@@ -11,9 +12,11 @@ using fit_and_fuel.Data;
 namespace fit_and_fuel.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231022150608_newMigration")]
+    partial class newMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -277,19 +280,16 @@ namespace fit_and_fuel.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-               ConcurrencyStamp = "8b1a15ec-a988-47dd-8f7b-816a9595ee30",
-
+                            ConcurrencyStamp = "d082cd28-c996-4c54-b65b-a7d7d1f2a403",
                             Email = "adminUser@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "adminUser@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN",
-
-                            PasswordHash = "AQAAAAIAAYagAAAAEITGY3XfJrAKUIh01LEETGqJXwWrNeUlk5JAq48sIEbtVDCntC7gLPJCzijhZcuN+w==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGccy2297SsV1OJQfWLiASf/el7imOPDOJdZpyzN8sze5A8fojfUvnsnlbUxZJtdxA==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5412eb70-a1df-4901-a935-8e84a40ca086",
-
+                            SecurityStamp = "2d1dd883-1034-4f69-8557-3ddd351600bf",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
