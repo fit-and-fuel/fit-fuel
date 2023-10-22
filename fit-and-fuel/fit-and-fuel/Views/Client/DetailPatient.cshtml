@@ -62,14 +62,19 @@
                         <tbody>
 
                             <tr>
-                                @* <th> @Model.healthRecord.Height</th>
-                                <td>@Model.healthRecord.Weight</td>
-                                <td>@Model.healthRecord.BMI</td>
-                                <td>@Model.healthRecord.Illnesses</td>*@
-                                <td>160</td>
+                                @if(Model.healthRecord!=null){
+                                    <th> @Model.healthRecord.Height</th>
+                                    <td>@Model.healthRecord.Weight</td>
+                                    <td>@Model.healthRecord.BMI</td>
+                                    <td>@Model.healthRecord.Illnesses</td>
+                                }
+                                
+                               
+
+                              @*   <td>160</td>
                                 <td>60</td>
                                 <td>24.22</td>
-                                <td>Nothing</td>
+                                <td>Nothing</td> *@
 
                             </tr>
 
