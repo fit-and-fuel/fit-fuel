@@ -67,8 +67,12 @@
                                     <input type="submit" value="Subscribe @Model.Price.amount $">
                                 </a>
                             }
-                                @if (User.IsInRole("Patient"))
+
+
+
+                                @if (User.IsInRole("Patient") )
                             {
+
                                 <a asp-controller="Client" asp-action="Payment" class="pt-button filled-2">
                                     <i class="fa-solid fa-money-bill-1-wave"></i>
                                     <input type="submit" value="Subscripe @Model.Price.amount $">
@@ -194,7 +198,10 @@
                                 <th scope="col">Num</th>
                                 <th scope="col">Day</th>
                                 <th scope="col">Time</th>
-                               @* <th scope="col">Choose</th>*@
+                                @if (User.IsInRole("Patient")){
+                                     <th scope="col">Choose</th>
+                                }
+                              
                             </tr>
                         </thead>
                         <tbody>
@@ -207,12 +214,14 @@
                                     <th scope="row">@rowNumber</th>
                                     <td>@at.DayOfWeek</td>
                                     <td>@at.Time</td>
-                                   @* <td>
-                                        <form asp-controller="Nutritionist" asp-action="SelectAppoitment" method="post">
+                                    @if (User.IsInRole("Patient"))
+                                    {
+                                        <td>
+                                            <form asp-controller="Nutritionist" asp-action="SelectAppoitment" method="post">
                                             <input name="id" value="@at.Id" type="hidden">
-                                            <button style="color:#D6FD51; text-decoration:underline;" class=" btn btn-outline-success" type="submit">Select</button>
+                                            <button style="color:#D6FD51; text-decoration:underline;"  type="submit">Select</button>
                                         </form>
-                                    </td>*@
+                                    </td>}
                                 </tr>
                                 rowNumber++;
                             }

@@ -89,12 +89,7 @@
                 @if (User.IsInRole("Patient"))
                 {
                     <ul class="postcard__tagbox">
-                        <li class="tag__item play green">
-                            <a asp-controller="chat" asp-action="index">
-                                <i class="fas fa-comment"></i>
-                                Send Message
-                            </a>
-                        </li>
+                      
                         <li class="tag__item play green">
                             <a asp-controller="Client" asp-action="MyDietPlan">
 
