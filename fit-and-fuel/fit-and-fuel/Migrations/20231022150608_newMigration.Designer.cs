@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using fit_and_fuel.Data;
 
@@ -11,9 +12,11 @@ using fit_and_fuel.Data;
 namespace fit_and_fuel.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231022150608_newMigration")]
+    partial class newMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -277,18 +280,16 @@ namespace fit_and_fuel.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "cf4089a6-838e-45d9-abe2-bf681dde2dd0",
-
+                            ConcurrencyStamp = "d082cd28-c996-4c54-b65b-a7d7d1f2a403",
                             Email = "adminUser@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "adminUser@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEDFtSlAj9X4fAH2gCmv2ZZggjsihD2IH0ZDtZ/mPtLH6qEXvTcLE4wbPifrhmoFswA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGccy2297SsV1OJQfWLiASf/el7imOPDOJdZpyzN8sze5A8fojfUvnsnlbUxZJtdxA==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "bad4aa37-a378-4ca1-a501-8e4c400377ae",
-
+                            SecurityStamp = "2d1dd883-1034-4f69-8557-3ddd351600bf",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });

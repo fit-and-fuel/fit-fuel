@@ -222,9 +222,9 @@ a, a:hover {
         background: #f9f9f9;
     }
 
-    .postcard.light .postcard__text:before {
+   /* .postcard.light .postcard__text:before {
         background: #f9f9f9;
-    }
+    }*/
 }
 /* COLORS */
 .postcard .postcard__tagbox .green.play:hover {
