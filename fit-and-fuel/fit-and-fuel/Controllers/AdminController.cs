@@ -14,16 +14,16 @@ namespace fit_and_fuel.Controllers
         private readonly IAppoitments _appoitments;
         private readonly IPost _post;
 
-		public AdminController(IUserService userService, INutritionists nutritionists, IPatients patients, IDietPlan dietPlan, IAppoitments appointments, IPost post)
-		{
-			_userService = userService;
-			_nutritionists = nutritionists;
-			_patients = patients;
-			_dietPlan = dietPlan;
-			_appoitments = appointments;
-			_post = post;
-		}
-		public async Task<IActionResult> Index()
+        public AdminController(IUserService userService, INutritionists nutritionists, IPatients patients, IDietPlan dietPlan, IAppoitments appointments, IPost post)
+        {
+            _userService = userService;
+            _nutritionists = nutritionists;
+            _patients = patients;
+            _dietPlan = dietPlan;
+            _appoitments = appointments;
+            _post = post;
+        }
+        public async Task<IActionResult> Index()
         {
             var adminvm = new AdminVM
             {
@@ -35,26 +35,26 @@ namespace fit_and_fuel.Controllers
             };
             return View(adminvm);
         }
-		public async Task<IActionResult> Nutritionist()
-		{
+        public async Task<IActionResult> Nutritionist()
+        {
             var Nutritionist = await _nutritionists.GetAll();
-			return View(Nutritionist);
-		}
+            return View(Nutritionist);
+        }
         public async Task<IActionResult> Posts()
         {
             var posts = await _post.GetAllPosts();
             return View(posts);
         }
-		public async Task<IActionResult> Patients()
-		{
-			var posts = await _patients.GetAll();
-			return View(posts);
-		}
-		[HttpPost]
+        public async Task<IActionResult> Patients()
+        {
+            var posts = await _patients.GetAll();
+            return View(posts);
+        }
+        [HttpPost]
         public async Task<IActionResult> Role(string userName)
         {
             await _userService.AssignRolesToUser(userName);
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Admin");
         }
 
         [HttpPost]

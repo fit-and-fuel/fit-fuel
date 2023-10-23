@@ -82,7 +82,7 @@ namespace fit_and_fuel.Controllers
 
             await _nutritionists.Post(nut, file, cvfile);
 
-            return RedirectToAction("Index", "Home");
+            return Redirect("NutDetails");
         }
 
         public async Task<IActionResult> MyProfile()
@@ -144,9 +144,10 @@ namespace fit_and_fuel.Controllers
 
         public async Task<IActionResult> CreateDietPlan(DietPlanDto diteplain)
         {
-            await _dietplan.PostDietPlanWithDay(diteplain);
+            var d = await _dietplan.PostDietPlanWithDay(diteplain);
 
-            return Redirect("MyProfile");
+            return Redirect($"MyPatientDietPlan/{d.Id}");
+
 
         }
 
@@ -159,10 +160,10 @@ namespace fit_and_fuel.Controllers
 
         }
         [HttpPost]
-        public async Task<IActionResult> EditMeal(int id,MealDto meal)
+        public async Task<IActionResult> EditMeal(int id, MealDto meal)
         {
 
-            await _meals.Put(id,meal);
+            await _meals.Put(id, meal);
             return RedirectToAction("MyPatientDietPlan", new { id = meal.DietPlanId });
 
         }
@@ -213,7 +214,7 @@ namespace fit_and_fuel.Controllers
             }
             await _clinic.Post(clinicDto);
             // redirect to profile nutrition
-            return Redirect("MyProfile");
+            return Redirect("NutDetails");
 
         }
 
@@ -227,7 +228,7 @@ namespace fit_and_fuel.Controllers
         {
             await _price.Post(priceDto);
             // redirect to profile nutrition
-            return Redirect("MyProfile");
+            return Redirect("NutDetails");
 
         }
 

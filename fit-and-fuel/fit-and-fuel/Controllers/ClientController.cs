@@ -14,7 +14,7 @@ namespace fit_and_fuel.Controllers
     {
         private readonly IPatients _patients;
         private readonly IRating _rating;
-        private readonly IHealthRecord _healthRecord; 
+        private readonly IHealthRecord _healthRecord;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IConfiguration _config;
 
@@ -24,7 +24,7 @@ namespace fit_and_fuel.Controllers
             _rating = rating;
             _patients = patients;
             _healthRecord = healthRecord;
-            _config = config;   
+            _config = config;
         }
         [Authorize(Roles = "Patient")]
         public IActionResult Index()
@@ -79,9 +79,9 @@ namespace fit_and_fuel.Controllers
         [HttpPost]
         public async Task<IActionResult> AddRating(RatingDto ratingDto)
         {
-            await _rating.AddRating(ratingDto);
+            var rating = await _rating.AddRating(ratingDto);
             // redirect to nutrition profile
-            return RedirectToAction("index","Home");
+            return RedirectToAction("NutDetails", "Nutritionist", new { id = rating.NutritionistId });
         }
 
 
@@ -105,7 +105,8 @@ namespace fit_and_fuel.Controllers
             }
             var Health = await _healthRecord.Post(health);
             //redirect ot profile patient
-            return RedirectToAction("Index", "Home");
+
+            return RedirectToAction("DetailPatient", "Client", new { id = Health.PatientId });
         }
         public async Task<IActionResult> Payment()
         {
@@ -136,10 +137,10 @@ namespace fit_and_fuel.Controllers
                     }
                 },
                 Quantity = 1
-                };
+            };
 
-                options.LineItems.Add(sessionLineItem);
-            
+            options.LineItems.Add(sessionLineItem);
+
 
             var service = new SessionService();
             var session = service.Create(options);
