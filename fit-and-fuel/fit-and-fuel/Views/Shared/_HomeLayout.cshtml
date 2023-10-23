@@ -3870,33 +3870,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                                     <li id="menu-item-3242" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3242"><a asp-controller="Home" asp-action="About">About</a></li>
                                                     <li id="menu-item-3242" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3242"><a asp-controller="Home" asp-action="Contact">Contact</a></li>
 
-                                                    @if (User.Identity.IsAuthenticated)
-                                                    {
-                                                        <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
-                                                            <a>
-                                                                @if (count > 0)
-                                                                {
-                                                                    <span class="pt-cart-count">@count</span>
-                                                                }
-                                                                <i class="fas fa-bell"></i>
-
-                                                            </a><span class="submenu-toggle"></span>
-
-
-                                                            <ul class="sub-menu">
-                                                                @foreach (var notificat in visibleNotifications)
-                                                                {
-                                                                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102" style="width:400px; background-color: #f0f0f0; border: 1px solid #ddd; margin: 10px; padding: 10px; border-radius: 5px;">
-                                                                        <h6 class="mb-1" style="font-size: 13px;"> @Html.Raw(FormatContentWithLinks(notificat.Content))</h6>
-                                                                        <small class="d-block">@notificat.Timestamp</small>
-                                                                    </li>
-                                                                }
-                                                                <a asp-controller="Notification" asp-action="Index">Show All</a>
-                                                            </ul>
-
-
-                                                        </li>
-                                                    }
+                                                   
                                                 </ul>
                                             </div>
                                         </nav>
@@ -4057,6 +4031,173 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                 <div class="elementor-widget-container " style="color: white;">
                                     @if (User.Identity.IsAuthenticated)
                                     {
+                                        <div class="notification-dropdown">
+                                            @if (count > 0)
+                                            {
+                                                <span class="pt-cart-count">@count</span>
+                                            }
+                                            <i class="fas fa-bell" id="bell-icon"></i>
+                                            <div class="dropdown-content" id="notification-dropdown-content">
+                                                <ul>
+                                                    @foreach (var notificat in visibleNotifications)
+                                                    {
+                                                        <div class="notification-item">
+                                                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102">
+                                                            <h6 class="mb-1" style="font-size: 13px;"> @Html.Raw(FormatContentWithLinks(notificat.Content))</h6>
+                                                            <small class="d-block">@notificat.Timestamp</small>
+                                                        </li>
+                                                </div>
+                                                    }
+                                            <hr style="border: none; height: 1px; background-color: #ddd; margin: 10px 0;">
+                                            <li style="list-style-type: none;    text-align: center;width:100%;"><a asp-controller="Notification" asp-action="Index" style="width:100%;">Show All</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+
+                                    <style>
+                                        .notification-dropdown {
+                                            position: relative;
+                                            display: inline-block;
+                                            top:-5px;
+                                        }
+
+                                            .notification-dropdown .dropdown-content {
+                                                display: none;
+                                                position: absolute;
+                                                top: 100%;
+                                                left: -50px;
+                                                background-color: white !important;
+                                                color:black;
+                                                border: 1px solid black;
+                                                margin: 10px;
+                                                padding: 10px;
+                                                border-radius: 5px;
+                                                z-index: 1;
+                                                width: 400px;
+                                                /* Center-align the content within the dropdown */
+                                            }
+
+                                        .notification-item {
+                                            border: 1px solid #ddd;
+                                            margin-bottom: 10px;
+                                            padding: 10px;
+                                            border-radius: 5px;
+                                        }
+
+                                            .notification-item li {
+                                                list-style-type: none;
+                                            }
+
+                                                /* Hover effect for list items */
+                                                .notification-item li:hover {
+                                                    background-color: #D6FD51;
+                                                    cursor: pointer;
+                                                    color: black;
+                                                }
+
+                                        /* Hover effect for "Show All" link */
+                                        .notification-dropdown .dropdown-content a:hover {
+                                            background-color: #D6FD51;
+                                            color: black;
+                                            text-decoration: none;
+                                            text-align: center;
+                                        }
+
+                                        .notification-dropdown:hover .dropdown-content {
+                                            display: block;
+                                        }
+
+                                        /* Hide the dropdown when the mouse leaves the dropdown content */
+                                        .dropdown-content {
+                                            display: none;
+                                        }
+
+                                        .notification-dropdown:hover .dropdown-content {
+                                            display: block;
+                                        }
+
+                                            .notification-dropdown:hover .dropdown-content:hover {
+                                                display: block;
+                                            }
+                                    </style>
+
+
+
+
+
+                                    <script>
+                                        // Get references to the bell icon and notification dropdown content
+                                        var bellIcon = document.getElementById('bell-icon');
+                                        var notificationDropdownContent = document.getElementById('notification-dropdown-content');
+
+                                        // Hide the dropdown when the mouse leaves the dropdown content
+                                        notificationDropdownContent.addEventListener('mouseleave', function () {
+                                            notificationDropdownContent.style.display = 'none';
+                                        });
+
+                                        // Show the dropdown when the mouse enters the bell icon
+                                        bellIcon.addEventListener('mouseenter', function () {
+                                            notificationDropdownContent.style.display = 'block';
+                                        });
+                                    </script>
+
+
+                                    <style>
+                                        .notification-dropdown {
+                                            position: relative;
+                                            display: inline-block;
+                                        }
+
+                                            .notification-dropdown .dropdown-content {
+                                                display: none;
+                                                position: absolute;
+                                                top: 100%;
+                                                left: -200px; /* Adjust the left value as needed to move it to the left */
+                                                background-color: black;
+                                                border: 1px solid #ddd;
+                                                margin: 10px;
+                                                padding: 10px;
+                                                border-radius: 5px;
+                                                z-index: 1;
+                                                width: 400px; /* Adjust the width as needed */
+                                            }
+
+                                            .notification-dropdown:hover .dropdown-content {
+                                                display: block;
+                                            }
+
+                                        /* Hide the dropdown when the mouse leaves the dropdown content */
+                                        .dropdown-content {
+                                            display: none;
+                                        }
+
+                                        .notification-dropdown:hover .dropdown-content {
+                                            display: block;
+                                        }
+
+                                            .notification-dropdown:hover .dropdown-content:hover {
+                                                display: block;
+                                            }
+                                    </style>
+
+
+
+                                    <script>
+                                        // Get references to the bell icon and notification dropdown content
+                                        var bellIcon = document.getElementById('bell-icon');
+                                        var notificationDropdownContent = document.getElementById('notification-dropdown-content');
+
+                                        // Hide the dropdown when the mouse leaves the dropdown content
+                                        notificationDropdownContent.addEventListener('mouseleave', function () {
+                                            notificationDropdownContent.style.display = 'none';
+                                        });
+
+                                        // Show the dropdown when the mouse enters the bell icon
+                                        bellIcon.addEventListener('mouseenter', function () {
+                                            notificationDropdownContent.style.display = 'block';
+                                        });
+                                    </script>
                                         <a asp-controller="User" asp-action="Logout">
                                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-top:5px;">
                                                 <path d="M15.016 7.38948V6.45648C15.016 4.42148 13.366 2.77148 11.331 2.77148H6.45597C4.42197 2.77148 2.77197 4.42148 2.77197 6.45648V17.5865C2.77197 19.6215 4.42197 21.2715 6.45597 21.2715H11.341C13.37 21.2715 15.016 19.6265 15.016 17.5975V16.6545" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
