@@ -8,6 +8,7 @@ namespace fit_and_fuel.Components
     public class ChatNut: ViewComponent
     {
         private readonly IChatMessage _chatMessage;
+        private readonly IPatients _petients;
         public ChatNut(IChatMessage chatMessage)
         {
             _chatMessage = chatMessage;
@@ -15,6 +16,7 @@ namespace fit_and_fuel.Components
         }
         public async Task<IViewComponentResult> InvokeAsync(int id)
         {
+
             var messages = await _chatMessage.ReceiveMessagesNutritionist(id);
             var nutritionistModle = new NutritionistVM
             {

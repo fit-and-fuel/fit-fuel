@@ -1,4 +1,8 @@
 ﻿@model NutritionistVM
+@inject IPatients pat
+@{
+    var img = await pat.GetById(Model.Patinetid);
+}
 <style>
     /* Styling for the chat container */
     .chat-box-area {
@@ -57,8 +61,8 @@
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
     display: flex;" class="card-header border-0 mb-0">
-            <img style="width:60px; height:60px; border-radius:80%;" src="~/img/Nutritionist-1.jpg" />
-            <p style="margin-top:15px;">Hala</p>
+            <img style="width:60px; height:60px; border-radius:80%;" src="@img.imgURl" />
+            <p style="margin-top:15px;">@img.Name</p>
         </div>
         <div style="max-height: 48vh;
    
@@ -125,10 +129,10 @@
 
             var messageStructure = document.createElement("div");
             messageStructure.className = "media justify-content-end align-items-end ms-auto";
-
+           
             var messageReceived = document.createElement("div");
             messageReceived.className = "message-sent w-auto";
-
+            messageReceived.style = "color:black; background-color:#D6FD51;     width: fit-content;";
             var p = document.createElement("p");
             p.className = "mb-1";
             p.textContent = msg;
@@ -153,10 +157,10 @@
 
             var messageStructure = document.createElement("div");
             messageStructure.className = "media";
-
+            messageStructure.style = "direction:rtl; "
             var messageReceived = document.createElement("div");
             messageReceived.className = "message-received w-auto";
-
+            messageReceived.style = " width: fit-content;";
             var dFlex = document.createElement("div");
             dFlex.className = "d-flex";
 
