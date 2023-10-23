@@ -20,6 +20,7 @@ namespace fit_and_fuel.Controllers
         private readonly IPrice _price;
 
 
+
         public NutritionistController(INutritionists nutritionists,
             IPrice price,
             IAvailableTime availableTime, IAppoitments appoitments, IDietPlan dietplan, IMeals meals, IPost post, IClinic clinic, IComment comment)
@@ -154,10 +155,18 @@ namespace fit_and_fuel.Controllers
         public async Task<IActionResult> AddMeal(MealDto meal)
         {
             await _meals.Post(meal);
-
             return Redirect($"MyPatientDietPlan/{meal.DietPlanId}");
 
         }
+        [HttpPost]
+        public async Task<IActionResult> EditMeal(int id,MealDto meal)
+        {
+
+            await _meals.Put(id,meal);
+            return RedirectToAction("MyPatientDietPlan", new { id = meal.DietPlanId });
+
+        }
+
 
 
         public IActionResult AddPost()
@@ -174,8 +183,6 @@ namespace fit_and_fuel.Controllers
             //{
             //    return View();
             //}
-
-
 
             await _post.Post(post, file);
 
