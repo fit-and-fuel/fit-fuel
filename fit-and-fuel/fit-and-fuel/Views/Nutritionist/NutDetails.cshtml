@@ -277,50 +277,55 @@
 
                                             @foreach (var n in Model.Ratings)
                                             {
-                                                <div class="swiper-slide swiper-slide-active" style="width: 427px; margin-right: 30px;" data-swiper-slide-index="0">
+                                                @if (n.Patient != null)
+                                                {
+                                                    <div class="swiper-slide swiper-slide-active" style="width: 427px; margin-right: 30px;" data-swiper-slide-index="0">
 
-                                                    <div class="pt-testimonial" style="    margin: 2%;
+                                                        <div class="pt-testimonial" style="    margin: 2%;
     box-shadow: 1px 2px 5px 1px rgba(0, 0, 0, 0.2);
     border-radius: 9px;
     padding: 4%;">
 
-                                                        <div class="pt-testimonial">
-                                                            @for (int i = 0; i < n.Value; i++)
-                                                            {
-                                                                <i class="fa-sharp fa-solid fa-star text-orange" style="color:#D6FD51"></i>
-                                                            }
-                                                            <div class="pt-testimonial-text">
-                                                                @n.Comment
+                                                            <div class="pt-testimonial">
+                                                                @for (int i = 0; i < n.Value; i++)
+                                                                {
+                                                                    <i class="fa-sharp fa-solid fa-star text-orange" style="color:#D6FD51"></i>
+                                                                }
+
+                                                                <div class="pt-testimonial-text">
+                                                                    @n.Comment
+                                                                </div>
+
+
+                                                                <div class="pt-testimonial-meta">
+
+                                                                    <div class="pt-testimonial-avatar">
+                                                                        <img loading="lazy" width="800" height="900" src="@n.Patient.imgURl" class="attachment-full size-full" alt="" decoding="async" sizes="(max-width: 800px) 100vw, 800px">
+                                                                    </div>
+
+                                                                    <div class="pt-testimonial-author-wrapper">
+
+                                                                        <div class="pt-testimonial-author">
+                                                                            @n.Patient.Name
+                                                                        </div>
+
+
+                                                                        <div class="pt-testimonial-occupation">
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+
+
                                                             </div>
 
 
-                                                            <div class="pt-testimonial-meta">
-
-                                                                <div class="pt-testimonial-avatar">
-                                                                    <img loading="lazy" width="800" height="900" src="@n.Patient.imgURl" class="attachment-full size-full" alt="" decoding="async" sizes="(max-width: 800px) 100vw, 800px">
-                                                                </div>
-
-                                                                <div class="pt-testimonial-author-wrapper">
-
-                                                                    <div class="pt-testimonial-author">
-                                                                        @n.Patient.Name
-                                                                    </div>
-
-
-                                                                    <div class="pt-testimonial-occupation">
-                                                                    </div>
-
-                                                                </div>
-                                                            </div>
                                                         </div>
-
 
                                                     </div>
 
-                                                </div>
 
-
-
+                                                }
                                             }
                                         </div><span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
                                     </div>
