@@ -13,22 +13,23 @@
 <style>
     @@media (max-width: 433px) {
         table {
-            
             width: 70%;
         }
     }
+
     @@media (max-width: 986px) {
         .information {
-        flex-direction:column;
-        width:60%;
-    }
-    input[type="number"] {
-        width: 100%; /* Make the time input full width */
-        padding: 8px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        transition: border-color 0.3s, box-shadow 0.3s;
-    }
+            flex-direction: column;
+            width: 60%;
+        }
+
+        input[type="number"] {
+            width: 100%; /* Make the time input full width */
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
 </style>
 <section style="padding:70px;">
     <div class="container py-2">
@@ -36,7 +37,8 @@
 
         <article style="background-color:#f9f9f9;" class="postcard light green">
             <a class="postcard__img_link" href="#">
-                @if(Model.imgURl != null){
+                @if (Model.imgURl != null)
+                {
                     <img class="postcard__img" src="@Model.imgURl" alt="Image Title" />
 
                 }
@@ -49,10 +51,10 @@
             <div class="postcard__text t-dark">
                 <div class="information" style="display:flex; justify-content:space-between;">
                     <h1 style="margin-left:8px;" class="postcard__title green"><a href="#">About @Model.Name</a></h1>
-                 
-                        <div class="elementor-element elementor-element-3e11bac elementor-widget elementor-widget-pt-button" data-id="3e11bac" data-element_type="widget" data-widget_type="pt-button.default">
-                            <div class="elementor-widget-container">
-                                @if (User.IsInRole("Nutritionist")&& Model.Price == null)
+
+                    <div class="elementor-element elementor-element-3e11bac elementor-widget elementor-widget-pt-button" data-id="3e11bac" data-element_type="widget" data-widget_type="pt-button.default">
+                        <div class="elementor-widget-container">
+                            @if (User.IsInRole("Nutritionist") && Model.Price == null)
                             {
                                 <a class="pt-button filled-2">
 
@@ -70,7 +72,7 @@
 
 
 
-                                @if (User.IsInRole("Patient") )
+                            @if (User.IsInRole("Patient"))
                             {
 
                                 <a asp-controller="Client" asp-action="Payment" class="pt-button filled-2">
@@ -86,36 +88,22 @@
                                 </a>
                             }
                         </div>
-                        </div>
-                    
-                   
-                 
-                  
-                  
-                    
+                    </div>
+
+
+
+
+
+
 
                 </div>
-               
-               <br />
-               @* @if (User.IsInRole("Patient"))
-                {
-                        <a asp-controller="Client" asp-action="Payment">
-                        <h6>subscribe $@Model.Price.amount</h6></a>
-                } 
-                 else if(Model.Price !=null)
-                {
-                        <h6>subscribe $@Model.Price.amount</h6>
-                }
-                else
-                {
-                    <h6>subscribe not avalibale yet</h6>
 
-                }
-               *@
+                <br />
+
                 <div class="postcard__subtitle small">
                     <div class="information" style="display:flex; justify-content:space-between;">
                         <div>
-                            
+
 
                             <h6><i class="fas fa-user-circle"></i> Personal Info</h6>
                             <ul style="list-style:none; font-size:18px;">
@@ -145,7 +133,7 @@
                                     <li><strong>Clinic </strong><span>not available</span></li>
                                 }
 
-                               
+
                             </ul>
                         </div>
 
@@ -155,9 +143,9 @@
 
 
 
-                
-                <br />
-                   
+
+                    <br />
+
                     @{
                         if (Model.AverageRating.HasValue)
                         {
@@ -188,8 +176,7 @@
                 </div>
                 <div class="postcard__bar"></div>
                 <div class="postcard__preview-txt">
-                    @* @if (Model.healthRecord != null)
-                    {*@
+
                     <h1 class="postcard__title green"><a href="#">Available Times</a></h1>
                     <table class="table table-hover">
 
@@ -198,10 +185,11 @@
                                 <th scope="col">Num</th>
                                 <th scope="col">Day</th>
                                 <th scope="col">Time</th>
-                                @if (User.IsInRole("Patient")){
-                                     <th scope="col">Choose</th>
+                                @if (User.IsInRole("Patient"))
+                                {
+                                    <th scope="col">Choose</th>
                                 }
-                              
+
                             </tr>
                         </thead>
                         <tbody>
@@ -218,40 +206,31 @@
                                     {
                                         <td>
                                             <form asp-controller="Nutritionist" asp-action="SelectAppoitment" method="post">
-                                            <input name="id" value="@at.Id" type="hidden">
-                                            <button style="color:#D6FD51; text-decoration:underline;"  type="submit">Select</button>
-                                        </form>
-                                    </td>}
+                                                <input name="id" value="@at.Id" type="hidden">
+                                                <button style="color:#D6FD51; text-decoration:underline;" type="submit">Select</button>
+                                            </form>
+                                        </td>
+                                    }
                                 </tr>
                                 rowNumber++;
                             }
                         </tbody>
 
                     </table>
-                
+
 
 
                 </div>
-              
+
 
 
             </div>
         </article>
-        <section  class="elementor-section elementor-top-section elementor-element elementor-element-14a702e elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="14a702e" data-element_type="section" style="color:black; margin: 50px 0;  padding: 50px 0; ">
+        <section class="elementor-section elementor-top-section elementor-element elementor-element-14a702e elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="14a702e" data-element_type="section" style="color:black; margin: 50px 0;  padding: 50px 0; ">
             <div class="elementor-container elementor-column-gap-extended">
                 <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-02e7c16" data-id="02e7c16" data-element_type="column">
                     <div class="elementor-widget-wrap elementor-element-populated e-swiper-container">
-                        @* <div class="elementor-element elementor-element-b86e0cc elementor-widget elementor-widget-pt-heading" data-id="b86e0cc" data-element_type="widget" data-settings="{&quot;decor&quot;:[]}" data-widget_type="pt-heading.default">
-                        <div class="elementor-widget-container">
 
-                        <div class="pt-heading" style="text-align:center; margin-bottom:40px; ">
-                        <h2 class="pt-heading-title h2">
-                        Our Nutritionists
-                        </h2>
-                        </div>
-
-                        </div>
-                        </div>*@
                         <div class="elementor-element elementor-element-80ea4f5 elementor-widget elementor-widget-text-editor" data-id="80ea4f5" data-element_type="widget" data-widget_type="text-editor.default">
                             <div class="elementor-widget-container">
                             </div>
@@ -346,7 +325,7 @@
                     <br />
                     <div class="pt-heading">
                         <h2 class="pt-heading-title h2" style="color:white; font-size:40px; text-align:center;">
-                           Add Price
+                            Add Price
                         </h2>
 
                     </div>
