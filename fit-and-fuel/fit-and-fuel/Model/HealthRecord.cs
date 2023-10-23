@@ -15,7 +15,8 @@
                 // Calculate BMI auto
                 if (Height > 0)
                 {
-                    return Weight / ((Height / 100.0) * (Height / 100.0));
+                    double bmi = Weight / ((Height / 100.0) * (Height / 100.0));
+                    return Math.Round(bmi, 2);
                 }
                 else
                 {

@@ -87,66 +87,66 @@
 
 @if (Model != null)
 {
-    
 
 
-<div class="container" style="margin-top:80px; margin-bottom:100px;">
-    <center>
-        <h2 class="pt-heading-title h2" style="font-size:40px; text-align:center;">
-            Meals for the day
-        </h2>
-    </center>
-    <hr style="margin-top: 20px; margin-bottom: 20px; border: 1px solid #000;">
-   
 
-    <div style="width:80%; margin:0 auto; border:groove; border-radius:10px; display:flex; justify-content:space-between; " class="card mt-3">
-        <div style="background-color:#4F7344;  border-radius: 10px 0 0 10px; display:flex; align-items:center; justify-content:center; width:60px; " class="card-header bg-dark text-white">
-            <h5 style=" text-align:center; font-size:20px; width:18px; color:white;" class="text-white">@Day</h5>
-        </div>
-        <div style=" display:flex; flex-direction:column; justify-content:space-between; width:700px; padding:8px; margin:0 auto;" class="card-body">
+    <div class="container" style="margin-top:80px; margin-bottom:100px;">
+        <center>
+            <h2 class="pt-heading-title h2" style="font-size:40px; text-align:center;">
+                Meals for the day
+            </h2>
+        </center>
+        <hr style="margin-top: 20px; margin-bottom: 20px; border: 1px solid #000;">
 
 
-            @{
-                int totalCalories = 0;
-                
-                foreach(var meal in Model)
-                {
-                    totalCalories += meal.Calories;
-                }
-            }
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Meal Name</th>
-                        <th>Description</th>
-                        <th>Calories</th>
-                        <th>Completion</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var meal in Model)
+        <div style="width:80%; margin:0 auto; border:groove; border-radius:10px; display:flex; justify-content:space-between; " class="card mt-3">
+            <div style="background-color:#4F7344;  border-radius: 10px 0 0 10px; display:flex; align-items:center; justify-content:center; width:60px; " class="card-header bg-dark text-white">
+                <h5 style=" text-align:center; font-size:20px; width:18px; color:white;" class="text-white">@Day</h5>
+            </div>
+            <div style=" display:flex; flex-direction:column; justify-content:space-between; width:700px; padding:8px; margin:0 auto;" class="card-body">
+
+
+                @{
+                    int totalCalories = 0;
+
+                    foreach (var meal in Model)
                     {
+                        totalCalories += meal.Calories;
+                    }
+                }
+                <table class="table table-striped">
+                    <thead>
                         <tr>
-                            <td>@meal.Name</td>
-                            <td style="max-width: 200px;">@meal.Description</td>
-                            <td class="color-success">@meal.Calories</td>
-                           
-                            <td>
-                                @if (meal.Completion == true)
-                                {
-                                    <button style="color:green;" class="badge badge-success">
-                                        Completed
-                                    </button>
-                                }
-                                else
-                                {
-                                    @*  <button type="submit" class="badge @(meal.Completion ? "badge-success" : "badge-danger")">
+                            <th>Meal Name</th>
+                            <th>Description</th>
+                            <th>Calories</th>
+                            <th>Completion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var meal in Model)
+                        {
+                            <tr>
+                                <td>@meal.Name</td>
+                                <td style="max-width: 200px;">@meal.Description</td>
+                                <td class="color-success">@meal.Calories</td>
+
+                                <td>
+                                    @if (meal.Completion == true)
+                                    {
+                                        <button style="color:green;" class="badge badge-success">
+                                            Completed
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        @*  <button type="submit" class="badge @(meal.Completion ? "badge-success" : "badge-danger")">
                             @(meal.Completion ? "Completed" : "Not Completed")
                             </button>*@
-                                    <button style="color:red;" class="badge badge-danger" data-bs-toggle="modal" data-bs-target="#CompleteModal-@meal.Id">Not Completed</button>
+                                        <button style="color:red;" class="badge badge-danger" data-bs-toggle="modal" data-bs-target="#CompleteModal-@meal.Id">Not Completed</button>
 
-                                }
-                                @* <form asp-controller="Client" asp-action="Completion" asp-route-id="@meal.Id" method="post">
+                                    }
+                                    @* <form asp-controller="Client" asp-action="Completion" asp-route-id="@meal.Id" method="post">
                             <div class="tm-sc-button btn-view-details">
                             <button type="submit" class="badge @(meal.Completion ? "badge-success" : "badge-danger")" >
                             @(meal.Completion ? "Completed" : "Not Completed")
@@ -154,55 +154,58 @@
                             </div>
 
                             </form>*@
-                                @* <button data-bs-toggle="modal" data-bs-target="#CompleteModal-@meal.Id">Complete</button>*@
-                                <!-- Improve Post Modal -->
-                                <div class="modal fade" id="CompleteModal-@meal.Id">
-                                    <div class="modal-dialog modal-dialog-centered modal-centered" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">Complete</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p>Are you sure you want to Complete this meal?</p>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                <form asp-controller="Client" asp-action="Completion" asp-route-id="@meal.Id" method="post">
-                                                    <div class="tm-sc-button btn-view-details">
-                                                        <button style="height:30px; background-color:#D6FD51;" type="submit" class="badge badge-success">
-                                                            Make it Complete
-                                                        </button>
-                                                    </div>
+                                    @* <button data-bs-toggle="modal" data-bs-target="#CompleteModal-@meal.Id">Complete</button>*@
+                                    <!-- Improve Post Modal -->
+                                    <div class="modal fade" id="CompleteModal-@meal.Id">
+                                        <div class="modal-dialog modal-dialog-centered modal-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Complete</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Are you sure you want to Complete this meal?</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <form asp-controller="Client" asp-action="Completion" asp-route-id="@meal.Id" method="post">
+                                                        <div class="tm-sc-button btn-view-details">
+                                                            <button style="height:30px; background-color:#D6FD51;" type="submit" class="badge badge-success">
+                                                                Make it Complete
+                                                            </button>
+                                                        </div>
 
-                                                </form>
+                                                    </form>
 
 
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-            <p style=" background-color:#4F7344; color:aliceblue; padding:8px;" class="card-text font-weight-bold">Total Calories for the Day: @totalCalories</p>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <p style=" background-color:#4F7344; color:aliceblue; padding:8px;" class="card-text font-weight-bold">Total Calories for the Day: @totalCalories</p>
 
 
+            </div>
+            <div style=" background-color:#4F7344 ; border-radius: 0 10px 10px 0; width:20px;"></div>
         </div>
-        <div style=" background-color:#4F7344 ; border-radius: 0 10px 10px 0; width:20px;"></div>
-    </div>
 
 
-   
-   
+
+
     </div>
 }
 else
 {
-    <br>
-    <h1>you don't have any meals</h1>
+    <div style="margin: 12.5% 8%; padding:5%; text-align:center">
+        <div style="background-color:#141414; color:white; font-weight:500; height:100%; width:100%; padding:3%; ">you don't have any meals</div>
+
+    </div>
+
 }
 
 <link href="~/css/ModelStyle.css" rel="stylesheet">
