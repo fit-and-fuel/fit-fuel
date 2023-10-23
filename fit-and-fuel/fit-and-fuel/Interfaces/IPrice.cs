@@ -5,7 +5,7 @@ namespace fit_and_fuel.Interfaces
 {
     public interface IPrice
     {
-       Task Post(PriceDto price);
-       
+        Task<Price> Post(PriceDto price);
+
     }
 }

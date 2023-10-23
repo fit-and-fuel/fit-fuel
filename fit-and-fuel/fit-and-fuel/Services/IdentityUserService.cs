@@ -20,14 +20,14 @@ namespace fit_and_fuel.Services
     public class IdentityUserService : IUserService
     {
         private UserManager<ApplicationUser> userManager;
-        private  SignInManager<ApplicationUser> _signInManager;
+        private SignInManager<ApplicationUser> _signInManager;
         private INotification _notificationService;
         private readonly IEmailSender _emailSender;
         //private JwtTokenService jwtTokenService;
         public IdentityUserService(UserManager<ApplicationUser> manager,
             //JwtTokenService jwtTokenService, 
             SignInManager<ApplicationUser> signInManager,
-        IConfiguration configuration,INotification notificationService, IEmailSender emailSender)
+        IConfiguration configuration, INotification notificationService, IEmailSender emailSender)
         {
             userManager = manager;
             _signInManager = signInManager;
@@ -46,9 +46,9 @@ namespace fit_and_fuel.Services
         public async Task<UserDto> Authenticate(string username, string password, ModelStateDictionary model)
         {
             var result = await _signInManager.PasswordSignInAsync(username, password, true, false);
-			var users = await userManager.FindByNameAsync(username);
+            var users = await userManager.FindByNameAsync(username);
 
-			if (result.Succeeded)
+            if (result.Succeeded)
             {
                 var user = await userManager.FindByNameAsync(username);
                 //// user = await _userManager.FindByNameAsync(username);
@@ -59,15 +59,15 @@ namespace fit_and_fuel.Services
                     Roles = await userManager.GetRolesAsync(user)
                 };
             }
-			if (users == null)
-			{
-				model.AddModelError("Username", "User name is not correct");
-			}
-			else
-			{
-				model.AddModelError("Password", "Password is not correct");
-			}
-			return null;
+            if (users == null)
+            {
+                model.AddModelError("Username", "User name is not correct");
+            }
+            else
+            {
+                model.AddModelError("Password", "Password is not correct");
+            }
+            return null;
 
         }
 
@@ -91,19 +91,20 @@ namespace fit_and_fuel.Services
 
             if (result.Succeeded)
             {
-                if (data.Roles[0] == "Patient") { 
-                await userManager.AddToRolesAsync(user, data.Roles);
+                if (data.Roles[0] == "Patient")
+                {
+                    await userManager.AddToRolesAsync(user, data.Roles);
                 }
-                else if(data.Roles[0] == "Nutritionist")
+                else if (data.Roles[0] == "Nutritionist")
                 {
 
                     var content = new NotificationDto()
                     {
-                        Content = $"We have New Nutritionist Need To Improve with UserName {user.UserName}"
+                        Content = $"We have New Nutritionist Need To Be Approved with UserName {user.UserName}"
                     };
 
                     await _notificationService.SendNotification("1", content);
-                   
+
                 }
 
                 var userDTO = new UserDto
@@ -214,15 +215,15 @@ namespace fit_and_fuel.Services
         /// <returns>IdentityResult indicating the success or failure of the role assignment.</returns>
 
         public async Task<IdentityResult> AssignRolesToUser(string userName)
-         {
+        {
             var user = await userManager.FindByNameAsync(userName);
             if (user == null)
             {
-                
+
                 return IdentityResult.Failed(new IdentityError { Description = "User not found." });
             }
 
-            
+
             await userManager.AddToRoleAsync(user, "Nutritionist");
             // this for email 
             //await _emailSender.EmailToUserRole(user.Email, userName);
@@ -235,15 +236,15 @@ namespace fit_and_fuel.Services
             await _notificationService.SendNotification(user.Id, content);
 
             return IdentityResult.Success;
-         }
+        }
 
         public async Task Logout()
         {
             await _signInManager.SignOutAsync();
         }
-       
-           
-        
+
+
+
 
     }
 }
