@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<fit_and_fuel.Model.ChatMessage>
+@inject IPatients patients
 @{
+    var myProfile = await patients.GetMyProfile();
 }
 
 <style>
@@ -53,8 +55,8 @@
     <div class="card">
         <div class="card-header border-0 ">
             <div style="display:flex;">
-                <img style="width:60px; height:60px; border-radius:80%;" src="~/img/Nutritionist-1.jpg" />
-                <p style="margin-top:15px;">Hala</p>
+                <img style="width:60px; height:60px; border-radius:80%;" src="@myProfile.nutritionist.imgURl" />
+                <p style="margin-top:15px;">@myProfile.nutritionist.Name</p>
             </div>
          
             <div class="d-flex align-items-center cs-settiong">

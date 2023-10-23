@@ -40,10 +40,10 @@ connection.on("ReceiveMessage", function (message) {
         // Create a new message structure
         var messageStructure = document.createElement("div");
         messageStructure.className = "media";
-
+        messageStructure.style = "direction:rtl;";
         var messageReceived = document.createElement("div");
         messageReceived.className = "message-received w-auto";
-
+       
         var dFlex = document.createElement("div");
         dFlex.className = "d-flex";
 
