@@ -48,21 +48,29 @@
     }
 </style>
 
-<div class=" chat-map">
-    <div class="card">
-        <div class="card-header border-0 mb-0">
-            <h4 class="heading mb-0">Chat</h4>
-            <div class="d-flex align-items-center cs-settiong">
-            </div>
+<div style="margin: 3%;
+    border: groove;
+    border-radius: 20px;" class=" chat-map">
+    <div style="overflow-y: auto;" class="card">
+        <div style="    gap: 10px;
+    background-color: #f7f7f7;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    display: flex;" class="card-header border-0 mb-0">
+            <img style="width:60px; height:60px; border-radius:80%;" src="~/img/Nutritionist-1.jpg" />
+            <p style="margin-top:15px;">Hala</p>
         </div>
-        <div class="card-body pt-0">
+        <div style="max-height: 48vh;
+   
+    overflow-y: auto;
+" class="card-body pt-0">
             <div class="chat-box-area style-1 dz-scroll" id="list-@Model.Patinetid">
                 @foreach (var message in Model.ChatMessages)
                 {
                     if (message.SenderId != Model.ChatMessages.FirstOrDefault().SenderId)
                     {
-                        <div class="media">
-                            <div class="message-received w-auto">
+                        <div style="direction:rtl; "class="media">
+                            <div style="    width: fit-content;" class="message-received w-auto">
                                 <div class="d-flex">
                                     <div class="ms-1 text">
                                         <p class="mb-1">@message.Content</p>
@@ -74,7 +82,7 @@
                     else
                     {
                         <div class="media justify-content-end align-items-end ms-auto">
-                            <div class="message-sent w-auto">
+                            <div style="color:black; background-color:#D6FD51;     width: fit-content;" class="message-sent w-auto">
                                 <p class="mb-1">@message.Content</p>
                             </div>
                         </div>
@@ -82,10 +90,19 @@
                 }
             </div>
         </div>
-
-        <input type="text" class="txtMessage" />
-        <input type="hidden" class="toUser" value="@Model.Patinetid" />
-        <button class="btnSend">Send</button>
+        <div style="  background-color: #f7f7f7;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    justify-content: space-between;
+    display: flex;
+    padding: 4%;
+   ">
+            <input style="width:70%; border-radius:20px;" type="text" class="txtMessage" />
+            <input style="width:30%;" type="hidden" class="toUser" value="@Model.Patinetid" />
+            <button style="background-color:#D6FD51; color:black;" class="btnSend">Send</button>
+        </div>
+       
+       
 
     </div>
 </div>

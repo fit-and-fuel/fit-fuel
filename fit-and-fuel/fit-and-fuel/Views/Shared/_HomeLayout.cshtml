@@ -22,6 +22,7 @@
 
 }
 
+
 @functions {
     // Function to format text with links as HTML anchor tags
     string FormatContentWithLinks(string content)
@@ -4533,7 +4534,6 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                 </script>
 
                             }
-
                             @if (User.Identity.IsAuthenticated && User.IsInRole("Nutritionist"))
                             {
 
@@ -4569,38 +4569,80 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
     max-height: 80vh; /* Limit the chat container height */
     overflow-y: auto; /* Add vertical scroll if needed */
 ">
+
+
                                     @{
                                         var mypaient = await nutritionists.GetMyProfile();
                                     }
+
+
                                     @if (mypaient != null)
                                     {
                                         @foreach (var patient in mypaient.patients)
                                         {
-                                            <div class="patient-name" onclick="toggleChat('@patient.Id')">
+                                            <div class="patient-container" onclick="toggleChat('@patient.Id'); hideOtherNames(this)">
+                                                <img src="@patient.imgURl" />
                                                 <p>@patient.Name</p>
                                             </div>
                                             <div id="chat-@patient.Id" class="chat-container" style="display: none;">
                                                 @await Component.InvokeAsync("ChatNut", new { id = patient.Id })
+                                                <button onclick="toggleChat('@patient.Id'); showAllNames()">Close</button>
                                             </div>
-
-
                                         }
                                     }
+
+
                                 </div>
+
+                                <style>
+                                    .patient-container {
+                                        display: flex; /* Use flexbox to align items horizontally */
+                                        align-items: center; /* Vertically center the items in the container */
+                                        margin-right: 10px; /* Add some spacing to the right of each patient */
+                                    }
+
+                                        .patient-container img {
+                                            border-radius:100%;
+                                            max-width: 50px; /* Set the maximum width of the image */
+                                            max-height: 50px; /* Set the maximum height of the image */
+                                            margin-right: 10px; /* Add some spacing between the image and the name */
+                                        }
+
+                                    .hidden-patient {
+                                        display: none; /* Hide the patient container */
+                                    }
+                                </style>
 
                                 <script>
                                     function toggleChat(patientId) {
                                         var chatContainer = document.getElementById('chat-' + patientId);
+                                        var patientContainers = document.querySelectorAll('.patient-container');
 
                                         if (chatContainer.style.display === 'none') {
                                             chatContainer.style.display = 'block';
+                                            hideAllPatients(patientContainers);
                                             // Initialize the SignalR connection for this chat container
                                             initSignalR(patientId);
                                         } else {
                                             chatContainer.style.display = 'none';
+                                            showAllPatients(patientContainers);
                                             // Dispose of the SignalR connection for this chat container
                                             disposeSignalR(patientId);
                                         }
+                                    }
+
+                                    // Function to hide all patient names and images
+                                    function hideAllPatients(patients) {
+                                        patients.forEach(function (element) {
+                                            element.classList.add('hidden-patient');
+                                        });
+                                    }
+
+                                    // Function to show all patient names and images
+                                    function showAllPatients(patients) {
+                                        patients.forEach(function (element) {
+                                            element.classList.remove('hidden-patient');
+                                        });
                                     }
 
                                     // Dictionary to store SignalR connections for each patient's chat container
