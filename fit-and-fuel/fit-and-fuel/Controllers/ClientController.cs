@@ -26,16 +26,22 @@ namespace fit_and_fuel.Controllers
             _healthRecord = healthRecord;
             _config = config;
         }
+
+
         [Authorize(Roles = "Patient")]
         public IActionResult Index()
         {
             return View();
         }
+
+        [Authorize(Roles = "Patient")]
         public async Task<IActionResult> MyProfile()
         {
             var myprofile = await _patients.GetMyProfile();
             return View(myprofile);
         }
+
+        [Authorize(Roles = "Patient, Nutritionist")]
         public async Task<IActionResult> DetailPatient(int Id)
         {
             var Patient = await _patients.GetById(Id);
@@ -54,26 +60,36 @@ namespace fit_and_fuel.Controllers
             await _patients.Post(patientDto, file);
             return RedirectToAction("Index", "Home");
         }
+
+        [Authorize(Roles = "Patient")]
         public async Task<IActionResult> MyDietPlan()
         {
             var dietplan = await _patients.GetMyDietPlan();
             return View(dietplan);
         }
+
+        [Authorize(Roles = "Patient")]
         public async Task<IActionResult> MealForToday()
         {
             var meals = await _patients.GetMyMealsForToday();
             return View(meals);
         }
+
+        [Authorize(Roles = "Patient")]
         [HttpPost]
         public async Task<IActionResult> Completion(int id)
         {
             await _patients.MealIsCompletion(id);
             return RedirectToAction("MealForToday");
         }
+
+        [Authorize(Roles = "Patient")]
         public ActionResult AddRating()
         {
             return View();
         }
+
+        [Authorize(Roles = "Patient")]
         [HttpPost]
         public async Task<IActionResult> AddRating(RatingDto ratingDto)
         {
@@ -83,17 +99,21 @@ namespace fit_and_fuel.Controllers
         }
 
 
-
+        [Authorize(Roles = "Patient")]
         public async Task<IActionResult> ViewHealthRecord(string Id)
         {
             var MyHealthRecord = await _healthRecord.GetMyHealthRecord(Id);
             return View(MyHealthRecord);
         }
 
+
+        [Authorize(Roles = "Patient")]
         public ActionResult AddHealthRecord()
         {
             return View();
         }
+
+        [Authorize(Roles = "Patient")]
         [HttpPost]
         public async Task<IActionResult> AddHealthRecord(HealthRecordDto health)
         {
@@ -107,6 +127,8 @@ namespace fit_and_fuel.Controllers
             return RedirectToAction("DetailPatient", "Client", new { id = Health.PatientId });
         }
 
+        [Authorize(Roles = "Patient")]
+
         [HttpPost]
         public async Task<IActionResult> EditHealthRecord(HealthRecordDto healthe)
         {
@@ -115,7 +137,7 @@ namespace fit_and_fuel.Controllers
                 return View();
             }
 
-          var heealth =   await _healthRecord.Put(healthe);
+            var heealth = await _healthRecord.Put(healthe);
 
             //redirect ot profile patient
 
@@ -123,9 +145,11 @@ namespace fit_and_fuel.Controllers
         }
 
 
+        [Authorize(Roles = "Patient")]
         public async Task<IActionResult> Payment()
         {
             var patient = await _patients.GetMyProfile();
+
 
             StripeConfiguration.ApiKey = _config.GetSection("SettingStrip:SecretKey").Get<string>();
 
