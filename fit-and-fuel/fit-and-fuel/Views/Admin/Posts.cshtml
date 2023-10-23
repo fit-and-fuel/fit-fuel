@@ -13,7 +13,9 @@
                 <div class="row">
                     <div class="col-md-8">
                         <div class="third-post">
-                            <img src="~/img/s1.jpg" alt="">
+
+                            <img src="@post.ImageUrl" alt="@post.Title">
+
                             <div class="post-1">
                                 <div class="post-data">
                                     @if (post.IsImproved == true)
@@ -28,7 +30,7 @@
                                         <h4>@post.Title</h4>
                                     </a>
                                     <div class="mb-2">
-                                        <img src="~/img//pic2.jpg" class="avatar rounded-circle me-2 small-post" alt="">
+                                        <img src="@post.nutritionist.imgURl" class="avatar rounded-circle me-2 small-post" alt="">
                                         <span><b class="text-primary">@post.nutritionist.Name</b> in @post.Time</span>
                                     </div>
                                     <span>
@@ -66,7 +68,7 @@
                     </div>
                 </div>
 
-              
+
 
                 <!-- Delete Post Modal -->
                 <div class="modal fade" id="deleteModal+@post.Id" style="display: none;" aria-hidden="true">

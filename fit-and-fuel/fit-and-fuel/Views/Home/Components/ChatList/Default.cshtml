@@ -2,22 +2,71 @@
 @{
 }
 
+<style>
+    .card{
+        border:groove;
+        border-radius:20px;
+        margin:4%;
+    }
+    .card-body{
+        max-height: 36vh;
+        overflow-y: auto;
+        padding: 3%;
+    }
 
+    .card-header{
+        background-color:#f7f7f7;
+        border-top-left-radius:20px;
+        border-top-right-radius:20px;
+
+    }
+
+    .message-sent,.message-received{
+        width:fit-content;
+        padding:2%;  
+        border-radius:10px;
+        color:black!important;
+        margin:1%;
+    }
+
+    .message-received{
+        background-color:#f5f5f5;
+    }
+    .message-sent{
+        background-color: #D6FD51 !important;
+    }
+
+    .textbutoon{
+        display:flex;
+        gap:4px;
+        background-color:#f5f5f5;
+        border-bottom-left-radius:20px;
+        border-bottom-right-radius:20px;
+        padding:2%;
+    }
+   
+
+
+    </style>
 
 <div >
     <div class="card">
-        <div class="card-header border-0 mb-0">
-            <h4 class="heading mb-0">Chat</h4>
+        <div class="card-header border-0 ">
+            <div style="display:flex;">
+                <img style="width:60px; height:60px; border-radius:80%;" src="~/img/Nutritionist-1.jpg" />
+                <p style="margin-top:15px;">Hala</p>
+            </div>
+         
             <div class="d-flex align-items-center cs-settiong">
             </div>
         </div>
-        <div class="card-body pt-0">
+        <div class="card-body">
             <div class="chat-box-area style-1 dz-scroll" id="list">
                 @foreach (var message in Model)
                 {
                     @if (message.SenderId == Model.FirstOrDefault().SenderId)
                     {
-                        <div class="media">
+                        <div style="direction:rtl;" class="media">
                             <div class="message-received w-auto">
                                 <div class="d-flex">
                                     <div class="ms-1 text">
@@ -46,10 +95,17 @@
             </div>
 
         </div>
-        <div>
+        <div class="textbutoon">
 
-            <textarea id="txtMessage"></textarea><br />
-            <button id="btnSend">Send</button>
+            <textarea style="padding:-10px!important; width:70%; border-radius:20px;" id="txtMessage"></textarea><br />
+            <button style=" background-color: #D6FD51;
+        color:black;
+        border: none;
+        border-radius: 20px;
+        width:30%;
+        cursor: pointer;" id="btnSend">
+                Send
+            </button>
         </div>
     </div>
 </div>
@@ -97,7 +153,7 @@
         max-width: 70%;
     }
 
-    .message-received {
+   /* .message-received {
         background-color: #f5f5f5;
         align-self: flex-start;
     }
@@ -106,13 +162,13 @@
         background-color: #0D99FF;
         color: #fff;
         align-self: flex-end;
-    }
+    }*/
 
     /* Custom CSS for Chat Input */
     .chat-input {
         display: flex;
         align-items: center;
-        padding: 10px;
+      
         background-color: #f5f5f5;
         border-radius: 0 0 8px 8px;
     }
@@ -122,7 +178,7 @@
         border: none;
         background-color: #fff;
         border-radius: 8px;
-        padding: 10px;
+       
         margin: 0 10px 0 0;
     }
 

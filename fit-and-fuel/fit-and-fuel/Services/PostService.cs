@@ -189,7 +189,7 @@ namespace fit_and_fuel.Services
 
             var content = new NotificationDto()
             {
-                Content = $"New Post Need To Improve with PostId : {newPost.Id}"
+                Content = $"New Post Need To Improve with PostId : {newPost.Title}"
             };
             try
             {

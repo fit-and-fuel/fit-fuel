@@ -89,7 +89,7 @@
                 @if (User.IsInRole("Patient"))
                 {
                     <ul class="postcard__tagbox">
-                      
+
                         <li class="tag__item play green">
                             <a asp-controller="Client" asp-action="MyDietPlan">
 
@@ -104,17 +104,21 @@
                                 Meals For Today
                             </a>
                         </li>
-                        <li class="tag__item play green">
-                            <a>
-                                <a asp-controller="Nutritionist" asp-action="NutDetails" asp-route-id="@Model.NutritionistId">
 
-                                    <i class="fas fa-user"></i>
-                                    My Nutritionist
+                        @if (Model.nutritionist != null)
+                        {
+                            <li class="tag__item play green">
+                                <a>
+                                    <a asp-controller="Nutritionist" asp-action="NutDetails" asp-route-id="@Model.NutritionistId">
+
+                                        <i class="fas fa-user"></i>
+                                        My Nutritionist
+                                    </a>
+
+
                                 </a>
-
-                               
-                            </a>
-                        </li>
+                            </li>
+                        }
                     </ul>
                 }
 
