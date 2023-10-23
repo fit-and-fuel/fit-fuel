@@ -16,7 +16,7 @@ namespace fit_and_fuel.Interfaces
         Task<List<HealthRecordDtoView>> ForMyPatinetsDto(int UserId);
         Task<HealthRecord> Post( HealthRecordDto HealthRecordDto);
 
-        Task Put(int UserId, HealthRecordDto patientDto);
+        Task<HealthRecord> Put( HealthRecordDto patientDto);
         Task Delete(int id);
     }
 }

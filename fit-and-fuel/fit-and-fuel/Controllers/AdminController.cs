@@ -23,6 +23,7 @@ namespace fit_and_fuel.Controllers
 			_appoitments = appointments;
 			_post = post;
 		}
+        
 		public async Task<IActionResult> Index()
         {
             var adminvm = new AdminVM
