@@ -14,16 +14,19 @@ namespace fit_and_fuel.Controllers
         private readonly IAppoitments _appoitments;
         private readonly IPost _post;
 
-        public AdminController(IUserService userService, INutritionists nutritionists, IPatients patients, IDietPlan dietPlan, IAppoitments appointments, IPost post)
-        {
-            _userService = userService;
-            _nutritionists = nutritionists;
-            _patients = patients;
-            _dietPlan = dietPlan;
-            _appoitments = appointments;
-            _post = post;
-        }
-        public async Task<IActionResult> Index()
+
+		public AdminController(IUserService userService, INutritionists nutritionists, IPatients patients, IDietPlan dietPlan, IAppoitments appointments, IPost post)
+		{
+			_userService = userService;
+			_nutritionists = nutritionists;
+			_patients = patients;
+			_dietPlan = dietPlan;
+			_appoitments = appointments;
+			_post = post;
+		}
+        
+		public async Task<IActionResult> Index()
+
         {
             var adminvm = new AdminVM
             {

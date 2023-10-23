@@ -51,8 +51,6 @@ namespace fit_and_fuel.Controllers
             //    return View("Index");
             //}
             ModelState.Remove("file");
-
-
             await _patients.Post(patientDto, file);
             return RedirectToAction("Index", "Home");
         }
@@ -108,6 +106,23 @@ namespace fit_and_fuel.Controllers
 
             return RedirectToAction("DetailPatient", "Client", new { id = Health.PatientId });
         }
+
+        [HttpPost]
+        public async Task<IActionResult> EditHealthRecord(HealthRecordDto healthe)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+          var heealth =   await _healthRecord.Put(healthe);
+
+            //redirect ot profile patient
+
+            return RedirectToAction("DetailPatient", new { id = heealth.PatientId });
+        }
+
+
         public async Task<IActionResult> Payment()
         {
             var patient = await _patients.GetMyProfile();
