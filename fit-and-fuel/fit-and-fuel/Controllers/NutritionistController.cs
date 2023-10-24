@@ -52,6 +52,8 @@ namespace fit_and_fuel.Controllers
 
 
         }
+
+        [Authorize(Roles = "Nutritionist")]
         public async Task<IActionResult> Appointments()
         {
             var Appoitment = await _appoitments.GetMyById();
@@ -63,10 +65,13 @@ namespace fit_and_fuel.Controllers
             var nut = await _nutritionists.GetById(id);
             return View(nut);
         }
+
+        [Authorize(Roles = "Nutritionist")]
         public IActionResult CreateProfile()
         {
             return View();
         }
+
 
 
         [HttpPost]
@@ -80,17 +85,20 @@ namespace fit_and_fuel.Controllers
             ModelState.Remove("cvfile");
 
 
-            await _nutritionists.Post(nut, file, cvfile);
+            var nutri = await _nutritionists.Post(nut, file, cvfile);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("NutDetails", new { id = nutri.Id });
         }
 
+
+        [Authorize(Roles = "Nutritionist")]
         public async Task<IActionResult> MyProfile()
         {
             var av = await _nutritionists.GetMyProfile();
             return View(av);
         }
 
+        [Authorize(Roles = "Nutritionist")]
         public async Task<IActionResult> MyPatientDietPlan(int id)
         {
             var dietplan = await _dietplan.GetById(id);
@@ -106,6 +114,8 @@ namespace fit_and_fuel.Controllers
             var av = await _availableTime.GetAll();
             return View(av);
         }
+
+        [Authorize(Roles = "Nutritionist")]
         public async Task<IActionResult> AddAvailableTime()
         {
 
@@ -119,12 +129,19 @@ namespace fit_and_fuel.Controllers
             await _availableTime.Post(availableTimeDto);
             return Redirect("AvailableTimes");
         }
+
+
+
+        [Authorize(Roles = "Patient")]
         [HttpPost]
         public async Task<IActionResult> SelectAppoitment(int id)
         {
             await _appoitments.SelectAppoitment(id);
             return RedirectToAction("Index", "Home");
         }
+
+
+        [Authorize(Roles = "Nutritionist")]
         [HttpPost]
         public async Task<IActionResult> AppoitmentConfirmed(int id)
         {
@@ -132,7 +149,7 @@ namespace fit_and_fuel.Controllers
             return Redirect("Appointments");
         }
 
-
+        [Authorize(Roles = "Nutritionist")]
         public async Task<IActionResult> CreateDietPlan(int id)
         {
             var dite = new DietPlanDto();
@@ -140,17 +157,21 @@ namespace fit_and_fuel.Controllers
             return View(dite);
         }
 
+
+        [Authorize(Roles = "Nutritionist")]
+
         [HttpPost]
 
         public async Task<IActionResult> CreateDietPlan(DietPlanDto diteplain)
         {
-            await _dietplan.PostDietPlanWithDay(diteplain);
+            var d = await _dietplan.PostDietPlanWithDay(diteplain);
 
-            return Redirect("MyProfile");
+            return Redirect($"MyPatientDietPlan/{d.Id}");
+
 
         }
 
-
+        [Authorize(Roles = "Nutritionist")]
         [HttpPost]
         public async Task<IActionResult> AddMeal(MealDto meal)
         {
@@ -158,22 +179,26 @@ namespace fit_and_fuel.Controllers
             return Redirect($"MyPatientDietPlan/{meal.DietPlanId}");
 
         }
+
+        [Authorize(Roles = "Nutritionist")]
         [HttpPost]
-        public async Task<IActionResult> EditMeal(int id,MealDto meal)
+        public async Task<IActionResult> EditMeal(int id, MealDto meal)
         {
 
-            await _meals.Put(id,meal);
+            await _meals.Put(id, meal);
             return RedirectToAction("MyPatientDietPlan", new { id = meal.DietPlanId });
 
         }
 
 
-
+        [Authorize(Roles = "Nutritionist")]
         public IActionResult AddPost()
         {
             return View();
         }
 
+
+        [Authorize(Roles = "Nutritionist")]
         [HttpPost]
         public async Task<IActionResult> AddPost(PostDto post, IFormFile file)
         {
@@ -191,18 +216,21 @@ namespace fit_and_fuel.Controllers
         }
 
 
-
+        [Authorize(Roles = "Nutritionist")]
         public async Task<IActionResult> ViewPosts()
         {
             var posts = await _post.GetMyPosts();
             return View(posts);
         }
 
+
+        [Authorize(Roles = "Nutritionist")]
         public IActionResult AddClinic()
         {
             return View();
         }
 
+        [Authorize(Roles = "Nutritionist")]
 
         [HttpPost]
         public async Task<IActionResult> AddClinic(ClinicDto clinicDto)
@@ -211,27 +239,29 @@ namespace fit_and_fuel.Controllers
             {
                 return View();
             }
-            await _clinic.Post(clinicDto);
+            var clinic = await _clinic.Post(clinicDto);
             // redirect to profile nutrition
-            return Redirect("MyProfile");
+            return Redirect($"NutDetails/{clinic.NutritionistId}");
 
         }
 
+        [Authorize(Roles = "Nutritionist")]
         public IActionResult AddPrice()
         {
             return View();
         }
 
+        [Authorize(Roles = "Nutritionist")]
         [HttpPost]
         public async Task<IActionResult> AddPrice(PriceDto priceDto)
         {
-            await _price.Post(priceDto);
+            var pri = await _price.Post(priceDto);
             // redirect to profile nutrition
-            return Redirect("MyProfile");
+            return Redirect($"NutDetails/{pri.NutritionistId}");
 
         }
 
-
+        [Authorize(Roles = "Nutritionist")]
         public async Task<IActionResult> CompleteAppointment(int id)
         {
             await _appoitments.AppoitmentCompleted(id);

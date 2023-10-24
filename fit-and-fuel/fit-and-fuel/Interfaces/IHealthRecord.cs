@@ -11,12 +11,12 @@ namespace fit_and_fuel.Interfaces
         public Task<HealthRecord> GetMyHealthRecord(string id);
 
 
-		Task<HealthRecordDtoView> GetMyHealthRecordDto(int id);
+        Task<HealthRecordDtoView> GetMyHealthRecordDto(int id);
         Task<List<HealthRecord>> ForMyPatinets(int UserId);
         Task<List<HealthRecordDtoView>> ForMyPatinetsDto(int UserId);
-        Task<HealthRecord> Post( HealthRecordDto HealthRecordDto);
+        Task<HealthRecord> Post(HealthRecordDto HealthRecordDto);
 
-        Task Put(int UserId, HealthRecordDto patientDto);
+        Task<HealthRecord> Put(HealthRecordDto patientDto);
         Task Delete(int id);
     }
 }

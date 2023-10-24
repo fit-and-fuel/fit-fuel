@@ -16,7 +16,7 @@ namespace fit_and_fuel.Services
         private readonly IHttpContextAccessor _httpContextAccessor;
         public RatingService(AppDbContext context, IHttpContextAccessor httpContextAccessor)
         {
-            _httpContextAccessor= httpContextAccessor;
+            _httpContextAccessor = httpContextAccessor;
             _context = context;
         }
 
@@ -39,7 +39,7 @@ namespace fit_and_fuel.Services
         /// <param name="patientId">The ID of the patient giving the rating.</param>
         /// <param name="ratingDto">DTO containing rating information.</param>
 
-        public async Task AddRating(RatingDto ratingDto)
+        public async Task<Rating> AddRating(RatingDto ratingDto)
         {
             string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
@@ -60,6 +60,8 @@ namespace fit_and_fuel.Services
 
             _context.Ratings.Add(rating);
             await _context.SaveChangesAsync();
+
+            return rating;
 
         }
 
@@ -85,10 +87,10 @@ namespace fit_and_fuel.Services
         public async Task<ActionResult<double>> MyRating(string UserId)
         {
             var nutritionist = await _context.Nutritionists
-                .Include(n => n.Ratings) 
+                .Include(n => n.Ratings)
                 .FirstOrDefaultAsync(p => p.UserId == UserId);
 
-          
+
             return nutritionist.AverageRating;
         }
 
