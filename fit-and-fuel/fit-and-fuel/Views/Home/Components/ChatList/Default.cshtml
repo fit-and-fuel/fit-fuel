@@ -99,14 +99,19 @@
 
                 </div>
 
-            </div>
-            <div class="textbutoon">
 
-                <textarea style="padding:-10px!important; width:70%; border-radius:20px;" id="txtMessage"></textarea><br />
-                <button style=" background-color: #D6FD51;
+        </div>
+        <div class="textbutoon">
+         @*   <input style="padding: 10px; width: 70%; border-radius: 20px;" id="txtMessage" />
+            <input type="button" value="Send" style="background-color: #D6FD51; color: black; border: none; border-radius: 8px; width: 30%; cursor: pointer;" id="btnSend">*@
+
+
+            <input style="width:70%; border-radius:20px;" type="text" id="txtMessage" /><br />
+         <button style=" background-color: #D6FD51;
+
         color:black;
         border: none;
-        border-radius: 20px;
+       border-radius: 8px;
         width:30%;
         cursor: pointer;" id="btnSend">
                     Send
@@ -114,12 +119,25 @@
             </div>
         </div>
     </div>
-    <script src="~/lib/jquery/dist/jquery.js"></script>
-    <script src="~/lib/signalr/dist/browser/signalr.js"></script>
-    <script src="~/js/site.js"></script>
-    <style>
-        /* Custom CSS for Chat Card */
-        .chat-card {
+
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $("#txtMessage").on("keydown", function (e) {
+        if (e.keyCode === 13) { // 13 is the key code for Enter
+            e.preventDefault(); // Prevent the default Enter key behavior (e.g., line break)
+            $("#btnSend").click(); // Trigger the "Send" button click event
+        }
+    });
+</script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/site.js"></script>
+<
+<style>
+    /* Custom CSS for Chat Card */
+    .chat-card {
+
         background-color: #fff;
         border-radius: 8px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);

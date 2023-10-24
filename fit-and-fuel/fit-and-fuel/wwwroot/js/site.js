@@ -72,6 +72,7 @@ connection.start().catch(function (err) {
 
 $("#btnSend").on("click", function () {
     var message = $("#txtMessage").val();
+    $(this).siblings("#txtMessage").val("");
     lastReceivedMessage = message; // Set the last received message to the sent message
     connection.invoke("SendMessage", message);
 });

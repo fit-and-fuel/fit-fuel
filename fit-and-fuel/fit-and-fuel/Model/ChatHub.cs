@@ -54,9 +54,17 @@ namespace fit_and_fuel.Model
         
         public async Task SendMessageNut(string message, string toUser)
         {
-            var lastmess =await _dbContext.ChatMessages
-                .OrderByDescending(c=>c.Timestamp)
-                .FirstOrDefaultAsync();
+            if (string.IsNullOrEmpty(message))
+
+            {
+
+                return; // Skip sending the message
+
+
+            }
+            //var lastmess =await _dbContext.ChatMessages
+            //    .OrderByDescending(c=>c.Timestamp)
+            //    .FirstOrDefaultAsync();
             // Store the message in the database
             // ...
             string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -66,14 +74,7 @@ namespace fit_and_fuel.Model
             var toUserid = await _dbContext.Patients
               .Where(p => p.Id.ToString() == toUser)
               .FirstOrDefaultAsync();
-            if(lastmess != null)
-            {
-                if (myprofile.Name + " : " + message == lastmess.Content)
-                {
-                    return; // Skip sending the message
-                }
-
-            }
+         
          
 
             // ... Rest of your code ...
