@@ -65,7 +65,7 @@
             <p style="margin-top:15px;">@img.Name</p>
         </div>
         <div style="max-height: 48vh;
-   
+
     overflow-y: auto;
 " class="card-body pt-0">
             <div class="chat-box-area style-1 dz-scroll" id="list-@Model.Patinetid">
@@ -73,7 +73,7 @@
                 {
                     if (message.SenderId != Model.ChatMessages.FirstOrDefault().SenderId)
                     {
-                        <div style="direction:rtl; "class="media">
+                        <div style="direction:rtl; " class="media">
                             <div style="    width: fit-content;" class="message-received w-auto">
                                 <div class="d-flex">
                                     <div class="ms-1 text">
@@ -105,8 +105,8 @@
             <input style="width:30%;" type="hidden" class="toUser" value="@Model.Patinetid" />
             <button style="background-color:#D6FD51; color:black;" class="btnSend">Send</button>
         </div>
-       
-       
+
+
 
     </div>
 </div>
@@ -114,6 +114,7 @@
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/lib/signalr/dist/browser/signalr.js"></script>
 <script>
+
     var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 
     // Initialize an object to store received messages for each patient
@@ -129,7 +130,7 @@
 
             var messageStructure = document.createElement("div");
             messageStructure.className = "media justify-content-end align-items-end ms-auto";
-           
+
             var messageReceived = document.createElement("div");
             messageReceived.className = "message-sent w-auto";
             messageReceived.style = "color:black; background-color:#D6FD51;     width: fit-content;";
@@ -144,6 +145,7 @@
             // Append the new message structure to the chat container
             var chatContainer = document.getElementById(chatContainerId);
             chatContainer.appendChild(messageStructure);
+
         }
     });
 
@@ -187,6 +189,38 @@
         console.error(err.toString());
     });
 
+    $(".txtMessage").on("keydown", function (e) {
+        if (e.keyCode === 13) { // 13 is the key code for Enter
+            e.preventDefault(); // Prevent the default Enter key behavior (e.g., line break)
+            $(this).siblings(".btnSend").click(); // Trigger the "Send" button click event
+        }
+    });
+    // Add event listeners to send messages
+    //$(".btnSend").on("click", function () {
+    //    // Disable the button to prevent multiple clicks
+    //    $(this).prop("disabled", true);
+
+    //    var message = $(this).siblings(".txtMessage").val();
+    //    $(this).siblings(".txtMessage").val("");
+    //    var toUser = $(this).siblings(".toUser").val();
+
+    //    connection.invoke("SendMessageNut", message, toUser).then(function () {
+
+    //        // Re-enable the button after the message has been sent
+    //        $(".btnSend").prop("disabled", false);
+    //    }).catch(function (error) {
+    //        console.error(error);
+    //        // Re-enable the button in case of an error
+    //        $(".btnSend").prop("disabled", false);
+    //    });
+    //});
+    //$(".txtMessage").on("keydown", function (e) {
+    //    if (e.keyCode === 13) { // 13 is the key code for Enter
+    //        e.preventDefault(); // Prevent the default Enter key behavior (e.g., line break)
+    //        $(this).siblings(".btnSend").click(); // Trigger the "Send" button click event
+    //    }
+    //});
+
     // Add event listeners to send messages
     $(".btnSend").on("click", function () {
         // Disable the button to prevent multiple clicks
@@ -194,8 +228,10 @@
 
         var message = $(this).siblings(".txtMessage").val();
         var toUser = $(this).siblings(".toUser").val();
-
+        $(this).siblings(".txtMessage").val("");
         connection.invoke("SendMessageNut", message, toUser).then(function () {
+            // Clear the input field by setting its value to an empty string
+
             // Re-enable the button after the message has been sent
             $(".btnSend").prop("disabled", false);
         }).catch(function (error) {
@@ -205,6 +241,5 @@
         });
     });
 </script>
-
 
 
