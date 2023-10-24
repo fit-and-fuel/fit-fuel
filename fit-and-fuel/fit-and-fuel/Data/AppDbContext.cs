@@ -43,6 +43,7 @@ namespace fit_and_fuel.Data
          .HasForeignKey(a => a.PatientId)
          .OnDelete(DeleteBehavior.NoAction);
 
+         
 
             modelBuilder.Entity<Appoitment>()
                 .HasOne(a => a.nutritionist)

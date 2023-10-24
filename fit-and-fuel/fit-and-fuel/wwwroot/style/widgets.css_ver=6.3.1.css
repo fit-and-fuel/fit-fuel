@@ -121,7 +121,7 @@
 }
 
     .pt-swiper-button-next::before {
-        content: "\e91c";
+        content: "";
     }
 
     .pt-swiper-button-next:hover::before {
@@ -129,12 +129,12 @@
     }
 
 .pt-arrows-style-2 .pt-swiper-button-prev::before {
-    content: "\e91e";
+    content: "";
     font-size: 18px;
 }
 
 .pt-arrows-style-2 .pt-swiper-button-next::before {
-    content: "\e91f";
+    content: "";
     font-size: 18px;
 }
 
@@ -622,7 +622,7 @@
     }
 
 .pt-cart-text::before {
-    content: "\e900";
+    content: "";
     font-family: pticons;
     font-size: 18px;
 }
@@ -1037,7 +1037,7 @@
     }
 
         .pt-categories-3 .pt-category-title a::before {
-            content: "\e91d";
+            content: "";
             vertical-align: middle;
             opacity: 0.25;
             margin-right: 10px;
@@ -2978,7 +2978,7 @@
 }
 
     .pt-testimonial-content::before {
-        content: "\e915";
+        content:none;
         display: inline-block;
         margin-bottom: 20px;
         font-family: pticons;

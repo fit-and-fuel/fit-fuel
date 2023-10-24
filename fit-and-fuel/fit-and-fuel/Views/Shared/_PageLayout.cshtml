@@ -3976,7 +3976,8 @@
                                             {
                                                 <span class="pt-cart-count">@count</span>
                                             }
-                                            <i class="fas fa-bell" id="bell-icon"></i>
+                                            <i class="fas fa-bell" id="bell-icon" style="    width: 30px;
+"></i>
                                             <div class="dropdown-content" id="notification-dropdown-content">
                                                 <ul>
                                                     @foreach (var notificat in visibleNotifications)
@@ -4381,6 +4382,241 @@
                 <div data-elementor-type="wp-page" data-elementor-id="3205" class="elementor elementor-3205">
 
                     <div>
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("Patient"))
+                        {
+
+                            <button id="showChatButton" style="
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #D6FD51; /* Facebook blue */
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 50px; /* Make it rounded */
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+">
+                                Show Chat
+                            </button>
+
+                            <div id="chatContainer" class="col-xl-4 col-md-6 chat-map" style="
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #fff; /* White background for chat container */
+    color: #333; /* Dark text color */
+    padding: 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    max-height: 80vh; /* Limit the chat container height */
+    overflow-y: auto; /* Add vertical scroll if needed */
+">
+                                @await Component.InvokeAsync("ChatList")
+
+                            </div>
+
+                            <script>
+                                // Get references to the button and chat container
+                                var showChatButton = document.getElementById('showChatButton');
+                                var chatContainer = document.getElementById('chatContainer');
+
+                                // Add a click event listener to the button
+                                showChatButton.addEventListener('click', function () {
+                                    // Toggle the chat's visibility
+                                    if (chatContainer.style.display === 'none') {
+                                        chatContainer.style.display = 'block';
+                                    } else {
+                                        chatContainer.style.display = 'none';
+                                    }
+                                });
+
+                                // Add a click event listener to the document to close the chat when clicking outside
+                                document.addEventListener('click', function (event) {
+                                    // Check if the click target is not the chat container or the show chat button
+                                    if (event.target !== chatContainer && event.target !== showChatButton) {
+                                        chatContainer.style.display = 'none';
+                                    }
+                                });
+
+                                // Prevent clicks within the chat container from closing it
+                                chatContainer.addEventListener('click', function (event) {
+                                    event.stopPropagation();
+                                });
+                            </script>
+
+                        }
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("Nutritionist"))
+                        {
+
+                            <button id="showChatButton" style="
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #D6FD51; /* Facebook blue */
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 50px; /* Make it rounded */
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+">
+                                Show Chat
+                            </button>
+
+                            <div id="chatContainer" class="col-xl-4 col-md-6 chat-map" style="
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #fff; /* White background for chat container */
+    color: #333; /* Dark text color */
+    padding: 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    max-height: 80vh; /* Limit the chat container height */
+    overflow-y: auto; /* Add vertical scroll if needed */
+">
+
+
+                                @{
+                                    var mypaient = await nutritionists.GetMyProfile();
+                                }
+
+
+                                @if (mypaient != null)
+                                {
+                                    @foreach (var patient in mypaient.patients)
+                                    {
+                                        <div class="patient-container" onclick="toggleChat('@patient.Id'); hideOtherNames(this)">
+                                            <img src="@patient.imgURl" />
+                                            <p>@patient.Name</p>
+                                        </div>
+                                        <div id="chat-@patient.Id" class="chat-container" style="display: none;">
+                                            @await Component.InvokeAsync("ChatNut", new { id = patient.Id })
+                                            <button onclick="toggleChat('@patient.Id'); showAllNames()">Close</button>
+                                        </div>
+                                    }
+                                }
+
+
+                            </div>
+
+                            <style>
+                                .patient-container {
+                                    display: flex; /* Use flexbox to align items horizontally */
+                                    align-items: center; /* Vertically center the items in the container */
+                                    margin-right: 10px; /* Add some spacing to the right of each patient */
+                                }
+
+                                    .patient-container img {
+                                        border-radius: 100%;
+                                        max-width: 50px; /* Set the maximum width of the image */
+                                        max-height: 50px; /* Set the maximum height of the image */
+                                        margin-right: 10px; /* Add some spacing between the image and the name */
+                                    }
+
+                                .hidden-patient {
+                                    display: none; /* Hide the patient container */
+                                }
+                            </style>
+
+                            <script>
+                                function toggleChat(patientId) {
+                                    var chatContainer = document.getElementById('chat-' + patientId);
+                                    var patientContainers = document.querySelectorAll('.patient-container');
+
+                                    if (chatContainer.style.display === 'none') {
+                                        chatContainer.style.display = 'block';
+                                        hideAllPatients(patientContainers);
+                                        // Initialize the SignalR connection for this chat container
+                                        initSignalR(patientId);
+                                    } else {
+                                        chatContainer.style.display = 'none';
+                                        showAllPatients(patientContainers);
+                                        // Dispose of the SignalR connection for this chat container
+                                        disposeSignalR(patientId);
+                                    }
+                                }
+
+                                // Function to hide all patient names and images
+                                function hideAllPatients(patients) {
+                                    patients.forEach(function (element) {
+                                        element.classList.add('hidden-patient');
+                                    });
+                                }
+
+                                // Function to show all patient names and images
+                                function showAllPatients(patients) {
+                                    patients.forEach(function (element) {
+                                        element.classList.remove('hidden-patient');
+                                    });
+                                }
+
+                                // Dictionary to store SignalR connections for each patient's chat container
+                                var signalRConnections = {};
+
+                                // Function to initialize the SignalR connection for a specific patient
+                                function initSignalR(patientId) {
+                                    if (!signalRConnections[patientId]) {
+                                        signalRConnections[patientId] = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+
+                                        // Add your connection.on handlers here
+
+                                        signalRConnections[patientId].start().catch(function (err) {
+                                            console.error(err.toString());
+                                        });
+                                    }
+                                }
+
+                                // Function to dispose of the SignalR connection for a specific patient
+                                function disposeSignalR(patientId) {
+                                    if (signalRConnections[patientId]) {
+                                        signalRConnections[patientId].stop();
+                                        delete signalRConnections[patientId];
+                                    }
+                                }
+                            </script>
+
+                            <script>
+                                // Get references to the button and chat container
+                                var showChatButton = document.getElementById('showChatButton');
+                                var chatContainer = document.getElementById('chatContainer');
+
+                                // Add a click event listener to the button
+                                showChatButton.addEventListener('click', function () {
+                                    // Toggle the chat's visibility
+                                    if (chatContainer.style.display === 'none') {
+                                        chatContainer.style.display = 'block';
+                                    } else {
+                                        chatContainer.style.display = 'none';
+                                    }
+                                });
+
+                                // Add a click event listener to the document to close the chat when clicking outside
+                                document.addEventListener('click', function (event) {
+                                    // Check if the click target is not the chat container or the show chat button
+                                    if (event.target !== chatContainer && event.target !== showChatButton) {
+                                        chatContainer.style.display = 'none';
+                                    }
+                                });
+
+                                // Prevent clicks within the chat container from closing it
+                                chatContainer.addEventListener('click', function (event) {
+                                    event.stopPropagation();
+                                });
+                            </script>
+
+                        }
                         @RenderBody()
                     </div>
                 </div>
