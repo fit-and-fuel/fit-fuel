@@ -630,7 +630,7 @@
 .pt-cart-count {
     position: absolute;
     top: -8px;
-    right: -10px;
+    right: 0px !important;
     padding: 2px 4px 0;
     min-width: 20px;
     border-radius: 50%;
@@ -2978,7 +2978,7 @@
 }
 
     .pt-testimonial-content::before {
-        content:none;
+        content: none;
         display: inline-block;
         margin-bottom: 20px;
         font-family: pticons;
