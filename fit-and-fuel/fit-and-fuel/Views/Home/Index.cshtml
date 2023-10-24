@@ -356,9 +356,26 @@
                             </div>
 
                             <div class="pt-swiper-arrows">
-                                <div class="pt-swiper-button-prev swiper-button-disabled" tabindex="0" role="button" aria-label="Previous slide" aria-disabled="true"></div>
-                                <div class="pt-swiper-button-next" tabindex="0" role="button" aria-label="Next slide" aria-disabled="false"></div>
+                                <div class="pt-swiper-button-prev" style="display: none;"></div>
+                                <i class="fas fa-arrow-left arrow-icon"></i>
+                                <i class="fas fa-arrow-right arrow-icon"></i>
+                                <div class="pt-swiper-button-next" style="display: none;"></div>
                             </div>
+                            @*<strip>
+                            $(document).ready(function () {
+                            // Add a click event listener to the left arrow icon
+                            $('.fa-arrow-left').on('click', function () {
+                            // Trigger the click event for the previous slide
+                            $('.pt-swiper-button-prev').trigger('click');
+                            });
+
+                            // Add a click event listener to the right arrow icon
+                            $('.fa-arrow-right').on('click', function () {
+                            // Trigger the click event for the next slide
+                            $('.pt-swiper-button-next').trigger('click');
+                            });
+                            });
+                            </strip>*@
                         </div>
 
 
@@ -759,7 +776,8 @@
                                                 <div class="entry-more">
                                                     <a asp-controller="Home" asp-action="AllPost" class="readmore-link pt-button textual">
                                                         <span>Read More</span>
-                                                        <i class="pticon-arrow"></i>
+                                                        <i class="fas fa-arrow-right"></i>
+
                                                     </a>
                                                 </div>
                                             </div>
@@ -822,8 +840,22 @@
 
                                         <div class="pt-testimonial">
 
-                                            <div class="pt-testimonial-content">
-
+                                            <div style="box-sizing: border-box;
+            display: inline-block;
+            margin-bottom: 20px;
+            font-family: 'pticons', sans-serif;
+            font-size: 26px;
+    padding: 48px 40px;
+    border-radius: 13px;
+            transition: background-color 0.3s;
+ border: 1px solid #000; /* Add a 1px solid black border */
+            background-color: gray; /* Gray background color */
+            " onmouseover="this.style.backgroundColor = '#D6FD51';" onmouseout="this.style.backgroundColor = 'gray';">
+                                                <i class="fa-sharp fa-solid fa-star text-orange" style="color:orange"></i>
+                                                <i class="fa-sharp fa-solid fa-star text-orange" style="color:orange"></i>
+                                                 <i class="fa-sharp fa-solid fa-star text-orange" style="color:orange"></i>
+                                                  <i class="fa-sharp fa-solid fa-star text-orange" style="color:orange"></i>
+                                                <i class="fa-sharp fa-solid fa-star text-orange" style="color:orange"></i>
                                                 <div class="pt-testimonial-text">
                                                     I want to thank the team that oversees this wonderful site.<br /><br />
                                                 </div>
@@ -861,33 +893,51 @@
 
                                         <div class="pt-testimonial">
 
-                                            <div class="pt-testimonial-content">
-
+                                            <div style="box-sizing: border-box;
+            display: inline-block;
+            margin-bottom: 20px;
+            font-family: 'pticons', sans-serif;
+            font-size: 26px;
+    padding: 48px 40px;
+    border-radius: 13px;
+            transition: background-color 0.3s;
+ border: 1px solid #000; /* Add a 1px solid black border */
+            background-color: gray; /* Gray background color */
+            " onmouseover="this.style.backgroundColor = '#D6FD51';" onmouseout="this.style.backgroundColor = 'gray';">
+                                                <i class="fa-sharp fa-solid fa-star text-orange" style="color:orange"></i>
+                                                 <i class="fa-sharp fa-solid fa-star text-orange" style="color:orange"></i>
+                                                  <i class="fa-sharp fa-solid fa-star text-orange" style="color:orange"></i>
+                                                   <i class="fa-sharp fa-solid fa-star text-orange" style="color:orange"></i>
+                                                <i class="fa-sharp fa-solid fa-star text-orange" style="color:orange"></i>
                                                 <div class="pt-testimonial-text">
                                                     Thank you for this valuable information and wonderful advice.
                                                 </div>
 
-
                                                 <div class="pt-testimonial-meta">
-
                                                     <div class="pt-testimonial-avatar">
-                                                        <img loading="lazy" width="800" height="900" src="https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-2.jpg" class="attachment-full size-full" alt="" decoding="async" srcset="https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-2.jpg 800w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-2-450x506.jpg 450w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-2-600x675.jpg 600w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-2-267x300.jpg 267w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-2-768x864.jpg 768w" sizes="(max-width: 800px) 100vw, 800px">
+                                                        <img loading="lazy"
+                                                             width="800"
+                                                             height="900"
+                                                             src="https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-2.jpg"
+                                                             class="attachment-full size-full"
+                                                             alt=""
+                                                             decoding="async"
+                                                             srcset="https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-2.jpg 800w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-2-450x506.jpg 450w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-2-600x675.jpg 600w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-2-267x300.jpg 267w, https://promo-theme.com/woxfit/wp-content/uploads/2022/12/team-member-2-768x864.jpg 768w"
+                                                             sizes="(max-width: 800px) 100vw, 800px">
                                                     </div>
 
                                                     <div class="pt-testimonial-author-wrapper">
-
                                                         <div class="pt-testimonial-author">
                                                             Anas alshamaa
                                                         </div>
 
-
                                                         <div class="pt-testimonial-occupation">
                                                             @@Anas alshamaa
                                                         </div>
-
                                                     </div>
                                                 </div>
                                             </div>
+
 
 
                                         </div>
@@ -900,8 +950,22 @@
 
                                         <div class="pt-testimonial">
 
-                                            <div class="pt-testimonial-content">
-
+                                            <div style="box-sizing: border-box;
+            display: inline-block;
+            margin-bottom: 20px;
+            font-family: 'pticons', sans-serif;
+            font-size: 26px;
+    padding: 48px 40px;
+    border-radius: 13px;
+            transition: background-color 0.3s;
+ border: 1px solid #000; /* Add a 1px solid black border */
+            background-color: gray; /* Gray background color */
+            " onmouseover="this.style.backgroundColor = '#D6FD51';" onmouseout="this.style.backgroundColor = 'gray';">
+                                                <i class="fa-sharp fa-solid fa-star text-orange" style="color:orange"></i>
+                                                 <i class="fa-sharp fa-solid fa-star text-orange" style="color:orange"></i>
+                                                  <i class="fa-sharp fa-solid fa-star text-orange" style="color:orange"></i>
+                                                   <i class="fa-sharp fa-solid fa-star text-orange" style="color:orange"></i>
+                                                <i class="fa-sharp fa-solid fa-star text-orange" style="color:orange"></i>
                                                 <div class="pt-testimonial-text">
                                                     Beautiful site and beautiful information. Thank you from the heart.
                                                 </div>
@@ -941,46 +1005,36 @@
 
 
                         <div class="pt-swiper-arrows-fraction-2">
-                            <div class="pt-swiper-pagination swiper-pagination-fraction"><span class="swiper-pagination-current">2</span> / <span class="swiper-pagination-total">3</span></div>				<div class="pt-line"></div>
-
-                            <div class="pt-swiper-button-prev" style="display: none;" tabindex="0" role="button" aria-label="Previous slide" aria-disabled="false"></div>
-                            <div class="pt-swiper-button-next" style="display: none;" tabindex="0" role="button" aria-label="Next slide" aria-disabled="false"></div>
-                            <script>
-                                $(document).ready(function () {
-                                    // Add a click event listener to the right arrow <i> element
-                                    $('.fas.fa-arrow-right').on('click', function () {
-                                        // Trigger the click event for the hidden right <div>
-                                        $('.pt-swiper-button-next').trigger('click');
-                                    });
-
-                                    // Add a click event listener to the left arrow <i> element
-                                    $('.fas.fa-arrow-left').on('click', function () {
-                                        // Trigger the click event for the hidden left <div>
-                                        $('.pt-swiper-button-prev').trigger('click');
-                                    });
-                                });
-                            </script>
-
-
+                            <div class="pt-swiper-pagination swiper-pagination-fraction">
+                                <span class="swiper-pagination-current">2</span> /
+                                <span class="swiper-pagination-total">3</span>
+                            </div>
+                            <div class="pt-line"></div>
                             <div class="pt-swiper-button-prev" style="display: none;"></div>
-                            <i class="fas fa-arrow-left arrow-icon" style="
-
-
-    margin-right: -9px;
-z-index: 10;
-								   cursor: pointer;
-								   position: absolute;
-								   top: calc(50% - var(--arrow-size) / 2);
-								   transition: opacity 0.3s;position: static;"></i>
-                            <i class="fas fa-arrow-right arrow-icon" style="z-index: 10;
-								   cursor: pointer;
-								   position: absolute;
-								   top: calc(50% - var(--arrow-size) / 2);
-								   transition: opacity 0.3s;position: static;"></i>
+                            <i class="fas fa-arrow-left arrow-icon"></i>
+                            <i class="fas fa-arrow-right arrow-icon"></i>
                             <div class="pt-swiper-button-next" style="display: none;"></div>
-
-
                         </div>
+                       
+
+                            <script>
+                            $(document).ready(function () {
+                                // Add a click event listener to the left arrow icon
+                                $('.fa-arrow-left').on('click', function () {
+                                    // Trigger the click event for the previous slide
+                                    $('.pt-swiper-button-prev').trigger('click');
+                                });
+
+                                // Add a click event listener to the right arrow icon
+                                $('.fa-arrow-right').on('click', function () {
+                                    // Trigger the click event for the next slide
+                                    $('.pt-swiper-button-next').trigger('click');
+                                });
+                            });
+
+                            </script>
+                     
+
 
 
                     </div>
