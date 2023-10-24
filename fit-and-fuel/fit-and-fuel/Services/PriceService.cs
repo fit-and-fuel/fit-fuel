@@ -17,7 +17,7 @@ namespace fit_and_fuel.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task Post(PriceDto priceDto)
+        public async Task<Price> Post(PriceDto priceDto)
         {
             string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var nutrition = await _context.Nutritionists.Where(a => a.UserId == userId).FirstOrDefaultAsync();
@@ -28,6 +28,8 @@ namespace fit_and_fuel.Services
             };
             _context.Prices.Add(price);
           await  _context.SaveChangesAsync();
+
+            return price;
 
         }
     }

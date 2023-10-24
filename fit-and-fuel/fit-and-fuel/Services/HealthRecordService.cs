@@ -165,18 +165,18 @@ public class HealthRecordService : IHealthRecord
     /// <param name="id">The user ID of the patient.</param>
     /// <param name="healthRecordDto">The updated details of the health record.</param>
 
-    public async Task Put(string id, HealthRecordDto healthRecordDto)
+    public async Task<HealthRecord> Put(HealthRecordDto healthRecordDto)
     {
+        string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-        var patient = await _context.Patients.FirstOrDefaultAsync(p => p.UserId == id);
+        var patient = await _context.Patients.FirstOrDefaultAsync(p => p.UserId == userId);
         var recordtoupdate = await _context.healthRecords.FirstOrDefaultAsync(p => p.PatientId == patient.Id);
-
         recordtoupdate.Height = healthRecordDto.Height;
         recordtoupdate.Weight = healthRecordDto.Weight;
         recordtoupdate.Illnesses = healthRecordDto.Illnesses;
 
-
         await _context.SaveChangesAsync();
+        return recordtoupdate;
 
     }
 
@@ -210,10 +210,7 @@ public class HealthRecordService : IHealthRecord
         throw new NotImplementedException();
     }
 
-    public Task<HealthRecord> Post(int UserId, HealthRecordDto HealthRecordDto)
-    {
-        throw new NotImplementedException();
-    }
+  
 
     public Task Put(int UserId, HealthRecordDto patientDto)
     {

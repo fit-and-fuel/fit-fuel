@@ -88,6 +88,7 @@ namespace fit_and_fuel.Services
         {
             string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var appoitments = await _context.Appoitments
+                .Include(n => n.nutritionist)
                 .Where(a => a.nutritionist.UserId == userId).ToListAsync();
             var appoitment = appoitments.Where(a => a.Id == id).FirstOrDefault();
             if (appoitment != null)
@@ -101,7 +102,8 @@ namespace fit_and_fuel.Services
 
                 var content = new NotificationDto()
                 {
-                    Content = "Your  Appoitment is Confirmed "
+                    Content = $"Your  Appoitment is Confirmed by {appoitment.nutritionist.Name}, You Can Subscribe" +
+                $" https://localhost:7035/nutritionist/NutDetails/{appoitment.NutritionistId} "
                 };
 
                 await _notificationService.SendNotification(patient.UserId.ToString(), content);

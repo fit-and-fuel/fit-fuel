@@ -279,7 +279,7 @@
                                                     <div class="modal-dialog modal-dialog-centered modal-centered" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title h5-custom">Add Meal</h5>
+                                                                <h5 class="modal-title h5-custom">Edit Meal</h5>
                                                                 <button type="button" class="close" data-bs-dismiss="modal">
                                                                     <span>&times;</span>
                                                                 </button>
@@ -319,7 +319,7 @@
                                                                     </div>
                                                                     <div>
 
-                                                                        <input class="wpcf7-form-control has-spinner wpcf7-submit" type="submit" value="Add"><span class="wpcf7-spinner"></span>
+                                                                        <input class="wpcf7-form-control has-spinner wpcf7-submit" type="submit" value="Edit"><span class="wpcf7-spinner"></span>
 
                                                                     </div>
 
@@ -343,9 +343,8 @@
                                                     @if (User.IsInRole("Nutritionist"))
                                                     {
                                                         <td>
-                                                            <button style="background-color:@color; color:white;" type="button" class="btn btn-danger mb-2" data-bs-toggle="modal" data-bs-target="#EditMealModel-@meal.Id">Edit Meal</button>
-                                                        </td>
-
+                                                            <i style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#EditMealModel-@meal.Id" class="fa-regular fa-pen-to-square"></i>
+                                                            </td>
                                                     }
                                                   
                                                 </tr>

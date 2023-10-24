@@ -33,10 +33,11 @@
         return regex.Replace(content, match =>
         {
             string url = match.Value;
-            return $"<a href='{url}' target='_blank'>Register</a>";
+            return $"<a href='{url}' target='_blank'>Here</a>";
         });
     }
 }
+
 
 <!doctype html>
 <html lang="en-US">
@@ -1567,9 +1568,9 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
         }
 
         /*
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                The .ext utility is a top-level class that we use to target contents within our patterns.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                We use it here to ensure columns blocks display well across themes.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                The .ext utility is a top-level class that we use to target contents within our patterns.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                We use it here to ensure columns blocks display well across themes.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 
         .wp-block-columns[class*="fullwidth-cols"] {
             /* no suggestion */
@@ -1683,9 +1684,9 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
         }
 
         /*
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    The `tablet:fullwidth-cols` and `desktop:fullwidth-cols` utilities are used
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    to counter the core/columns responsive for at our breakpoints.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    The `tablet:fullwidth-cols` and `desktop:fullwidth-cols` utilities are used
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    to counter the core/columns responsive for at our breakpoints.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 
         media (max-width: 781px) {
             .tablet\:fullwidth-cols.wp-block-columns:not(.is-not-stacked-on-mobile)
@@ -3871,7 +3872,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                                     <li id="menu-item-3242" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3242"><a asp-controller="Home" asp-action="About">About</a></li>
                                                     <li id="menu-item-3242" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3242"><a asp-controller="Home" asp-action="Contact">Contact</a></li>
 
-                                                   
+
                                                 </ul>
                                             </div>
                                         </nav>
@@ -4063,7 +4064,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                         .notification-dropdown {
                                             position: relative;
                                             display: inline-block;
-                                            top:-5px;
+                                            top: -5px;
                                         }
 
                                             .notification-dropdown .dropdown-content {
@@ -4072,7 +4073,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                                 top: 100%;
                                                 left: -50px;
                                                 background-color: white !important;
-                                                color:black;
+                                                color: black;
                                                 border: 1px solid black;
                                                 margin: 10px;
                                                 padding: 10px;
@@ -4087,6 +4088,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                             margin-bottom: 10px;
                                             padding: 10px;
                                             border-radius: 5px;
+                                            background-color: #f1f0f0;
                                         }
 
                                             .notification-item li {
@@ -4095,14 +4097,11 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
 
                                                 /* Hover effect for list items */
                                                 .notification-item li:hover {
-                                                    background-color: #D6FD51;
                                                     cursor: pointer;
-                                                    color: black;
                                                 }
 
                                         /* Hover effect for "Show All" link */
                                         .notification-dropdown .dropdown-content a:hover {
-                                            background-color: #D6FD51;
                                             color: black;
                                             text-decoration: none;
                                             text-align: center;
@@ -4157,7 +4156,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                                 display: none;
                                                 position: absolute;
                                                 top: 100%;
-                                                left: -200px; /* Adjust the left value as needed to move it to the left */
+                                                left: -400px; /* Adjust the left value as needed to move it to the left */
                                                 background-color: black;
                                                 border: 1px solid #ddd;
                                                 margin: 10px;
@@ -4202,6 +4201,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                             notificationDropdownContent.style.display = 'block';
                                         });
                                     </script>
+
                                     
                                         <a asp-controller="User" asp-action="Logout">
 
@@ -4211,132 +4211,133 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                                 <path d="M18.8813 9.10626L21.8093 12.0213L18.8813 14.9373" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                             </svg>
 
-                                        </a>
+
+                                    </a>
 
                                     }
                                     else
                                     {
 
-                                        <a asp-controller="User" asp-action="Login">Login</a>
+                                    <a asp-controller="User" asp-action="Login">Login</a>
                                     }
 
 
-                                </div>
-
                             </div>
 
+                        </div>
 
 
-                            <div class="elementor-element elementor-element-85339f0 elementor-widget__width-auto elementor-widget elementor-widget-pt-menu" data-id="85339f0" data-element_type="widget" data-widget_type="pt-menu.default">
-                                <div class="elementor-widget-container">
 
-                                    <div class="site-menu-wrap overlay-always">
-                                        <nav class="site-menu">
-                                            <div class="menu-menu-1-container">
-                                                <ul id="menu-menu-2" class="site-menu-inner">
-                                                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-21 current_page_item current-menu-ancestor current-menu-parent current_page_parent current_page_ancestor menu-item-has-children menu-item-33">
-                                                        <a asp-controller="Home" asp-action="Index" aria-current="page">Home</a><span class="submenu-toggle"></span>
-                                                        <ul class="sub-menu">
-                                                            <li id="menu-item-46" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-46"><a asp-controller="Nutritionist" asp-action="ViewAllNutrition">All Nutritionists</a></li>
+                        <div class="elementor-element elementor-element-85339f0 elementor-widget__width-auto elementor-widget elementor-widget-pt-menu" data-id="85339f0" data-element_type="widget" data-widget_type="pt-menu.default">
+                            <div class="elementor-widget-container">
 
-                                                        </ul>
-                                                    </li>
+                                <div class="site-menu-wrap overlay-always">
+                                    <nav class="site-menu">
+                                        <div class="menu-menu-1-container">
+                                            <ul id="menu-menu-2" class="site-menu-inner">
+                                                <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-21 current_page_item current-menu-ancestor current-menu-parent current_page_parent current_page_ancestor menu-item-has-children menu-item-33">
+                                                    <a asp-controller="Home" asp-action="Index" aria-current="page">Home</a><span class="submenu-toggle"></span>
+                                                    <ul class="sub-menu">
+                                                        <li id="menu-item-46" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-46"><a asp-controller="Nutritionist" asp-action="ViewAllNutrition">All Nutritionists</a></li>
+
+                                                    </ul>
+                                                </li>
 
                                                     @if (User.IsInRole("Nutritionist"))
                                                     {
-                                                        <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
-                                                            <a>Managment</a><span class="submenu-toggle"></span>
-                                                            <ul class="sub-menu">
+                                                    <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
+                                                        <a>Managment</a><span class="submenu-toggle"></span>
+                                                        <ul class="sub-menu">
 
                                                                 @if (nut != null)
                                                                 {
-                                                                    <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Nutritionist" asp-action="NutDetails" asp-route-id="@nut.Id">My Profile</a></li>
+                                                                <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Nutritionist" asp-action="NutDetails" asp-route-id="@nut.Id">My Profile</a></li>
                                                                 }
-                                                                <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Nutritionist" asp-action="MyProfile">Patients</a></li>
-                                                                <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Nutritionist" asp-action="AvailableTimes">Schedule Appointments</a></li>
-                                                                <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="Nutritionist" asp-action="Appointments">Appointments</a></li>
+                                                            <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Nutritionist" asp-action="MyProfile">Patients</a></li>
+                                                            <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Nutritionist" asp-action="AvailableTimes">Schedule Appointments</a></li>
+                                                            <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="Nutritionist" asp-action="Appointments">Appointments</a></li>
 
-                                                                <li id="menu-item-3430" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3430"><a asp-controller="Nutritionist" asp-action="AddPost">Add Post</a></li>
-                                                                <li id="menu-item-101" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-101"><a asp-controller="Nutritionist" asp-action="ViewPosts"> My Posts</a></li>
+                                                            <li id="menu-item-3430" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3430"><a asp-controller="Nutritionist" asp-action="AddPost">Add Post</a></li>
+                                                            <li id="menu-item-101" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-101"><a asp-controller="Nutritionist" asp-action="ViewPosts"> My Posts</a></li>
 
-                                                            </ul>
-                                                        </li>
+                                                        </ul>
+                                                    </li>
                                                     }
 
 
                                                     @if (User.IsInRole("Patient"))
                                                     {
-                                                        <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
-                                                            <a>Managment</a><span class="submenu-toggle"></span>
-                                                            <ul class="sub-menu">
+                                                    <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
+                                                        <a>Managment</a><span class="submenu-toggle"></span>
+                                                        <ul class="sub-menu">
 
                                                                 @if (pat != null)
                                                                 {
-                                                                    <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Client" asp-action="DetailPatient" asp-route-id="@pat.Id">My Profile</a></li>
+                                                                <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Client" asp-action="DetailPatient" asp-route-id="@pat.Id">My Profile</a></li>
                                                                 }
-                                                                <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Client" asp-action="MyDietPlan">My DietPlan</a></li>
-                                                                <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Client" asp-action="MealForToday">Meal For Today</a></li>
-                                                                <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Client" asp-action="addrating">Add rating</a></li>
+                                                            <li id="menu-item-102" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102"><a asp-controller="Client" asp-action="MyDietPlan">My DietPlan</a></li>
+                                                            <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Client" asp-action="MealForToday">Meal For Today</a></li>
+                                                            <li id="menu-item-3431" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3431"><a asp-controller="Client" asp-action="addrating">Add rating</a></li>
                                                                 @if (pat != null && pat.healthRecord == null)
                                                                 {
-                                                                    <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="Client" asp-action="AddHealthRecord">Add Health Record</a></li>
+                                                                <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="Client" asp-action="AddHealthRecord">Add Health Record</a></li>
                                                                 }
-                                                                <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="chat" asp-action="index">send message</a></li>
+                                                            <li id="menu-item-3429" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3429"><a asp-controller="chat" asp-action="index">send message</a></li>
                                                                 @if (pat == null)
                                                                 {
-                                                                    <li id="menu-item-101" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-101"><a asp-controller="Client" asp-action="Index">Create Profile</a></li>
+                                                                <li id="menu-item-101" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-101"><a asp-controller="Client" asp-action="Index">Create Profile</a></li>
                                                                 }
 
-                                                            </ul>
-                                                        </li>
+                                                        </ul>
+                                                    </li>
                                                     }
 
-                                                    <li id="menu-item-3368" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-3368"><a asp-controller="Home" asp-action="AllPost">Blog</a></li>
-                                                    <li id="menu-item-3242" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3242"><a asp-controller="Home" asp-action="About">About</a></li>
-                                                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3242"><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+                                                <li id="menu-item-3368" class="menu-item menu-item-type-post_type menu-item-object-page  menu-item-3368"><a asp-controller="Home" asp-action="AllPost">Blog</a></li>
+                                                <li id="menu-item-3242" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3242"><a asp-controller="Home" asp-action="About">About</a></li>
+                                                <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3242"><a asp-controller="Home" asp-action="Contact">Contact</a></li>
 
                                                     @if (User.Identity.IsAuthenticated)
                                                     {
-                                                        <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
-                                                            <a>
+                                                    <li id="menu-item-32" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-32">
+                                                        <a>
                                                                 @if (count > 0)
                                                                 {
-                                                                    <span class="pt-cart-count">@count</span>
+                                                                <span class="pt-cart-count">@count</span>
                                                                 }
-                                                                <i class="fas fa-bell"></i>
+                                                            <i class="fas fa-bell"></i>
 
-                                                            </a><span class="submenu-toggle"></span>
+                                                        </a><span class="submenu-toggle"></span>
 
 
-                                                            <ul class="sub-menu">
+                                                        <ul class="sub-menu">
                                                                 @foreach (var notificat in visibleNotifications)
                                                                 {
-                                                                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102" style="width:400px; background-color: #f0f0f0; border: 1px solid #ddd; margin: 10px; padding: 10px; border-radius: 5px;">
-                                                                        <h6 class="mb-1" style="font-size: 13px;"> @Html.Raw(FormatContentWithLinks(notificat.Content))</h6>
-                                                                        <small class="d-block">@notificat.Timestamp</small>
-                                                                    </li>
+                                                                <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-102" style="width:400px; background-color: #f0f0f0; border: 1px solid #ddd; margin: 10px; padding: 10px; border-radius: 5px;">
+                                                                    <h6 class="mb-1" style="font-size: 13px;"> @Html.Raw(FormatContentWithLinks(notificat.Content))</h6>
+                                                                    <small class="d-block">@notificat.Timestamp</small>
+                                                                </li>
                                                                 }
-                                                                <a asp-controller="Notification" asp-action="Index">Show All</a>
-                                                            </ul>
+                                                            <a asp-controller="Notification" asp-action="Index">Show All</a>
+                                                        </ul>
 
 
-                                                        </li>
+                                                    </li>
                                                     }
-                                                </ul>
-                                            </div>
-                                        </nav>
-
-                                        <div class="menu-toggle">
-                                            <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M20 2H0V0.5H20V2ZM20 9H0V7.5H20V9ZM0 16H20V14.5H0V16Z" /></svg>
+                                            </ul>
                                         </div>
-                                    </div>
+                                    </nav>
 
+                                    <div class="menu-toggle">
+                                        <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M20 2H0V0.5H20V2ZM20 9H0V7.5H20V9ZM0 16H20V14.5H0V16Z" /></svg>
+                                    </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
+        </div>
+        </section>
         </div>
     </header>
 
@@ -4748,7 +4749,7 @@ https://cdn.jsdelivr.net/npm/swiper@10.3.1/modules/effect-fade.min.css
                                     }
 
                                         .patient-container img {
-                                            border-radius:100%;
+                                            border-radius: 100%;
                                             max-width: 50px; /* Set the maximum width of the image */
                                             max-height: 50px; /* Set the maximum height of the image */
                                             margin-right: 10px; /* Add some spacing between the image and the name */
