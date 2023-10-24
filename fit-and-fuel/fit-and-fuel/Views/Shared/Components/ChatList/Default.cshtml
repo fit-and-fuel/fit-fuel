@@ -1,0 +1,217 @@
+﻿@model IEnumerable<fit_and_fuel.Model.ChatMessage>
+@inject IPatients patients
+@{
+    var myProfile = await patients.GetMyProfile();
+}
+
+<style>
+    .card{
+        border:groove;
+        border-radius:20px;
+        margin:4%;
+    }
+    .card-body{
+        max-height: 36vh;
+        overflow-y: auto;
+        padding: 3%;
+    }
+
+    .card-header{
+        background-color:#f7f7f7;
+        border-top-left-radius:20px;
+        border-top-right-radius:20px;
+
+    }
+
+    .message-sent,.message-received{
+        width:fit-content;
+        padding:2%;  
+        border-radius:10px;
+        color:black!important;
+        margin:1%;
+    }
+
+    .message-received{
+        background-color:#f5f5f5;
+    }
+    .message-sent{
+        background-color: #D6FD51 !important;
+    }
+
+    .textbutoon{
+        display:flex;
+        gap:4px;
+        background-color:#f5f5f5;
+        border-bottom-left-radius:20px;
+        border-bottom-right-radius:20px;
+        padding:2%;
+    }
+   
+
+
+    </style>
+
+@if (myProfile != null && myProfile.nutritionist != null)
+{
+
+    <div >
+        <div class="card">
+            <div class="card-header border-0 ">
+                <div style="display:flex;">
+                    <img style="width:60px; height:60px; border-radius:80%;" src="@myProfile.nutritionist.imgURl" />
+                    <p style="margin-top:15px;">@myProfile.nutritionist.Name</p>
+                </div>
+
+                <div class="d-flex align-items-center cs-settiong">
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="chat-box-area style-1 dz-scroll" id="list">
+                    @foreach (var message in Model)
+                    {
+                        @if (message.SenderId == Model.FirstOrDefault().SenderId)
+                        {
+                            <div style="direction:rtl;" class="media">
+                                <div class="message-received w-auto">
+                                    <div class="d-flex">
+                                        <div class="ms-1 text">
+                                            <p class="mb-1">@message.Content</p>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="media justify-content-end align-items-end ms-auto">
+                                <div class="message-sent w-auto">
+                                    <p class="mb-1">@message.Content</p>
+                                </div>
+                            </div>
+                        }
+                    }
+
+
+
+
+
+                </div>
+
+
+        </div>
+        <div class="textbutoon">
+         @*   <input style="padding: 10px; width: 70%; border-radius: 20px;" id="txtMessage" />
+            <input type="button" value="Send" style="background-color: #D6FD51; color: black; border: none; border-radius: 8px; width: 30%; cursor: pointer;" id="btnSend">*@
+
+
+            <input style="width:70%; border-radius:20px;" type="text" id="txtMessage" /><br />
+         <button style=" background-color: #D6FD51;
+
+        color:black;
+        border: none;
+       border-radius: 8px;
+        width:30%;
+        cursor: pointer;" id="btnSend">
+                    Send
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $("#txtMessage").on("keydown", function (e) {
+        if (e.keyCode === 13) { // 13 is the key code for Enter
+            e.preventDefault(); // Prevent the default Enter key behavior (e.g., line break)
+            $("#btnSend").click(); // Trigger the "Send" button click event
+        }
+    });
+</script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/site.js"></script>
+
+<style>
+    /* Custom CSS for Chat Card */
+    .chat-card {
+
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        }
+
+        /* Custom CSS for Chat Header */
+        .chat-header {
+        background-color: #0D99FF;
+        color: #fff;
+        padding: 10px;
+        border-radius: 8px 8px 0 0;
+        display: flex;
+        justify-content: space-between;
+        }
+
+        .chat-header h4 {
+        font-size: 18px;
+        margin: 0;
+        }
+
+        /* Custom CSS for Chat Body */
+        .chat-body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        }
+
+        /* Custom CSS for Chat Messages */
+        .message {
+        padding: 10px;
+        border-radius: 8px;
+        margin: 5px;
+        max-width: 70%;
+        }
+
+        /* .message-received {
+        background-color: #f5f5f5;
+        align-self: flex-start;
+        }
+
+        .message-sent {
+        background-color: #0D99FF;
+        color: #fff;
+        align-self: flex-end;
+        }*/
+
+        /* Custom CSS for Chat Input */
+        .chat-input {
+        display: flex;
+        align-items: center;
+
+        background-color: #f5f5f5;
+        border-radius: 0 0 8px 8px;
+        }
+
+        .chat-textarea {
+        flex: 1;
+        border: none;
+        background-color: #fff;
+        border-radius: 8px;
+
+        margin: 0 10px 0 0;
+        }
+
+        .chat-send-btn {
+        background-color: #0D99FF;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        }
+
+    </style>
+}

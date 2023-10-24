@@ -1,13 +1,18 @@
 ﻿using fit_and_fuel.Model;
+using System.ComponentModel.DataAnnotations;
 
 namespace fit_and_fuel.DTOs
 {
     public class PatientDto
     {
-        public string Name { get; set; }
+
+		[Required(ErrorMessage = "Name is required.")]
+		public string Name { get; set; }
 
         public string Gender { get; set; }
 
+		[Required(ErrorMessage = "Age is required.")]
+        [Range(15, 100, ErrorMessage = "Age must be between 15 and 100.")]
         public int Age { get; set; }
 
         public int Height { get; set; }

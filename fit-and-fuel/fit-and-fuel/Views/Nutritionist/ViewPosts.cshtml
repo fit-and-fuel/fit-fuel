@@ -1,16 +1,79 @@
-﻿@{
-	Layout = "~/Views/Shared/_PageLayout.cshtml";
+﻿@model List<Post>
+
+@{
+    Layout = "~/Views/Shared/_PageLayout.cshtml";
 }
 
-@model List<Post>
+<!-- Style css -->
+<link href="~/css/MyPosts.css" rel="stylesheet">
 
-@foreach(var post in Model)
+<div style="background-color:#141414 ;height:80px;margin-top:-10px;width:2100px;">
+</div>
+
+@if (Model.Count != 0)
 {
-	<p>
-		@post.Title
-	</p>
-	<p>
-		@post.Description
-	</p>
+    <div class="container">
+        <div class="card">
+            <div class="pt-heading">
+                <h2 class="pt-heading-title h2">
+                    My Posts
+                </h2>
+            </div>
+            <div class="card-body">
+                @foreach (var post in Model)
+                {
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="third-post post-container">
+
+                                <img src="@post.ImageUrl" alt="img">
+                                <div class="post-1">
+                                    <div class="post-data">
+
+                                        <div class="Isconfirmeddiv">
+                                            @if (@post.IsImproved == true)
+                                            {
+                                                <span class=" badge-sm approved">Approved</span>
+                                            }
+                                            else
+                                            {
+                                                <span class=" badge-sm pending">Pending</span>
+                                            }
+                                        </div>
+
+
+                                        <div class="mb-2">
+                                            <span> @post.Time</span>
+                                        </div>
+
+                                        <span>
+                                            @post.Description
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+
+
 
 }
+else
+{
+    <div style="margin: 12.5% 8%; padding:5%; text-align:center">
+        <div style="background-color:#141414; color:white; font-weight:500; height:100%; width:100%; padding:3%; ">you don't have any posts yet!</div>
+
+    </div>
+
+}
+
+
+
+
+

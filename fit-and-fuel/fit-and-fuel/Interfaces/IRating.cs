@@ -7,7 +7,7 @@ namespace fit_and_fuel.Interfaces
     public interface IRating
     {
         Task<List<Rating>> GetRatingsForNutritionist(int nutritionistId);
-        Task AddRating(int UserId, RatingDto ratingDto);
+        Task<Rating> AddRating(RatingDto ratingDto);
         Task<ActionResult<double>> MyRating(int UserId);
         Task<List<Nutritionist>> GetFilteredNutritionistBasedOnRating(int ratingRange);
     }

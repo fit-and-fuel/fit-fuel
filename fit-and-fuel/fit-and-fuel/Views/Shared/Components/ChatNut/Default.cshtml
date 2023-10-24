@@ -1,0 +1,245 @@
+﻿@model NutritionistVM
+@inject IPatients pat
+@{
+    var img = await pat.GetById(Model.Patinetid);
+}
+<style>
+    /* Styling for the chat container */
+    .chat-box-area {
+        /*background-color: #f0f0f0;*/ /* Background color of the chat container */
+        padding: 10px; /* Padding inside the chat container */
+        border-radius: 10px;
+    }
+
+    /* Styling for received messages */
+    .message-received {
+        background-color: #f7f7f7; /* Background color of received messages */
+        padding: 8px;
+        margin: 5px;
+        border-radius: 10px;
+    }
+
+    /* Styling for sent messages */
+    .message-sent {
+        background-color: #0084ff; /* Background color of sent messages (Facebook blue) */
+        padding: 8px;
+        margin: 5px;
+        border-radius: 10px;
+        color: #fff; /* Text color for sent messages */
+    }
+
+    /* Styling for message text */
+    .message-text {
+        margin: 0;
+    }
+
+    /* Styling for the input field and send button */
+    .txtMessage {
+        width: 80%;
+        padding: 5px;
+        border: none;
+        border-bottom: 1px solid #ddd; /* Underline the input field */
+    }
+
+    .btnSend {
+        background-color: #0084ff; /* Send button background color (Facebook blue) */
+        color: #fff;
+        border: none;
+        border-radius: 20px;
+        padding: 8px 15px;
+        margin-left: 10px;
+        cursor: pointer;
+    }
+</style>
+
+<div style="margin: 3%;
+    border: groove;
+    border-radius: 20px;" class=" chat-map">
+    <div style="overflow-y: auto;" class="card">
+        <div style="    gap: 10px;
+    background-color: #f7f7f7;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    display: flex;" class="card-header border-0 mb-0">
+            <img style="width:60px; height:60px; border-radius:80%;" src="@img.imgURl" />
+            <p style="margin-top:15px;">@img.Name</p>
+        </div>
+        <div style="max-height: 48vh;
+
+    overflow-y: auto;
+" class="card-body pt-0">
+            <div class="chat-box-area style-1 dz-scroll" id="list-@Model.Patinetid">
+                @foreach (var message in Model.ChatMessages)
+                {
+                    if (message.SenderId != Model.ChatMessages.FirstOrDefault().SenderId)
+                    {
+                        <div style="direction:rtl; " class="media">
+                            <div style="    width: fit-content;" class="message-received w-auto">
+                                <div class="d-flex">
+                                    <div class="ms-1 text">
+                                        <p class="mb-1">@message.Content</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="media justify-content-end align-items-end ms-auto">
+                            <div style="color:black; background-color:#D6FD51;     width: fit-content;" class="message-sent w-auto">
+                                <p class="mb-1">@message.Content</p>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+        <div style="  background-color: #f7f7f7;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    justify-content: space-between;
+    display: flex;
+    padding: 4%;
+   ">
+            <input style="width:70%; border-radius:20px;" type="text" class="txtMessage" />
+            <input style="width:30%;" type="hidden" class="toUser" value="@Model.Patinetid" />
+            <button style="background-color:#D6FD51; color:black;" class="btnSend">Send</button>
+        </div>
+
+
+
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/signalr/dist/browser/signalr.js"></script>
+<script>
+
+    var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+
+    // Initialize an object to store received messages for each patient
+    var receivedMessages = {};
+
+    connection.on("SendMessage", function (message, id) {
+        var msg = message;
+        var chatContainerId = "list-" + id;
+
+        // Check if the message is already displayed to prevent repetition
+        if (!receivedMessages[chatContainerId] || receivedMessages[chatContainerId] !== msg) {
+            receivedMessages[chatContainerId] = msg;
+
+            var messageStructure = document.createElement("div");
+            messageStructure.className = "media justify-content-end align-items-end ms-auto";
+
+            var messageReceived = document.createElement("div");
+            messageReceived.className = "message-sent w-auto";
+            messageReceived.style = "color:black; background-color:#D6FD51;     width: fit-content;";
+            var p = document.createElement("p");
+            p.className = "mb-1";
+            p.textContent = msg;
+
+            // Append the elements to build the structure
+            messageReceived.appendChild(p);
+            messageStructure.appendChild(messageReceived);
+
+            // Append the new message structure to the chat container
+            var chatContainer = document.getElementById(chatContainerId);
+            chatContainer.appendChild(messageStructure);
+
+        }
+    });
+
+    connection.on("ReceiveMessage", function (message, id) {
+        var msg = message;
+        var chatContainerId = "list-" + id;
+
+        // Check if the message is already displayed to prevent repetition
+        if (!receivedMessages[chatContainerId] || receivedMessages[chatContainerId] !== msg) {
+            receivedMessages[chatContainerId] = msg;
+
+            var messageStructure = document.createElement("div");
+            messageStructure.className = "media";
+            messageStructure.style = "direction:rtl; "
+            var messageReceived = document.createElement("div");
+            messageReceived.className = "message-received w-auto";
+            messageReceived.style = " width: fit-content;";
+            var dFlex = document.createElement("div");
+            dFlex.className = "d-flex";
+
+            var ms1Text = document.createElement("div");
+            ms1Text.className = "ms-1 text";
+
+            var p = document.createElement("p");
+            p.className = "mb-1";
+            p.textContent = msg;
+
+            // Append the elements to build the structure
+            ms1Text.appendChild(p);
+            dFlex.appendChild(ms1Text);
+            messageReceived.appendChild(dFlex);
+            messageStructure.appendChild(messageReceived);
+
+            // Append the new message structure to the chat container
+            var chatContainer = document.getElementById(chatContainerId);
+            chatContainer.appendChild(messageStructure);
+        }
+    });
+
+    connection.start().catch(function (err) {
+        console.error(err.toString());
+    });
+
+    $(".txtMessage").on("keydown", function (e) {
+        if (e.keyCode === 13) { // 13 is the key code for Enter
+            e.preventDefault(); // Prevent the default Enter key behavior (e.g., line break)
+            $(this).siblings(".btnSend").click(); // Trigger the "Send" button click event
+        }
+    });
+    // Add event listeners to send messages
+    //$(".btnSend").on("click", function () {
+    //    // Disable the button to prevent multiple clicks
+    //    $(this).prop("disabled", true);
+
+    //    var message = $(this).siblings(".txtMessage").val();
+    //    $(this).siblings(".txtMessage").val("");
+    //    var toUser = $(this).siblings(".toUser").val();
+
+    //    connection.invoke("SendMessageNut", message, toUser).then(function () {
+
+    //        // Re-enable the button after the message has been sent
+    //        $(".btnSend").prop("disabled", false);
+    //    }).catch(function (error) {
+    //        console.error(error);
+    //        // Re-enable the button in case of an error
+    //        $(".btnSend").prop("disabled", false);
+    //    });
+    //});
+    //$(".txtMessage").on("keydown", function (e) {
+    //    if (e.keyCode === 13) { // 13 is the key code for Enter
+    //        e.preventDefault(); // Prevent the default Enter key behavior (e.g., line break)
+    //        $(this).siblings(".btnSend").click(); // Trigger the "Send" button click event
+    //    }
+    //});
+
+    // Add event listeners to send messages
+    $(".btnSend").on("click", function () {
+        // Disable the button to prevent multiple clicks
+        $(this).prop("disabled", true);
+
+        var message = $(this).siblings(".txtMessage").val();
+        var toUser = $(this).siblings(".toUser").val();
+        $(this).siblings(".txtMessage").val("");
+        connection.invoke("SendMessageNut", message, toUser).then(function () {
+            // Clear the input field by setting its value to an empty string
+
+            // Re-enable the button after the message has been sent
+            $(".btnSend").prop("disabled", false);
+        }).catch(function (error) {
+            console.error(error);
+            // Re-enable the button in case of an error
+            $(".btnSend").prop("disabled", false);
+        });
+    });
+</script>
+
+

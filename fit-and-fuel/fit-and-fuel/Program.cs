@@ -26,6 +26,7 @@ builder.Services.AddControllers().AddNewtonsoftJson(
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
     options.User.RequireUniqueEmail = true;
+    options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 -._@+";
 })
    .AddEntityFrameworkStores<AppDbContext>();
 
@@ -49,8 +50,9 @@ builder.Services.AddTransient<IClinic, ClinicService>();
 builder.Services.AddTransient<IAppoitments, AppoitmentService>();
 //builder.Services.AddScoped<IChatMessage,ChatMessageService>();
 builder.Services.AddTransient<IRating, RatingService>();
-
+builder.Services.AddScoped<IEmailSender, SendEmailService>();
 builder.Services.AddTransient<INotification, NotificationService>();
+builder.Services.AddTransient<IPrice, PriceService>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie();

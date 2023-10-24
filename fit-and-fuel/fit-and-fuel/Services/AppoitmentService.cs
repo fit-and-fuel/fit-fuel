@@ -19,6 +19,8 @@ namespace fit_and_fuel.Services
 
         private INotification _notificationService;
 
+
+
         public AppoitmentService(AppDbContext context, INotification notificationService, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
@@ -43,31 +45,33 @@ namespace fit_and_fuel.Services
         /// Retrieves a list of all appointments.
         /// </summary>
         /// <returns>A list of all appointments.</returns>
-        
+
         public async Task<List<ViewAppointment>> GetAll()
 
         {
-            var appoitments = await _context.Appoitments.Include(x=>x.Patient).Include(d=>d.nutritionist).Select(a=>new ViewAppointment
+            var appoitments = await _context.Appoitments.Include(x => x.Patient).Include(d => d.nutritionist).Select(a => new ViewAppointment
             {
                 Id = a.Id,
                 IsCompleted = a.IsCompleted,
-                IsConfirmed =a.IsConfirmed,
-                Time=a.Time,
+                IsConfirmed = a.IsConfirmed,
+                Time = a.Time,
                 Status = a.Status,
                 Patient = new PatientView
-                {Id = a.Id,
-                    Name =a.Patient.Name,
+                {
+                    Id = a.Id,
+                    Name = a.Patient.Name,
                     Gender = a.Patient.Gender,
-                    
-                    
+
+
                 },
                 nutritionist = new NutritionView
-                {Id = a.Id,
-                    Name=a.nutritionist.Name,
-                    Gender =a.nutritionist.Gender
+                {
+                    Id = a.Id,
+                    Name = a.nutritionist.Name,
+                    Gender = a.nutritionist.Gender
                 }
 
-            }) 
+            })
              .ToListAsync();
             return appoitments;
         }
@@ -78,33 +82,45 @@ namespace fit_and_fuel.Services
         /// </summary>
         /// <param name="UserId">The ID of the user confirming the appointment.</param>
         /// <param name="id">The ID of the appointment to confirm.</param>
-        
+
 
         public async Task AppoitmentConfirmed(int id)
         {
             string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var appoitments = await _context.Appoitments
+                .Include(n => n.nutritionist)
                 .Where(a => a.nutritionist.UserId == userId).ToListAsync();
-            var  appoitment=appoitments.Where(a => a.Id == id).FirstOrDefault();
-            if (appoitment != null) 
-            { 
-            appoitment.IsConfirmed= true;
+            var appoitment = appoitments.Where(a => a.Id == id).FirstOrDefault();
+            if (appoitment != null)
+            {
+                appoitment.IsConfirmed = true;
                 var patient = await _context.Patients
-                    .Include(p=>p.appoitments)
+                    .Include(p => p.appoitments)
                     .SingleOrDefaultAsync(x => x.Id == appoitment.PatientId);
+
                 patient.NutritionistId = appoitment.NutritionistId;
-               
+
                 var content = new NotificationDto()
                 {
-                    Content = "Your  Appoitment is Confirmed "
+                    Content = $"Your  Appoitment is Confirmed by {appoitment.nutritionist.Name}, You Can Subscribe" +
+                $" https://localhost:7035/nutritionist/NutDetails/{appoitment.NutritionistId} "
                 };
 
                 await _notificationService.SendNotification(patient.UserId.ToString(), content);
-               
-                await _context.SaveChangesAsync();   
+
+                await _context.SaveChangesAsync();
             }
-         
-        
+
+            var time = await _context.AvailableTime
+                .Where(a => a.NutritionistId == appoitment.NutritionistId)
+                .Where(t => t.Time == appoitment.Time.TimeOfDay).FirstOrDefaultAsync();
+            if (time != null)
+            {
+                _context.AvailableTime.Remove(time);
+                await _context.SaveChangesAsync();
+            }
+
+
         }
 
         /// <summary>
@@ -113,7 +129,7 @@ namespace fit_and_fuel.Services
         /// <param name="UserId">The ID of the user marking the appointment as completed.</param>
         /// <param name="id">The ID of the appointment to mark as completed.</param>
         /// <returns>True if the appointment was marked as completed, otherwise false.</returns>
-        
+
         public async Task<bool> AppoitmentCompleted(int id)
         {
             string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -121,16 +137,21 @@ namespace fit_and_fuel.Services
 
             var appoitments = await _context.Appoitments
                 .Where(a => a.nutritionist.UserId == userId).ToListAsync();
-            
+
             var appoitment = appoitments.Where(a => a.Id == id).FirstOrDefault();
 
             var patient = await _context.Patients.Where(p => p.Id == appoitment.PatientId).FirstOrDefaultAsync();
-            
-            patient.NutritionistId=null;
-                        
+
+            patient.NutritionistId = null;
+            var dietplan = await _context.DietPlans.Where(d => d.PatientId == patient.Id).FirstOrDefaultAsync();
+            if (dietplan != null)
+            {
+                _context.DietPlans.Remove(dietplan);
+                await _context.SaveChangesAsync();
+            }
             if (appoitment.IsConfirmed == true)
             {
-                appoitment.IsCompleted= true;
+                appoitment.IsCompleted = true;
                 await _context.SaveChangesAsync();
                 return true;
             }
@@ -142,11 +163,11 @@ namespace fit_and_fuel.Services
         {
             var appoitments = await _context.Appoitments.Where(x => x.Id == id).Include(x => x.Patient).Include(d => d.nutritionist).Select(a => new ViewAppointment
             {
-                Id =a.Id,
+                Id = a.Id,
                 IsCompleted = a.IsCompleted,
                 IsConfirmed = a.IsConfirmed,
                 Status = a.Status,
-                Time= a.Time,
+                Time = a.Time,
                 Patient = new PatientView
                 {
                     Id = a.Id,
@@ -164,7 +185,7 @@ namespace fit_and_fuel.Services
 
 
             }).FirstOrDefaultAsync();
-              
+
             return appoitments;
         }
 
@@ -182,13 +203,13 @@ namespace fit_and_fuel.Services
             var appoitments = await _context.Appoitments.Where(a => a.nutritionist.UserId == userId).Include(x => x.Patient).Include(d => d.nutritionist).Select(a => new ViewAppointment
             {
                 Id = a.Id,
-                Time=a.Time,
+                Time = a.Time,
                 IsCompleted = a.IsCompleted,
                 IsConfirmed = a.IsConfirmed,
                 Status = a.Status,
                 Patient = new PatientView
                 {
-                    Id = a.Id,
+                    Id = a.Patient.Id,
 
                     Name = a.Patient.Name,
                     Gender = a.Patient.Gender,
@@ -197,7 +218,7 @@ namespace fit_and_fuel.Services
                 },
                 nutritionist = new NutritionView
                 {
-                    Id = a.Id,
+                    Id = a.nutritionist.Id,
 
                     Name = a.nutritionist.Name,
                     Gender = a.nutritionist.Gender
@@ -219,26 +240,26 @@ namespace fit_and_fuel.Services
         {
             var appoitments = await _context.Appoitments
                 .Where(a => a.Patient.UserId == id).Include(x => x.Patient).Include(d => d.nutritionist).Select(a => new ViewAppointment
-            {
-                Id = a.Id,
-                Time =a.Time,
-                IsCompleted = a.IsCompleted,
-                IsConfirmed = a.IsConfirmed,
-                Status = a.Status,
-                Patient = new PatientView
                 {
                     Id = a.Id,
+                    Time = a.Time,
+                    IsCompleted = a.IsCompleted,
+                    IsConfirmed = a.IsConfirmed,
+                    Status = a.Status,
+                    Patient = new PatientView
+                    {
+                        Id = a.Id,
 
-                    Name = a.Patient.Name,
-                    Gender = a.Patient.Gender
-                },
-                nutritionist = new NutritionView
-                {
-                    Id = a.Id,
-                    Name = a.nutritionist.Name,
-                    Gender = a.nutritionist.Gender
+                        Name = a.Patient.Name,
+                        Gender = a.Patient.Gender
+                    },
+                    nutritionist = new NutritionView
+                    {
+                        Id = a.Id,
+                        Name = a.nutritionist.Name,
+                        Gender = a.nutritionist.Gender
+                    }
                 }
-            }
   ).ToListAsync();
 
             return appoitments;
@@ -255,9 +276,9 @@ namespace fit_and_fuel.Services
         public async Task<Appoitment> Post(string UserId, AppoitmentDto appoitmentDto, int NutritionistId)
         {
             var patinet = await _context.Patients
-                .Include(p=>p.nutritionist)
+                .Include(p => p.nutritionist)
                 .Where(p => p.UserId == UserId).FirstOrDefaultAsync();
-          
+
             var appoitmentToAdd = new Appoitment();
             appoitmentToAdd.Time = appoitmentDto.Time;
             appoitmentToAdd.Status = appoitmentDto.Status;
@@ -278,10 +299,10 @@ namespace fit_and_fuel.Services
             await _context.SaveChangesAsync();
 
             return appoitmentToAdd;
-          ;
-               
-        
-         }
+            ;
+
+
+        }
 
         /// <summary>
         /// Selects an appointment slot for a patient with the specified details.
@@ -290,36 +311,36 @@ namespace fit_and_fuel.Services
         /// <param name="appoitmentDto">The details of the selected appointment slot.</param>
         /// <returns>The newly selected appointment.</returns>
 
-        public async Task<Appoitment> SelectAppoitment( int timeId) 
+        public async Task<Appoitment> SelectAppoitment(int timeId)
         {
             string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var patinet = await _context.Patients
                 .Include(p => p.nutritionist)
                 .Where(p => p.UserId == userId).FirstOrDefaultAsync();
-         
+
             var timeSelected = await _context.AvailableTime
       .Where(e => e.Id == timeId)
       .Select(e => new { e.DayOfWeek, e.Time })
       .FirstOrDefaultAsync();
 
-            var timeS= await _context.AvailableTime
+            var timeS = await _context.AvailableTime
      .Where(e => e.Id == timeId)
      .FirstOrDefaultAsync();
 
-            var currentTime = DateTime.Now.Date; 
+            var currentTime = DateTime.Now.Date;
 
-            
+
             int daysUntilSelectedDay = ((int)timeSelected.DayOfWeek - (int)currentTime.DayOfWeek + 7) % 7;
             if (daysUntilSelectedDay == 0)
             {
                 daysUntilSelectedDay = 7;
             }
-          
+
             var appointmentDateTime = currentTime.AddDays(daysUntilSelectedDay).Add(timeSelected.Time);
 
             var appoitment = new Appoitment();
             appoitment.Status = "Pending";
-            
+
             appoitment.PatientId = patinet.Id;
             appoitment.Time = appointmentDateTime; // Assign the calculated appointment date and time
             if (patinet.NutritionistId == null || patinet.NutritionistId == timeS.NutritionistId)
@@ -348,8 +369,8 @@ namespace fit_and_fuel.Services
             var appoitmentToUpdata = await _context.Appoitments.Where(a => a.Id == id).FirstOrDefaultAsync();
             appoitmentToUpdata.Time = appoitmentDto.Time;
             appoitmentToUpdata.Status = appoitmentDto.Status;
-            
-           
+
+
             await _context.SaveChangesAsync();
         }
 
@@ -363,9 +384,9 @@ namespace fit_and_fuel.Services
             throw new NotImplementedException();
         }
 
-		public async Task<int> Count()
-		{
-			return await _context.Appoitments.CountAsync();
-		}
-	}
+        public async Task<int> Count()
+        {
+            return await _context.Appoitments.CountAsync();
+        }
+    }
 }

@@ -34,20 +34,49 @@ namespace fit_and_fuel.Services
         {
             string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-            var messages =await _dbContext.ChatMessages
-               .Where(msg => msg.ReceiverId == userId)
-               .OrderBy(msg => msg.Timestamp)
-               .ToListAsync();
-            return messages;
-        }
+            var receivedMessages = await _dbContext.ChatMessages
+              .Where(msg => msg.ReceiverId == userId)
+              .OrderBy(msg => msg.Timestamp)
+              .ToListAsync();
 
+            var sentMessages = await _dbContext.ChatMessages
+                .Where(msg => msg.SenderId == userId)
+                .OrderBy(msg => msg.Timestamp)
+                .ToListAsync();
+
+
+            var model = receivedMessages.Concat(sentMessages).OrderBy(msg => msg.Timestamp).ToList();
+
+            return model;
+        }
+        public async Task<List<ChatMessage>> ReceiveMessagesNutritionist(int patientId)
+        {
+            string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var patient = await _dbContext.Patients.Where(p => p.Id == patientId).FirstOrDefaultAsync();
+            var receivedMessages = await _dbContext.ChatMessages
+              .Where(msg => msg.ReceiverId == userId)
+              .Where(msg => msg.SenderId == patient.UserId)
+              .OrderBy(msg => msg.Timestamp)
+              .ToListAsync();
+
+            var sentMessages = await _dbContext.ChatMessages
+                .Where(msg => msg.ReceiverId == patient.UserId)
+              .Where(msg => msg.SenderId == userId)
+                .OrderBy(msg => msg.Timestamp)
+                .ToListAsync();
+
+
+            var model = receivedMessages.Concat(sentMessages).OrderBy(msg => msg.Timestamp).ToList();
+
+            return model;
+        }
         /// <summary>
         /// Sends a chat message from a user to another user.
         /// </summary>
         /// <param name="userId">The ID of the sender user.</param>
         /// <param name="messageDto">The details of the message to send.</param>
 
-        public async Task SendMessage( ChatMessageDto messageDto)
+        public async Task SendMessage(ChatMessageDto messageDto)
         {
             string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 

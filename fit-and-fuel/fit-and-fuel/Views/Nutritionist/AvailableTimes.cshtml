@@ -4,13 +4,12 @@
 
 @model List<AvailableTime>
 
-
-<div style="background-color:#000 ;height:80px;margin-top:-10px;width:2000px;">
+<div style="background-color:#141414 ;height:80px;margin-top:-10px;width:2000px;">
 </div>
 
 
 <style>
-	
+
 	
 
 	table {
@@ -61,88 +60,19 @@
 
        
     }
+	 @@media (max-width: 768px) {
+    .pt-heading {
+      flex-direction: column;
+    }
+  }
+	
 
 </style>
-@*
-<nav class="navbar" style="height:70px; width:80%; margin: 0 auto; background-color:burlywood; margin-top:50px; display:flex; justify-content:space-between; align-items:center;">
+
+
+<div style="width:50%;margin: 0 auto; margin-bottom:40px;">
 	
-		<h6>Choose Your Available Time</h6>
 	
-	
-	<form style="display:flex;  justify-content:space-between; gap:10px;" asp-controller="Nutritionist" asp-action="AddAvailableTime" method="post" class="form-inline">
-		<div >
-			<label for="DayOfWeek">Day Of Week:</label>
-			<select style="height:40px;" id="DayOfWeek" name="DayOfWeek" class="form-control">
-				<option value="Sunday">Sunday</option>
-				<option value="Monday">Monday</option>
-				<option value="Tuesday">Tuesday</option>
-				<option value="Wednesday">Wednesday</option>
-				<option value="Thursday">Thursday</option>
-				<option value="Friday">Friday</option>
-				<option value="Saturday">Saturday</option>
-			</select>
-		</div>
-		<div >
-			<label for="Time">Time:</label>
-			<input style="height:40px;" size="40" class="form-control" id="Time" type="time" name="Time">
-		</div>
-		<button class="btn btn-primary" type="submit">Add Time</button>
-	</form>
-</nav>
-	<div asp-validation-summary="All"></div>
-*@
-
-
-<div style="width:50%;margin: 0 auto; ">
-	
-	<div>
-		<br />
-		<div class="pt-heading">
-			<h2 class="pt-heading-title h2" style="font-size:40px; text-align:center;">
-				Choose Your Available Time
-			</h2>
-		</div>
-		<br />
-		<form asp-controller="Nutritionist" asp-action="AddAvailableTime" method="post">
-			<center>
-				<div class="mb-3">
-					<label for="DayOfWeek">Day Of Week</label>
-					<Select id="DayOfWeek" name="DayOfWeek" class="form-control">
-						<option value="Sunday">Sunday</option>
-						<option value="Monday">Monday</option>
-						<option value="Tuesday">Tuesday</option>
-						<option value="Wednesday">Wednesday</option>
-						<option value="Thursday">Thursday</option>
-						<option value="Friday">Friday</option>
-						<option value="Saturday">Saturday</option>
-
-					</Select>
-				</div>
-
-
-				<div class="mb-3">
-					<p>
-						<label for="Time">Time</label><br>
-						<span class="wpcf7-form-control-wrap">
-							<input size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" id="Time" aria-required="true" aria-invalid="false" type="time" name="Time">
-						</span>
-					</p>
-				</div>
-			</center>
-			<center>
-				<div class="elementor-element elementor-element-3e11bac elementor-widget elementor-widget-pt-button" data-id="3e11bac" data-element_type="widget" data-widget_type="pt-button.default">
-					<div class="elementor-widget-container">
-
-						<a class="pt-button filled-2 ">
-							<input type="submit" value="Add Time">
-						</a>
-
-					</div>
-				</div>
-			</center>
-		</form>
-		<div asp-validation-summary="All"></div>
-	</div>
 
 	<br />
 
@@ -150,11 +80,23 @@
 
 	<div>
 		<br />
-		<div class="pt-heading">
+		<div style="display:flex;  margin-top: 20px; margin-bottom: 30px; justify-content:space-between;" class="pt-heading">
 			<h2 class="pt-heading-title h2" style="font-size:40px; text-align:center;">
-				 Your Times
+				Your Times
 			</h2>
+
+			<div class="elementor-element elementor-element-3e11bac elementor-widget elementor-widget-pt-button" data-id="3e11bac" data-element_type="widget" data-widget_type="pt-button.default">
+				<div class="elementor-widget-container">
+					<a class="pt-button filled-2">
+						<input data-bs-toggle="modal" data-bs-target="#improveModal" type="submit" value="Add Time">
+					</a>
+				</div>
+			</div>
 		</div>
+		<hr style="margin-top: 20px; margin-bottom: 20px; border: 1px solid #000;">
+
+
+	
 		<table class="table table-hover">
 
 			<thead class="thead-dark">
@@ -186,3 +128,80 @@
 	
 </div>
 
+
+<!-- Improve Post Modal -->
+<div class="modal fade" id="improveModal">
+	<div class="modal-dialog modal-dialog-centered modal-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				
+				<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+			</div>
+			<div class="modal-body">
+				<div>
+					<br />
+					<div class="pt-heading">
+						<h2  class="pt-heading-title h2" style="color:white; font-size:40px; text-align:center;">
+							Choose Your Available Time
+						</h2>
+
+					</div>
+					<br />
+					<form asp-controller="Nutritionist" asp-action="AddAvailableTime" method="post">
+						<center>
+							<div class="mb-3">
+								<label style="color:white;" for="DayOfWeek">Day Of Week</label>
+								<Select style="background-color:white;" id="DayOfWeek" name="DayOfWeek" class="form-control">
+									<option value="Sunday">Sunday</option>
+									<option value="Monday">Monday</option>
+									<option value="Tuesday">Tuesday</option>
+									<option value="Wednesday">Wednesday</option>
+									<option value="Thursday">Thursday</option>
+									<option value="Friday">Friday</option>
+									<option value="Saturday">Saturday</option>
+
+								</Select>
+							</div>
+
+
+							<div class="mb-3">
+								<p>
+									<label style="color:white;" for="Time">Time</label><br>
+									<span class="wpcf7-form-control-wrap"></span>
+										<input size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" id="Time" aria-required="true" aria-invalid="false" type="time" name="Time" required>
+									
+								</p>
+							</div>
+						</center>
+						<center>
+							<div class="elementor-element elementor-element-3e11bac elementor-widget elementor-widget-pt-button" data-id="3e11bac" data-element_type="widget" data-widget_type="pt-button.default">
+								<div class="elementor-widget-container">
+
+									<a style="background-color:#D6FD51; box-shadow: none; transition: background-color 0.3s;"
+									   onmouseover="this.style.backgroundColor='#000';"
+									   onmouseout="this.style.backgroundColor='#D6FD51';" class="pt-button filled-2 ">
+										<input type="submit" value="Add Time">
+									</a>
+
+								</div>
+							</div>
+						</center>
+					</form>
+					<div asp-validation-summary="All"></div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				
+			</div>
+		</div>
+	</div>
+</div>
+
+<link href="~/css/ModalStyle1.css" rel="stylesheet">
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

@@ -1,8 +1,9 @@
 ﻿@model NutritionistVM
 @{
+    Layout = "~/Views/Shared/_PageLayout.cshtml";
 }
 
-<div id="discussion">
+@*<div id="discussion">
     @if (Model != null)
     {
         foreach (var message in Model.ChatMessages)
@@ -11,26 +12,159 @@
         }
     }
 </div>
-
+*@
 <div>
-    <div>
 
+    @*  <div>
+    <h3>Message list:</h3>
+    <ul id="list"></ul>
+    </div>*@
+</div>
+
+@*<textarea id="txtMessage"></textarea>
+<br />
+<input type="hidden" id="toUser" value="@Model.Patinetid" />
+<br />
+<button id="btnSend">Send</button>*@
+
+
+<div class="col-xl-4 col-md-6 chat-map">
+    <div class="card">
+        <div class="card-header border-0 mb-0">
+            <h4 class="heading mb-0">Chat</h4>
+            <div class="d-flex align-items-center cs-settiong">
+            </div>
+        </div>
+        <div class="card-body pt-0">
+            <div class="chat-box-area style-1 dz-scroll" id="list">
+                @foreach (var message in Model.ChatMessages)
+                {
+                    @if (message.SenderId != Model.ChatMessages.FirstOrDefault().SenderId)
+                    {
+                        <div class="media">
+                            <div class="message-received w-auto">
+                                <div class="d-flex">
+                                    <div class="ms-1 text">
+                                        <p class="mb-1">@message.Content</p>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="media justify-content-end align-items-end ms-auto">
+                            <div class="message-sent w-auto">
+                                <p class="mb-1">@message.Content</p>
+                            </div>
+                        </div>
+                    }
+                }
+
+
+
+
+
+            </div>
+
+        </div>
         <textarea id="txtMessage"></textarea><br />
-        <input type="hidden" id="toUser" value="@Model.Patinetid"  /><br />
+        <input type="hidden" id="toUser" value="@Model.Patinetid" /><br />
         <button id="btnSend">Send</button>
-    </div>
-    <div>
-        <h3>Message list:</h3>
-        <ul id="list"></ul>
     </div>
 </div>
 
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/lib/signalr/dist/browser/signalr.js"></script>
 <script src="~/js/siteN.js"></script>
-@*<div>
-    <input type="text" id="txtUser" /><br />
-    <input type="text" id="toUser" /><br />
-    <textarea id="txtMessage"></textarea><br />
-    <button id="btnSend">Send</button>
-</div>*@
+<style>
+    /* Custom CSS for Chat Card */
+    .chat-card {
+        background-color: #f5f5f5;
+        border-radius: 10px;
+    }
+
+    /* Custom CSS for Chat Header */
+    .chat-header {
+        background-color: #0D99FF;
+        color: #fff;
+        border: none;
+    }
+
+        .chat-header h4 {
+            font-size: 18px;
+            margin: 0;
+        }
+
+    /* Custom CSS for Chat Settings */
+    .chat-settings {
+        margin-left: auto;
+    }
+
+    .chat-icon {
+        fill: #0D99FF;
+    }
+
+    .chat-select select {
+        background-color: #f5f5f5;
+        border: none;
+        border-radius: 8px;
+    }
+
+    /* Custom CSS for Chat Body */
+    .chat-body {
+        padding: 0;
+    }
+
+    /* Custom CSS for Chat Messages */
+    .chat-box-area {
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 15px;
+    }
+
+        .chat-box-area .media {
+            margin-bottom: 20px;
+        }
+
+    .message-received .text {
+        background-color: #f5f5f5;
+        padding: 10px;
+        border-radius: 8px;
+    }
+
+    .message-sent {
+        background-color: #0D99FF;
+        color: #fff;
+        padding: 10px;
+        border-radius: 8px;
+    }
+
+    /* Custom CSS for Chat Input */
+    .chat-input {
+        padding: 15px;
+        background-color: #fff;
+        border-radius: 10px;
+        margin-top: 10px;
+    }
+
+    .chat-textarea {
+        border: none;
+        background-color: #f5f5f5;
+        border-radius: 8px;
+    }
+
+    .chat-send-btn {
+        background-color: #0D99FF;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+    }
+
+    .chat-send-icon {
+        fill: #fff;
+    }
+</style>
+

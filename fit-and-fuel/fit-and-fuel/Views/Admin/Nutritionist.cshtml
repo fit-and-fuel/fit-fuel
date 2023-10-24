@@ -35,7 +35,7 @@
                                             <td class="sorting_1"><span>@Model[i].Id</span></td>
                                             <td>
                                                 <div class="products">
-                                                    <img src="~/img/pic2.jpg" class="avatar avatar-md" alt="">
+                                                    <img src="@Model[i].imgURl" class="avatar avatar-md" alt="">
                                                     <div>
                                                         <h6>@Model[i].Name</h6>
                                                         <span>@Model[i].UserId</span>
@@ -48,14 +48,14 @@
                                                 <span>@Model[i].PhoneNumber</span>
                                             </td>
                                             <td>
-                                                <span>@Model[i].CvURl</span>
+                                                <a href="@Model[i].CvURl"><span>Link</span></a>
                                             </td>
                                             <td>
                                                 <i class="fa-sharp fa-solid fa-star text-orange"></i>
                                                 <i class="fa-sharp fa-solid fa-star text-orange"></i>
                                                 <i class="fa-solid fa-star-half-stroke text-orange"></i>
                                                 <i class="fa-solid fa-star-half-stroke text-orange"></i>
-                                                <span>4.0</span>
+                                                <span>@Model[i].AverageRating</span>
                                             </td>
                                             <td>
                                                 <span class="badge badge-success light border-0">Active</span>

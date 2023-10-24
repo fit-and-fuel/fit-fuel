@@ -1,0 +1,36 @@
+﻿@model Nutritionist
+
+<!-- Iterate over the patients and call the ChatNut view component for each patient -->
+@foreach (var patient in Model.patients)
+{
+    <div class="products" style="display: flex; align-items: center;">
+        <img src="/img/pic2.jpg" class="avatar avatar-md" style="margin-right: 10px; vertical-align: middle; height: 2.813rem; width: 2.813rem; border-radius: 50%;" alt="">
+        <div>
+            <h6 style="margin-bottom: 0; font-size: 13px;">@patient.Name</h6>
+            <button id="showChatButton">Open Chat</button>
+            <span></span>
+        </div>
+    </div>
+    
+        @*@await Component.InvokeAsync("ChatNut", new { id = patient.Id })*@
+    
+   
+}
+
+
+
+<script>
+    // Get references to the button and the ChatNut container
+    var showChatButton = document.getElementById('showChatButton');
+    var chatNutContainer = document.getElementById('chatNutContainer');
+
+    // Add a click event listener to the button
+    showChatButton.addEventListener('click', function () {
+        // Toggle the visibility of the ChatNut container
+        if (chatNutContainer.style.display === 'none') {
+            chatNutContainer.style.display = 'block';
+        } else {
+            chatNutContainer.style.display = 'none';
+        }
+    });
+</script>

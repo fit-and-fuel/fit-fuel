@@ -1,0 +1,178 @@
+﻿@model IEnumerable<NutritionistDtoView>;
+
+
+@{
+    Layout = "~/Views/Shared/_PageLayout.cshtml";
+}
+
+
+<div style="background-color:#141414 ;height:80px;margin-top:-10px;width:2000px;">
+</div>
+
+
+
+
+
+<section class="elementor-section elementor-top-section elementor-element elementor-element-ae784e8 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="ae784e8" data-element_type="section" style="margin: 40px 20px 60px 20px;">
+
+    <div class="elementor-container elementor-column-gap-default">
+        <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-9a3533e" data-id="9a3533e" data-element_type="column">
+            <div class="elementor-widget-wrap elementor-element-populated">
+                <div class="elementor-element elementor-element-1b2f897 elementor-widget elementor-widget-pt-portfolio" data-id="1b2f897" data-element_type="widget" data-settings="{&quot;cols_md&quot;:2,&quot;cols_lg&quot;:4,&quot;navigation&quot;:&quot;load_more&quot;,&quot;type&quot;:&quot;grid&quot;}" data-widget_type="pt-portfolio.default">
+                    <div class="elementor-widget-container">
+                        <div class="elementor-element elementor-element-ec6c0ff elementor-widget elementor-widget-pt-heading" data-id="ec6c0ff" data-element_type="widget" data-settings="{&quot;decor&quot;:[]}" data-widget_type="pt-heading.default" style="margin-bottom:60px;">
+                            <div class="elementor-widget-container">
+
+                                <div class="pt-heading" style="text-align:center; margin:20px 0;">
+                                    <h2 class="pt-heading-title h2">
+                                        Our Nutritionists
+                                    </h2>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <form asp-controller="Nutritionist" asp-action="ViewAllNutrition" method="get" class="mb-4">
+                            <div class="input-group" style="display:flex; align-items: center;">
+                                <input type="text" class="form-control" placeholder="Search by name" name="searchTerm" style="border: none; border-bottom: 1px solid #ccc; border-radius: 0; padding: 10px 0; " />
+                                &ensp;
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-dark" type="submit">
+                                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <circle cx="11.7664" cy="11.7666" r="8.98856" stroke="#ccc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                            <path d="M18.0181 18.4851L21.5421 22" stroke="#ccc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+
+
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div class="portfolio-block filter-block portfolio-type-grid popup-gallery orientation-default with-filter" data-popup-settings="{&quot;popupTitle&quot;:false,&quot;popupDesc&quot;:false}">
+
+
+                            <div class="row isotope load-wrap" style="position: relative; height: 1082px; margin: 100px 20px 0 20px;">
+                                <div class="grid-sizer col-1"></div>
+
+                                @foreach (var n in Model)
+                                {
+
+                                    <article class="portfolio-item istp-item col-md-6 col-lg-3 category-30 popup-item">
+                                        <div class="wrap">
+                                            <div class="pt-team-member">
+
+
+                                                <div class="pt-team-member-image">
+
+                                                    @*                                                     <img loading="lazy" width="800" height="900" src="~/img/Nutritionist-1.jpg" class="attachment-full size-full" alt="" decoding="async" sizes="(max-width: 800px) 100vw, 800px">
+                                                *@
+
+                                                    <img src="@n.imgURl" class="card-img-top img-fixed-height" alt="@n.Name">
+
+
+                                                    <div class="social-links" style="width:100%; margin:0;">
+                                                        <a asp-controller="Nutritionist" asp-action="NutDetails" asp-route-id="@n.Id" style="display:flex; align-items:center;">
+                                                            View
+
+                                                        </a>
+
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="pt-team-member-title">
+                                                    @n.Name
+                                                </div>
+
+
+                                                <div class="pt-team-member-subtitle">
+                                                    @{
+                                                        if (n.AverageRating.HasValue)
+                                                        {
+                                                            int fullStars = (int)n.AverageRating.Value;
+                                                            int halfStar = (int)((n.AverageRating.Value - fullStars) * 2);
+
+                                                            for (int i = 0; i < fullStars; i++)
+                                                            {
+                                                                <i class="fa-sharp fa-solid fa-star text-orange" style="color:orange"></i>
+                                                            }
+
+                                                            if (halfStar == 1)
+                                                            {
+                                                                <i class="fa-solid fa-star-half-stroke text-orange" style="color:orange"></i>
+                                                            }
+                                                            else if (halfStar == 2)
+                                                            {
+                                                                <i class="fa-sharp fa-solid fa-star text-orange" style="color:orange"></i>
+                                                            }
+
+                                                        }
+                                                        else
+                                                        {
+                                                            <p>No rating available</p>
+                                                        }
+                                                    }
+
+
+                                                </div>
+
+
+                                            </div>
+
+                                        </div>
+                                    </article>
+
+
+                                }
+
+                            </div>
+
+                            <div class="load-items-area"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<style>
+
+    .pt-team-member .social-links {
+        opacity: 0;
+        visibility: hidden;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        /* padding: 9px 12px; */
+        /* border-radius: 4px; */
+        background-color: #16161663;
+        color: #000;
+        transition: opacity 0.3s, visibility 0.3s;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+
+        .pt-team-member .social-links a {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            /* border-radius: 5px; */
+            background-color: #D6FD51;
+            color: #000;
+            font-size: 20px;
+            line-height: 48px;
+            text-align: center;
+            transition: opacity 0.3s, visibility 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+        }
+</style>                                             

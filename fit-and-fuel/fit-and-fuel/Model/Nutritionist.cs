@@ -1,4 +1,6 @@
 ﻿using fit_and_fuel.Interfaces;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.ComponentModel.DataAnnotations;
 
 namespace fit_and_fuel.Model
 {
@@ -15,7 +17,7 @@ namespace fit_and_fuel.Model
 
         public string CvURl { get; set; }
 
-        public string imgURl { get; set; }
+		public string imgURl { get; set; }
 
         public double? AverageRating
         {
@@ -23,13 +25,13 @@ namespace fit_and_fuel.Model
             {
                 if (Ratings == null || Ratings.Count == 0)
                 {
-                    return null; 
+                    return null;
                 }
                 return Ratings.Where(r => r != null && r.Value != null).Average(r => r.Value);
             }
         }
 
-
+        public Price? Price { get; set; }
         public List<AvailableTime>? AvaliableTimes { get; set; }
         public Clinic? clinic { get; set; }
         public ICollection<Appoitment> appoitments { get; set; }

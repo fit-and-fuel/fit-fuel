@@ -1,42 +1,107 @@
-﻿
+﻿@model ClinicDto
+@{
+	Layout = "~/Views/Shared/_PageLayout.cshtml";
+}
 
-<form asp-controller="Nutritionist" asp-action="AddClinic" method="post" class="wpcf7-form init" aria-label="Contact form" novalidate="novalidate" data-status="init" enctype="multipart/form-data">
-	<div style="display: none;">
+<div style="background-color:#141414 ;height:80px;margin-top:-10px;width:2000px;">
+</div>
+
+
+
+
+<section class="elementor-section elementor-top-section elementor-element elementor-element-153008a elementor-section-content-bottom elementor-section-boxed elementor-section-height-default elementor-section-height-default" id="addpostsection" data-element_type="section" style="padding:60px 0; background-color:#f8f9f9; ">
+
+	<div class="elementor-container elementor-column-gap-default">
+		<div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-1ce4d8a" data-id="1ce4d8a" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated" style="padding:0;">
+				<div class="elementor-element elementor-element-1434ba3 elementor-widget elementor-widget-image" data-id="1434ba3" data-element_type="widget" data-widget_type="image.default">
+					<div class="elementor-widget-container">
+						<style>
+							/*! elementor - v3.10.1 - 17-01-2023 */
+							.elementor-widget-image {
+								text-align: center
+							}
+
+								.elementor-widget-image a {
+									display: inline-block
+								}
+
+									.elementor-widget-image a img[src$=".svg"] {
+										width: 48px
+									}
+
+								.elementor-widget-image img {
+									vertical-align: middle;
+									display: inline-block
+								}</style>												<img decoding="async" fetchpriority="high" width="1242" height="1350" src="https://www.bgsu.edu/content/dam/BGSU/health-and-human-services/image/doctor-filling-out-form-with-patient-holding-apple.jpeg" class="attachment-full size-full wp-image-2343" alt="" srcset="https://www.bgsu.edu/content/dam/BGSU/health-and-human-services/image/doctor-filling-out-form-with-patient-holding-apple.jpeg 1242w, https://www.bgsu.edu/content/dam/BGSU/health-and-human-services/image/doctor-filling-out-form-with-patient-holding-apple.jpeg 1080w, https://www.bgsu.edu/content/dam/BGSU/health-and-human-services/image/doctor-filling-out-form-with-patient-holding-apple.jpeg 279w, https://www.bgsu.edu/content/dam/BGSU/health-and-human-services/image/doctor-filling-out-form-with-patient-holding-apple.jpeg 952w, https://www.bgsu.edu/content/dam/BGSU/health-and-human-services/image/doctor-filling-out-form-with-patient-holding-apple.jpeg 768w" sizes="(max-width: 1242px) 100vw, 1242px">
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-aac29d5" data-id="aac29d5" data-element_type="column">
+			<div class="elementor-widget-wrap elementor-element-populated">
+				<div class="elementor-element elementor-element-4d11961 elementor-widget elementor-widget-pt-heading" data-id="4d11961" data-element_type="widget" data-settings="{&quot;decor&quot;:[]}" data-widget_type="pt-heading.default" style="margin-bottom:0px;">
+					<div class="elementor-widget-container" >
+
+						<div class="pt-heading" >
+							<h4 class="pt-heading-title h3">
+								Add Clinic
+							</h4>
+						</div>
+
+					</div>
+				</div>
+				<div class="elementor-element elementor-element-a5d8048 elementor-widget elementor-widget-pt-contact-form-7" data-id="a5d8048" data-element_type="widget" data-widget_type="pt-contact-form-7.default">
+					<div class="elementor-widget-container">
+
+						<div class="pt-contact-form-7">
+
+
+							<div class="screen-reader-response"><p role="status" aria-live="polite" aria-atomic="true"></p> <ul></ul></div>
+							<form asp-controller="Nutritionist" asp-action="AddClinic" method="post" class="wpcf7-form init" aria-label="Contact form" novalidate="novalidate" data-status="init" enctype="multipart/form-data">
+								<div style="display: none;">
+								</div>
+
+								<div class="mb-3">
+									<p class="wpcf7">
+										<label for="Name">Name of Clinic</label><br>
+										<span asp-validation-for="Name" class="wpcf7-form-control-wrap"></span>
+											<input asp-for="Name" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" id="name" aria-required="true" aria-invalid="false" placeholder="Name" type="text" name="Name" required>
+										
+									</p>
+								</div>
+
+
+								<div class="mb-3">
+									<p class="wpcf7">
+										<label for="Address">Address</label><br>
+										<span asp-validation-for="Address" class="wpcf7-form-control-wrap"></span>
+										<input asp-for="Address" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" id="Address" aria-required="true" aria-invalid="false" placeholder="Address" type="text" name="Address">
+									</p>
+								</div>
+
+								<div class="mb-3">
+									<p class="wpcf7">
+										<label for="PhoneNumber">PhoneNumber of Clinic</label><br>
+										<span asp-validation-for="PhoneNumber" class="wpcf7-form-control-wrap"></span>
+										<input asp-for="PhoneNumber" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" id="PhoneNumber" aria-required="true" aria-invalid="false" placeholder="PhoneNumber" type="text" name="PhoneNumber">
+									</p>
+								</div>
+
+								<div class="mb-0">
+									<p class="wpcf7">
+										<input class="wpcf7-form-control has-spinner wpcf7-submit" type="submit" value="Add"><span class="wpcf7-spinner"></span>
+									</p>
+								</div><div class="wpcf7-response-output" aria-hidden="true"></div>
+							</form>
+							@* <div asp-validation-summary="All"></div> *@
+						</div>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-
-	<div class="mb-3">
-		<p>
-			<label for="Name">Name of Clinic</label><br>
-			<span class="wpcf7-form-control-wrap">
-				<input size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" id="name" aria-required="true" aria-invalid="false" placeholder="Name" type="text" name="Name">
-			</span>
-		</p>
-	</div>
-	@* 								<div class="mb-3">
-	<p>
-	<label for="PhoneNumber">phone number</label><br>
-	<span class="wpcf7-form-control-wrap"><input size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" id="PhoneNumber" aria-required="true" aria-invalid="false" placeholder="PhoneNumber" type="text" name="PhoneNumber"></span>
-	</p>
-	</div> *@
-
-	<div class="mb-3">
-		<p>
-			<label for="Address">Address</label><br>
-			<span class="wpcf7-form-control-wrap"><input size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" id="Address" aria-required="true" aria-invalid="false" placeholder="Address" type="text" name="Address"></span>
-		</p>
-	</div>
-
-	<div class="mb-3">
-		<p>
-			<label for="PhoneNumber">PhoneNumber of Clinic</label><br>
-			<span class="wpcf7-form-control-wrap"><input size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" id="PhoneNumber" aria-required="true" aria-invalid="false" placeholder="PhoneNumber" type="text" name="PhoneNumber"></span>
-		</p>
-	</div>
-
-	<div class="mb-0">
-		<p>
-			<input class="wpcf7-form-control has-spinner wpcf7-submit" type="submit" value="Add"><span class="wpcf7-spinner"></span>
-		</p>
-	</div><div class="wpcf7-response-output" aria-hidden="true"></div>
-</form>
-<div asp-validation-summary="All"></div>
+</section>

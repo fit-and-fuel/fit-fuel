@@ -3,14 +3,18 @@ using fit_and_fuel.DTOs;
 using fit_and_fuel.Interfaces;
 using fit_and_fuel.Model;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 public class HealthRecordService : IHealthRecord
 {
     private readonly AppDbContext _context;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public HealthRecordService(AppDbContext context)
+
+    public HealthRecordService(AppDbContext context, IHttpContextAccessor httpContextAccessor)
     {
         _context = context;
+        _httpContextAccessor = httpContextAccessor;
     }
 
 
@@ -132,9 +136,11 @@ public class HealthRecordService : IHealthRecord
     /// <param name="HealthRecordDto">The details of the health record to create.</param>
     /// <returns>The newly created health record.</returns>
 
-    public async Task<HealthRecord> Post(string id, HealthRecordDto HealthRecordDto)
+    public async Task<HealthRecord> Post( HealthRecordDto HealthRecordDto)
     {
-        var patient = await _context.Patients.FirstOrDefaultAsync(p => p.UserId == id);
+        string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+        var patient = await _context.Patients.FirstOrDefaultAsync(p => p.UserId == userId);
 
         var newRecord = new HealthRecord()
         {
@@ -159,18 +165,18 @@ public class HealthRecordService : IHealthRecord
     /// <param name="id">The user ID of the patient.</param>
     /// <param name="healthRecordDto">The updated details of the health record.</param>
 
-    public async Task Put(string id, HealthRecordDto healthRecordDto)
+    public async Task<HealthRecord> Put(HealthRecordDto healthRecordDto)
     {
+        string userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-        var patient = await _context.Patients.FirstOrDefaultAsync(p => p.UserId == id);
+        var patient = await _context.Patients.FirstOrDefaultAsync(p => p.UserId == userId);
         var recordtoupdate = await _context.healthRecords.FirstOrDefaultAsync(p => p.PatientId == patient.Id);
-
         recordtoupdate.Height = healthRecordDto.Height;
         recordtoupdate.Weight = healthRecordDto.Weight;
         recordtoupdate.Illnesses = healthRecordDto.Illnesses;
 
-
         await _context.SaveChangesAsync();
+        return recordtoupdate;
 
     }
 
@@ -204,10 +210,7 @@ public class HealthRecordService : IHealthRecord
         throw new NotImplementedException();
     }
 
-    public Task<HealthRecord> Post(int UserId, HealthRecordDto HealthRecordDto)
-    {
-        throw new NotImplementedException();
-    }
+  
 
     public Task Put(int UserId, HealthRecordDto patientDto)
     {

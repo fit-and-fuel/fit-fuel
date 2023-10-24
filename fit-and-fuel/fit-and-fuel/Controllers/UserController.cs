@@ -9,12 +9,14 @@ namespace fit_and_fuel.Controllers
 {
     public class UserController : Controller
     {
+        private readonly IEmailSender _emailSender;
         private IUserService _userService;
 
-      
-        public UserController(IUserService userService)
+
+        public UserController(IUserService userService, IEmailSender emailSender)
         {
             _userService = userService;
+            _emailSender = emailSender;
         }
 
         public IActionResult Index()
@@ -28,10 +30,25 @@ namespace fit_and_fuel.Controllers
         [HttpPost]
         public async Task<ActionResult<UserDto>> Register(RegisterUser data)
         {
-            var res = await _userService.Register(data, this.ModelState);
-			var resRole = await _userService.Authenticate(data.Username, data.Password);
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            bool IsNutritionist = false;
+            if (data.Roles[0] == "Nutritionist")
+            {
+                IsNutritionist = true;
 
-			if (!ModelState.IsValid)
+            }
+            var res = await _userService.Register(data, this.ModelState);
+            if (IsNutritionist)
+            {
+                // this for Send Email
+                await _emailSender.EmailToUser(data.Email, data.Username);
+            }
+            var resRole = await _userService.Authenticate(data.Username, data.Password, this.ModelState);
+
+            if (!ModelState.IsValid)
             {
                 return View(res);
             }
@@ -42,29 +59,43 @@ namespace fit_and_fuel.Controllers
             }
 
             if (resRole.Roles[0] == "Patient")
-			{
+            {
                 return RedirectToAction("Index", "Client");
-			}
-			return RedirectToAction("Index","Home");
+            }
+
+            return RedirectToAction("Index", "Home");
         }
         public IActionResult Login()
         {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
             return View();
         }
         [HttpPost]
         public async Task<ActionResult<UserDto>> Login(LoginData data)
         {
-            var res = await _userService.Authenticate(data.Username, data.Password);
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            var res = await _userService.Authenticate(data.Username, data.Password, this.ModelState);
             if (!ModelState.IsValid)
             {
                 return View(res);
             }
-            if (res.Roles[0] == "Admin")
+            if (res == null)
+            {
+				return RedirectToAction("Login", "User");
+
+			}
+			if (res.Roles[0] == "Admin")
             {
                 return RedirectToAction("Index", "Admin");
             }
-		
-			return RedirectToAction("Index", "Home");
+
+            return RedirectToAction("Index", "Home");
         }
         public async Task<IActionResult> Logout()
         {

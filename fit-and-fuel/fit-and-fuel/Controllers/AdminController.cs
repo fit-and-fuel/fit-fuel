@@ -1,6 +1,7 @@
 ﻿using fit_and_fuel.Interfaces;
 using fit_and_fuel.Model;
 using fit_and_fuel.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace fit_and_fuel.Controllers
@@ -14,16 +15,22 @@ namespace fit_and_fuel.Controllers
         private readonly IAppoitments _appoitments;
         private readonly IPost _post;
 
-		public AdminController(IUserService userService, INutritionists nutritionists, IPatients patients, IDietPlan dietPlan, IAppoitments appointments, IPost post)
-		{
-			_userService = userService;
-			_nutritionists = nutritionists;
-			_patients = patients;
-			_dietPlan = dietPlan;
-			_appoitments = appointments;
-			_post = post;
-		}
-		public async Task<IActionResult> Index()
+
+        public AdminController(IUserService userService, INutritionists nutritionists, IPatients patients, IDietPlan dietPlan, IAppoitments appointments, IPost post)
+        {
+            _userService = userService;
+            _nutritionists = nutritionists;
+            _patients = patients;
+            _dietPlan = dietPlan;
+            _appoitments = appointments;
+            _post = post;
+        }
+
+
+        [Authorize(Roles = "Admin")]
+
+        public async Task<IActionResult> Index()
+
         {
             var adminvm = new AdminVM
             {
@@ -35,34 +42,54 @@ namespace fit_and_fuel.Controllers
             };
             return View(adminvm);
         }
-		public async Task<IActionResult> Nutritionist()
-		{
+
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Nutritionist()
+        {
             var Nutritionist = await _nutritionists.GetAll();
-			return View(Nutritionist);
-		}
+            return View(Nutritionist);
+        }
+
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Posts()
         {
             var posts = await _post.GetAllPosts();
             return View(posts);
         }
-		public async Task<IActionResult> Patients()
-		{
-			var posts = await _patients.GetAll();
-			return View(posts);
-		}
-		[HttpPost]
+
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Patients()
+        {
+            var posts = await _patients.GetAll();
+            return View(posts);
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
         public async Task<IActionResult> Role(string userName)
         {
             await _userService.AssignRolesToUser(userName);
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Admin");
         }
 
+
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> ConfiremPost(int id)
         {
             await _post.ImprovedPost(id);
 
             return RedirectToAction("Index", "Admin");
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+
+        public async Task<IActionResult> DeletePost(int id)
+        {
+            await _post.Delete(id);
+
+            return RedirectToAction("Posts", "Admin");
         }
     }
 }

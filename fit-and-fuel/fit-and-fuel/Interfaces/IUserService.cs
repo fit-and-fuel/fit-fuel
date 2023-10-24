@@ -9,7 +9,7 @@ namespace fit_and_fuel.Interfaces
     {
         public Task<UserDto> Register(RegisterUser data, ModelStateDictionary modelState);
 
-        public Task<UserDto> Authenticate(string username, string password);
+        public Task<UserDto> Authenticate(string username, string password, ModelStateDictionary modelState);
 
         public Task<UserDto> GetUser(ClaimsPrincipal principal);
         public  Task<bool> ChangePasswordAsync(string userId, string currentPassword, string newPassword);
