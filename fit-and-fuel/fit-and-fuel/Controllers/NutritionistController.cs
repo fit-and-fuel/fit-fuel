@@ -152,9 +152,9 @@ namespace fit_and_fuel.Controllers
         [Authorize(Roles = "Nutritionist")]
         public async Task<IActionResult> CreateDietPlan(int id)
         {
-            var dite = new DietPlanDto();
-            dite.PatientId = id;
-            return View(dite);
+            var diet = new DietPlanDto();
+            diet.PatientId = id;
+            return View(diet);
         }
 
 
@@ -166,7 +166,7 @@ namespace fit_and_fuel.Controllers
         {
             var d = await _dietplan.PostDietPlanWithDay(diteplain);
 
-            return Redirect($"MyPatientDietPlan/{d.Id}");
+            return RedirectToAction("MyPatientDietPlan", new { id = d.Id });
 
 
         }
