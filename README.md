@@ -5,9 +5,9 @@
 This ASP.NET MVC project is a web application designed to facilitate interactions between three user roles: admin, nutritionist, and patient.
 It has all the required functionality for new users, so that they can achieve their healthy lifestyle and diet goals by connecting with the best nutritionists through this platform, where they can access personalized advice and plans tailored to their unique needs and objectives.
 
-## User Stories
+## Live URL
 
-For detailed user stories, please refer to the [User Stories](user_stories.md) document.
+For detailed Live Demo, please refer to the [Live-Demo](https://fit-and-fuel20231024140058.azurewebsites.net/).
 
 ## Domain Model & Database Schema Diagram
 
@@ -27,7 +27,7 @@ For detailed software requirements, please refer to the [Software Requirements](
 
 ## Background
  
-Mobile technology and health applications have affected the way nutritionist’s education and practice is carried out. So, Fit&Fuel web application came to revolutionize the way nutritionists and patients interact, providing a seamless platform for personalized health services. This web App aims to address the challenges of accessibility to nutritionists and the management of health information. We aim to improve individuals' well-being by offering convenient access to professional guidance and make healthy lifestyle adjustments.
+Mobile technology and health applications have affected the way nutritionistâ€™s education and practice is carried out. So, Fit&Fuel web application came to revolutionize the way nutritionists and patients interact, providing a seamless platform for personalized health services. This web App aims to address the challenges of accessibility to nutritionists and the management of health information. We aim to improve individuals' well-being by offering convenient access to professional guidance and make healthy lifestyle adjustments.
 
 ## Problem Statement
 
@@ -46,7 +46,7 @@ It also offers a wide range of health services, including:
 -	Implement useful and user-friendly Web application.
 -	Provide real time interaction between patients and nutritionist. 
 -	Provide highly qualified nutritionists in one platform.
--	Help nutritionist to Store, manage and track of patient’s medical record.
+-	Help nutritionist to Store, manage and track of patientâ€™s medical record.
 -	Saving money, effort, and time for the user of the system, because all of these are available Online.
 
 ## Scope (In)
@@ -85,7 +85,7 @@ It also offers a wide range of health services, including:
 - Enhance the Payment feature to be done through our website and give it a high level of security.
 - make a mobile application version of our platform.
 - include a high-quality Gym and a highly qualified coach references.
-- include google maps to in our platform to empower the patients to get the closest nutritionist’s clinics for them. 
+- include google maps to in our platform to empower the patients to get the closest nutritionistâ€™s clinics for them. 
 
 
 ## Technologies
