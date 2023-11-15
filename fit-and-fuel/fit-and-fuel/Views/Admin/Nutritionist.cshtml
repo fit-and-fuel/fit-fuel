@@ -58,7 +58,9 @@
                                                 <span>@Model[i].AverageRating</span>
                                             </td>
                                             <td>
+                                                <a asp-controller="admin" asp-action="DeleteNut" asp-route-Id="@Model[i].Id">
                                                 <span class="badge badge-success light border-0">Active</span>
+                                                </a>
                                             </td>
                                         </tr>
                                     }

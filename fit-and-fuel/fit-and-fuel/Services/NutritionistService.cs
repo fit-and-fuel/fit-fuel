@@ -45,6 +45,12 @@ namespace fit_and_fuel.Services
         public async Task Delete(int id)
         {
             var nut = await _context.Nutritionists.Where(n => n.Id == id).FirstOrDefaultAsync();
+            var pa = await _context.Patients
+                .Where(p => p.NutritionistId == nut.Id).ToListAsync();
+            var ap =await _context.Appoitments
+                .Where(p => p.NutritionistId == nut.Id).ToListAsync();
+            _context.Appoitments.RemoveRange(ap);
+            _context.Patients.RemoveRange(pa);
             _context.Nutritionists.Remove(nut);
             await _context.SaveChangesAsync();
         }

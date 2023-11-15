@@ -367,7 +367,7 @@ namespace fit_and_fuel.Services
 
 				var content = new NotificationDto()
 				{
-					Content = $"Your patient {patient.Name}  with UserId: {userId}  take meal {meal.Name} with id {meal.Id} "
+					Content = $"Your patient {patient.Name} took meal {meal.Name}"
 				};
 
 				await _notificationService.SendNotification(nut.nutritionist.UserId.ToString(), content);

@@ -153,7 +153,7 @@ namespace fit_and_fuel.Controllers
 
             StripeConfiguration.ApiKey = _config.GetSection("SettingStrip:SecretKey").Get<string>();
 
-            var domain = "https://localhost:7035/";
+            var domain = "https://fit-and-fuel20231024140058.azurewebsites.net/";
 
             var options = new SessionCreateOptions
             {

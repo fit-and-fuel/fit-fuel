@@ -196,7 +196,14 @@ namespace fit_and_fuel.Services
                 await _context.SaveChangesAsync();
 
             }
-      
+            var pat = await _context.Patients.Where(p => p.Id == dietPlan.PatientId).FirstOrDefaultAsync();
+
+            var content = new NotificationDto()
+            {
+                Content = $"Your Have New DietPlan From Your Nutritionist {nut.Name}"
+            };
+
+            await _notificationService.SendNotification(pat.UserId.ToString(), content);
 
 
             return newDietPlan;

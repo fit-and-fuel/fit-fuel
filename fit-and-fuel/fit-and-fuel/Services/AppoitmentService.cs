@@ -103,7 +103,7 @@ namespace fit_and_fuel.Services
                 var content = new NotificationDto()
                 {
                     Content = $"Your  Appoitment is Confirmed by {appoitment.nutritionist.Name}, You Can Subscribe" +
-                $" https://localhost:7035/nutritionist/NutDetails/{appoitment.NutritionistId} "
+                $" https://fit-and-fuel20231024140058.azurewebsites.net/nutritionist/NutDetails/{appoitment.NutritionistId} "
                 };
 
                 await _notificationService.SendNotification(patient.UserId.ToString(), content);
