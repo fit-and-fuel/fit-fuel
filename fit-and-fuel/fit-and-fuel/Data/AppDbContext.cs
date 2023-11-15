@@ -34,7 +34,7 @@ namespace fit_and_fuel.Data
                 .HasMany(n => n.AvaliableTimes)
                 .WithOne(at => at.nutritionist)
                 .HasForeignKey(at => at.NutritionistId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
 
 
             modelBuilder.Entity<Appoitment>()

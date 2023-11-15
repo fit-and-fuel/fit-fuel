@@ -44,7 +44,7 @@ namespace fit_and_fuel.Controllers
             if (IsNutritionist)
             {
                 // this for Send Email
-                await _emailSender.EmailToUser(data.Email, data.Username);
+                //await _emailSender.EmailToUser(data.Email, data.Username);
             }
             var resRole = await _userService.Authenticate(data.Username, data.Password, this.ModelState);
 

@@ -91,5 +91,14 @@ namespace fit_and_fuel.Controllers
 
             return RedirectToAction("Posts", "Admin");
         }
+        [Authorize(Roles = "Admin")]
+     
+
+        public async Task<IActionResult> DeleteNut(int Id)
+        {
+            await _nutritionists.Delete(Id);
+
+            return RedirectToAction("index", "Admin");
+        }
     }
 }

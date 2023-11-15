@@ -98,5 +98,10 @@ namespace fit_and_fuel.Services
         {
             throw new NotImplementedException();
         }
+
+        public Task AddRating(int UserId, RatingDto ratingDto)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

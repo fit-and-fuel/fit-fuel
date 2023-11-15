@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace fit_and_fuel.Migrations
 {
     /// <inheritdoc />
-    public partial class Latest : Migration
+    public partial class data : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -567,7 +567,7 @@ namespace fit_and_fuel.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "1", 0, "cf4089a6-838e-45d9-abe2-bf681dde2dd0", "adminUser@example.com", true, false, null, "adminUser@EXAMPLE.COM", "ADMIN", "AQAAAAIAAYagAAAAEDFtSlAj9X4fAH2gCmv2ZZggjsihD2IH0ZDtZ/mPtLH6qEXvTcLE4wbPifrhmoFswA==", "1234567890", false, "bad4aa37-a378-4ca1-a501-8e4c400377ae", false, "admin" });
+                values: new object[] { "1", 0, "471ea407-269c-4ff1-bc4f-b575089a1eaa", "adminUser@example.com", true, false, null, "adminUser@EXAMPLE.COM", "ADMIN", "AQAAAAIAAYagAAAAECzWmRpZTRCgKy8qDEtMwF9XBOVZu79uK2kF0Xd24+OsT1ffAbOCBMfJR8Enhv3z+w==", "1234567890", false, "22340ee8-e43e-41f8-a214-802ab9a953bc", false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoleClaims",

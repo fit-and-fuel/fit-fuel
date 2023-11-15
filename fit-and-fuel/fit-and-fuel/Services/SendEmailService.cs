@@ -110,7 +110,7 @@ namespace fit_and_fuel.Services
 
 			string subject = "welcom nutristion";
 			string HtmlMessage = $"Welcome {Name}, you are now a Nutritionist.\r\nYou can now create your profile by clicking on this" +
-				$" https://localhost:7035/nutritionist/CreateProfile ";
+				$" https://fit-and-fuel20231024140058.azurewebsites.net/nutritionist/CreateProfile ";
 			string password = _configuration["Email:Key"];
 			string SenderEmail = _configuration["Email:DefaultFromEmailAddress"];
 			string FromName = _configuration["Email:DefaultFromName"];

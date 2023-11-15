@@ -226,11 +226,11 @@ namespace fit_and_fuel.Services
 
             await userManager.AddToRoleAsync(user, "Nutritionist");
             // this for email 
-            await _emailSender.EmailToUserRole(user.Email, userName);
+            //await _emailSender.EmailToUserRole(user.Email, userName);
             var content = new NotificationDto()
             {
                 Content = $"Welcome {userName}, you are now a Nutritionist.\r\nYou can now create your profile by clicking on this" +
-                $" https://localhost:7035/nutritionist/CreateProfile "
+                $" https://fit-and-fuel20231024140058.azurewebsites.net/nutritionist/CreateProfile "
             };
 
             await _notificationService.SendNotification(user.Id, content);
