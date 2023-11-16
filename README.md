@@ -6,7 +6,7 @@ This ASP.NET MVC project is a web application designed to facilitate interaction
 It has all the required functionality for new users, so that they can achieve their healthy lifestyle and diet goals by connecting with the best nutritionists through this platform, where they can access personalized advice and plans tailored to their unique needs and objectives.
 
 ## Live URL
-
+For detailed , please refer to the [Video](https://www.linkedin.com/posts/abdelrahmanshaheen_fullstacknetdeveloper-activity-7128439676964646912-kThx?utm_source=share&utm_medium=member_desktop).
 For detailed Live Demo, please refer to the [Live-Demo](https://fit-and-fuel20231024140058.azurewebsites.net/).
 
 ## Domain Model & Database Schema Diagram
